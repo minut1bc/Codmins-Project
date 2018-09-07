@@ -1,11 +1,13 @@
 package com.ibl.apps.myphotokeyboard.customkeyboard;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.inputmethodservice.InputMethodService;
@@ -40,6 +42,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ibl.apps.myphotokeyboard.Interface.OnItemClickListener;
 import com.ibl.apps.myphotokeyboard.R;
@@ -1581,6 +1584,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
      * is displayed, and every time it needs to be re-created such as due to
      * a configuration change.
      */
+    @SuppressLint("InflateParams")
     @Override
     public View onCreateInputView() {
         globalClass = new GlobalClass(SoftKeyboard.this.getApplicationContext());
@@ -1611,7 +1615,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         fillEmojiAdapter = new FillEmojiAdapter(getApplicationContext(), emojiArrayList);
         gvEmoji.setAdapter(fillEmojiAdapter);
 
-        /*ivSmile.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
+        ivSmile.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
         ivAnimal.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
         ivLamp.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
         ivFood.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
@@ -1669,13 +1673,12 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
                             Typeface font = Typeface.createFromAsset(this.getAssets(), GlobalClass.tempFontName);
                             ((TextView) mChild).setTypeface(font);
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
                         }
                     }
                 }
-            } else {
             }
-        }*/
+       }
 
         ivSmile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1696,7 +1699,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 ivFood.setColorFilter(mContext.getResources().getColor(R.color.silver));
                 ivSocial.setColorFilter(mContext.getResources().getColor(R.color.silver));
                 ivClose.setColorFilter(mContext.getResources().getColor(R.color.silver));
-
             }
         });
 
@@ -1785,7 +1787,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 ivFood.setColorFilter(mContext.getResources().getColor(R.color.silver));
                 ivSocial.setColorFilter(mContext.getResources().getColor(R.color.white));
                 ivClose.setColorFilter(mContext.getResources().getColor(R.color.silver));
-
             }
         });
 
@@ -1811,7 +1812,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                     getCurrentInputConnection().setComposingText(mComposing, 1);
                     updateShiftKeyState(getCurrentInputEditorInfo());
                     updateCandidates();
-
                 } else {
                     getCurrentInputConnection().commitText(artArrayList[position], 1);
                 }
@@ -1863,7 +1863,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 ivEmoji.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
                 ivArt.setColorFilter(ContextCompat.getColor(mContext, R.color.white), PorterDuff.Mode.MULTIPLY);
                 ivgooglesearch.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
-
             }
         });
 
@@ -1884,7 +1883,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 ivEmoji.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
                 ivArt.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
                 ivgooglesearch.setColorFilter(ContextCompat.getColor(mContext, R.color.white), PorterDuff.Mode.MULTIPLY);
-
             }
         });
 
@@ -1899,8 +1897,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEYBOARDBITMAPBACK, null) != null) {
             byte[] decodedString = Base64.decode(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEYBOARDBITMAPBACK, null), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            BitmapDrawable background = new BitmapDrawable(decodedByte);
-            linKeyboard.setBackgroundDrawable(background);
+            BitmapDrawable background = new BitmapDrawable(mContext.getResources(), decodedByte);
+            linKeyboard.setBackground(background);
         } else {
             linKeyboard.setBackgroundResource(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BG_IMAGE, R.drawable.theme_color1));
         }
@@ -2414,11 +2412,10 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     }
 
     private void handleCharacter(int primaryCode, int[] keyCodes) {
-        //Toast.makeText(mContext, "== 1 ===" + mInputView.isShifted(), Toast.LENGTH_SHORT).show();
         if (mInputView.isShifted()) {
             primaryCode = Character.toUpperCase(primaryCode);
             if (!mCapsLock) {
-                //mCaps = true;
+                //mCapsLock = true;
                 setLatinKeyboard(mQwertyKeyboard);
                 mInputView.setShifted(mCapsLock || !mInputView.isShifted());
             }

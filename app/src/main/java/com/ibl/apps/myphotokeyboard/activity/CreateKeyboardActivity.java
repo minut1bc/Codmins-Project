@@ -35,6 +35,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -72,9 +73,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CreateKeyboardActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Toolbar toolbar;
     private ImageView ivHome;
-    private CustomTextViewBold txtApply;
     private ImageView ivWallpaper;
     private LinearLayout linWallpaper;
     private ImageView ivKeyDesign;
@@ -84,13 +83,10 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private ImageView ivSoundEffect;
     private LinearLayout linSoundEffect;
     private CustomTextViewBold txtMainTitle;
-    private ProgressDialog dialog;
     private CreateKeyboardActivity context;
 
-    private GridView gvColor;
     private FillWallpaperColorAdapater fillWallpaperColorAdapater;
     private FillWallpaperTextualAdapter fillWallpaperTextualAdapter;
-    private GridView gvTextual;
     private RecyclerView rvDefaultColor;
     private FillDefaultColorAdapter fillDefaultColorAdapter;
     private RecyclerView rvDefaultColorKeyDesign;
@@ -98,13 +94,9 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private LinearLayout linKeyDesignLayout;
     private RecyclerView rvDefaultColorFontStyle;
     private FillFontStyleAdapter fillFontStyleAdapter;
-    private GridView gvFont;
     private LinearLayout linFontStyleLayout;
     private FillSoundEffectAdapter fillSoundEffectAdapter;
-    private GridView gvSoundEffect;
     private LinearLayout linSoundEffectLayout;
-    private LinearLayout linCamera;
-    private LinearLayout linGallery;
     public static File mFileTemp;
     public static final String TEMP_PHOTO_FILE_NAME = "temp_photo.jpeg";
     public static final int FONT_RESULT_CODE = 100;
@@ -123,21 +115,17 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private CircleImageView ivOpacityTwentyFive;
     private CircleImageView ivOpacityZero;
     private LinearLayout linFirstRowKeyboard;
-    private GradientDrawable npd1;
     private LinearLayout linTwoRowKeyboard;
     private LinearLayout linThreeRowKeyboard;
     private LinearLayout linFourRowKeyboard;
-    private FillKeyBgAdapter fillKeyBgAdapter;
     private CircleImageView ivStrokeOne;
     private CircleImageView ivStrokeTwo;
     private CircleImageView ivStrokeThree;
     private CircleImageView ivStrokeFour;
     private CircleImageView ivStrokeFive;
-    private FillFontColorAdapter fillFontColorAdapter;
     private ImageView ivDone;
     private ImageView ivShift;
     private ImageView ivCancel;
-    private AsyncDownload asyncDownload;
     public InterstitialAd mInterstitialAd;
     public com.google.android.gms.ads.InterstitialAd mInterstitial;
     private boolean isEdit = false;
@@ -204,7 +192,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         ivKeyboardBg = findViewById(R.id.ivKeyboardBg);
 
         // id for apply radius
-
         radiusOne = findViewById(R.id.radiusOne);
         radiusTwo = findViewById(R.id.radiusTwo);
         radiusThree = findViewById(R.id.radiusThree);
@@ -325,7 +312,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
         setRadius();
 
-
         myAnim = AnimationUtils.loadAnimation(this, R.anim.button);
         interpolator = new MyBounceInterpolator_anim(0.2, 20);
         myAnim.setInterpolator(interpolator);
@@ -366,7 +352,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
     private void setColorGridView() {
         int[] colorWallpaperArrayList = GlobalClass.thArray;
-        gvColor = findViewById(R.id.gvColor);
+        GridView gvColor = findViewById(R.id.gvColor);
         fillWallpaperColorAdapater = new FillWallpaperColorAdapater(this, colorWallpaperArrayList);
         gvColor.setAdapter(fillWallpaperColorAdapater);
 
@@ -389,7 +375,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
     private void setTextualGridView() {
         int[] colorWallpaperArrayList = GlobalClass.texArray;
-        gvTextual = findViewById(R.id.gvTextual);
+        GridView gvTextual = findViewById(R.id.gvTextual);
         fillWallpaperTextualAdapter = new FillWallpaperTextualAdapter(this, colorWallpaperArrayList);
         gvTextual.setAdapter(fillWallpaperTextualAdapter);
 
@@ -434,7 +420,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 })
         );
 
-        fillKeyBgAdapter = new FillKeyBgAdapter(context, colorWallpaperArrayList);
+        FillKeyBgAdapter fillKeyBgAdapter = new FillKeyBgAdapter(context, colorWallpaperArrayList);
         rvDefaultColorKeyDesign.setAdapter(fillKeyBgAdapter);
         rvDefaultColorKeyDesign.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -443,16 +429,16 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             }
         });
 
-        fillFontColorAdapter = new FillFontColorAdapter(context, colorWallpaperArrayList);
+        FillFontColorAdapter fillFontColorAdapter = new FillFontColorAdapter(context, colorWallpaperArrayList);
         rvDefaultColorFontStyle.setAdapter(fillFontColorAdapter);
 
     }
 
     private void getSoundFromDatabase() {
-        gvSoundEffect = findViewById(R.id.gvSoundEffect);
+        GridView gvSoundEffect = findViewById(R.id.gvSoundEffect);
         int[] freeSoundArray = GlobalClass.lessonClips;
-        for (int i = 0; i < freeSoundArray.length; i++) {
-            newSoundDataArrayList.add(new NewSoundData(freeSoundArray[i], false));
+        for (int aFreeSoundArray : freeSoundArray) {
+            newSoundDataArrayList.add(new NewSoundData(aFreeSoundArray, false));
         }
 
         //--------- fill sound data-------
@@ -494,14 +480,14 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         }
 
         for (int i = 0; i < fontsPaidArrayList.size(); i++) {
-            asyncDownload = new AsyncDownload(context, fontsPaidArrayList.get(i));
+            AsyncDownload asyncDownload = new AsyncDownload(context, fontsPaidArrayList.get(i));
             asyncDownload.execute();
         }
         setFontStyleGridView(fontsPaidArrayList);
     }
 
     private void setFontStyleGridView(final ArrayList<FontsPaid> fontStyleArrayList) {
-        gvFont = findViewById(R.id.gvFont);
+        GridView gvFont = findViewById(R.id.gvFont);
 
 
         fillFontStyleAdapter = new FillFontStyleAdapter(this, fontarr);
@@ -625,6 +611,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         imgCancel.setColorFilter(android.graphics.Color.parseColor(GlobalClass.tempFontColor), PorterDuff.Mode.SRC_ATOP);
         ivCancel.setImageDrawable(imgCancel);
 
+        GradientDrawable npd1;
         for (int i = 0; i < linFirstRowKeyboard.getChildCount(); i++) {
             final View mChild = linFirstRowKeyboard.getChildAt(i);
             if (mChild instanceof ImageView || mChild instanceof TextView) {
@@ -632,7 +619,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                         GradientDrawable.Orientation.TOP_BOTTOM,
                         new int[]{GlobalClass.tempKeyColor,
                                 GlobalClass.tempKeyColor});
-                this.npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
+                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
 
                 npd1.setCornerRadius(Float.parseFloat(GlobalClass.tempKeyRadius));
                 npd1.setAlpha(Integer.parseInt(GlobalClass.tempKeyOpacity));
@@ -665,12 +652,10 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
                             Typeface font = Typeface.createFromAsset(this.getAssets(), GlobalClass.tempFontName);
                             ((TextView) mChild).setTypeface(font);
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
                         }
                     }
                 }
-            } else {
-
             }
         }
         for (int i = 0; i < linTwoRowKeyboard.getChildCount(); i++) {
@@ -681,7 +666,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                         GradientDrawable.Orientation.TOP_BOTTOM,
                         new int[]{GlobalClass.tempKeyColor,
                                 GlobalClass.tempKeyColor});
-                this.npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
+                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
 
                 npd1.setCornerRadius(Float.parseFloat(GlobalClass.tempKeyRadius));
                 npd1.setAlpha(Integer.parseInt(GlobalClass.tempKeyOpacity));
@@ -713,14 +698,11 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                         try {
                             Typeface font = Typeface.createFromAsset(this.getAssets(), GlobalClass.tempFontName);
                             ((TextView) mChild).setTypeface(font);
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
 
                         }
                     }
                 }
-            } else {
-
-
             }
         }
         for (int i = 0; i < linThreeRowKeyboard.getChildCount(); i++) {
@@ -731,7 +713,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                         GradientDrawable.Orientation.TOP_BOTTOM,
                         new int[]{GlobalClass.tempKeyColor,
                                 GlobalClass.tempKeyColor});
-                this.npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
+                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
 
                 npd1.setCornerRadius(Float.parseFloat(GlobalClass.tempKeyRadius));
                 npd1.setAlpha(Integer.parseInt(GlobalClass.tempKeyOpacity));
@@ -763,7 +745,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                         try {
                             Typeface font = Typeface.createFromAsset(this.getAssets(), GlobalClass.tempFontName);
                             ((TextView) mChild).setTypeface(font);
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
                         }
                     }
                 }
@@ -777,7 +759,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                         GradientDrawable.Orientation.TOP_BOTTOM,
                         new int[]{GlobalClass.tempKeyColor,
                                 GlobalClass.tempKeyColor});
-                this.npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
+                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
                 npd1.setCornerRadius(Float.parseFloat(GlobalClass.tempKeyRadius));
                 npd1.setAlpha(Integer.parseInt(GlobalClass.tempKeyOpacity));
 
@@ -808,7 +790,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                         try {
                             Typeface font = Typeface.createFromAsset(this.getAssets(), GlobalClass.tempFontName);
                             ((TextView) mChild).setTypeface(font);
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
 
                         }
                     }
@@ -909,8 +891,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
-        String encodedbitmap = Base64.encodeToString(byteArray, Base64.DEFAULT);
-        GlobalClass.keyboardBitmapBack = encodedbitmap;
+        GlobalClass.keyboardBitmapBack = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
         fillDefaultColorAdapter.notifyDataSetChanged();
         fillWallpaperColorAdapater.notifyDataSetChanged();
@@ -921,90 +902,46 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case RESULT_FROM_GALLERY /*98*/:
-                    if (Build.VERSION.SDK_INT >= 11) {
-                        GlobalClass.printLog("Galleryhighr version", "----if-----");
-                        new AnonymousClass2photosave(data).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                    } else {
-                        GlobalClass.printLog("Galleryhighr version", "----if-----");
-                        new AnonymousClass2photosave(data).execute();
-                    }
+                    GlobalClass.printLog("Galleryhighr version", "----if-----");
+                    new AnonymousClass2photosave(data).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     break;
                 case RESULT_FROM_CAMERA /*99*/:
-                    if (Build.VERSION.SDK_INT >= 11) {
-                        GlobalClass.printLog("camera version", "----if-----");
+                    GlobalClass.printLog("camera version", "----if-----");
 
-                        new AsyncTask<Void, Void, Void>() {
-                            ProgressDialog pd;
+                    new AsyncTask<Void, Void, Void>() {
+                        ProgressDialog pd;
 
-                            protected void onPreExecute() {
-                                this.pd = new ProgressDialog(CreateKeyboardActivity.this, 5);
-                                this.pd.setMessage("Please Wait");
-                                this.pd.show();
-                                super.onPreExecute();
+                        protected void onPreExecute() {
+                            this.pd = new ProgressDialog(CreateKeyboardActivity.this, 5);
+                            this.pd.setMessage("Please Wait");
+                            this.pd.show();
+                            super.onPreExecute();
+                        }
+
+                        protected Void doInBackground(Void... params) {
+                            try {
+                                BitmapFactory.Options opts = new BitmapFactory.Options();
+                                opts.inJustDecodeBounds = true;
+                                Bitmap selectedImage = BitmapFactory.decodeFile(CreateKeyboardActivity.mFileTemp.getAbsolutePath(), opts);
+                                opts.inJustDecodeBounds = false;
+                                selectedImage = BitmapFactory.decodeFile(CreateKeyboardActivity.mFileTemp.getAbsolutePath(), opts);
+                                FileOutputStream fos = new FileOutputStream(CreateKeyboardActivity.mFileTemp);
+                                selectedImage.compress(Bitmap.CompressFormat.JPEG, CreateKeyboardActivity.FONT_RESULT_CODE, fos);
+                                fos.flush();
+                                fos.close();
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                                GlobalClass.printLog("Camera click exception", "-------------" + e1.getMessage());
                             }
+                            return null;
+                        }
 
-                            protected Void doInBackground(Void... params) {
-                                try {
-                                    BitmapFactory.Options opts = new BitmapFactory.Options();
-                                    opts.inJustDecodeBounds = true;
-                                    Bitmap selectedImage = BitmapFactory.decodeFile(CreateKeyboardActivity.mFileTemp.getAbsolutePath(), opts);
-                                    opts.inJustDecodeBounds = false;
-                                    selectedImage = BitmapFactory.decodeFile(CreateKeyboardActivity.mFileTemp.getAbsolutePath(), opts);
-                                    FileOutputStream fos = new FileOutputStream(CreateKeyboardActivity.mFileTemp);
-                                    selectedImage.compress(Bitmap.CompressFormat.JPEG, CreateKeyboardActivity.FONT_RESULT_CODE, fos);
-                                    fos.flush();
-                                    fos.close();
-                                } catch (Exception e1) {
-                                    e1.printStackTrace();
-                                    GlobalClass.printLog("Camera click exception", "-------------" + e1.getMessage());
-                                }
-                                return null;
-                            }
-
-                            protected void onPostExecute(Void result) {
-                                this.pd.dismiss();
-                                Intent newIntent = new Intent(CreateKeyboardActivity.this, CropActivity.class);
-                                CreateKeyboardActivity.this.startActivityForResult(newIntent, 7);
-                            }
-                        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                    } else {
-
-                        GlobalClass.printLog("camera version", "---else-----");
-
-                        new AsyncTask<Void, Void, Void>() {
-                            ProgressDialog pd;
-
-                            protected void onPreExecute() {
-                                this.pd = new ProgressDialog(CreateKeyboardActivity.this, 5);
-                                this.pd.setMessage("Please Wait");
-                                this.pd.show();
-                                super.onPreExecute();
-                            }
-
-                            protected Void doInBackground(Void... params) {
-                                try {
-                                    BitmapFactory.Options opts = new BitmapFactory.Options();
-                                    opts.inJustDecodeBounds = true;
-                                    Bitmap selectedImage = BitmapFactory.decodeFile(CreateKeyboardActivity.mFileTemp.getAbsolutePath(), opts);
-                                    opts.inJustDecodeBounds = false;
-                                    selectedImage = BitmapFactory.decodeFile(CreateKeyboardActivity.mFileTemp.getAbsolutePath(), opts);
-                                    FileOutputStream fos = new FileOutputStream(CreateKeyboardActivity.mFileTemp);
-                                    selectedImage.compress(Bitmap.CompressFormat.JPEG, CreateKeyboardActivity.FONT_RESULT_CODE, fos);
-                                    fos.flush();
-                                    fos.close();
-                                } catch (Exception e1) {
-                                    e1.printStackTrace();
-                                }
-                                return null;
-                            }
-
-                            protected void onPostExecute(Void result) {
-                                this.pd.dismiss();
-                                Intent newIntent = new Intent(CreateKeyboardActivity.this, CropActivity.class);
-                                CreateKeyboardActivity.this.startActivityForResult(newIntent, 7);
-                            }
-                        }.execute();
-                    }
+                        protected void onPostExecute(Void result) {
+                            this.pd.dismiss();
+                            Intent newIntent = new Intent(CreateKeyboardActivity.this, CropActivity.class);
+                            CreateKeyboardActivity.this.startActivityForResult(newIntent, 7);
+                        }
+                    }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     break;
             }
         }
@@ -1013,52 +950,49 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private void beep(int volume) {
 
         AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        MediaPlayer player = new MediaPlayer();
+        MediaPlayer player;
 
         try {
-//            File SDCardRoot = Environment.getExternalStorageDirectory().getAbsoluteFile();
-//            File newFile = new File(SDCardRoot.getAbsolutePath() + "/" + context.getString(R.string.app_name) + "/");
-            //final MediaPlayer mp = MediaPlayer.create(CreateKeyboardActivity.this, GlobalClass.tempSoundName);
-            //    String filename = GlobalClass.tempSoundName + ".mp3";
+            String filename = GlobalClass.tempSoundName + ".mp3";
 
-            //  File file = new File(filename);
+            File file = new File(filename);
 
-            //if (file.exists()) {
-//            if (GlobalClass.tempSoundName!=0) {
-            player = MediaPlayer.create(context, GlobalClass.tempSoundName);
-            manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
-            player.start();
+            if (file.exists()) {
+                if (GlobalClass.tempSoundName != 0) {
+                    player = MediaPlayer.create(context, GlobalClass.tempSoundName);
+                    assert manager != null;
+                    manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+                    player.start();
 
+                    player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
-            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            mp.release();
+                        }
+                    });
+                } else {
+                    file = new File(filename);
 
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    mp.release();
+                    if (file.exists()) {
+                        player = MediaPlayer.create(context, Uri.fromFile(file));
+                        assert manager != null;
+                        manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+                        player.start();
+
+                        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                mp.release();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(context, "Some problem play key tone.", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            });
-//            }
-// else {
-//                file = new File(filename);
-//
-//                if (file.exists()) {
-//                    player = MediaPlayer.create(context, Uri.fromFile(file));
-//                    manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
-//                    player.start();
-//
-//
-//                    player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//
-//                        @Override
-//                        public void onCompletion(MediaPlayer mp) {
-//                            mp.release();
-//                        }
-//                    });
-//                } else {
-//                     Toast.makeText(context, "Some problem play key tone.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-        } catch (Exception e) {
+            }
+        } catch (Exception ignored) {
 
         }
 
@@ -1067,7 +1001,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     class AnonymousClass2photosave extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog pd;
-        private final /* synthetic */ Intent val$data;
+        private final Intent val$data;
 
         AnonymousClass2photosave(Intent intent) {
             GlobalClass.printLog("AnonymousClass2photosave ", "----constructure-----");
@@ -1094,13 +1028,13 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 try {
                     realPath = Utils.getPathFromUriLolipop(CreateKeyboardActivity.this.getApplicationContext(), selectedImageUri);
                 } catch (Exception e2) {
-                    // Toast.makeText(CreateKeyboardActivity.this.getApplicationContext(), "Load Image failed. Try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateKeyboardActivity.this.getApplicationContext(), "Load Image failed. Try again", Toast.LENGTH_SHORT).show();
                 }
             }
             try {
                 BitmapFactory.Options opts = new BitmapFactory.Options();
                 opts.inJustDecodeBounds = true;
-                Bitmap selectedImage = BitmapFactory.decodeFile(realPath, opts);
+                Bitmap selectedImage;
                 opts.inJustDecodeBounds = false;
                 selectedImage = BitmapFactory.decodeFile(realPath, opts);
 
