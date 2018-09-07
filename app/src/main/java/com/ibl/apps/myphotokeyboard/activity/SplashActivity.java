@@ -42,7 +42,7 @@ public class SplashActivity extends ActivityManagePermission {
             public void run() {
                 synchronized (this) {
                     try {
-                        wait(2000);
+                        wait(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
