@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/set_keyboard_bg"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_set_keyboard" />
+
+    <com.ibl.apps.myphotokeyboard.utils.CustomTextViewBold
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Photo Keyboard"
+        android:textSize="22dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="35dp"
+        android:text="Only 2 steps to switch to Photo Keyboard"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enable_keyboard" />
+
+        <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+            android:id="@+id/txtEnableKeyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/go_now_enable"
+            android:padding="5dp"
+            android:text="Go now"
+            android:textAlignment="center"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_keyboard" />
+
+        <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+            android:id="@+id/txtSwitchKeyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/go_now_enable"
+            android:padding="5dp"
+            android:text="Go now"
+            android:textAlignment="center"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+
+</LinearLayout>

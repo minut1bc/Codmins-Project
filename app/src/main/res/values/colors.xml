@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+/* 
+**
+** Copyright 2008, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License"); 
+** you may not use this file except in compliance with the License. 
+** You may obtain a copy of the License at 
+**
+**     http://www.apache.org/licenses/LICENSE-2.0 
+**
+** Unless required by applicable law or agreed to in writing, software 
+** distributed under the License is distributed on an "AS IS" BASIS, 
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+** See the License for the specific language governing permissions and 
+** limitations under the License.
+*/
+-->
+<resources>
+    <color name="candidate_normal">#FF000000</color>
+    <color name="candidate_recommended">#000000</color>
+    <color name="candidate_other">#ff808080</color>
+    <color name="candidate_background">#bbffffff</color>
+
+    <color name="colorPrimary">#f1f1f1</color>
+    <color name="colorPrimaryDark">#5caa4f</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="home_bg">#5caa4f</color>
+    <color name="home_status_bar">#1D3219</color>
+
+    <color name="green">#5caa4f</color>
+    <color name="pink">#f32469</color>
+    <color name="dark_red">#901C09</color>
+    <color name="orange">#f57414</color>
+    <color name="black">#000000</color>
+
+
+    <color name="light_blue">#267ccb</color>
+    <color name="dark_gray">#908e8e</color>
+    <color name="light_white">#80FFFFFF</color>
+    <color name="light_gray">#e8e9e8</color>
+
+    <color name="crop_header">#cec8c8</color>
+
+    <color name="view_green_bg">#1a2618</color>
+
+    <color name="in_app_remove_ads">#3280dd</color>
+    <color name="in_app_text_color_bg">#2d62ab</color>
+    <color name="in_app_themes_slots">#294586</color>
+    <color name="in_app_colors">#2f2953</color>
+    <color name="in_app_fonts">#2d213a</color>
+    <color name="in_app_sounds">#15101d</color>
+
+    <color name="toolbar_package_bg">#8eccfb</color>
+    <color name="restore">#95761d</color>
+
+    <color name="set_keyboard_bg">#f9f9f9</color>
+    <color name="go_now_bg_enable">#2fb2ca</color>
+    <color name="go_now_bg_disable">#f0f0f0</color>
+
+    <color name="one">#000000</color>
+    <color name="two">#FFFFFF</color>
+    <color name="three">#2AD2C9</color>
+    <color name="four">#D0E100</color>
+    <color name="five">#DF849B</color>
+    <color name="six">#5FB556</color>
+    <color name="seven">#00F0F0</color>
+    <color name="eight">#0E374C</color>
+    <color name="nine">#00F000</color>
+    <color name="ten">#F0E000</color>
+    <color name="eleven">#00A0F0</color>
+    <color name="twelve">#9000F0</color>
+    <color name="thirteen">#ED1B2E</color>
+    <color name="fourteen">#6D6E70</color>
+    <color name="fifteen">#6D6E70</color>
+    <color name="sixteen">#D7D7D8</color>
+    <color name="seventeen">#B4A996</color>
+    <color name="eighteen">#ECB731</color>
+    <color name="nineteen">#8EC06C</color>
+    <color name="twenty">#537B35</color>
+    <color name="twentyone">#C4DFF6</color>
+    <color name="twentytwo">#56A0D3</color>
+    <color name="twentythree">#0091CD</color>
+    <color name="twentyfour">#004B79</color>
+    <color name="twentyfive">#7F181B</color>
+    <color name="twentysix">#9F9FA3</color>
+    <color name="twentyseven">#F21772</color>
+    <color name="twentyeight">#E87F3A</color>
+    <color name="twentynine">#6D4BE8</color>
+    <color name="thirty">#FF8CA8</color>
+    <color name="thirtyone">#A15BE8</color>
+    <color name="thirtytwo">#81B89D</color>
+    <color name="thirtythree">#7EBFAA</color>
+    <color name="thirtyfour">#D5958C</color>
+    <color name="thirtysix">#469594</color>
+    <color name="thirtyseven">#954E53</color>
+    <color name="thirtyeight">#958A84</color>
+    <color name="thirtynine">#ECBC84</color>
+    <color name="fourty">#8294DE</color>
+    <color name="fourtyone">#68875D</color>
+
+    <array name="rainbow">
+        <item>@color/one</item>
+        <item>@color/two</item>
+        <item>@color/three</item>
+        <item>@color/four</item>
+        <item>@color/five</item>
+        <item>@color/six</item>
+
+    </array>
+
+
+</resources>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_package" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/in_app_remove_ads"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_ads" />
+
+            <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:text="Remove Ads"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+                android:id="@+id/remove_adds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/white_border"
+                android:padding="7dp"
+                android:text="$ 0.99"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/in_app_text_color_bg"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_theme_bg" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:textColor="#ffffff"
+                    android:id="@+id/textView" />
+
+                <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+                    android:id="@+id/customTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/texual_color_background"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+
+
+        </LinearLayout>
+            <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+                android:id="@+id/background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/white_border"
+                android:padding="7dp"
+                android:text="$ 0.99"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/in_app_themes_slots"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_theme" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:textColor="#ffffff"
+                    android:id="@+id/textView1" />
+
+
+            <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/themes_slots"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+            </LinearLayout>
+
+            <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+                android:id="@+id/theme_slot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/white_border"
+                android:padding="7dp"
+                android:text="$ 0.99"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/in_app_colors"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_color" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:textColor="#ffffff"
+                    android:id="@+id/textView2" />
+
+            <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/colors"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+                </LinearLayout>
+
+            <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+                android:id="@+id/colors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/white_border"
+                android:padding="7dp"
+                android:text="$ 0.99"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/in_app_fonts"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_aa" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:textColor="#ffffff"
+                    android:id="@+id/textView3" />
+
+            <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/fonts"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+                </LinearLayout>
+
+            <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+                android:id="@+id/fonts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/white_border"
+                android:padding="7dp"
+                android:text="$ 1.99"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/in_app_sounds"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_soundeffect_selected" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:textColor="#ffffff"
+                    android:id="@+id/textView4" />
+
+            <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sounds"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+                </LinearLayout>
+
+            <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+                android:id="@+id/sounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/white_border"
+                android:padding="7dp"
+                android:text="$ 0.99"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/ads"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_home_footer" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

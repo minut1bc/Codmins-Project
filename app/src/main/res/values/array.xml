@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="items">
+        <item>white</item>
+        <item>yellow</item>
+        <item>fuchsia</item>
+        <item>red</item>
+    </string-array>
+    <string-array name="values">
+        <item>#FFFFFF</item>
+        <item>#FFFF00</item>
+        <item>#FF00FF</item>
+        <item>#FF0000</item>
+    </string-array>
+</resources>
