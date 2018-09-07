@@ -190,7 +190,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -238,7 +237,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
     }
 
     private void setAdMob() {
-        mAdView = (AdView) findViewById(R.id.ads);
+        mAdView = findViewById(R.id.ads);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
         mAdView.loadAd(adRequest);
@@ -275,16 +274,16 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
         //mInterstitialAd.setAdUnitId("ca-app-pub-1041813022220163/7928924396");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
-        ivCreateKeyboard = (ImageView) findViewById(R.id.ivCreateKeyboard);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        ivCreateKeyboard = findViewById(R.id.ivCreateKeyboard);
+        viewPager = findViewById(R.id.viewPager);
         viewPager.setPageMarginDrawable(R.drawable.drawable_bg);
 
-        ivDelete = (ImageView) findViewById(R.id.ivDelete);
-        ivNoData = (ImageView) findViewById(R.id.ivNoData);
-        linKeyboardData = (LinearLayout) findViewById(R.id.linKeyboardData);
-        ivApply = (ImageView) findViewById(R.id.ivApply);
-        linPackage = (LinearLayout) findViewById(R.id.linPackage);
-        linGuide = (LinearLayout) findViewById(R.id.linGuide);
+        ivDelete = findViewById(R.id.ivDelete);
+        ivNoData = findViewById(R.id.ivNoData);
+        linKeyboardData = findViewById(R.id.linKeyboardData);
+        ivApply = findViewById(R.id.ivApply);
+        linPackage = findViewById(R.id.linPackage);
+        linGuide = findViewById(R.id.linGuide);
 
         this.imchange = new InputMethodChangedReceiver(getApplicationContext(), true);
         mHelper = new IabHelper(MainActivity.this, GlobalClass.base64EncodedPublicKey);
@@ -334,7 +333,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
 
 
                 keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(context, keyboardDataArrayList);
-                indicator = (CircleIndicator) findViewById(R.id.indicator);
+                indicator = findViewById(R.id.indicator);
                 viewPager.setAdapter(keyboardViewPagerAdapter);
                 indicator.setViewPager(viewPager);
                 ivNoData.setVisibility(View.GONE);
