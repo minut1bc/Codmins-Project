@@ -67,7 +67,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         SpellCheckerSession.SpellCheckerSessionListener {
 
     static final boolean PROCESS_HARD_KEYS = true;
-    private GlobalClass globalClass;
     private InputMethodManager mInputMethodManager;
     private CandidateView mCandidateView;
     private CompletionInfo[] mCompletions;
@@ -90,14 +89,11 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
     private ImageView ivEmoji;
     private ImageView ivArt;
-    private RelativeLayout linKeyboard;
     private RelativeLayout linEmoji;
     private ImageView ivClose;
     private GridView gvEmoji;
-    private StaggeredGridLayoutManager gaggeredGridLayoutManager;
     private RecyclerView rv_art_list;
     private FillEmojiAdapter fillEmojiAdapter;
-    private FillArtAdapter fillArtAdapter;
     private ImageView ivAbc;
     private ImageView ivSmile;
     private ImageView ivAnimal;
@@ -106,8 +102,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private ImageView ivSocial;
     private ImageView ivGoogleSearch;
 
-    private GradientDrawable npd1;
-    private LinearLayout linCategory;
     Context mContext;
     private String[] emojiArrayList;
 
@@ -1586,12 +1580,12 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     @SuppressLint("InflateParams")
     @Override
     public View onCreateInputView() {
-        globalClass = new GlobalClass(SoftKeyboard.this.getApplicationContext());
+        GlobalClass globalClass = new GlobalClass(SoftKeyboard.this.getApplicationContext());
         View view = getLayoutInflater().inflate(R.layout.input, null);
         ivEmoji = view.findViewById(R.id.ivEmoji);
         ivArt = view.findViewById(R.id.ivArt);
         mInputView = view.findViewById(R.id.keyboard);
-        linKeyboard = view.findViewById(R.id.linKeyboard);
+        RelativeLayout linKeyboard = view.findViewById(R.id.linKeyboard);
         linEmoji = view.findViewById(R.id.linEmoji);
         ivClose = view.findViewById(R.id.ivCancel);
         gvEmoji = view.findViewById(R.id.gvEmoji);
@@ -1602,12 +1596,12 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         ivLamp = view.findViewById(R.id.ivLamp);
         ivFood = view.findViewById(R.id.ivFood);
         ivSocial = view.findViewById(R.id.ivSocial);
-        linCategory = view.findViewById(R.id.linCategory);
+        LinearLayout linCategory = view.findViewById(R.id.linCategory);
         ivGoogleSearch = view.findViewById(R.id.ivgooglesearch);
 
-        gaggeredGridLayoutManager = new StaggeredGridLayoutManager(3, 1);
+        StaggeredGridLayoutManager gaggeredGridLayoutManager = new StaggeredGridLayoutManager(3, 1);
         rv_art_list.setLayoutManager(gaggeredGridLayoutManager);
-        fillArtAdapter = new FillArtAdapter(getApplicationContext(), artArrayList);
+        FillArtAdapter fillArtAdapter = new FillArtAdapter(getApplicationContext(), artArrayList);
         rv_art_list.setAdapter(fillArtAdapter);
 
         emojiArrayList = smilyArrayList;
@@ -1621,10 +1615,11 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         ivSocial.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
         ivClose.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
 
-       for (int i = 0; i < linCategory.getChildCount(); i++) {
+        for (int i = 0; i < linCategory.getChildCount(); i++) {
             final View mChild = linCategory.getChildAt(i);
             if (mChild instanceof ImageView || mChild instanceof TextView) {
 
+                GradientDrawable npd1;
                 if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_BG_COLOR, mContext.getResources().getColor(R.color.eight)) == R.color.white) {
                     npd1 = new GradientDrawable(
                             GradientDrawable.Orientation.TOP_BOTTOM,
@@ -1639,7 +1634,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
                 }
 
-                this.npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
+                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
 
                 npd1.setCornerRadius(Float.parseFloat(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_RADIUS, "18")));
                 npd1.setAlpha(Integer.parseInt(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_OPACITY, "255")));
@@ -1677,7 +1672,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                     }
                 }
             }
-       }
+        }
 
         ivSmile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1888,8 +1883,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //handleBackspace();  TODO: check ivClose???
-                //keyDownUp(KeyEvent.KEYCODE_DEL);
+                handleBackspace();
+                keyDownUp(KeyEvent.KEYCODE_DEL);
             }
         });
 
@@ -2150,36 +2145,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             case KeyEvent.KEYCODE_ENTER:
                 // Let the underlying text editor always handle these.
                 return false;
-            default:
-                // For all other keys, if we want to do transformations on
-                // text being entered with a hard keyboard, we need to process
-                // it and do the appropriate action.
-                /*
-                if (PROCESS_HARD_KEYS) {
-                    if (keyCode == KeyEvent.KEYCODE_SPACE
-                            && (event.getMetaState()&KeyEvent.META_ALT_ON) != 0) {
-                        // A silly example: in our input method, Alt+Space
-                        // is a shortcut for 'android' in lower case.
-                        InputConnection ic = getCurrentInputConnection();
-                        if (ic != null) {
-                            // First, tell the editor that it is no longer in the
-                            // shift state, since we are consuming this.
-                            ic.clearMetaKeyStates(KeyEvent.META_ALT_ON);
-                            keyDownUp(KeyEvent.KEYCODE_A);
-                            keyDownUp(KeyEvent.KEYCODE_N);
-                            keyDownUp(KeyEvent.KEYCODE_D);
-                            keyDownUp(KeyEvent.KEYCODE_R);
-                            keyDownUp(KeyEvent.KEYCODE_O);
-                            keyDownUp(KeyEvent.KEYCODE_I);
-                            keyDownUp(KeyEvent.KEYCODE_D);
-                            // And we consume this event.
-                            return true;
-                        }
-                    }
-                    if (mPredictionOn && translateKeyDown(keyCode, event)) {
-                        return true;
-                    }
-                }*/
         }
 
         return super.onKeyDown(keyCode, event);
@@ -2288,9 +2253,9 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         } else if (primaryCode == Keyboard.KEYCODE_CANCEL) {
             handleClose();
         } else if (primaryCode == LatinKeyboardView.KEYCODE_LANGUAGE_SWITCH) {
-//            handleLanguageSwitch();
+            handleLanguageSwitch();
         } else if (primaryCode == LatinKeyboardView.KEYCODE_OPTIONS) {
-            // Show a menu or somethin
+            // Show a menu or something
         } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE && mInputView != null) {
             Keyboard current = mInputView.getKeyboard();
             if (current == mSymbolsKeyboard || current == mSymbolsShiftedKeyboard) {
@@ -2414,7 +2379,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         if (mInputView.isShifted()) {
             primaryCode = Character.toUpperCase(primaryCode);
             if (!mCapsLock) {
-                //mCapsLock = true;
                 setLatinKeyboard(mQwertyKeyboard);
                 mInputView.setShifted(mCapsLock || !mInputView.isShifted());
             }
@@ -2422,9 +2386,11 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         if (mPredictionOn) {
             mComposing.append((char) primaryCode);
             getCurrentInputConnection().setComposingText(mComposing, 1);
+            getCurrentInputConnection().finishComposingText();
             updateShiftKeyState(getCurrentInputEditorInfo());
             updateCandidates();
         } else {
+            updateShiftKeyState(getCurrentInputEditorInfo());
             getCurrentInputConnection().commitText(String.valueOf((char) primaryCode), 1);
         }
     }
@@ -2607,7 +2573,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         GlobalClass.printLog("SoftKeyboard", "---------------beep---------------");
 
         AudioManager manager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        MediaPlayer player = new MediaPlayer();
+        MediaPlayer player;
 
         try {
             player = MediaPlayer.create(this, GlobalClass.tempSoundName);
@@ -2623,25 +2589,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                     mp.release();
                 }
             });
-//            } else {
-//                file = new File( filename);
 
-//                if (file.exists()) {
-//                    player = MediaPlayer.create(this, Uri.fromFile(file));
-//                    manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
-//                    player.start();
-
-            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    mp.release();
-                }
-            });
-//                } else {
-            // Toast.makeText(getApp    licationContext(), "Some problem play key tone.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
         } catch (Exception ignored) {
         }
     }
