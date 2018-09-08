@@ -1,44 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/set_keyboard_bg"
+    android:background="@drawable/cc2"
     android:gravity="center"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="250dp"
-        android:layout_height="150dp"
-        android:src="@drawable/ic_set_keyboard" />
 
-    <com.ibl.apps.myphotokeyboard.utils.CustomTextViewBold
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="Photo Keyboard"
-        android:textSize="22dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginLeft="35dp"
-        android:text="Only 2 steps to switch to Photo Keyboard"
-        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="162dp"
+        android:orientation="vertical"></LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@android:color/white"
+
         android:orientation="vertical"
         android:padding="10dp">
 
         <com.ibl.apps.myphotokeyboard.utils.CustomTextView
+            android:textColor="@color/white"
+            android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/enable_keyboard" />
@@ -59,12 +44,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@android:color/white"
+
         android:orientation="vertical"
         android:padding="10dp">
 
         <com.ibl.apps.myphotokeyboard.utils.CustomTextView
             android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:textAlignment="center"
             android:layout_height="wrap_content"
             android:text="@string/switch_keyboard" />
 

@@ -101,6 +101,9 @@
     <color name="fourty">#8294DE</color>
     <color name="fourtyone">#68875D</color>
 
+    /// Colors by teo
+    <color name="ct_pink1">#ff2d55</color>
+
     <array name="rainbow">
         <item>@color/one</item>
         <item>@color/two</item>

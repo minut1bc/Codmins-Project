@@ -845,8 +845,8 @@
     <string name="colors_purchased">ColorsPurchased</string>
     <string name="fonts_purchased">FontsPurchased</string>
     <string name="sounds_purchased">SoundsPurchased</string>
-    <string name="enable_keyboard">Step 1: Enable My Photo Keyboard</string>
-    <string name="switch_keyboard">Step 2: Switch to My Photo Keyboard</string>
+    <string name="enable_keyboard">Step 1: Enable Placeholder Keyboard</string>
+    <string name="switch_keyboard">Step 2: Switch to *P Keyboard</string>
 
     <string name="android_banner">android_banner</string>
     <string name="android_inst">android_inst</string>
