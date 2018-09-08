@@ -121,7 +121,7 @@
 
                     <ImageView
                         android:id="@+id/ivApply"
-                        android:layout_width="wrap_content"
+                        android:layout_width="35dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentLeft="true"
                         android:src="@drawable/btn_apply" />
