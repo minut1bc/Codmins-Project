@@ -12,14 +12,12 @@ import permission.auron.com.marshmallowpermissionhelper.PermissionUtils;
 
 public class SplashActivity extends ActivityManagePermission {
 
-    private GlobalClass globalClass;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        globalClass = new GlobalClass(SplashActivity.this);
+        GlobalClass globalClass = new GlobalClass(SplashActivity.this);
 
         Thread splashThread = new Thread() {
             public void run() {
@@ -46,7 +44,6 @@ public class SplashActivity extends ActivityManagePermission {
                         } else {
                             startActivity(new Intent(SplashActivity.this, SetKeyboardActivity.class));
                             finish();
-
                         }
 
                     }
@@ -59,7 +56,6 @@ public class SplashActivity extends ActivityManagePermission {
                     public void permissionForeverDenied() {
                     }
                 }
-
         );
     }
 }

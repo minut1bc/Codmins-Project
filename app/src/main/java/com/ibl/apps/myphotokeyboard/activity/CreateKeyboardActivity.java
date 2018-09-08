@@ -49,7 +49,7 @@ import com.ibl.apps.myphotokeyboard.adapter.FillFontColorAdapter;
 import com.ibl.apps.myphotokeyboard.adapter.FillFontStyleAdapter;
 import com.ibl.apps.myphotokeyboard.adapter.FillKeyBgAdapter;
 import com.ibl.apps.myphotokeyboard.adapter.FillSoundEffectAdapter;
-import com.ibl.apps.myphotokeyboard.adapter.FillWallpaperColorAdapater;
+import com.ibl.apps.myphotokeyboard.adapter.FillWallpaperColorAdapter;
 import com.ibl.apps.myphotokeyboard.adapter.FillWallpaperTextualAdapter;
 import com.ibl.apps.myphotokeyboard.database.DatabaseHelper;
 import com.ibl.apps.myphotokeyboard.model.FontsPaid;
@@ -70,7 +70,6 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
 public class CreateKeyboardActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView ivHome;
@@ -85,7 +84,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private CustomTextViewBold txtMainTitle;
     private CreateKeyboardActivity context;
 
-    private FillWallpaperColorAdapater fillWallpaperColorAdapater;
+    String[] fontArray = new String[0];
     private FillWallpaperTextualAdapter fillWallpaperTextualAdapter;
     private RecyclerView rvDefaultColor;
     private FillDefaultColorAdapter fillDefaultColorAdapter;
@@ -130,7 +129,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     public com.google.android.gms.ads.InterstitialAd mInterstitial;
     private boolean isEdit = false;
     private int editPosition;
-    String[] fontarr = new String[0];
+    private FillWallpaperColorAdapter fillWallpaperColorAdapter;
     ArrayList<KeyboardData> keyboardDataArrayList = new ArrayList<>();
     Animation myAnim;
     MyBounceInterpolator_anim interpolator;
@@ -198,7 +197,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         radiusFour = findViewById(R.id.radiusFour);
         radiusFive = findViewById(R.id.radiusFive);
 
-        // id for applyapply opacity
+        // id for apply opacity
         ivOpacityHundred = findViewById(R.id.ivOpacityHundred);
         ivOpacitySeventyFive = findViewById(R.id.ivOpacitySeventyFive);
         ivOpacityFifty = findViewById(R.id.ivOpacityFifty);
@@ -250,7 +249,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         }
 
         try {
-            fontarr = context.getAssets().list("fonts");
+            fontArray = context.getAssets().list("fonts");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -283,8 +282,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.selectsounds = getSoundPos(GlobalClass.tempSoundName);
 
             String remove = "fonts/";
-            String fontname = removeWords(GlobalClass.tempFontName, remove);
-            GlobalClass.selectfonts = getFontPos(fontname);
+            String fontName = removeWords(GlobalClass.tempFontName, remove);
+            GlobalClass.selectfonts = getFontPos(fontName);
 
         } else {
             GlobalClass.selectwallpaper = 0;
@@ -353,8 +352,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private void setColorGridView() {
         int[] colorWallpaperArrayList = GlobalClass.thArray;
         GridView gvColor = findViewById(R.id.gvColor);
-        fillWallpaperColorAdapater = new FillWallpaperColorAdapater(this, colorWallpaperArrayList);
-        gvColor.setAdapter(fillWallpaperColorAdapater);
+        fillWallpaperColorAdapter = new FillWallpaperColorAdapter(this, colorWallpaperArrayList);
+        gvColor.setAdapter(fillWallpaperColorAdapter);
 
         gvColor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, final int position, long id) {
@@ -365,7 +364,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.setPreferencesString(context, GlobalClass.IS_COLOR, "no");
                 GlobalClass.tempKeyboardBgImage = GlobalClass.thumbArray[position];
                 GlobalClass.tempIsColor = "no";
-                fillWallpaperColorAdapater.notifyDataSetChanged();
+                fillWallpaperColorAdapter.notifyDataSetChanged();
                 fillWallpaperTextualAdapter.notifyDataSetChanged();
                 fillDefaultColorAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
@@ -389,7 +388,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.setPreferencesString(context, GlobalClass.IS_COLOR, "no");
                 GlobalClass.tempKeyboardBgImage = GlobalClass.textureArray[position];
                 GlobalClass.tempIsColor = "no";
-                fillWallpaperColorAdapater.notifyDataSetChanged();
+                fillWallpaperColorAdapter.notifyDataSetChanged();
                 fillWallpaperTextualAdapter.notifyDataSetChanged();
                 fillDefaultColorAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
@@ -413,7 +412,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                         GlobalClass.setPreferencesString(context, GlobalClass.IS_COLOR, "yes");
                         GlobalClass.tempKeyboardBgImage = GlobalClass.colorsHorizontal[position];
                         fillDefaultColorAdapter.notifyDataSetChanged();
-                        fillWallpaperColorAdapater.notifyDataSetChanged();
+                        fillWallpaperColorAdapter.notifyDataSetChanged();
                         fillWallpaperTextualAdapter.notifyDataSetChanged();
                         GlobalClass.checkStartAd();
                     }
@@ -490,7 +489,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         GridView gvFont = findViewById(R.id.gvFont);
 
 
-        fillFontStyleAdapter = new FillFontStyleAdapter(this, fontarr);
+        fillFontStyleAdapter = new FillFontStyleAdapter(this, fontArray);
         gvFont.setAdapter(fillFontStyleAdapter);
 
         if (GlobalClass.tempFontName != null && !GlobalClass.tempFontName.isEmpty()) {
@@ -508,8 +507,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.selectfonts = position;
 
                 if (CreateKeyboardActivity.getInstance() != null) {
-                    if (fontarr[position] != null) {
-                        GlobalClass.tempFontName = "fonts/" + fontarr[position];
+                    if (fontArray[position] != null) {
+                        GlobalClass.tempFontName = "fonts/" + fontArray[position];
                         CreateKeyboardActivity.getInstance().setRadius();
                     }
                 }
@@ -844,7 +843,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         final LinearLayout adContainer = findViewById(R.id.adContainer);
         final AdView mAdView = new AdView(this);
         mAdView.setAdSize(AdSize.SMART_BANNER);
-//        mAdView.setAdUnitId(GlobalClass.getPrefrenceString(ImageViewActivity.this, getString(R.string.android_banner), ""));
+//        mAdView.setAdUnitId(GlobalClass.getPreferenceString(ImageViewActivity.this, getString(R.string.android_banner), ""));
 
 //        adContainer.addView(mAdView);
 //        AdRequest adRequest = new AdRequest.Builder().build();
@@ -894,7 +893,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         GlobalClass.keyboardBitmapBack = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
         fillDefaultColorAdapter.notifyDataSetChanged();
-        fillWallpaperColorAdapater.notifyDataSetChanged();
+        fillWallpaperColorAdapter.notifyDataSetChanged();
         fillWallpaperTextualAdapter.notifyDataSetChanged();
     }
 
@@ -902,8 +901,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case RESULT_FROM_GALLERY /*98*/:
-                    GlobalClass.printLog("Galleryhighr version", "----if-----");
-                    new AnonymousClass2photosave(data).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    GlobalClass.printLog("Gallery higher version", "----if-----");
+                    new AnonymousClass2photoSave(data).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     break;
                 case RESULT_FROM_CAMERA /*99*/:
                     GlobalClass.printLog("camera version", "----if-----");
@@ -995,22 +994,48 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         } catch (Exception ignored) {
 
         }
-
     }
 
-    class AnonymousClass2photosave extends AsyncTask<Void, Void, Void> {
+    private int getColorPos(int colorCode) {
+        for (int i = 0; i < GlobalClass.colorsHorizontal.length; i++) {
+            if (getResources().getColor(GlobalClass.colorsHorizontal[i]) == colorCode) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int getSoundPos(int soundCode) {
+        for (int i = 0; i < GlobalClass.lessonClips.length; i++) {
+            if (GlobalClass.lessonClips[i] == soundCode) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    private int getFontPos(String fontCode) {
+        for (int i = 0; i < fontArray.length; i++) {
+            if (fontArray[i].equals(fontCode)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    class AnonymousClass2photoSave extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog pd;
         private final Intent val$data;
 
-        AnonymousClass2photosave(Intent intent) {
-            GlobalClass.printLog("AnonymousClass2photosave ", "----constructure-----");
+        AnonymousClass2photoSave(Intent intent) {
+            GlobalClass.printLog("AnonymousClass2photoSave ", "----construction-----");
 
             this.val$data = intent;
         }
 
         protected void onPreExecute() {
-            GlobalClass.printLog("AnonymousClass2photosave ", "----onPreExecute-----");
+            GlobalClass.printLog("AnonymousClass2photoSave ", "----onPreExecute-----");
 
             this.pd = new ProgressDialog(CreateKeyboardActivity.this, 5);
             this.pd.setMessage("Please Wait");
@@ -1043,47 +1068,20 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 fos.flush();
                 fos.close();
             } catch (Exception e3) {
-                GlobalClass.printLog("AnonymousClass2photosave exception", "----doInBackground-----" + e3.getMessage());
+                GlobalClass.printLog("AnonymousClass2photoSave exception", "----doInBackground-----" + e3.getMessage());
             }
             return null;
         }
 
         protected void onPostExecute(Void result) {
 
-            GlobalClass.printLog("AnonymousClass2photosave ", "----onPostExecute-----");
+            GlobalClass.printLog("AnonymousClass2photoSave ", "----onPostExecute-----");
 
             this.pd.dismiss();
             Intent newIntent1 = new Intent(CreateKeyboardActivity.this, CropActivity.class);
             CreateKeyboardActivity.this.startActivityForResult(newIntent1, 7);
             super.onPostExecute(result);
         }
-    }
-
-    private int getColorPos(int colorcode) {
-        for (int i = 0; i < GlobalClass.colorsHorizontal.length; i++) {
-            if (getResources().getColor(GlobalClass.colorsHorizontal[i]) == colorcode) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private int getSoundPos(int soundcode) {
-        for (int i = 0; i < GlobalClass.lessonClips.length; i++) {
-            if (GlobalClass.lessonClips[i] == soundcode) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
-    private int getFontPos(String fontcode) {
-        for (int i = 0; i < fontarr.length; i++) {
-            if (fontarr[i].equals(fontcode)) {
-                return i;
-            }
-        }
-        return 0;
     }
 
     public static String removeWords(String word, String remove) {

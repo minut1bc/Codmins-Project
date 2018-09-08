@@ -8,25 +8,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
-
 import com.edmodo.cropper.CropImageView;
 import com.ibl.apps.myphotokeyboard.R;
-import com.ibl.apps.myphotokeyboard.utils.Base64CODEC;
-import java.io.File;
 
+import java.io.File;
 
 public class CropActivity extends AppCompatActivity implements View.OnClickListener {
 
     Bitmap imageBitmap;
-    private ImageView ivBack;
-    private ImageView ivDone;
     private CropImageView ivCropImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop);
-
 
         if (MainActivity.mFileTemp == null) {
             if (CreateKeyboardActivity.mFileTemp != null) {
@@ -45,9 +40,9 @@ public class CropActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setContent() {
-        ivBack = (ImageView) findViewById(R.id.ivBack);
-        ivDone = (ImageView) findViewById(R.id.ivDone);
-        ivCropImage = (CropImageView) findViewById(R.id.ivCropImage);
+        ImageView ivBack = findViewById(R.id.ivBack);
+        ImageView ivDone = findViewById(R.id.ivDone);
+        ivCropImage = findViewById(R.id.ivCropImage);
         this.ivCropImage.setFixedAspectRatio(true);
         this.ivCropImage.setAspectRatio(10, 6);
 
@@ -70,7 +65,7 @@ public class CropActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.ivDone:
-                Bitmap cBitmap = null;
+                Bitmap cBitmap;
                 try {
                     cBitmap = this.ivCropImage.getCroppedImage();
                     if (cBitmap != null) {
@@ -78,9 +73,8 @@ public class CropActivity extends AppCompatActivity implements View.OnClickListe
                         CreateKeyboardActivity.getInstance().setKeyboardBackground(cBitmap);
                         return;
                     }
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
-
                 break;
         }
     }

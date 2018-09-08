@@ -49,18 +49,12 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
     public static final String TEMP_PHOTO_FILE_NAME = "temp_photo.jpeg";
     private ViewPager viewPager;
     private KeyboardViewPagerAdapter keyboardViewPagerAdapter;
-    private ImageView ivDelete;
     ArrayList<KeyboardData> keyboardDataArrayList = new ArrayList<>();
     private ImageView ivNoData;
     private LinearLayout linKeyboardData;
     private ImageView ivApply;
-    static MainActivity mainActivity;
-    private LinearLayout linPackage;
-    private LinearLayout linGuide;
-    boolean isThemeSlotePurchased = false;
+    boolean isThemeSlotPurchased = false;
     private int mRequestCode;
-    private InputMethodChangedReceiver imchange;
-    private InterstitialAd mInterstitialAd;
     private String TAG = "Grid View Activity";
     private AdView mAdView;
     IabHelper mHelper;
@@ -111,13 +105,13 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
              */
 
             // Do we have the Purchase for 50 Graphs?
-            Purchase getTheameSlotPurchase = inventory.getPurchase(GlobalClass.UNLOCK_THEMES_SLOTES);
-            isThemeSlotePurchased = (getTheameSlotPurchase != null && verifyDeveloperPayload(getTheameSlotPurchase));
-            GlobalClass.printLog(TAG, "User " + (isThemeSlotePurchased ? "HAS" : "DOES NOT HAVE") + " Purchase 50 graphs.");
+            Purchase getThemeSlotPurchase = inventory.getPurchase(GlobalClass.UNLOCK_THEMES_SLOTES);
+            isThemeSlotPurchased = (getThemeSlotPurchase != null && verifyDeveloperPayload(getThemeSlotPurchase));
+            GlobalClass.printLog(TAG, "User " + (isThemeSlotPurchased ? "HAS" : "DOES NOT HAVE") + " Purchase 50 graphs.");
 
-            GlobalClass.printLog("getFiftyGraphs====================", "" + getTheameSlotPurchase);
-            if (getTheameSlotPurchase != null && verifyDeveloperPayload(getTheameSlotPurchase)) {
-                mHelper.consumeAsync(getTheameSlotPurchase, consumeFinishedListener);
+            GlobalClass.printLog("getFiftyGraphs====================", "" + getThemeSlotPurchase);
+            if (getThemeSlotPurchase != null && verifyDeveloperPayload(getThemeSlotPurchase)) {
+                mHelper.consumeAsync(getThemeSlotPurchase, consumeFinishedListener);
             }
             GlobalClass.printLog(TAG, "Initial inventory query finished; enabling main UI.");
         }
@@ -177,14 +171,12 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                 return;
             }
 
-
             updateData();
             GlobalClass.printLog(TAG, "purchase Data- - - " + purchase);
             mHelper.consumeAsync(purchase, consumeFinishedListener);
 
         }
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,7 +193,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
 
         // set context
         context = MainActivity.this;
-        mainActivity = this;
 
         // get the permission
         askForPermission();
@@ -259,7 +250,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
 
         });
 
-
     }
 
     void complain(String message) {
@@ -269,7 +259,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
 
     private void setContent() {
 
-        mInterstitialAd = new InterstitialAd(this);
+        InterstitialAd mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         //mInterstitialAd.setAdUnitId("ca-app-pub-1041813022220163/7928924396");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -278,14 +268,13 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
         viewPager = findViewById(R.id.viewPager);
         viewPager.setPageMarginDrawable(R.drawable.drawable_bg);
 
-        ivDelete = findViewById(R.id.ivDelete);
+        ImageView ivDelete = findViewById(R.id.ivDelete);
         ivNoData = findViewById(R.id.ivNoData);
         linKeyboardData = findViewById(R.id.linKeyboardData);
         ivApply = findViewById(R.id.ivApply);
-        linPackage = findViewById(R.id.linPackage);
-        linGuide = findViewById(R.id.linGuide);
+        LinearLayout linPackage = findViewById(R.id.linPackage);
+        LinearLayout linGuide = findViewById(R.id.linGuide);
 
-        this.imchange = new InputMethodChangedReceiver(getApplicationContext(), true);
         mHelper = new IabHelper(MainActivity.this, GlobalClass.base64EncodedPublicKey);
 
         // enable debug logging (for a production application, you should set this to false).
@@ -331,7 +320,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                     }
                 }
 
-
                 keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(context, keyboardDataArrayList);
                 indicator = findViewById(R.id.indicator);
                 viewPager.setAdapter(keyboardViewPagerAdapter);
@@ -339,7 +327,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                 ivNoData.setVisibility(View.GONE);
                 linKeyboardData.setVisibility(View.VISIBLE);
                 ivCreateKeyboard.setVisibility(View.VISIBLE);
-
 
                 if (keyboardDataArrayList.size() == 1) {
                     keyboardDataArrayList.get(0).setSelected(true);
@@ -378,7 +365,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
             ivCreateKeyboard.setVisibility(View.GONE);
         }
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
             }
@@ -399,7 +386,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
 
             }
         });
-
 
     }
 
@@ -441,7 +427,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         GlobalClass.selectfontcolor = 1;
                         GlobalClass.selectsounds = 0;
                         GlobalClass.selectfonts = 0;
-
 
                         GlobalClass.setPreferencesString(context, GlobalClass.IS_COLOR, GlobalClass.tempIsColor);
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
@@ -512,7 +497,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                         viewPager.setAdapter(keyboardViewPagerAdapter);
                                         keyboardViewPagerAdapter.notifyDataSetChanged();
 
-
                                     }
                                     //setDefaultValue();
                                     if (keyboardDataArrayList.size() != 0) {
@@ -545,7 +529,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                     GlobalClass.selectfontcolor = 1;
                                     GlobalClass.selectsounds = 0;
                                     GlobalClass.selectfonts = 0;
-
 
                                     GlobalClass.setPreferencesString(context, GlobalClass.IS_COLOR, GlobalClass.tempIsColor);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
@@ -603,7 +586,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                         GlobalClass.selectfontcolor = 1;
                                         GlobalClass.selectsounds = 0;
                                         GlobalClass.selectfonts = 0;
-
 
                                         GlobalClass.setPreferencesString(context, GlobalClass.IS_COLOR, GlobalClass.tempIsColor);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
@@ -757,7 +739,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
             GlobalClass.selectfonts = 0;
         }
 
-
         GlobalClass.setPreferencesString(context, GlobalClass.IS_COLOR, GlobalClass.tempIsColor);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.tempKeyboardBgImage);
@@ -791,7 +772,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
 
             }
         });
-
 
     }
 

@@ -12,12 +12,9 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-
 import com.ibl.apps.myphotokeyboard.R;
 import com.ibl.apps.myphotokeyboard.utils.CustomTextView;
 import com.ibl.apps.myphotokeyboard.utils.GlobalClass;
-
-
 
 public class SetKeyboardActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,24 +35,22 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
             window.setStatusBarColor(getResources().getColor(R.color.dark_gray));
         }
 
-
-
         setContentView(R.layout.activity_set_keyboard);
         setContent();
     }
 
     private void setContent() {
-        txtEnableKeyboard = (CustomTextView) findViewById(R.id.txtEnableKeyboard);
-        txtSwitchKeyboard = (CustomTextView) findViewById(R.id.txtSwitchKeyboard);
+        txtEnableKeyboard = findViewById(R.id.txtEnableKeyboard);
+        txtSwitchKeyboard = findViewById(R.id.txtSwitchKeyboard);
 
-        imChange = new InputMethodChangedReceiver(getApplicationContext(), true);
+        imChange = new InputMethodChangedReceiver();
 
         isKeyboardEnabled = GlobalClass.KeyboardIsEnabled(SetKeyboardActivity.this);
         isKeyboardSet = GlobalClass.KeyboardIsSet(SetKeyboardActivity.this);
 
         txtEnableKeyboard.setEnabled(!isKeyboardEnabled);
         if (isKeyboardEnabled) {
-            txtSwitchKeyboard.setEnabled(!isKeyboardEnabled);
+            txtSwitchKeyboard.setEnabled(false);
         } else {
             txtSwitchKeyboard.setEnabled(isKeyboardSet);
         }
@@ -81,11 +76,11 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
             imChange.cancel();
         }
         imChange = null;
-        imChange = new InputMethodChangedReceiver(SetKeyboardActivity.this.getApplicationContext(), true);
+        imChange = new InputMethodChangedReceiver();
     }
 
     public void switchKeyboard() {
-        InputMethodManager imeManager = (InputMethodManager) SetKeyboardActivity.this.getSystemService("input_method");
+        InputMethodManager imeManager = (InputMethodManager) SetKeyboardActivity.this.getSystemService(INPUT_METHOD_SERVICE);
         if (imeManager != null) {
             imeManager.showInputMethodPicker();
         } else {
@@ -128,11 +123,7 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
         } else {
             boolean z2;
             CustomTextView button2 = txtEnableKeyboard;
-            if (isKeyboardEnabled) {
-                z2 = false;
-            } else {
-                z2 = true;
-            }
+            z2 = !isKeyboardEnabled;
             button2.setEnabled(z2);
             txtEnableKeyboard.clearAnimation();
             txtSwitchKeyboard.startAnimation(shake);

@@ -15,13 +15,13 @@ import com.ibl.apps.myphotokeyboard.utils.GlobalClass;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class FillWallpaperColorAdapater extends BaseAdapter {
+public class FillWallpaperColorAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
     Context context;
     private ViewHolder holder;
     int[] colorWallpaperArrayList;
 
-    public FillWallpaperColorAdapater(Context context, int[] colorWallpaperArrayList) {
+    public FillWallpaperColorAdapter(Context context, int[] colorWallpaperArrayList) {
         super();
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -48,9 +48,9 @@ public class FillWallpaperColorAdapater extends BaseAdapter {
         holder = new ViewHolder();
 
         convertView = inflater.inflate(R.layout.row_wallpaper_color_item, null);
-        holder.ivColorItem = (CircleImageView) convertView.findViewById(R.id.ivColorItem);
-        holder.flBg = (FrameLayout) convertView.findViewById(R.id.flBg);
-        holder.ivLock = (ImageView) convertView.findViewById(R.id.ivLock);
+        holder.ivColorItem = convertView.findViewById(R.id.ivColorItem);
+        holder.flBg = convertView.findViewById(R.id.flBg);
+        holder.ivLock = convertView.findViewById(R.id.ivLock);
 
         holder.ivColorItem.setImageResource(colorWallpaperArrayList[position]);
 
