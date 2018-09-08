@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2008-2009 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.ibl.apps.myphotokeyboard.customkeyboard;
 
 import android.content.Context;
@@ -32,7 +16,7 @@ public class LatinKeyboard extends Keyboard {
     private Key mSavedModeChangeKey;
     private Key mSavedLanguageSwitchKey;
 
-    public LatinKeyboard(Context context, int xmlLayoutResId) {
+    LatinKeyboard(Context context, int xmlLayoutResId) {
         super(context, xmlLayoutResId);
     }
 
@@ -85,11 +69,10 @@ public class LatinKeyboard extends Keyboard {
         }
     }
 
-
     static class LatinKey extends Keyboard.Key {
-        
-        public LatinKey(Resources res, Keyboard.Row parent, int x, int y,
-                XmlResourceParser parser) {
+
+        LatinKey(Resources res, Keyboard.Row parent, int x, int y,
+                 XmlResourceParser parser) {
             super(res, parent, x, y, parser);
         }
 

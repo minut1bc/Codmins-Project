@@ -9,18 +9,18 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper {
 
-    public static final String DATABASE_NAME = "FancySticker.db";
+    private static final String DATABASE_NAME = "FancySticker.db";
 
     private static final int DATABASE_VERSION = 1;
     // Comma key
-    public static final String IS_DELETED = "isDeleted";
+    private static final String IS_DELETED = "isDeleted";
     //FOR color wallpaper
     public static final String TABLE_COLOR_WALLPAPER = "table_color_wallpaper";
     public static final String KEY_COLOR_WALLPAPER_ID = "color_id";
     public static final String KEY_COLOR_WALLPAPER_TITLE = "color_title";
     public static final String KEY_COLOR_WALLPAPER_IMAGE = "color_image";
     public static final String KEY_COLOR_WALLPAPER_THUMB_IMAGE = "color_thumb_image";
-    public static final String KEY_COLOR_WALLPAPER_IMAGE_BITMAP = "image_bitmap";
+    private static final String KEY_COLOR_WALLPAPER_IMAGE_BITMAP = "image_bitmap";
     public static final String KEY_COLOR_WALLPAPER_THUMB_BITMAP = "thumbnail_bitmap";
     public static final String KEY_COLOR_WALLPAPER_IS_PAID = "color_is_paid";
 
@@ -40,7 +40,7 @@ public class DatabaseHelper {
     public static final String KEY_TEXTUAL_WALLPAPER_TITLE = "textual_title";
     public static final String KEY_TEXTUAL_WALLPAPER_IMAGE = "textual_image";
     public static final String KEY_TEXTUAL_WALLPAPER_THUMB_IMAGE = "textual_thumb_image";
-    public static final String KEY_TEXTUAL_WALLPAPER_IMAGE_BITMAP = "textual_image_bitmap";
+    private static final String KEY_TEXTUAL_WALLPAPER_IMAGE_BITMAP = "textual_image_bitmap";
     public static final String KEY_TEXTUAL_WALLPAPER_THUMB_BITMAP = "textual_thumbnail_bitmap";
     public static final String KEY_TEXTUAL_WALLPAPER_IS_PAID = "textual_is_paid";
 
@@ -112,37 +112,33 @@ public class DatabaseHelper {
 //            // Enable foreign key constraints
 //            sqLiteDb.execSQL("PRAGMA foreign_keys=ON;");
 //        }
-//
         return this;
     }
 
     // ---closes the database---
-    public void close() {
+    private void close() {
         if (sqLiteDb != null && sqLiteDb.isOpen()) {
 //            dbHelper.close();
             sqLiteDb.close();
         }
     }
 
-    public boolean insertData(String tableName, ContentValues values) {
+    public void insertData(String tableName, ContentValues values) {
         open();
         sqLiteDb.insert(tableName, null, values);
         close();
-        return true;
     }
 
-    public boolean updateRowData(String tableName, ContentValues values, String selection, String[] selectionArgs) {
+    public void updateRowData(String tableName, ContentValues values, String selection, String[] selectionArgs) {
         open();
         sqLiteDb.update(tableName, values, selection, selectionArgs);
         close();
-        return true;
     }
 
-    public boolean deleteRowData(String tableName, String selection, String[] selectionArgs) {
+    public void deleteRowData(String tableName, String selection, String[] selectionArgs) {
         open();
         sqLiteDb.delete(tableName, selection, selectionArgs);
         close();
-        return true;
     }
 
     public Cursor getTableDataById(String tableName, String field, String value) {
@@ -160,7 +156,7 @@ public class DatabaseHelper {
         if (isGetAllData) {
             selectRowQuery = "SELECT * FROM " + tableName + "WHERE"
                     + whereColumnId + " = '" + columnValue + "'";
-        } else if (!isGetAllData) {
+        } else {
             selectRowQuery = "SELECT * FROM " + tableName + " WHERE "
                     + whereColumnId + " = '" + columnValue + "' AND " + IS_DELETED + " = " + 0;
         }
@@ -181,7 +177,7 @@ public class DatabaseHelper {
 
     public class DatabaseHelper1 extends SQLiteOpenHelper {
 
-        public DatabaseHelper1(Context context) {
+        DatabaseHelper1(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 

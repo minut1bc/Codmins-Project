@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2008-2009 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.ibl.apps.myphotokeyboard.customkeyboard;
 
 import android.content.Context;
@@ -53,7 +37,7 @@ public class CandidateView extends View {
 
     private static final int X_GAP = 60;
 
-    private static final List<String> EMPTY_LIST = new ArrayList<String>();
+    private static final List<String> EMPTY_LIST = new ArrayList<>();
 
     private int mColorNormal;
     private int mColorRecommended;
@@ -69,8 +53,10 @@ public class CandidateView extends View {
 
     public CandidateView(Context context) {
         super(context);
+
         mSelectionHighlight = context.getResources().getDrawable(
                 android.R.drawable.list_selector_background);
+
         mSelectionHighlight.setState(new int[]{
                 android.R.attr.state_enabled,
                 android.R.attr.state_focused,
@@ -93,7 +79,7 @@ public class CandidateView extends View {
         mPaint.setTextSize(r.getDimensionPixelSize(R.dimen.candidate_font_height));
         mPaint.setStrokeWidth(0);
 
-        mGestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
+        mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2,
                                     float distanceX, float distanceY) {
@@ -240,7 +226,7 @@ public class CandidateView extends View {
                                boolean typedWordValid) {
         clear();
         if (suggestions != null) {
-            mSuggestions = new ArrayList<String>(suggestions);
+            mSuggestions = new ArrayList<>(suggestions);
         }
         mTypedWordValid = typedWordValid;
         scrollTo(0, 0);

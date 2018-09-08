@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2008-2009 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.ibl.apps.myphotokeyboard.customkeyboard;
 
 import android.content.Context;
@@ -40,8 +24,6 @@ public class LatinKeyboardView extends KeyboardView {
 
     static final int KEYCODE_OPTIONS = -100;
     static final int KEYCODE_LANGUAGE_SWITCH = -101;
-    private GradientDrawable npd1;
-    private GradientDrawable npd_presed1;
     Drawable npdDelete;
     Drawable npdDone;
     Drawable npdShiftOff;
@@ -51,7 +33,6 @@ public class LatinKeyboardView extends KeyboardView {
 
     public Paint newpaint;
     private Context context;
-    private List<Key> keys;
 
 
     public LatinKeyboardView(Context context, AttributeSet attrs) {
@@ -59,12 +40,12 @@ public class LatinKeyboardView extends KeyboardView {
         this.context = context;
         this.newpaint = new Paint();
 
-        this.npdShiftOff = (Drawable) context.getResources().getDrawable(R.drawable.ic_shift_off);
-        this.npdShiftOn = (Drawable) context.getResources().getDrawable(R.drawable.ic_shift_on);
-        this.npdSpace = (Drawable) context.getResources().getDrawable(R.drawable.ic_space);
-        this.npdDelete = (Drawable) context.getResources().getDrawable(R.drawable.ic_backspace);
-        this.npdDone = (Drawable) context.getResources().getDrawable(R.drawable.ic_enter_new);
-        this.npdDoubleSpace = (Drawable) context.getResources().getDrawable(R.drawable.ic_shift_double_on);
+        this.npdShiftOff = context.getResources().getDrawable(R.drawable.ic_shift_off);
+        this.npdShiftOn = context.getResources().getDrawable(R.drawable.ic_shift_on);
+        this.npdSpace = context.getResources().getDrawable(R.drawable.ic_space);
+        this.npdDelete = context.getResources().getDrawable(R.drawable.ic_backspace);
+        this.npdDone = context.getResources().getDrawable(R.drawable.ic_enter_new);
+        this.npdDoubleSpace = context.getResources().getDrawable(R.drawable.ic_shift_double_on);
 
     }
 
@@ -85,17 +66,17 @@ public class LatinKeyboardView extends KeyboardView {
 
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        this.keys = null;
-        this.keys = getKeyboard().getKeys();
-        for (Key key : this.keys) {
+        List<Key> keys;
+        keys = getKeyboard().getKeys();
+        for (Key key : keys) {
 
-            npd1 = new GradientDrawable(
+            GradientDrawable npd1 = new GradientDrawable(
                     GradientDrawable.Orientation.TOP_BOTTOM,
-                    new int[]{GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR,getResources().getColor(R.color.eight)),
+                    new int[]{GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight)),
                             GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight))});
-            npd_presed1 = new GradientDrawable(
+            GradientDrawable npd_presed1 = new GradientDrawable(
                     GradientDrawable.Orientation.TOP_BOTTOM,
-                    new int[]{GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR,getResources().getColor(R.color.eight)),
+                    new int[]{GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight)),
                             GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight))});
 
 
@@ -128,12 +109,12 @@ public class LatinKeyboardView extends KeyboardView {
                     break;
             }
 
-            this.npd1.setBounds(key.x + 5, key.y + 5, (key.x + key.width) - 5, (key.y + key.height) - 5);
-            this.npd_presed1.setBounds(key.x + 5, key.y + 5, (key.x + key.width) - 5, (key.y + key.height) - 5);
+            npd1.setBounds(key.x + 5, key.y + 5, (key.x + key.width) - 5, (key.y + key.height) - 5);
+            npd_presed1.setBounds(key.x + 5, key.y + 5, (key.x + key.width) - 5, (key.y + key.height) - 5);
             if (key.pressed) {
-                this.npd1.draw(canvas);
+                npd1.draw(canvas);
             } else {
-                this.npd_presed1.draw(canvas);
+                npd_presed1.draw(canvas);
             }
             switch (key.codes[0]) {
                 case Keyboard.KEYCODE_SHIFT /*-978903*/:
@@ -153,7 +134,6 @@ public class LatinKeyboardView extends KeyboardView {
                             this.npdShiftOn.draw(canvas);
                         }
                     }
-
 
                     break;
                 case 10 /*-978903*/:
@@ -195,13 +175,11 @@ public class LatinKeyboardView extends KeyboardView {
                                 Typeface font = Typeface.createFromAsset(context.getAssets(), GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, ""));
                                 newpaint.setTypeface(font);
 
-                            } catch (Exception e) {
-
+                            } catch (Exception ignored) {
                             }
                         }
                         canvas.drawText(s, (float) (key.x + (key.width / 2)), (float) ((key.y + (key.height / 1.8)) + ((int) getResources().getDimension(R.dimen.text_top_margin))), this.newpaint);
                     }
-
                     break;
             }
         }
