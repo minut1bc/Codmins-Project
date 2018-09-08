@@ -1,22 +1,6 @@
-/* Copyright (c) 2012 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.ibl.apps.myphotokeyboard.billing;
 
 import android.text.TextUtils;
-
 
 import com.ibl.apps.myphotokeyboard.utils.GlobalClass;
 
@@ -71,7 +55,7 @@ public class Security {
      * @param encodedPublicKey Base64-encoded public key
      * @throws IllegalArgumentException if encodedPublicKey is invalid
      */
-    public static PublicKey generatePublicKey(String encodedPublicKey) {
+    private static PublicKey generatePublicKey(String encodedPublicKey) {
         try {
             byte[] decodedKey = Base64.decode(encodedPublicKey);
             KeyFactory keyFactory = KeyFactory.getInstance(KEY_FACTORY_ALGORITHM);
@@ -96,7 +80,7 @@ public class Security {
      * @param signature server signature
      * @return true if the data and signature match
      */
-    public static boolean verify(PublicKey publicKey, String signedData, String signature) {
+    private static boolean verify(PublicKey publicKey, String signedData, String signature) {
         Signature sig;
         try {
             sig = Signature.getInstance(SIGNATURE_ALGORITHM);
