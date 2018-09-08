@@ -27,11 +27,9 @@ import com.ibl.apps.myphotokeyboard.utils.GlobalClass;
 
 import java.util.ArrayList;
 
-
 public class KeyboardViewPagerAdapter extends PagerAdapter {
     private Context context;
-    private ArrayList<KeyboardData> keyboardArrayList = new ArrayList<>();
-    private GradientDrawable npd1;
+    private ArrayList<KeyboardData> keyboardArrayList;
 
     public KeyboardViewPagerAdapter(Context context, ArrayList<KeyboardData> keyboardArrayList) {
         this.context = context;
@@ -58,20 +56,20 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
     @Override
     public View instantiateItem(final ViewGroup container, final int position) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.layout_keyboard, null);
+        assert inflater != null;
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.layout_keyboard, null);
 
-        ImageView ivKeyboardBg = (ImageView) view.findViewById(R.id.ivKeyboardBg);
-        LinearLayout linFirstRowKeyboard = (LinearLayout) view.findViewById(R.id.linFirstRowKeyboard);
-        LinearLayout linTwoRowKeyboard = (LinearLayout) view.findViewById(R.id.linTwoRowKeyboard);
-        LinearLayout linThreeRowKeyboard = (LinearLayout) view.findViewById(R.id.linThreeRowKeyboard);
-        LinearLayout linFourRowKeyboard = (LinearLayout) view.findViewById(R.id.linFourRowKeyboard);
+        ImageView ivKeyboardBg = view.findViewById(R.id.ivKeyboardBg);
+        LinearLayout linFirstRowKeyboard = view.findViewById(R.id.linFirstRowKeyboard);
+        LinearLayout linTwoRowKeyboard = view.findViewById(R.id.linTwoRowKeyboard);
+        LinearLayout linThreeRowKeyboard = view.findViewById(R.id.linThreeRowKeyboard);
+        LinearLayout linFourRowKeyboard = view.findViewById(R.id.linFourRowKeyboard);
 
-        ImageView ivDone = (ImageView) view.findViewById(R.id.ivDone);
-        ImageView ivSpace = (ImageView) view.findViewById(R.id.ivSpace);
-        ImageView ivShift = (ImageView) view.findViewById(R.id.ivShift);
-        ImageView ivCancel = (ImageView) view.findViewById(R.id.ivCancel);
-        ImageView ivEmoji = (ImageView) view.findViewById(R.id.ivEmoji);
-
+        ImageView ivDone = view.findViewById(R.id.ivDone);
+        ImageView ivSpace = view.findViewById(R.id.ivSpace);
+        ImageView ivShift = view.findViewById(R.id.ivShift);
+        ImageView ivCancel = view.findViewById(R.id.ivCancel);
+        ImageView ivEmoji = view.findViewById(R.id.ivEmoji);
 
         if (BuildConfig.VERSION_CODE >= 21)
             view.setClipToOutline(true);
@@ -84,13 +82,12 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
             ivKeyboardBg.setImageResource(keyboardArrayList.get(position).getKeyboardBgImage());
         }
 
-
         int color = Color.parseColor(keyboardArrayList.get(position).getFontColor());
         ivShift.setColorFilter(color);
         ivDone.setColorFilter(color);
         ivCancel.setColorFilter(color);
 
-
+        GradientDrawable npd1;
         for (int i = 0; i < linFirstRowKeyboard.getChildCount(); i++) {
             final View mChild = linFirstRowKeyboard.getChildAt(i);
 
@@ -101,7 +98,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                         new int[]{keyboardArrayList.get(position).getKeyBgColor(),
                                 keyboardArrayList.get(position).getKeyBgColor()});
 
-                this.npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
+                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
 
                 npd1.setCornerRadius(Float.parseFloat(keyboardArrayList.get(position).getKeyRadius()));
                 npd1.setAlpha(Integer.parseInt(keyboardArrayList.get(position).getKeyOpacity()));
@@ -128,7 +125,6 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
 
                 if (mChild instanceof TextView) {
 
-
                     ((TextView) mChild).setTextColor(android.graphics.Color.parseColor(keyboardArrayList.get(position).getFontColor()));
                     ((TextView) mChild).setTextSize(10);
                     if (keyboardArrayList.get(position).getFontName().length() != 0 && keyboardArrayList.get(position).getFontName() != null
@@ -137,7 +133,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                             Typeface font = Typeface.createFromAsset(context.getAssets(), keyboardArrayList.get(position).getFontName());
                             ((TextView) mChild).setTypeface(font);
 
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
                         }
                     }
                 }
@@ -153,7 +149,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                         GradientDrawable.Orientation.TOP_BOTTOM,
                         new int[]{keyboardArrayList.get(position).getKeyBgColor(),
                                 keyboardArrayList.get(position).getKeyBgColor()});
-                this.npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
+                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
 
                 npd1.setCornerRadius(Float.parseFloat(keyboardArrayList.get(position).getKeyRadius()));
                 npd1.setAlpha(Integer.parseInt(keyboardArrayList.get(position).getKeyOpacity()));
@@ -189,8 +185,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                         try {
                             Typeface font = Typeface.createFromAsset(context.getAssets(), keyboardArrayList.get(position).getFontName());
                             ((TextView) mChild).setTypeface(font);
-                        } catch (Exception e) {
-
+                        } catch (Exception ignored) {
                         }
                     }
                 }
@@ -205,13 +200,14 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
             final View mChild = linThreeRowKeyboard.getChildAt(i);
 
             GlobalClass.printLog("call the setRadius", "----if---------" + i);
+            // Set the font if it is a TextView.
             if (mChild instanceof ImageView || mChild instanceof TextView) {
                 // Recursively attempt another ViewGroup.
                 npd1 = new GradientDrawable(
                         GradientDrawable.Orientation.TOP_BOTTOM,
                         new int[]{keyboardArrayList.get(position).getKeyBgColor(),
                                 keyboardArrayList.get(position).getKeyBgColor()});
-                this.npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
+                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
 
                 npd1.setCornerRadius(Float.parseFloat(keyboardArrayList.get(position).getKeyRadius()));
                 npd1.setAlpha(Integer.parseInt(keyboardArrayList.get(position).getKeyOpacity()));
@@ -248,16 +244,11 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
 
                             Typeface font = Typeface.createFromAsset(context.getAssets(), keyboardArrayList.get(position).getFontName());
                             ((TextView) mChild).setTypeface(font);
-                        } catch (Exception e) {
-
+                        } catch (Exception ignored) {
                         }
                     }
                 }
-            } else {
-                // Set the font if it is a TextView.
-                GlobalClass.printLog("call the setRadius", "------else-------" + i);
-
-            }
+            } else GlobalClass.printLog("call the setRadius", "------else-------" + i);
         }
 
         for (int i = 0; i < linFourRowKeyboard.getChildCount(); i++) {
@@ -270,7 +261,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                         GradientDrawable.Orientation.TOP_BOTTOM,
                         new int[]{keyboardArrayList.get(position).getKeyBgColor(),
                                 keyboardArrayList.get(position).getKeyBgColor()});
-                this.npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
+                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
 
                 npd1.setCornerRadius(Float.parseFloat(keyboardArrayList.get(position).getKeyRadius()));
                 npd1.setAlpha(Integer.parseInt(keyboardArrayList.get(position).getKeyOpacity()));
@@ -307,20 +298,15 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                         try {
                             Typeface font = Typeface.createFromAsset(context.getAssets(), keyboardArrayList.get(position).getFontName());
                             ((TextView) mChild).setTypeface(font);
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
 
                         }
                     }
                 }
-            } else {
-
-                GlobalClass.printLog("call the setRadius", "------else-------" + i);
-            }
+            } else GlobalClass.printLog("call the setRadius", "------else-------" + i);
         }
 
-
         container.addView(view);
-
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -368,6 +354,5 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
         });
         return view;
     }
-
 
 }

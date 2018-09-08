@@ -8,12 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ibl.apps.myphotokeyboard.R;
-import com.ibl.apps.myphotokeyboard.utils.GlobalClass;
 
 public class FillEmojiAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
     Context context;
-    private ViewHolder holder;
     private String[] emojiArrayList;
 
     public FillEmojiAdapter(Context context, String[] emojiArrayList) {
@@ -40,10 +38,10 @@ public class FillEmojiAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        holder = new ViewHolder();
+        ViewHolder holder = new ViewHolder();
         convertView = inflater.inflate(R.layout.row_emoji_item, null);
 
-        holder.txtEmoji = (TextView) convertView.findViewById(R.id.txtEmoji);
+        holder.txtEmoji = convertView.findViewById(R.id.txtEmoji);
 
         if (emojiArrayList[position] != null && !emojiArrayList[position].isEmpty())
             holder.txtEmoji.setText(emojiArrayList[position]);

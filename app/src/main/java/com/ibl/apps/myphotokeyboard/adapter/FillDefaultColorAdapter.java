@@ -16,7 +16,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FillDefaultColorAdapter extends RecyclerView.Adapter<FillDefaultColorAdapter.ViewHolder> {
     private Context context;
-    int[] colorArrayList;
+    private int[] colorArrayList;
 
     public FillDefaultColorAdapter(Context context, int[] colorArrayList) {
         super();
@@ -65,18 +65,16 @@ public class FillDefaultColorAdapter extends RecyclerView.Adapter<FillDefaultCol
         return colorArrayList.length;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         CircleImageView ivColorItem;
         FrameLayout flBg;
         CircleImageView ivLock;
 
-        public ViewHolder(final View itemView) {
+        ViewHolder(final View itemView) {
             super(itemView);
-            ivColorItem = (CircleImageView) itemView.findViewById(R.id.ivColorItem);
-            ivLock = (CircleImageView) itemView.findViewById(R.id.ivLock);
-            flBg = (FrameLayout) itemView.findViewById(R.id.flBg);
+            ivColorItem = itemView.findViewById(R.id.ivColorItem);
+            ivLock = itemView.findViewById(R.id.ivLock);
+            flBg = itemView.findViewById(R.id.flBg);
         }
-
-
     }
 }

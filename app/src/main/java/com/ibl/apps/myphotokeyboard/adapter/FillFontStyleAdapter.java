@@ -3,7 +3,6 @@ package com.ibl.apps.myphotokeyboard.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,17 +20,16 @@ public class FillFontStyleAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
    // private final GlobalClass globalClass;
     Context context;
-    String[] fontarr=new String[0];
+    private String[] fontArray;
 //    private ArrayList<FontsPaid> fontStyleArrayList = new ArrayList<>();
     //String [] fontStyleArrayList =  GlobalClass.fonts;
     private ViewHolder holder;
 
 
-
-    public FillFontStyleAdapter(Context context, String[] fontarr) {
+    public FillFontStyleAdapter(Context context, String[] fontArray) {
         super();
         this.context = context;
-        this.fontarr=fontarr;
+        this.fontArray = fontArray;
 //        this.fontStyleArrayList = fontStyleArrayList;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       //  globalClass = new GlobalClass(context);
@@ -39,7 +37,7 @@ public class FillFontStyleAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return fontarr.length;
+        return fontArray.length;
     }
 
     @Override
@@ -57,9 +55,9 @@ public class FillFontStyleAdapter extends BaseAdapter {
         holder = new ViewHolder();
         convertView = inflater.inflate(R.layout.row_font_style_item, null);
 
-        holder.txtFontItem = (TextView) convertView.findViewById(R.id.txtFontItem);
-        holder.cIvBg = (CircleImageView) convertView.findViewById(R.id.cIvBg);
-        holder.ivLock = (ImageView) convertView.findViewById(R.id.ivLock);
+        holder.txtFontItem = convertView.findViewById(R.id.txtFontItem);
+        holder.cIvBg = convertView.findViewById(R.id.cIvBg);
+        holder.ivLock = convertView.findViewById(R.id.ivLock);
 
         if (GlobalClass.getPrefrenceBoolean(context,GlobalClass.key_isFontLock,true)) {
             if (position > 33) {
@@ -103,7 +101,7 @@ public class FillFontStyleAdapter extends BaseAdapter {
 */
 
 //        Log.e("FillFontStyleAdapter","txtFontItem"+GlobalClass.fonts[position]);
-        Typeface cfont = Typeface.createFromAsset(context.getAssets(),"fonts/"+fontarr[position]);
+        Typeface cfont = Typeface.createFromAsset(context.getAssets(), "fonts/" + fontArray[position]);
         holder.txtFontItem.setTypeface(cfont);
 
 
@@ -128,7 +126,7 @@ public class FillFontStyleAdapter extends BaseAdapter {
 //            GlobalClass.printLog("Exception ", "-----------FillFontStyleAdapter-----------------" + e.getMessage());
 //        }
 //
-//        if (fontarr.get(position).isSelected()) {
+//        if (fontArray.get(position).isSelected()) {
 
 
 

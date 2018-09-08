@@ -21,7 +21,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class FillFontColorAdapter extends RecyclerView.Adapter<FillFontColorAdapter.ViewHolder> {
     private Context context;
-    int[] defaultColorFreeArrayList;
+    private int[] defaultColorFreeArrayList;
     private ClickListener clickListener;
 
     public FillFontColorAdapter(Context context, int[] defaultColorFreeArrayList) {
@@ -35,7 +35,7 @@ public class FillFontColorAdapter extends RecyclerView.Adapter<FillFontColorAdap
     }
 
     public interface ClickListener {
-        public void itemClicked(View view, int position);
+        void itemClicked(View view, int position);
     }
 
     @Override
@@ -78,7 +78,6 @@ public class FillFontColorAdapter extends RecyclerView.Adapter<FillFontColorAdap
         } else {
             holder.flBg.setVisibility(View.GONE);
         }
-
     }
 
     @Override
@@ -91,13 +90,12 @@ public class FillFontColorAdapter extends RecyclerView.Adapter<FillFontColorAdap
         FrameLayout flBg;
         CircleImageView ivLock;
 
-        public ViewHolder(final View itemView) {
+        ViewHolder(final View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            ivColorItem = (CircleImageView) itemView.findViewById(R.id.ivColorItem);
-            flBg = (FrameLayout) itemView.findViewById(R.id.flBg);
-            ivLock = (CircleImageView) itemView.findViewById(R.id.ivLock);
-
+            ivColorItem = itemView.findViewById(R.id.ivColorItem);
+            flBg = itemView.findViewById(R.id.flBg);
+            ivLock = itemView.findViewById(R.id.ivLock);
 
             ivColorItem.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -196,11 +194,7 @@ public class FillFontColorAdapter extends RecyclerView.Adapter<FillFontColorAdap
                 }
 
             });
-
-
-
         }
-
 
         @Override
         public void onClick(View view) {

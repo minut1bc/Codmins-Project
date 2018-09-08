@@ -19,14 +19,10 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
 public class FillSoundEffectAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
     private Context context;
-    private ArrayList<NewSoundData> soundEffectArrayList = new ArrayList<NewSoundData>();
-    //    int[]  soundEffectArrayList = GlobalClass.lessonClips;
-    //String[] soundEffectArrayList=new String[0];
-    private ViewHolder holder;
+    private ArrayList<NewSoundData> soundEffectArrayList;
 
     public FillSoundEffectAdapter(Activity context, ArrayList<NewSoundData> soundEffectArrayList) {
         super();
@@ -53,13 +49,13 @@ public class FillSoundEffectAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        holder = new ViewHolder();
+        ViewHolder holder = new ViewHolder();
         convertView = inflater.inflate(R.layout.row_sound_effect_color_item, null);
 
-        holder.ivSoundEffectItem = (CircleImageView) convertView.findViewById(R.id.ivSoundEffectItem);
-        holder.ivSoundEffectItem1 = (CircleImageView) convertView.findViewById(R.id.ivSoundEffectItem1);
-        holder.flBg = (FrameLayout) convertView.findViewById(R.id.flBg);
-        holder.ivLock = (ImageView) convertView.findViewById(R.id.ivLock);
+        holder.ivSoundEffectItem = convertView.findViewById(R.id.ivSoundEffectItem);
+        holder.ivSoundEffectItem1 = convertView.findViewById(R.id.ivSoundEffectItem1);
+        holder.flBg = convertView.findViewById(R.id.flBg);
+        holder.ivLock = convertView.findViewById(R.id.ivLock);
 
         if (GlobalClass.getPrefrenceBoolean(context, GlobalClass.key_isSoundLock, true)) {
             if (position > 20) {
@@ -106,6 +102,5 @@ public class FillSoundEffectAdapter extends BaseAdapter {
         FrameLayout flBg;
         ImageView ivLock;
     }
-
 
 }

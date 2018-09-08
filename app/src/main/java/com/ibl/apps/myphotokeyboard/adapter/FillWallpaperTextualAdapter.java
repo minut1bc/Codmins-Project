@@ -14,16 +14,10 @@ import com.ibl.apps.myphotokeyboard.R;
 import com.ibl.apps.myphotokeyboard.subscriptionmenu.PackageActivity;
 import com.ibl.apps.myphotokeyboard.utils.GlobalClass;
 
-/**
- * Created by iblinfotech on 03/05/17.
- */
-
 public class FillWallpaperTextualAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
-    Activity activity;
-    int[] colorWallpaperArrayList;
-    private ViewHolder holder;
-
+    private Activity activity;
+    private int[] colorWallpaperArrayList;
 
     public FillWallpaperTextualAdapter(Activity activity, int[] colorWallpaperArrayList) {
         super();
@@ -49,13 +43,12 @@ public class FillWallpaperTextualAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        holder = new ViewHolder();
+        ViewHolder holder = new ViewHolder();
         convertView = inflater.inflate(R.layout.row_wallpaper_color_item, null);
 
-        holder.ivColorItem = (ImageView) convertView.findViewById(R.id.ivColorItem);
-        holder.flBg = (FrameLayout) convertView.findViewById(R.id.flBg);
-        holder.ivLock = (ImageView) convertView.findViewById(R.id.ivLock);
-
+        holder.ivColorItem = convertView.findViewById(R.id.ivColorItem);
+        holder.flBg = convertView.findViewById(R.id.flBg);
+        holder.ivLock = convertView.findViewById(R.id.ivLock);
 
         holder.ivColorItem.setImageResource(colorWallpaperArrayList[position]);
 

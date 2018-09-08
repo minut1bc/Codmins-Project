@@ -18,8 +18,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FillWallpaperColorAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
     Context context;
-    private ViewHolder holder;
-    int[] colorWallpaperArrayList;
+    private int[] colorWallpaperArrayList;
 
     public FillWallpaperColorAdapter(Context context, int[] colorWallpaperArrayList) {
         super();
@@ -45,7 +44,7 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        holder = new ViewHolder();
+        ViewHolder holder = new ViewHolder();
 
         convertView = inflater.inflate(R.layout.row_wallpaper_color_item, null);
         holder.ivColorItem = convertView.findViewById(R.id.ivColorItem);
@@ -84,7 +83,6 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
 
         return convertView;
     }
-
 
     private static class ViewHolder {
         CircleImageView ivColorItem;
