@@ -28,9 +28,9 @@ import java.util.ArrayList;
 
 public class GlobalClass {
 
-    static SharedPreferences.Editor editor;
-    static Context context;
-    static SharedPreferences preferences;
+    private static SharedPreferences.Editor editor;
+    private static SharedPreferences preferences;
+    private static int cntads = 0;
 
 
     public static final String IS_COLOR = "isColor";
@@ -67,14 +67,12 @@ public class GlobalClass {
 
     public static int selview = 2;
 
-
     public static String REMOVE_AD = "myphotokeyboard.inapp.removead";
     public static String UNLOCK_TEXUAL_COLOR_BG = "myphotokeyboard.inapp.texualcolorbg";
     public static String UNLOCK_THEMES_SLOTES = "myphotokeyboard.inapp.theamslotes";
     public static String UNLOCK_COLORS = "myphotokeyboard.inapp.colors";
     public static String UNLOCK_FONTS = "myphotokeyboard.inapp.fonts";
     public static String UNLOCK_SOUNDS = "myphotokeyboard.inapp.sounds";
-
 
     public static String tempIsColor = null;
     public static String tempKeyRadius = null;
@@ -96,7 +94,6 @@ public class GlobalClass {
     public static int selectfontcolor = 1;
     public static String keyboardBitmapBack = null;
 
-
     public static String key_isWallPaperLock = "isWallPaperLock";
     public static String key_isFontLock = "isFontLock";
     public static String key_isColorLock = "isColorLock";
@@ -104,10 +101,8 @@ public class GlobalClass {
     public static String key_isSoundLock = "isSoundLock";
     public static String key_isThemeLock = "isThemeLock";
 
-
     public static String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqgyXolVCkrSdFsdembldwrpGHmXPSvvA7mdegRUzufvziVIS9JtVnGS20EbmFTKcPLzyfwoXPSNbwvmKHJg7RnoiqcrQ4QbtkhsHmMO7paA+akHFTPQGLHN6TW5invO33A3VBu/hxMTj9jHr9jr0tGJWj5cWITc2BkUfHcD8SFkSUca/ruQRJg3DTWMqMRqSnTeGccQJBRx+sCU8MxYlp3BwwOyvEdmeCFsnhPLHRmk3MXv/JgVr3oEQylakq3PkNvDVXbO5GHRYR8bKD2YXVZ+56FsCxT4t3sQXCQQ84zp1tKN/nFm9pDAlXqEf9T1MQFZVriBzI8XsZCraLoVrVwIDAQAB";
-
-    public static int cntads = 0;
+    private static ArrayList<NewColorData> newColorDataArrayList = new ArrayList<>();
 
     public static void checkStartAd() {
         cntads++;
@@ -160,9 +155,7 @@ public class GlobalClass {
             R.drawable.theme35,
             R.drawable.theme36,
     };
-
-    public static ArrayList<NewColorData> newColorDataArrayList = new ArrayList<>();
-
+    Context context;
 
     public GlobalClass(Context context) {
         this.context = context;
@@ -225,13 +218,11 @@ public class GlobalClass {
     }
 
     public static String getPreferencesString(Context context, String key, String defValue) {
-        String value = preferences.getString(key, defValue);
-        return value;
+        return preferences.getString(key, defValue);
     }
 
     public static int getPreferencesInt(Context context, String key, int defValue) {
-        int value = preferences.getInt(key, defValue);
-        return value;
+        return preferences.getInt(key, defValue);
     }
 
     public static void setPrefrenceBoolean(Context context, String key, boolean value) {
@@ -240,13 +231,11 @@ public class GlobalClass {
     }
 
     public static boolean getPrefrenceBoolean(Context context, String key, boolean defValue) {
-        boolean value = preferences.getBoolean(key, defValue);
-        return value;
+        return preferences.getBoolean(key, defValue);
     }
 
     public static String getPrefrenceString(Context context, String key, String defValue) {
-        String value = preferences.getString(key, defValue);
-        return value;
+        return preferences.getString(key, defValue);
     }
 
     public static void setPreferencesArrayList(Context context, ArrayList<KeyboardData> keyboardDataArrayList) {
@@ -269,10 +258,7 @@ public class GlobalClass {
     }
 
     public static boolean KeyboardIsEnabled(Context context) {
-        if (((InputMethodManager) context.getSystemService("input_method")).getEnabledInputMethodList().toString().contains(context.getPackageName())) {
-            return true;
-        }
-        return false;
+        return ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE)).getEnabledInputMethodList().toString().contains(context.getPackageName());
     }
 
     public static boolean KeyboardIsSet(Context context) {
@@ -283,13 +269,13 @@ public class GlobalClass {
         }
     }
 
-
     public static void printLog(String tag, String strMessage) {
         // Log.e("----------------- ----:" + tag, "-----" + strMessage);
     }
 
     public static boolean isInternetOn(Context context) {
         ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connec != null;
         if (connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
                 connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
                 connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
@@ -324,7 +310,6 @@ public class GlobalClass {
 
         return output;
     }
-
 
     public static int[] thumbArray = {
             R.drawable.theme_color1,
@@ -437,7 +422,6 @@ public class GlobalClass {
             R.drawable.t_36,
     };
 
-
     public static int[] lessonClips = {
             R.raw.balloon_snap,
             R.raw.bike_gear_shift,
@@ -470,7 +454,6 @@ public class GlobalClass {
             R.raw.toggle_switch,
             R.raw.typewriter_key,
     };
-
 
     public static int[] colorsHorizontal = {
             R.color.one,
@@ -514,7 +497,6 @@ public class GlobalClass {
             R.color.fourty,
             R.color.fourtyone,
     };
-
 
 }
 

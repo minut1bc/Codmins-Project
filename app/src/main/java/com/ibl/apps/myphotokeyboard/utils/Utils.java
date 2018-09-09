@@ -40,19 +40,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 
-/**
- * Created by iblinfotech on 04/05/17.
- */
-
 public class Utils {
 
-    public static ArrayList<String> BackupTemplatsArray = null;
-    public static int CurrentFontStyle = 0;
-    public static int CurrentLang = 0;
-    public static int DynamicKeyboardHeight = 0;
-    public static int DynamicKeyboardHeightLandScape = 0;
+    private static final int KEYCODE_SHIFT_OFF = -1;
+    private static final int KEYCODE_SPACE = 32;
+    private static ArrayList<String> BackupTemplatsArray;
+    private static int CurrentFontStyle;
+    private static int CurrentLang;
     public static final int EMAIL_CODE = -5242;
-    public static int HourNotification = 0;
+    private static int DynamicKeyboardHeight;
     public static final int KEYCODE_ALPHABETS = -2830;
     public static final int KEYCODE_ALPHABETS1 = -2831;
     public static final int KEYCODE_ART = -5020;
@@ -74,128 +70,128 @@ public class Utils {
     public static final int KEYCODE_NUMBERS1 = -6003;
     public static final int KEYCODE_PASTE = -2262;
     public static final int KEYCODE_SELECTALLTEXT = -2250;
-    public static final int KEYCODE_SHIFT_OFF = -1;
-    public static final int KEYCODE_SPACE = 32;
+    private static int DynamicKeyboardHeightLandScape;
+    private static int HourNotification;
     public static final int KEYCODE_SYMBOLS = -1762;
     public static final int KEYCODE_SYMBOLS1 = -1763;
     public static final int KEYCODE_SYMBOLS2 = -1764;
     public static final int KEYCODE_SYMBOLS21 = -1765;
     public static final int KEYCODE_TAB = -2263;
     public static final int KEYCODE_TMP = 978907;
-    public static int MinuteNotification = 0;
+    private static int MinuteNotification = 0;
     public static final int NEXT_GO1 = -97890;
     public static final int NEXT_GO2 = -9789001;
     public static final int NEXT_GO3 = -972550;
-    public static int NOTIFICATION_ID = 0;
-    public static int Noti_ID = 0;
+    private static int NOTIFICATION_ID = 0;
+    private static int Noti_ID = 0;
     public static final int PREVIOUS_GO0 = -978901;
     public static final int PREVIOUS_GO1 = -978902;
     public static final int PREVIOUS_GO2 = -9789020;
     public static final int SHIFT_CODE = -978903;
     public static final int START = -99255;
     public static final int STOP = -97255;
-    public static int SecondNotification;
-    public static int SelectedFancyFont;
-    public static ArrayList<String> SuggestionData;
-    public static boolean SuggestionView;
-    public static ArrayList<String> SuggestionWords;
-    public static String SwipeWords;
-    public static String THEME_PREFS;
-    public static ArrayList<String> TemplatsArray;
-    public static ArrayList<Integer> addViewPosition;
-    public static long afterthisdayShowNotificationForPotrait;
-    public static String appDataPath;
-    public static String[] arrayStr;
-    public static String backupPath;
-    public static ArrayList<String> backupWord;
-    public static int checkheight;
-    public static View commonView;
-    public static int defaultBgColor;
-    public static boolean deleteFlg;
-    public static boolean dictionaryisLoad;
+    private static int SecondNotification;
+    private static int SelectedFancyFont;
+    private static ArrayList<String> SuggestionData;
+    private static boolean SuggestionView;
+    private static ArrayList<String> SuggestionWords;
+    private static String SwipeWords;
+    private static String THEME_PREFS;
+    private static ArrayList<String> TemplatsArray;
+    private static ArrayList<Integer> addViewPosition;
+    private static long afterthisdayShowNotificationForPotrait;
+    private static String appDataPath;
+    private static String[] arrayStr;
+    private static String backupPath;
+    private static ArrayList<String> backupWord;
+    private static int checkheight;
+    private static View commonView;
+    private static int defaultBgColor;
+    private static boolean deleteFlg;
+    private static boolean dictionaryisLoad;
     public static boolean editorisOpen;
-    public static boolean emojisupport;
-    public static String fb_link;
-    public static int fisrtCharCode;
-    public static boolean fiveminNofication;
-    public static int flg_lang_change;
-    public static int folderNo;
-    public static ArrayList<String> fontFromAsset;
-    public static String[] fontFromAsset1;
-    public static int f59h;
-    public static int hintColorCode;
-    public static long iferaseNoficationThenCallMilliSecond;
-    public static boolean isApplyFancy;
-    public static boolean isAutoSpellEnable;
-    public static boolean isCapsOn;
-    public static boolean isColorCodeChange;
-    public static boolean isComeFromBootingActivity;
-    public static boolean isContactOpen;
-    public static boolean isContactReadPermission;
+    private static boolean emojisupport;
+    private static String fb_link;
+    private static int fisrtCharCode;
+    private static boolean fiveminNofication;
+    private static int flg_lang_change;
+    private static int folderNo;
+    private static ArrayList<String> fontFromAsset;
+    private static String[] fontFromAsset1;
+    private static int f59h;
+    private static int hintColorCode;
+    private static long iferaseNoficationThenCallMilliSecond;
+    private static boolean isApplyFancy;
+    private static boolean isAutoSpellEnable;
+    private static boolean isCapsOn;
+    private static boolean isColorCodeChange;
+    private static boolean isComeFromBootingActivity;
+    private static boolean isContactOpen;
+    private static boolean isContactReadPermission;
     public static boolean isFromBoot;
-    public static boolean isLandScapePhotoSet;
-    public static boolean isMoving;
-    public static boolean isPhotoSet;
-    public static boolean isPreviewEnabled;
-    public static boolean isSearchOpen;
-    public static boolean isSoundOn;
-    public static boolean isStatic;
-    public static boolean isSwipe;
-    public static boolean isUpHoneycomb;
-    public static boolean isVibrateOn;
-    public static boolean islandscapebgcolorchange;
-    public static boolean ispotraitbgcolorchange;
-    public static int keypadtextSize;
-    public static ArrayList<String> langueges;
-    public static int lastCharCode;
-    public static String lastPackName;
-    public static float mFxVolume;
+    private static boolean isLandScapePhotoSet;
+    private static boolean isMoving;
+    private static boolean isPhotoSet;
+    private static boolean isPreviewEnabled;
+    private static boolean isSearchOpen;
+    private static boolean isSoundOn;
+    private static boolean isStatic;
+    private static boolean isSwipe;
+    private static boolean isUpHoneycomb;
+    private static boolean isVibrateOn;
+    private static boolean islandscapebgcolorchange;
+    private static boolean ispotraitbgcolorchange;
+    private static int keypadtextSize;
+    private static ArrayList<String> langueges;
+    private static int lastCharCode;
+    private static String lastPackName;
+    private static float mFxVolume;
     //    public static KeypadAdapter mainAdapter;
-    public static ArrayList<String> msgAppPackageName;
-    static String[] msgapp;
-    public static long onDayMilisecond;
-    public static String onlineSelectedThemePackageName;
-    public static boolean onlineThemeSelected;
-    public static boolean online_flg;
-    public static boolean packageisLoad;
-    static String[] packages;
+    private static ArrayList<String> msgAppPackageName;
+    private static String[] msgapp;
+    private static long onDayMilisecond;
+    private static String onlineSelectedThemePackageName;
+    private static boolean onlineThemeSelected;
+    private static boolean online_flg;
+    private static boolean packageisLoad;
+    private static String[] packages;
     public static PopupWindow popup;
-    protected static boolean popupAnim;
+    private static boolean popupAnim;
     public static PopupWindow popupnew;
-    public static int previewX;
-    public static int previewY;
-    public static int progress;
-    public static int progressDefault;
-    public static int progressDefaultLand;
-    public static ArrayList<String> resulttemp;
-    public static String rootPath;
-    public static String selectLangName;
-    public static String selectedCateGory;
-    public static int selectedLang;
-    public static int selectedOnlineThemeNo;
-    public static int selectedThemeNo;
-    public static int setDefaultProgress;
-    public static int setDefaultProgressLandScape;
-    public static long sevendayMillisecond;
-    public static ArrayList<String> socialPackages;
-    public static String storePath;
-    public static int suggestiontextsize;
-    public static int swipeColorCode;
-    protected static boolean swipeEnable;
-    public static int[] swipe_colorCodes;
-    public static String tempTemplateItem;
-    public static boolean templateActivityisOpen;
-    public static int textColorCode;
-    public static Timer timer;
+    private static int previewX;
+    private static int previewY;
+    private static int progress;
+    private static int progressDefault;
+    private static int progressDefaultLand;
+    private static ArrayList<String> resulttemp;
+    private static String rootPath;
+    private static String selectLangName;
+    private static String selectedCateGory;
+    private static int selectedLang;
+    private static int selectedOnlineThemeNo;
+    private static int selectedThemeNo;
+    private static int setDefaultProgress;
+    private static int setDefaultProgressLandScape;
+    private static long sevendayMillisecond;
+    private static ArrayList<String> socialPackages;
+    private static String storePath;
+    private static int suggestiontextsize;
+    private static int swipeColorCode;
+    private static boolean swipeEnable;
+    private static int[] swipe_colorCodes;
+    private static String tempTemplateItem;
+    private static boolean templateActivityisOpen;
+    private static int textColorCode;
+    private static Timer timer;
     public static boolean tmpDelFlag;
-    public static int tmp_flg;
+    private static int tmp_flg;
     public static boolean tmpdeletefalg;
-    public static int totalOnlineThemes;
-    public static int transparentKey;
-    public static int transparentTopbg;
-    public static TextView tt;
-    public static int f60w;
-    public static boolean wordExist;
+    private static int totalOnlineThemes;
+    private static int transparentKey;
+    private static int transparentTopbg;
+    private static int f60w;
+    private static boolean wordExist;
+    public TextView tt;
 
     static {
         fb_link = "https://www.facebook.com/pages/My-Photo-Keyboard/897404793664732?skip_nax_wizard=true&ref_type=logout_gear";
@@ -308,6 +304,7 @@ public class Utils {
 
     public static String getPathFromUriLolipop(Context c, Uri selectedImage) {
         Cursor cursor = c.getContentResolver().query(selectedImage, new String[]{"_data"}, null, null, null);
+        assert cursor != null;
         int columnindex = cursor.getColumnIndexOrThrow("_data");
         cursor.moveToFirst();
         String file_path = cursor.getString(columnindex);
@@ -315,7 +312,7 @@ public class Utils {
         return file_path;
     }
 
-    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         int height = options.outHeight;
         int width = options.outWidth;
         int inSampleSize = 1;
@@ -338,8 +335,8 @@ public class Utils {
                 SuggestionData = new ArrayList();
                 if (result != null) {
                     for (i = 0; i < result.size(); i++) {
-                        if (((String) result.get(i)).toLowerCase().startsWith(word.toLowerCase())) {
-                            SuggestionData.add((String) result.get(i));
+                        if (result.get(i).toLowerCase().startsWith(word.toLowerCase())) {
+                            SuggestionData.add(result.get(i));
                         }
                         if (!wordExist) {
                             break;
@@ -348,8 +345,8 @@ public class Utils {
                 }
                 if (SuggestionData.size() <= 0) {
                     for (i = 0; i < SuggestionWords.size(); i++) {
-                        if (((String) SuggestionWords.get(i)).toLowerCase().startsWith(word.toLowerCase())) {
-                            SuggestionData.add((String) SuggestionWords.get(i));
+                        if (SuggestionWords.get(i).toLowerCase().startsWith(word.toLowerCase())) {
+                            SuggestionData.add(SuggestionWords.get(i));
                         }
                         if (!wordExist) {
                             break;
@@ -360,19 +357,15 @@ public class Utils {
                 SuggestionData = null;
                 SuggestionData = new ArrayList();
                 for (i = 0; i < SuggestionWords.size(); i++) {
-                    if (((String) SuggestionWords.get(i)).toLowerCase().startsWith(word.toLowerCase())) {
-                        SuggestionData.add((String) SuggestionWords.get(i));
+                    if (SuggestionWords.get(i).toLowerCase().startsWith(word.toLowerCase())) {
+                        SuggestionData.add(SuggestionWords.get(i));
                     }
                     if (!wordExist) {
                         break;
                     }
                 }
             }
-            if (SuggestionData.size() <= 0) {
-                wordExist = false;
-            } else {
-                wordExist = true;
-            }
+            wordExist = SuggestionData.size() > 0;
             return SuggestionData;
         } catch (Exception e) {
             Log.d("main", "Exxxxxxxxxxxxxxxxxx11111111");
@@ -385,8 +378,8 @@ public class Utils {
         if (!(targetClass == null || TextUtils.isEmpty(name))) {
             try {
                 method = targetClass.getMethod(name, parameterTypes);
-            } catch (SecurityException e) {
-            } catch (NoSuchMethodException e2) {
+            } catch (SecurityException ignored) {
+            } catch (NoSuchMethodException ignored) {
             }
         }
         return method;
@@ -408,7 +401,7 @@ public class Utils {
         DisplayMetrics dm = c.getResources().getDisplayMetrics();
         f60w = dm.widthPixels;
         f59h = dm.heightPixels;
-        File file = new File(new StringBuilder(String.valueOf(c.getFilesDir().getAbsolutePath())).append("/keyboard_image.png").toString());
+        File file = new File(String.valueOf(c.getFilesDir().getAbsolutePath()) + "/keyboard_image.png");
         try {
             BitmapFactory.Options opts = new BitmapFactory.Options();
             opts.inJustDecodeBounds = true;
@@ -416,7 +409,7 @@ public class Utils {
             opts.inSampleSize = calculateInSampleSize(opts, f60w, (int) c.getResources().getDimension(R.dimen.keyboard_height));
             opts.inJustDecodeBounds = false;
             Bitmap.createScaledBitmap(BitmapFactory.decodeStream(c.getAssets().open("background/" + c.getAssets().list("background")[val]), new Rect(0, 0, 0, 0), opts), f60w, (int) c.getResources().getDimension(R.dimen.keyboard_height), false).compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(file));
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -424,10 +417,10 @@ public class Utils {
         return (int) TypedValue.applyDimension(1, (float) dp, c.getResources().getDisplayMetrics());
     }
 
-    public static void ADDTempWordAsType() {
-        for (int i = 0; i < arrayStr.length; i++) {
-            if (!TemplatsArray.contains(arrayStr[i])) {
-                TemplatsArray.add(arrayStr[i]);
+    private static void ADDTempWordAsType() {
+        for (String anArrayStr : arrayStr) {
+            if (!TemplatsArray.contains(anArrayStr)) {
+                TemplatsArray.add(anArrayStr);
             }
         }
     }
@@ -447,8 +440,8 @@ public class Utils {
     public static ArrayList<String> getListTemplats(String wordTemp) {
         ArrayList<String> result = new ArrayList();
         for (int i = 0; i < TemplatsArray.size(); i++) {
-            if (((String) TemplatsArray.get(i)).toLowerCase().startsWith(wordTemp.toLowerCase())) {
-                result.add((String) TemplatsArray.get(i));
+            if (TemplatsArray.get(i).toLowerCase().startsWith(wordTemp.toLowerCase())) {
+                result.add(TemplatsArray.get(i));
             }
         }
         return result;
@@ -461,14 +454,14 @@ public class Utils {
             try {
                 if (word.length() < 1 || last.length() < 1) {
                     if (word.length() < 1 || last.length() > 0) {
-                        if (((String) SuggestionWords.get(i)).toLowerCase().endsWith(last.toLowerCase())) {
-                            result.add((String) SuggestionWords.get(i));
+                        if (SuggestionWords.get(i).toLowerCase().endsWith(last.toLowerCase())) {
+                            result.add(SuggestionWords.get(i));
                         }
-                    } else if (((String) SuggestionWords.get(i)).toLowerCase().startsWith(word.toLowerCase())) {
-                        result.add((String) SuggestionWords.get(i));
+                    } else if (SuggestionWords.get(i).toLowerCase().startsWith(word.toLowerCase())) {
+                        result.add(SuggestionWords.get(i));
                     }
-                } else if (((String) SuggestionWords.get(i)).toLowerCase().startsWith(word.toLowerCase()) && ((String) SuggestionWords.get(i)).toLowerCase().endsWith(last.toLowerCase())) {
-                    result.add((String) SuggestionWords.get(i));
+                } else if (SuggestionWords.get(i).toLowerCase().startsWith(word.toLowerCase()) && SuggestionWords.get(i).toLowerCase().endsWith(last.toLowerCase())) {
+                    result.add(SuggestionWords.get(i));
                 }
                 i++;
             } catch (Exception e) {
@@ -480,9 +473,7 @@ public class Utils {
 
     @TargetApi(11)
     public static void setStaticVariables(Context c) {
-        if (Build.VERSION.SDK_INT >= 11) {
-            isUpHoneycomb = true;
-        }
+        isUpHoneycomb = true;
         DisplayMetrics dm = c.getResources().getDisplayMetrics();
         f60w = dm.widthPixels;
         f59h = dm.heightPixels;
@@ -501,7 +492,7 @@ public class Utils {
         SelectedFancyFont = prefs.getInt("SelectedFancyFont", 0);
         isContactReadPermission = prefs.getBoolean("isContactReadPermission", false);
         keypadtextSize = prefs.getInt("keypadtextSize", 0);
-        storePath = prefs.getString("storePath", new StringBuilder(String.valueOf(c.getFilesDir().getAbsolutePath().toString())).append("/gifdata").toString());
+        storePath = prefs.getString("storePath", String.valueOf(c.getFilesDir().getAbsolutePath()) + "/gifdata");
         backupPath = storePath + "/Dictionary/";
         File backup = new File(backupPath);
         if (!backup.exists()) {
@@ -694,12 +685,12 @@ public class Utils {
             return false;
         }
         if (packageName != null) {
-            key = new StringBuilder(String.valueOf(packageName)).append(".").append(key).toString();
+            key = String.valueOf(packageName) + "." + key;
         }
         return containsInCsv(key, editorInfo.privateImeOptions);
     }
 
-    public static boolean containsInCsv(String key, String csv) {
+    private static boolean containsInCsv(String key, String csv) {
         if (csv == null) {
             return false;
         }
@@ -777,17 +768,11 @@ public class Utils {
 //    }
 
     public static boolean isEnglishCharacter() {
-        if (CurrentLang == 0 || CurrentLang == 1 || CurrentLang == 2 || CurrentLang == 4 || CurrentLang == 5 || CurrentLang == 6 || CurrentLang == 7 || CurrentLang == 8 || CurrentLang == 9 || CurrentLang == 10 || CurrentLang == 11 || CurrentLang == 12 || CurrentLang == 14 || CurrentLang == 15 || CurrentLang == 18 || CurrentLang == 19 || CurrentLang == 20 || CurrentLang == 24 || CurrentLang == 25 || CurrentLang == 26 || CurrentLang == 28 || CurrentLang == 29 || CurrentLang == 30 || CurrentLang == 31 || CurrentLang == KEYCODE_SPACE || CurrentLang == 33 || CurrentLang == 34 || CurrentLang == 35 || CurrentLang == 36 || CurrentLang == 38 || CurrentLang == 39 || CurrentLang == 40 || CurrentLang == 42 || CurrentLang == 47 || CurrentLang == 48) {
-            return true;
-        }
-        return false;
+        return CurrentLang == 0 || CurrentLang == 1 || CurrentLang == 2 || CurrentLang == 4 || CurrentLang == 5 || CurrentLang == 6 || CurrentLang == 7 || CurrentLang == 8 || CurrentLang == 9 || CurrentLang == 10 || CurrentLang == 11 || CurrentLang == 12 || CurrentLang == 14 || CurrentLang == 15 || CurrentLang == 18 || CurrentLang == 19 || CurrentLang == 20 || CurrentLang == 24 || CurrentLang == 25 || CurrentLang == 26 || CurrentLang == 28 || CurrentLang == 29 || CurrentLang == 30 || CurrentLang == 31 || CurrentLang == KEYCODE_SPACE || CurrentLang == 33 || CurrentLang == 34 || CurrentLang == 35 || CurrentLang == 36 || CurrentLang == 38 || CurrentLang == 39 || CurrentLang == 40 || CurrentLang == 42 || CurrentLang == 47 || CurrentLang == 48;
     }
 
     public static boolean isEnglish() {
-        if (CurrentLang == 0 || CurrentLang == 1 || CurrentLang == 2 || CurrentLang == 5 || CurrentLang == 6 || CurrentLang == 7 || CurrentLang == 9 || CurrentLang == 10 || CurrentLang == 11 || CurrentLang == 18 || CurrentLang == 19 || CurrentLang == 20 || CurrentLang == 24 || CurrentLang == 25 || CurrentLang == 28 || CurrentLang == 29 || CurrentLang == 33 || CurrentLang == 30 || CurrentLang == 34 || CurrentLang == 36 || CurrentLang == 42) {
-            return true;
-        }
-        return false;
+        return CurrentLang == 0 || CurrentLang == 1 || CurrentLang == 2 || CurrentLang == 5 || CurrentLang == 6 || CurrentLang == 7 || CurrentLang == 9 || CurrentLang == 10 || CurrentLang == 11 || CurrentLang == 18 || CurrentLang == 19 || CurrentLang == 20 || CurrentLang == 24 || CurrentLang == 25 || CurrentLang == 28 || CurrentLang == 29 || CurrentLang == 33 || CurrentLang == 30 || CurrentLang == 34 || CurrentLang == 36 || CurrentLang == 42;
     }
 
     public static String getCurrentProcess(Context context) {
@@ -801,33 +786,35 @@ public class Utils {
         }
     }
 
-    public static String getProcessMoreThanLol(Context context) {
+    private static String getProcessMoreThanLol(Context context) {
         ActivityManager.RunningAppProcessInfo currentInfo = null;
         Field field = null;
         try {
             field = ActivityManager.RunningAppProcessInfo.class.getDeclaredField("processState");
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
-        for (ActivityManager.RunningAppProcessInfo app : ((ActivityManager) context.getSystemService("activity")).getRunningAppProcesses()) {
+        for (ActivityManager.RunningAppProcessInfo app : ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE)).getRunningAppProcesses()) {
             if (app.importance == 100 && app.importanceReasonCode == 0) {
                 Integer state = null;
                 try {
-                    state = Integer.valueOf(field.getInt(app));
-                } catch (Exception e2) {
+                    assert field != null;
+                    state = field.getInt(app);
+                } catch (Exception ignored) {
                 }
-                if (state != null && state.intValue() == 2) {
+                if (state != null && state == 2) {
                     currentInfo = app;
                     break;
                 }
             }
         }
+        assert currentInfo != null;
         return currentInfo.processName;
     }
 
-    public static String getProcessOld(Context context) throws Exception {
-        List<ActivityManager.RunningTaskInfo> runningTask = ((ActivityManager) context.getSystemService("activity")).getRunningTasks(1);
+    private static String getProcessOld(Context context) {
+        List<ActivityManager.RunningTaskInfo> runningTask = ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE)).getRunningTasks(1);
         if (runningTask != null) {
-            return ((ActivityManager.RunningTaskInfo) runningTask.get(0)).topActivity.getPackageName();
+            return runningTask.get(0).topActivity.getPackageName();
         }
         return null;
     }

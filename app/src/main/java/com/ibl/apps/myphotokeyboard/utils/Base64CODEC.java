@@ -17,10 +17,6 @@ import java.net.URLConnection;
 import java.nio.channels.FileChannel;
 
 public class Base64CODEC {
-    private int IO_BUFFER_SIZE = 64;
-    //private int IO_BUFFER_SIZE = 8192;
-    private URL urlObject = null;
-    private URLConnection myConn = null;
     ByteArrayOutputStream os = null;
 
     public void Base64CODEC() {
@@ -31,10 +27,11 @@ public class Base64CODEC {
         InputStream in = null;
         BufferedOutputStream out = null;
         try {
-            urlObject = new URL(url);
-            myConn = urlObject.openConnection();
+            URL urlObject = new URL(url);
+            URLConnection myConn = urlObject.openConnection();
             in = myConn.getInputStream();
             final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
+            int IO_BUFFER_SIZE = 64;
             out = new BufferedOutputStream(dataStream, IO_BUFFER_SIZE);
             copyCompletely(in, out);
             final byte[] data = dataStream.toByteArray();
@@ -100,8 +97,7 @@ public class Base64CODEC {
 
     public Bitmap convertToBitmap(String base64String) {
         byte[] decodedString = Base64.decode(base64String, Base64.DEFAULT);
-        Bitmap bitmapResult = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        return bitmapResult;
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
 
     public String convertToBase64(int i) {

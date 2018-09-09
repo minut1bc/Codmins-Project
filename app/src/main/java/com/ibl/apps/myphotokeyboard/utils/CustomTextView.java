@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
-
 public class CustomTextView extends AppCompatTextView {
     public CustomTextView(Context context) {
         super(context);
@@ -24,7 +23,7 @@ public class CustomTextView extends AppCompatTextView {
 
     private void setFont() {
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/GOTHIC.TTF");
-//        setTypeface(font, Typeface.NORMAL);
+//      setTypeface(font, Typeface.NORMAL);
         setTypeface(font);
     }
 

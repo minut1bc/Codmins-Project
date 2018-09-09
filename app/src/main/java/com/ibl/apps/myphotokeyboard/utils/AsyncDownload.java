@@ -191,6 +191,7 @@ public class AsyncDownload extends AsyncTask<String, String, String> {
 //            }
         }
 
+        assert files != null;
         GlobalClass.printLog("files", "==size====" + files.length);
     }
 

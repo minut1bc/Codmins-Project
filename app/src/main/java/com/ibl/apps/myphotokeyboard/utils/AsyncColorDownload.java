@@ -1,5 +1,6 @@
 package com.ibl.apps.myphotokeyboard.utils;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -18,18 +19,16 @@ import java.util.ArrayList;
 
 public class AsyncColorDownload extends AsyncTask<String, String, String> {
     private Color color;
-    private Context context;
+    @SuppressLint("StaticFieldLeak")
+    Context context;
     private FileInputStream fileInputStream;
     private BufferedInputStream bif;
     private InputStream inputStream;
     private Base64CODEC base64CODEC = new Base64CODEC();
     private ArrayList<String> imageBase64List = new ArrayList<>();
-    private String[] selectionArgs;
-    private Cursor subCatDataCursor;
     private String saveFileThumb;
     private InputStream inputStreamThumb;
     private Bitmap imageBitmapThumb;
-
 
     private String saveFile;
     private Bitmap imageBitmap;
@@ -42,7 +41,6 @@ public class AsyncColorDownload extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPreExecute() {
-
     }
 
     @Override
@@ -131,20 +129,19 @@ public class AsyncColorDownload extends AsyncTask<String, String, String> {
         return null;
     }
 
-
     @Override
     protected void onPostExecute(String result) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
 //        GlobalClass.printLog("---onPostExecute", "--------onPostExecute=====" + color.getThumbImageBase64());
 
         final String selection = DatabaseHelper.KEY_COLOR_WALLPAPER_ID + " LIKE ?";
-        selectionArgs = new String[]{String.valueOf(color.getId())};
+        String[] selectionArgs = new String[]{String.valueOf(color.getId())};
 
         ContentValues values = new ContentValues();
 //        values.put(DatabaseHelper.KEY_COLOR_WALLPAPER_IMAGE_BITMAP, color.getImageBase64());
         values.put(DatabaseHelper.KEY_COLOR_WALLPAPER_THUMB_BITMAP, color.getThumbImageBase64());
 
-        subCatDataCursor = dbHelper.getTableDataById(DatabaseHelper.TABLE_COLOR_WALLPAPER, DatabaseHelper.KEY_COLOR_WALLPAPER_ID
+        Cursor subCatDataCursor = dbHelper.getTableDataById(DatabaseHelper.TABLE_COLOR_WALLPAPER, DatabaseHelper.KEY_COLOR_WALLPAPER_ID
                 , color.getId() + "");
 
         if (subCatDataCursor != null && subCatDataCursor.getCount() > 0) {

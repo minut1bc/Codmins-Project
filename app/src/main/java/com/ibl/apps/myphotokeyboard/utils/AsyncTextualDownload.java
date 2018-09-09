@@ -24,8 +24,6 @@ public class AsyncTextualDownload extends AsyncTask<String, String, String> {
     private InputStream inputStream;
     private Base64CODEC base64CODEC = new Base64CODEC();
     private ArrayList<String> imageBase64List = new ArrayList<>();
-    private String[] selectionArgs;
-    private Cursor subCatDataCursor;
     private String saveFileThumb;
     private InputStream inputStreamThumb;
     private Bitmap imageBitmapThumb;
@@ -138,13 +136,13 @@ public class AsyncTextualDownload extends AsyncTask<String, String, String> {
 //        GlobalClass.printLog("---onPostExecute", "--------onPostExecute=====" + textual.getThumbImageBase64());
 
         final String selection = DatabaseHelper.KEY_TEXTUAL_WALLPAPER_ID + " LIKE ?";
-        selectionArgs = new String[]{String.valueOf(textual.getId())};
+        String[] selectionArgs = new String[]{String.valueOf(textual.getId())};
 
         ContentValues values = new ContentValues();
 //        values.put(DatabaseHelper.KEY_TEXTUAL_WALLPAPER_IMAGE_BITMAP, textual.getImageBase64());
         values.put(DatabaseHelper.KEY_TEXTUAL_WALLPAPER_THUMB_BITMAP, textual.getThumbImageBase64());
 
-        subCatDataCursor = dbHelper.getTableDataById(DatabaseHelper.TABLE_TEXTUAL_WALLPAPER, DatabaseHelper.KEY_TEXTUAL_WALLPAPER_ID
+        Cursor subCatDataCursor = dbHelper.getTableDataById(DatabaseHelper.TABLE_TEXTUAL_WALLPAPER, DatabaseHelper.KEY_TEXTUAL_WALLPAPER_ID
                 , textual.getId() + "");
 
         if (subCatDataCursor != null && subCatDataCursor.getCount() > 0) {

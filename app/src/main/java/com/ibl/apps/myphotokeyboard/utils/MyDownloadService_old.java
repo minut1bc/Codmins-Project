@@ -5,16 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.ibl.apps.myphotokeyboard.api.APIClient;
-import com.ibl.apps.myphotokeyboard.api.ApiInterface;
-import com.ibl.apps.myphotokeyboard.model.ResponseData;
-import com.ibl.apps.myphotokeyboard.model.ResponseObject;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-
 public class MyDownloadService_old extends Service {
     private Context context;
     private AsyncDownload asyncDownload;

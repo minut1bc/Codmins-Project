@@ -26,7 +26,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class AsyncDownloadTone extends AsyncTask<String, String, String> {
-    private final GlobalClass globalClass;
     private Free soundEffect;
     private Context context;
     private FileInputStream fileInputStream;
@@ -45,7 +44,6 @@ public class AsyncDownloadTone extends AsyncTask<String, String, String> {
     private String saveFile;
     private Bitmap imageBitmap;
     private String imageName;
-    private String filepath;
 
     public AsyncDownloadTone(Context context, Free soundEffect) {
         GlobalClass.printLog("AAA", "-----------" + "call the AsyncDownload()");
@@ -54,7 +52,7 @@ public class AsyncDownloadTone extends AsyncTask<String, String, String> {
 
         this.context = context;
         this.soundEffect = soundEffect;
-        globalClass = new GlobalClass(context);
+        GlobalClass globalClass = new GlobalClass(context);
     }
 
 //    public void setTaskCompletedCallback(TaskCompletedCallback taskCompletedCallback) {
@@ -69,6 +67,7 @@ public class AsyncDownloadTone extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... URL) {
         GlobalClass.printLog("start service", "----AsyncDownload---doInBackground-------");
+        String filepath;
         try {
             URL url = new URL(soundEffect.getSound_url());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -161,33 +160,32 @@ public class AsyncDownloadTone extends AsyncTask<String, String, String> {
     private void beep(int volume) {
 
         AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        MediaPlayer player = new MediaPlayer();
+        MediaPlayer player;
 
-
-            try {
+        try {
 //            File SDCardRoot = Environment.getExternalStorageDirectory().getAbsoluteFile();
 //            File newFile = new File(SDCardRoot.getAbsolutePath() + "/" + context.getString(R.string.app_name) + "/");
-                //final MediaPlayer mp = MediaPlayer.create(CreateKeyboardActivity.this, GlobalClass.tempSoundName);
-                //    String filename = GlobalClass.tempSoundName + ".mp3";
+            //final MediaPlayer mp = MediaPlayer.create(CreateKeyboardActivity.this, GlobalClass.tempSoundName);
+            //    String filename = GlobalClass.tempSoundName + ".mp3";
 
-                //  File file = new File(filename);
+            //  File file = new File(filename);
 
-                //if (file.exists()) {
+            //if (file.exists()) {
 //            if (GlobalClass.tempSoundName!=0) {
-                player = MediaPlayer.create(context, GlobalClass.tempSoundName);
-                manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
-                player.start();
+            player = MediaPlayer.create(context, GlobalClass.tempSoundName);
+            assert manager != null;
+            manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+            player.start();
 
 
-                player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        mp.release();
-                    }
-                });
-        } catch (Exception e) {
-
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mp.release();
+                }
+            });
+        } catch (Exception ignored) {
         }
 
     }
@@ -232,6 +230,7 @@ public class AsyncDownloadTone extends AsyncTask<String, String, String> {
 //            }
         }
 
+        assert files != null;
         GlobalClass.printLog("files", "==size====" + files.length);
     }
 

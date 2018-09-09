@@ -41,7 +41,6 @@ public class AsyncDownload_ extends AsyncTask<String, String, String> {
     //    TaskCompletedCallback taskCompletedCallback;
     private String saveFile;
     private Bitmap imageBitmap;
-    private String imageName;
 
     public AsyncDownload_(Context context, FontsPaid fontsPaid) {
         GlobalClass.printLog("AAA", "-----------" + "call the AsyncDownload()");
@@ -95,10 +94,10 @@ public class AsyncDownload_ extends AsyncTask<String, String, String> {
             Random randomNumber = new Random(System.currentTimeMillis());
             int randomNoOfImage = (1 + randomNumber.nextInt(2)) * 99999 + randomNumber.nextInt(99999);
 
-            imageName = fontsPaid.getTitle() + ".ttf";
+            String imageName = fontsPaid.getTitle() + ".ttf";
 
 
-            GlobalClass.printLog("Finalpath","------------"+filepath.getAbsolutePath() + "/" + context.getString(R.string.app_name) + "/"+imageName);
+            GlobalClass.printLog("Finalpath", "------------" + filepath.getAbsolutePath() + "/" + context.getString(R.string.app_name) + "/" + imageName);
 
             // Create a name for the saved image
             File imageFile = new File(photoDir, imageName);
@@ -109,7 +108,7 @@ public class AsyncDownload_ extends AsyncTask<String, String, String> {
                 // Compress into png format image from 0% - 100%
 //                SelectedImageActivity.bitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
 
-                int read = 0;
+                int read;
                 byte[] bytes = new byte[1024];
 
                 while ((read = input.read(bytes)) != -1) {
@@ -202,6 +201,7 @@ public class AsyncDownload_ extends AsyncTask<String, String, String> {
 //            }
         }
 
+        assert files != null;
         GlobalClass.printLog("files", "==size====" + files.length);
     }
 

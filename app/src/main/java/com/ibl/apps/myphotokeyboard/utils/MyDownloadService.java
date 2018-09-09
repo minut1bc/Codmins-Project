@@ -21,14 +21,11 @@ import com.ibl.apps.myphotokeyboard.model.Wallpaper;
 
 import java.util.ArrayList;
 
-
 public class MyDownloadService extends Service {
     private Context context;
     private AsyncDownload asyncDownload;
     private Cursor cursor;
     private DatabaseHelper dbHelper;
-    private ArrayList<DefaultColorFree> defaultColorFrees;
-    private ArrayList<FontsPaid> fontsArray;
     private ArrayList<FontsPaid> soundArray;
 
     public MyDownloadService() {
@@ -88,7 +85,7 @@ public class MyDownloadService extends Service {
     }
 
     private void MergeSoundArray(Sound sound) {
-        ArrayList<Free> soundArrayList = new ArrayList<Free>();
+        ArrayList<Free> soundArrayList = new ArrayList<>();
         if (sound.getFree().size() != 0 ||
                 sound.getPaid().size() != 0) {
 
@@ -125,13 +122,12 @@ public class MyDownloadService extends Service {
         }
         insertSoundArray(soundArrayList);
 
-
 //            setSoundEffectGridView(soundArrayList);
 
     }
 
     private void MergeFontArray(Fonts fonts) {
-        fontsArray = new ArrayList<>();
+        ArrayList<FontsPaid> fontsArray = new ArrayList<>();
 
         if (fonts.getFree().size() != 0 || fonts.getPaid().size() != 0) {
 
@@ -149,13 +145,12 @@ public class MyDownloadService extends Service {
                 }
             }
 
-
             insertFontArray(fontsArray);
         }
     }
 
     private void MergeDefaultColorArray(DefaultColor defaultColor) {
-        defaultColorFrees = new ArrayList<>();
+        ArrayList<DefaultColorFree> defaultColorFrees = new ArrayList<>();
 
         if (defaultColor.getFree().size() != 0 || defaultColor.getPaid().size() != 0) {
             if (defaultColor.getFree().size() != 0) {
@@ -176,7 +171,7 @@ public class MyDownloadService extends Service {
 
     private void MergeWallPaperColorArray(Wallpaper wallpaper) {
 
-        ArrayList<Color> colorWallpaperArrayList = new ArrayList<Color>();
+        ArrayList<Color> colorWallpaperArrayList = new ArrayList<>();
         if (wallpaper.getFree().getColor().size() != 0 ||
                 wallpaper.getPaid().getColor().size() != 0) {
 
@@ -211,7 +206,7 @@ public class MyDownloadService extends Service {
     }
 
     private void MergeWallPaperTextualArray(Wallpaper wallpaper) {
-        ArrayList<Textual> textualWallpaperArrayList = new ArrayList<Textual>();
+        ArrayList<Textual> textualWallpaperArrayList = new ArrayList<>();
         if (wallpaper.getFree().getTextual().size() != 0 ||
                 wallpaper.getPaid().getTextual().size() != 0) {
 
