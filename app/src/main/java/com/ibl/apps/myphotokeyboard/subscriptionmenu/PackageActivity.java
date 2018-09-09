@@ -41,14 +41,59 @@ import permission.auron.com.marshmallowpermissionhelper.ActivityManagePermission
 
 public class PackageActivity extends ActivityManagePermission implements View.OnClickListener {
 
-    private ImageView ivBack;
     private CustomTextViewBold txtRestore;
     private CustomTextView remove_adds, background, theme_slot, colors, fonts, sounds;
     private AdView mAdView;
     IabHelper mHelper;
     String currentPlan;
     String payload = "";
-    static PackageActivity packageActivity;
+    public IabHelper.OnIabPurchaseFinishedListener purchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
+        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
+            GlobalClass.printLog(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
+
+            // if we were disposed of in the meantime, quit.
+            if (mHelper == null) return;
+
+            if (result.isFailure()) {
+                complain("Error purchasing: " + result);
+                return;
+            }
+
+            if (!verifyDeveloperPayload(purchase)) {
+                complain("Error purchasing. Authenticity verification failed.");
+                return;
+            }
+
+            GlobalClass.printLog(TAG, currentPlan + "Purchase successful.");
+
+            //updateUserPlan();
+            //updateUi();
+
+            mHelper.consumeAsync(purchase, consumeFinishedListener);
+
+            switch (purchase.getSku()) {
+                case "myphotokeyboard.inapp.removead":
+                    GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isAdLock, false);
+                    break;
+                case "myphotokeyboard.inapp.texualcolorbg":
+                    GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isWallPaperLock, false);
+                    break;
+                case "myphotokeyboard.inapp.theamslotes":
+                    GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isThemeLock, false);
+                    break;
+                case "myphotokeyboard.inapp.colors":
+                    GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isColorLock, false);
+                    break;
+                case "myphotokeyboard.inapp.fonts":
+                    GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isFontLock, false);
+                    break;
+                case "myphotokeyboard.inapp.sounds":
+                    GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isSoundLock, false);
+                    break;
+            }
+
+        }
+    };
     static final String TAG = "SubscriptionTAG";
     public InterstitialAd mInterstitialAd;
 
@@ -76,6 +121,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 
 
     List<String> arrSKUs = Arrays.asList(SKU_GET_ADDS, SKU_GET_BACKGROUNG, SKU_GET_COLORS, SKU_GET_SOUNDS, SKU_GET_FONTS, SKU_GET_THEME);
+    PackageActivity packageActivity;
 
     @SuppressLint("ResourceAsColor")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -229,12 +275,14 @@ public class PackageActivity extends ActivityManagePermission implements View.On
                 try {
 
                     Bundle ownedItems = mService.getPurchases(3, getPackageName(), "inapp", null);
-// Check response
+
+                    // Check response
                     int responseCode = ownedItems.getInt("RESPONSE_CODE");
                     if (responseCode != 0) {
                         throw new Exception("Error");
                     }
-// Get the list of purchased items
+
+                    // Get the list of purchased items
                     ArrayList<String> purchaseDataList =
                             ownedItems.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
 
@@ -243,31 +291,30 @@ public class PackageActivity extends ActivityManagePermission implements View.On
                     Toast.makeText(PackageActivity.this, "Restore Successfully ", Toast.LENGTH_SHORT).show();
 
                     int flagI = 0;
+                    assert purchaseDataList != null;
                     for (String purchaseData : purchaseDataList) {
                         JSONObject o = new JSONObject(purchaseData);
                         String purchaseToken = o.optString("token", o.optString("purchaseToken"));
                         // Consume purchaseToken, handling any errors
 
-//                        Toast.makeText(PackageActivity.this, "Consumed: " + ownedSkus.get(flagI), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(PackageActivity.this, "Consumed: " + ownedSkus.get(flagI), Toast.LENGTH_SHORT).show();
 
-//                        int response = mService.consumePurchase(3, getPackageName(), purchaseToken);
-//
-//                        if (response == 0) {
-//                            Log.d("Consumed", "Consumed");
-//
-//                            Toast.makeText(PackageActivity.this, "Consumed: " + ownedSkus.get(flagI), Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Log.d("", "No" + response);
-////                                Toast.makeText(PackageActivity.this, ""+purchaseToken, Toast.LENGTH_SHORT).show();
-//                            Toast.makeText(PackageActivity.this, "NOT: " + ownedSkus.get(flagI), Toast.LENGTH_SHORT).show();
-//                        }
+                        //int response = mService.consumePurchase(3, getPackageName(), purchaseToken);
+                        //
+                        //if (response == 0) {
+                        //Log.d("Consumed", "Consumed");
+                        //
+                        //Toast.makeText(PackageActivity.this, "Consumed: " + ownedSkus.get(flagI), Toast.LENGTH_SHORT).show();
+                        //} else {
+                        //Log.d("", "No" + response);
+                        //Toast.makeText(PackageActivity.this, ""+purchaseToken, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(PackageActivity.this, "NOT: " + ownedSkus.get(flagI), Toast.LENGTH_SHORT).show();
+                        //}
                         flagI++;
 
                     }
 
                     for (final String singleSKU : arrSKUs) {
-
-
 //                        String purchaseToken = "inapp:" + getPackageName() + ":"+singleSKU;
 //                        try {
 //                            Log.d("","Running");
@@ -295,7 +342,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 //
 //                        mIabHelper.queryInventoryAsync(true, arrSKUs, mGotInventoryListener);
 //
-//// Listener that's called when we finish querying the items and subscriptions we own
+//                        Listener that's called when we finish querying the items and subscriptions we own
 //                        IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
 //                            public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
 //
@@ -318,7 +365,6 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 //                                }
 //                            }
 //                        };
-
                     }
 
 
@@ -330,16 +376,16 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 //
 //                        ArrayList<String> ownedSkus =
 //                                ownedItems.getStringArrayList("myphotokeyboard.inapp.removead");
-////                        ArrayList<String> ownedSkus1 =
-////                                ownedItems.getStringArrayList("myphotokeyboard.inapp.texualcolorbg");
-////                        ArrayList<String> ownedSkus2 =
-////                                ownedItems.getStringArrayList("myphotokeyboard.inapp.theamslotes");
-////                        ArrayList<String> ownedSkus3 =
-////                                ownedItems.getStringArrayList("myphotokeyboard.inapp.colors");
-////                        ArrayList<String> ownedSkus4 =
-////                                ownedItems.getStringArrayList("myphotokeyboard.inapp.fonts");
-////                        ArrayList<String> ownedSkus5 =
-////                                ownedItems.getStringArrayList("myphotokeyboard.inapp.sounds");
+//                        ArrayList<String> ownedSkus1 =
+//                                ownedItems.getStringArrayList("myphotokeyboard.inapp.texualcolorbg");
+//                        ArrayList<String> ownedSkus2 =
+//                                ownedItems.getStringArrayList("myphotokeyboard.inapp.theamslotes");
+//                        ArrayList<String> ownedSkus3 =
+//                                ownedItems.getStringArrayList("myphotokeyboard.inapp.colors");
+//                        ArrayList<String> ownedSkus4 =
+//                                ownedItems.getStringArrayList("myphotokeyboard.inapp.fonts");
+//                        ArrayList<String> ownedSkus5 =
+//                                ownedItems.getStringArrayList("myphotokeyboard.inapp.sounds");
 //                        ArrayList<String> purchaseDataList =
 //                                ownedItems.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
 //                        ArrayList<String> signatureList =
@@ -348,11 +394,11 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 //                        Log.e("454545454545", "onClick: "+purchaseDataList );
 //                        Log.e("454545454545", "onClick: "+signatureList );
 //
-////                        Log.e("454545454545", "onClick1: "+ownedSkus1 );
-////                        Log.e("454545454545", "onClick2: "+ownedSkus2);
-////                        Log.e("454545454545", "onClick3: "+ownedSkus3 );
-////                        Log.e("454545454545", "onClick4: "+ownedSkus4 );
-////                        Log.e("454545454545", "onClick5: "+ownedSkus5 );
+//                        Log.e("454545454545", "onClick1: "+ownedSkus1 );
+//                        Log.e("454545454545", "onClick2: "+ownedSkus2);
+//                        Log.e("454545454545", "onClick3: "+ownedSkus3 );
+//                        Log.e("454545454545", "onClick4: "+ownedSkus4 );
+//                        Log.e("454545454545", "onClick5: "+ownedSkus5 );
 //                        String continuationToken =
 //                                ownedItems.getString("INAPP_CONTINUATION_TOKEN");
 //
@@ -361,14 +407,14 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 //                            String purchaseData = purchaseDataList.get(i);
 //                            String signature = signatureList.get(i);
 //                            String sku = ownedSkus.get(i);
-////                            String sku1 = ownedSkus1.get(i);
-////                            String sku2 = ownedSkus2.get(i);
-////                            String sku3 = ownedSkus3.get(i);
-////                            String sku4 = ownedSkus4.get(i);
-////                            String sku5 = ownedSkus5.get(i);
+//                            String sku1 = ownedSkus1.get(i);
+//                            String sku2 = ownedSkus2.get(i);
+//                            String sku3 = ownedSkus3.get(i);
+//                            String sku4 = ownedSkus4.get(i);
+//                            String sku5 = ownedSkus5.get(i);
 //                            allPurchasedProduct = allPurchasedProduct + sku + ", ";
 //                            // do something with this purchase information
-//                            // e.g. disple updated list of products owned by user
+//                            // e.g. display updated list of products owned by user
 //                        }
 //
 //
@@ -391,45 +437,18 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 
     }
 
-
     public void setContent() {
-        ivBack = (ImageView) findViewById(R.id.ivBack);
-        txtRestore = (CustomTextViewBold) findViewById(R.id.txtRestore);
-        remove_adds = (CustomTextView) findViewById(R.id.remove_adds);
-        background = (CustomTextView) findViewById(R.id.background);
-        theme_slot = (CustomTextView) findViewById(R.id.theme_slot);
-        colors = (CustomTextView) findViewById(R.id.colors);
-        fonts = (CustomTextView) findViewById(R.id.fonts);
-        sounds = (CustomTextView) findViewById(R.id.sounds);
+        ImageView ivBack = findViewById(R.id.ivBack);
+        txtRestore = findViewById(R.id.txtRestore);
+        remove_adds = findViewById(R.id.remove_adds);
+        background = findViewById(R.id.background);
+        theme_slot = findViewById(R.id.theme_slot);
+        colors = findViewById(R.id.colors);
+        fonts = findViewById(R.id.fonts);
+        sounds = findViewById(R.id.sounds);
 
         ivBack.setOnClickListener(this);
         txtRestore.setOnClickListener(this);
-    }
-
-    private void setAdMob() {
-        mAdView = (AdView) findViewById(R.id.ads);
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                mAdView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAdClosed() {
-                mAdView.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                mAdView.setVisibility(View.GONE);
-            }
-
-        });
-
-
     }
 
     IabHelper.OnConsumeFinishedListener consumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
@@ -519,46 +538,31 @@ public class PackageActivity extends ActivityManagePermission implements View.On
         }
     };
 
-    public IabHelper.OnIabPurchaseFinishedListener purchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
-        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-            GlobalClass.printLog(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
-
-            // if we were disposed of in the meantime, quit.
-            if (mHelper == null) return;
-
-            if (result.isFailure()) {
-                complain("Error purchasing: " + result);
-                return;
+    private void setAdMob() {
+        mAdView = findViewById(R.id.ads);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                mAdView.setVisibility(View.VISIBLE);
             }
 
-            if (!verifyDeveloperPayload(purchase)) {
-                complain("Error purchasing. Authenticity verification failed.");
-                return;
+            @Override
+            public void onAdClosed() {
+                mAdView.setVisibility(View.GONE);
             }
 
-            GlobalClass.printLog(TAG, currentPlan + "Purchase successful.");
-
-            //updateUserPlan();
-            //updateUi();
-
-            mHelper.consumeAsync(purchase, consumeFinishedListener);
-
-            if (purchase.getSku().equals("myphotokeyboard.inapp.removead")) {
-                GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isAdLock, false);
-            } else if (purchase.getSku().equals("myphotokeyboard.inapp.texualcolorbg")) {
-                GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isWallPaperLock, false);
-            } else if (purchase.getSku().equals("myphotokeyboard.inapp.theamslotes")) {
-                GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isThemeLock, false);
-            } else if (purchase.getSku().equals("myphotokeyboard.inapp.colors")) {
-                GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isColorLock, false);
-            } else if (purchase.getSku().equals("myphotokeyboard.inapp.fonts")) {
-                GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isFontLock, false);
-            } else if (purchase.getSku().equals("myphotokeyboard.inapp.sounds")) {
-                GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isSoundLock, false);
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                mAdView.setVisibility(View.GONE);
             }
 
-        }
-    };
+        });
+
+
+    }
 
     boolean verifyDeveloperPayload(Purchase purchase) {
         String payload = purchase.getDeveloperPayload();
@@ -642,7 +646,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
         if (mHelper != null && !mHelper.handleActivityResult(requestCode, resultCode, data)) {
             GlobalClass.printLog("on Activity", " this is on activity result --- with data finsh ");
 
-            //Global.showToast(getApplicationContext(), "=====requestCode11=====" +requestCode + "\n=====resultCode11=====" + resultCode + "\n=====data11=====" + data);
+            // Global.showToast(getApplicationContext(), "=====requestCode11=====" +requestCode + "\n=====resultCode11=====" + resultCode + "\n=====data11=====" + data);
             // not handled, so handle it ourselves (here's where you'd perform any handling of activity results not related to in-app billing...
 
 
@@ -675,13 +679,12 @@ public class PackageActivity extends ActivityManagePermission implements View.On
                 mHelper.dispose();
             } catch (IllegalArgumentException ex) {
                 ex.printStackTrace();
-            } finally {
             }
             mHelper = null;
         }
     }
 
-    public static PackageActivity getInstance() {
+    public PackageActivity getInstance() {
         return packageActivity;
     }
 

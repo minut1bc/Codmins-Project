@@ -193,8 +193,8 @@ public class Base64 {
      * @return the <var>destination</var> array
      * @since 1.3
      */
-    private static byte[] encode3to4(byte[] source, int srcOffset,
-            int numSigBytes, byte[] destination, int destOffset, byte[] alphabet) {
+    private static void encode3to4(byte[] source, int srcOffset,
+                                   int numSigBytes, byte[] destination, int destOffset, byte[] alphabet) {
         //           1         2         3
         // 01234567890123456789012345678901 Bit position
         // --------000000001111111122222222 Array position from threeBytes
@@ -217,21 +217,20 @@ public class Base64 {
                 destination[destOffset + 1] = alphabet[(inBuff >>> 12) & 0x3f];
                 destination[destOffset + 2] = alphabet[(inBuff >>> 6) & 0x3f];
                 destination[destOffset + 3] = alphabet[(inBuff) & 0x3f];
-                return destination;
+                return;
             case 2:
                 destination[destOffset] = alphabet[(inBuff >>> 18)];
                 destination[destOffset + 1] = alphabet[(inBuff >>> 12) & 0x3f];
                 destination[destOffset + 2] = alphabet[(inBuff >>> 6) & 0x3f];
                 destination[destOffset + 3] = EQUALS_SIGN;
-                return destination;
+                return;
             case 1:
                 destination[destOffset] = alphabet[(inBuff >>> 18)];
                 destination[destOffset + 1] = alphabet[(inBuff >>> 12) & 0x3f];
                 destination[destOffset + 2] = EQUALS_SIGN;
                 destination[destOffset + 3] = EQUALS_SIGN;
-                return destination;
+                return;
             default:
-                return destination;
         } // end switch
     } // end encode3to4
 
@@ -269,14 +268,14 @@ public class Base64 {
      * if it does not fall on 3 byte boundaries
      * @since 1.4
      */
-    public static String encode(byte[] source, int off, int len, byte[] alphabet,
-            boolean doPadding) {
+    private static String encode(byte[] source, int off, int len, byte[] alphabet,
+                                 boolean doPadding) {
         byte[] outBuff = encode(source, off, len, alphabet, Integer.MAX_VALUE);
         int outLen = outBuff.length;
 
         // If doPadding is false, set length to truncate '='
         // padding characters
-        while (doPadding == false && outLen > 0) {
+        while (!doPadding && outLen > 0) {
             if (outBuff[outLen - 1] != '=') {
                 break;
             }
@@ -296,8 +295,8 @@ public class Base64 {
      * @param maxLineLength maximum length of one line.
      * @return the BASE64-encoded byte array
      */
-    public static byte[] encode(byte[] source, int off, int len, byte[] alphabet,
-            int maxLineLength) {
+    private static byte[] encode(byte[] source, int off, int len, byte[] alphabet,
+                                 int maxLineLength) {
         int lenDiv3 = (len + 2) / 3; // ceil(len / 3)
         int len43 = lenDiv3 * 4;
         byte[] outBuff = new byte[len43 // Main 4:3
@@ -341,7 +340,7 @@ public class Base64 {
             e += 4;
         }
 
-        assert (e == outBuff.length);
+        if ((e != outBuff.length)) throw new AssertionError();
         return outBuff;
     }
 
@@ -484,7 +483,7 @@ public class Base64 {
      * @param len    the length of characters to decode
      * @return decoded data
      */
-    public static byte[] decodeWebSafe(byte[] source, int off, int len)
+    private static byte[] decodeWebSafe(byte[] source, int off, int len)
             throws Base64DecoderException {
         return decode(source, off, len, WEBSAFE_DECODABET);
     }
