@@ -1,9 +1,5 @@
 package com.ibl.apps.myphotokeyboard.model;
 
-/**
- * Created by iblinfotech on 8/30/17.
- */
-
 public class NewColorData {
 
     private int id;

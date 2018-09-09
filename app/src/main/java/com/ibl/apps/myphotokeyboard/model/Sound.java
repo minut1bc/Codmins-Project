@@ -2,10 +2,6 @@ package com.ibl.apps.myphotokeyboard.model;
 
 import java.util.ArrayList;
 
-/**
- * Created by iblinfotech on 02/05/17.
- */
-
 public class Sound {
 
     private ArrayList<Paid> paid;

@@ -1,30 +1,24 @@
 package com.ibl.apps.myphotokeyboard.model;
 
-import android.graphics.Bitmap;
-
-/**
- * Created by iblinfotech on 25/05/17.
- */
-
 public class KeyboardData {
 
-    String isColor;
-    int keyboardBgImage;
-    int keyboardColorCode;
-    String keyRadius;
-    String keyStroke;
-    String keyOpacity;
-    int keyBgColor;
-    String fontColor;
-    String fontName;
-    boolean isSelected;
-    String soundStatus;
-    int soundName;
-    int selectcolor;
-    int selecttextwallpaper;
-    int selectwallpaper;
-    int selview;
-    String bitmapback;
+    private String isColor;
+    private int keyboardBgImage;
+    private int keyboardColorCode;
+    private String keyRadius;
+    private String keyStroke;
+    private String keyOpacity;
+    private int keyBgColor;
+    private String fontColor;
+    private String fontName;
+    private boolean isSelected;
+    private String soundStatus;
+    private int soundName;
+    private int selectcolor;
+    private int selecttextwallpaper;
+    private int selectwallpaper;
+    private int selview;
+    private String bitmapback;
 
     public String getBitmapback() {
         return bitmapback;

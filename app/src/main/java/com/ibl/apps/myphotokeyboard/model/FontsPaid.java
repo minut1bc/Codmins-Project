@@ -1,6 +1,5 @@
 package com.ibl.apps.myphotokeyboard.model;
 
-
 public class FontsPaid {
 
     private String id;

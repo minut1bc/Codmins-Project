@@ -1,9 +1,5 @@
 package com.ibl.apps.myphotokeyboard.model;
 
-/**
- * Created by iblinfotech on 02/05/17.
- */
-
 public class FontFree {
     private String id;
 

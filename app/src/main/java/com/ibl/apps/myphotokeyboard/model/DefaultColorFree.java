@@ -1,9 +1,5 @@
 package com.ibl.apps.myphotokeyboard.model;
 
-/**
- * Created by iblinfotech on 03/05/17.
- */
-
 public class DefaultColorFree {
     private String id;
 

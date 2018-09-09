@@ -1,9 +1,5 @@
 package com.ibl.apps.myphotokeyboard.model;
 
-/**
- * Created by iblinfotech on 02/05/17.
- */
-
 public class ResponseObject<T> {
 
     private String message;
