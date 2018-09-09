@@ -5,11 +5,12 @@
     android:orientation="vertical">
 
     <GridView
+        android:background="@drawable/cc3"
         android:id="@+id/gvSoundEffect"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_margin="15dp"
+        android:layout_margin="0dp"
         android:layout_weight="1"
         android:listSelector="@android:color/transparent"
         android:gravity="center"
