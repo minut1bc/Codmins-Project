@@ -4,11 +4,9 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.25.4'
     }
 }
-
-
 
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
@@ -17,20 +15,16 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-
-
 android {
-    compileSdkVersion 26
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 27
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
         applicationId "com.ibl.apps.myphotokeyboard"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 10
         versionName "1.0.1"
-       /* versionCode 9
-        versionName "1.0.0"*/
         multiDexEnabled true
     }
 
@@ -48,58 +42,56 @@ android {
 
 dependencies {
 
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
 
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:customtabs:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
 
     //add for retrofit2
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
 
     //For Image
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
 
     //add for permission
-    compile 'com.auron:permission-manage:1.1.6'
+    implementation 'com.auron:permission-manage:1.1.6'
 
     //add for image cropper
-    compile 'com.edmodo:cropper:1.0.1'
+    implementation 'com.edmodo:cropper:1.0.1'
 
     //to debud database
-    debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.0'
 
     // add dependency
-    compile 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:multidex:1.0.3'
 
     // Google Play Service
-    compile 'com.google.android.gms:play-services-ads:10.2.1'
-    compile 'com.google.android.gms:play-services:10.2.1'
-    compile 'com.google.android.gms:play-services-drive:10.2.1'
+    implementation 'com.google.android.gms:play-services-ads:15.0.1'
+    implementation 'com.google.android.gms:play-services-drive:15.0.1'
 
     // Firebase
-    compile 'com.google.firebase:firebase-crash:10.2.1'
+    implementation 'com.google.firebase:firebase-crash:16.2.0'
 
 
     // Rating App
-    compile 'io.github.kobakei:ratethisapp:1.0.0'
+    implementation 'io.github.kobakei:ratethisapp:1.0.0'
 
     // Recyclerview
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
 
     //Viewpager Indicator
-    compile 'me.relex:circleindicator:1.2.2@aar'
+    implementation 'me.relex:circleindicator:1.2.2@aar'
 
-    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    compile('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
         transitive = true
     }
-
-
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
