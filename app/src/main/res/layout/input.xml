@@ -92,7 +92,6 @@
                 android:layout_height="45dp"
                 android:layout_alignParentBottom="true"
                 android:background="#80000000"
-                android:orientation="horizontal"
                 android:padding="3dp">
 
                 <ImageView

@@ -12,8 +12,7 @@
         android:keyBackground="@drawable/key_background"
         android:keyPreviewLayout="@layout/preview"
         android:keyTextColor="@android:color/white"
-        android:keyTextSize="22sp"
-        android:popupLayout="@layout/keyboard_popup_layout" />
+        android:keyTextSize="22sp" />
 
     <!--<android.inputmethodservice.KeyboardView-->
     <!--android:id="@android:id/keyboardView"-->
@@ -37,4 +36,5 @@
         android:contentDescription="TODO"
         android:focusable="true"
         android:src="@drawable/ic_close_black" />
+
 </LinearLayout>

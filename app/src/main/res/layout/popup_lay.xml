@@ -63,7 +63,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:text="g" />
+            android:text="g"
+            android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttonh"
@@ -158,7 +159,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:text="r" />
+            android:text="r"
+            android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttons"

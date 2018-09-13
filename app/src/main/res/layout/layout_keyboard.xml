@@ -8,6 +8,7 @@
         android:id="@+id/ivKeyboardBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="TODO"
         android:scaleType="fitXY"
         android:src="@drawable/theme_color1" />
 
@@ -15,15 +16,14 @@
         android:id="@+id/rlEmoji"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#80000000"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:background="#80000000">
 
         <ImageView
             android:id="@+id/ivAbc"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="2dp"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_textmessage"
             android:tint="@color/silver" />
 
@@ -32,6 +32,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="2dp"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_smile"
             android:tint="@color/silver" />
 
@@ -40,6 +41,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="2dp"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_color_dish"
             android:tint="@color/silver" />
 
@@ -48,6 +50,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="2dp"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_megnify"
             android:tint="@color/silver" />
 
@@ -58,22 +61,18 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/rlEmoji"
         android:layout_margin="3dp"
-        android:orientation="vertical"
-        android:weightSum="4">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/linFirstRowKeyboard"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/txtQ"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -86,7 +85,6 @@
                 android:id="@+id/txtW"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -99,7 +97,6 @@
                 android:id="@+id/txtE"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -112,7 +109,6 @@
                 android:id="@+id/txtR"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -125,7 +121,6 @@
                 android:id="@+id/txtT"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -138,7 +133,6 @@
                 android:id="@+id/txtY"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -151,7 +145,6 @@
                 android:id="@+id/txtU"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -164,7 +157,6 @@
                 android:id="@+id/txtI"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -177,7 +169,6 @@
                 android:id="@+id/txtO"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -190,7 +181,6 @@
                 android:id="@+id/txtP"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -205,20 +195,16 @@
             android:id="@+id/linTwoRowKeyboard"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_weight="1">
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_weight="0.5" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -230,7 +216,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -242,7 +227,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -254,7 +238,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -266,7 +249,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -278,7 +260,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -290,7 +271,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -302,7 +282,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -314,7 +293,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -326,7 +304,6 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_weight="0.5" />
 
         </LinearLayout>
@@ -335,26 +312,22 @@
             android:id="@+id/linThreeRowKeyboard"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/ivShift"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1.5"
                 android:background="@drawable/key_bg"
-                android:padding="10dp"
                 android:contentDescription="TODO"
+                android:padding="10dp"
                 android:src="@drawable/ic_shift_on" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -366,7 +339,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -378,7 +350,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -387,11 +358,9 @@
                 android:text="C"
                 android:textColor="@android:color/white" />
 
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -403,7 +372,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -415,7 +383,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -427,7 +394,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -440,12 +406,11 @@
                 android:id="@+id/ivCancel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1.5"
                 android:background="@drawable/key_bg"
-                android:padding="10dp"
                 android:contentDescription="TODO"
+                android:padding="10dp"
                 android:src="@drawable/ic_backspace" />
         </LinearLayout>
 
@@ -453,14 +418,11 @@
             android:id="@+id/linFourRowKeyboard"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1.5"
                 android:background="@drawable/key_bg"
@@ -472,7 +434,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -485,7 +446,6 @@
                 android:id="@+id/ivSpace"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="5"
                 android:background="@drawable/key_bg"
@@ -495,7 +455,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/key_bg"
@@ -508,19 +467,15 @@
                 android:id="@+id/ivDone"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:layout_weight="1.5"
                 android:background="@drawable/key_bg"
+                android:contentDescription="TODO"
                 android:padding="10dp"
                 android:src="@drawable/ic_enter_new" />
+
         </LinearLayout>
 
     </LinearLayout>
 
 </RelativeLayout>
-
-
-
-
-

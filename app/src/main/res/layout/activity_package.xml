@@ -92,8 +92,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@color/in_app_text_color_bg"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:gravity="center">
 
             <ImageView
                 android:layout_width="48dp"

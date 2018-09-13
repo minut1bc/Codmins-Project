@@ -14,22 +14,23 @@
         android:id="@+id/ivSoundEffectItem"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:visibility="visible"
-        android:src="@drawable/btn_sound" />
+        android:padding="5dp"
+        android:src="@drawable/btn_sound"
+        android:visibility="visible" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivSoundEffectItem1"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:visibility="gone"
-        android:src="@drawable/btn_mute" />
+        android:padding="5dp"
+        android:src="@drawable/btn_mute"
+        android:visibility="gone" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivLock"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_centerInParent="true"
         android:background="@drawable/ic_lock"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </RelativeLayout>
