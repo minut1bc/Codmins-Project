@@ -16,13 +16,13 @@ repositories {
 }
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     buildToolsVersion '28.0.2'
 
     defaultConfig {
         applicationId "com.ibl.apps.myphotokeyboard"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 10
         versionName "1.0.1"
         multiDexEnabled true
@@ -45,9 +45,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
 
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:customtabs:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
+    implementation 'com.android.support:animated-vector-drawable:28.0.0-rc02'
+    implementation 'com.android.support:support-v4:28.0.0-rc02'
+    implementation 'com.android.support:customtabs:28.0.0-rc02'
+    implementation 'com.android.support:design:28.0.0-rc02'
 
     //add for retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.0.2'
@@ -77,13 +79,14 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-crash:16.2.0'
+    implementation 'com.google.firebase:firebase-core:16.0.3'
 
 
     // Rating App
     implementation 'io.github.kobakei:ratethisapp:1.0.0'
 
     // Recyclerview
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:28.0.0-rc02'
 
     //Viewpager Indicator
     implementation 'me.relex:circleindicator:1.2.2@aar'
