@@ -22,7 +22,6 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -56,7 +55,6 @@ import com.ibl.apps.myphotokeyboard.model.FontsPaid;
 import com.ibl.apps.myphotokeyboard.model.KeyboardData;
 import com.ibl.apps.myphotokeyboard.model.NewSoundData;
 import com.ibl.apps.myphotokeyboard.utils.AsyncDownload;
-import com.ibl.apps.myphotokeyboard.utils.CustomTextViewBold;
 import com.ibl.apps.myphotokeyboard.utils.GlobalClass;
 import com.ibl.apps.myphotokeyboard.utils.MyBounceInterpolator_anim;
 import com.ibl.apps.myphotokeyboard.utils.RecyclerItemClickListener;
@@ -81,7 +79,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private LinearLayout linFontStyle;
     private ImageView ivSoundEffect;
     private LinearLayout linSoundEffect;
-    private CustomTextViewBold txtMainTitle;
+    private TextView txtMainTitle;
     private CreateKeyboardActivity context;
 
     String[] fontArray = new String[0];
@@ -95,7 +93,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private FillFontStyleAdapter fillFontStyleAdapter;
     private LinearLayout linFontStyleLayout;
     private FillSoundEffectAdapter fillSoundEffectAdapter;
-    private LinearLayout linSoundEffectLayout;
     public static File mFileTemp;
     public static final String TEMP_PHOTO_FILE_NAME = "temp_photo.jpeg";
     public static final int FONT_RESULT_CODE = 100;
@@ -103,6 +100,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     public static final int RESULT_FROM_GALLERY = 98;
     static CreateKeyboardActivity createKeyboardActivity;
     private ImageView ivKeyboardBg;
+    private GridView gvSoundEffect;
     private CircleImageView radiusOne;
     private CircleImageView radiusTwo;
     private CircleImageView radiusThree;
@@ -163,9 +161,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
         ivHome = findViewById(R.id.ivHome);
-        CustomTextViewBold txtApply = findViewById(R.id.txtApply);
+        TextView txtApply = findViewById(R.id.txtApply);
         txtMainTitle = findViewById(R.id.txtMainTitle);
 
         ivWallpaper = findViewById(R.id.ivWallpaper);
@@ -180,7 +177,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         linWallpaperLayout = findViewById(R.id.linWallpaperLayout);
         linKeyDesignLayout = findViewById(R.id.linKeyDesignLayout);
         linFontStyleLayout = findViewById(R.id.linFontStyleLayout);
-        linSoundEffectLayout = findViewById(R.id.linSoundEffectLayout);
+        gvSoundEffect = findViewById(R.id.gvSoundEffect);
 
         rvDefaultColor = findViewById(R.id.rvDefaultColor);
         rvDefaultColorKeyDesign = findViewById(R.id.rvDefaultColorKeyDesign);
@@ -230,9 +227,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
         rvDefaultColorFontStyle.setNestedScrollingEnabled(false);
         rvDefaultColorFontStyle.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-
-        // set toolbar
-        setSupportActionBar(toolbar);
 
         String state = Environment.getExternalStorageState();
         if ("mounted".equals(state)) {
@@ -434,7 +428,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     }
 
     private void getSoundFromDatabase() {
-        GridView gvSoundEffect = findViewById(R.id.gvSoundEffect);
         int[] freeSoundArray = GlobalClass.lessonClips;
         for (int aFreeSoundArray : freeSoundArray) {
             newSoundDataArrayList.add(new NewSoundData(aFreeSoundArray, false));
@@ -1303,7 +1296,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 linWallpaperLayout.setVisibility(View.VISIBLE);
                 linKeyDesignLayout.setVisibility(View.GONE);
                 linFontStyleLayout.setVisibility(View.GONE);
-                linSoundEffectLayout.setVisibility(View.GONE);
+                gvSoundEffect.setVisibility(View.GONE);
 
                 break;
 
@@ -1325,7 +1318,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 linWallpaperLayout.setVisibility(View.GONE);
                 linKeyDesignLayout.setVisibility(View.VISIBLE);
                 linFontStyleLayout.setVisibility(View.GONE);
-                linSoundEffectLayout.setVisibility(View.GONE);
+                gvSoundEffect.setVisibility(View.GONE);
 
                 break;
 
@@ -1347,7 +1340,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 linWallpaperLayout.setVisibility(View.GONE);
                 linKeyDesignLayout.setVisibility(View.GONE);
                 linFontStyleLayout.setVisibility(View.VISIBLE);
-                linSoundEffectLayout.setVisibility(View.GONE);
+                gvSoundEffect.setVisibility(View.GONE);
 
                 break;
             case R.id.ivSoundEffect:
@@ -1368,7 +1361,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 linWallpaperLayout.setVisibility(View.GONE);
                 linKeyDesignLayout.setVisibility(View.GONE);
                 linFontStyleLayout.setVisibility(View.GONE);
-                linSoundEffectLayout.setVisibility(View.VISIBLE);
+                gvSoundEffect.setVisibility(View.VISIBLE);
 
                 break;
 

@@ -51,7 +51,6 @@
             android:src="@drawable/ic_megnify"
             android:tint="@color/silver" />
 
-
     </LinearLayout>
 
     <LinearLayout
@@ -200,7 +199,6 @@
                 android:text="P"
                 android:textColor="@android:color/white" />
 
-
         </LinearLayout>
 
         <LinearLayout
@@ -324,7 +322,6 @@
                 android:padding="5dp"
                 android:text="L"
                 android:textColor="@android:color/white" />
-
 
             <View
                 android:layout_width="0dp"

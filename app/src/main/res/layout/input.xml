@@ -63,6 +63,7 @@
 
             <com.ibl.apps.myphotokeyboard.customkeyboard.LatinKeyboardView
                 android:id="@+id/keyboard"
+                android:keyPreviewLayout="@layout/preview"
                 style="@style/Widget.KeyboardView10"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

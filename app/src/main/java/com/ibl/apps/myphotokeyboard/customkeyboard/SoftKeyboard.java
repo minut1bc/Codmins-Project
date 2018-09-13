@@ -1916,6 +1916,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         }
         setLatinKeyboard(mQwertyKeyboardShift);
         mInputView.setOnKeyboardActionListener(this);
+        mInputView.setPreviewEnabled(false);
         mInputView.setShifted(true);
         return view;
     }
@@ -2197,7 +2198,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             if (ei != null && ei.inputType != InputType.TYPE_NULL) {
                 caps = getCurrentInputConnection().getCursorCapsMode(attr.inputType);
             }
-            mInputView.setShifted(mCapsLock || caps != 0);
+            mInputView.setShifted(mCapsLock);
         }
     }
 
@@ -2513,16 +2514,18 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         if (vibrator != null)
             vibrator.vibrate(100);
 
-        mInputView.setPreviewEnabled(true);
-
         // Disable preview key on Shift, Delete, Symbol, Language Switch, Space and Enter.
         if (primaryCode == -1 || primaryCode == -5 || primaryCode == -2 || primaryCode == -101 || primaryCode == 32 || primaryCode == 10)
             mInputView.setPreviewEnabled(false);
+        else {
+            //mInputView.setPreviewEnabled(true); TODO: Fix Preview
+        }
 
     }
 
     public void onRelease(int primaryCode) {
         GlobalClass.printLog("SoftKeyboard", "---------------onRelease---------------");
+        mInputView.setPreviewEnabled(false);
     }
 
     /**

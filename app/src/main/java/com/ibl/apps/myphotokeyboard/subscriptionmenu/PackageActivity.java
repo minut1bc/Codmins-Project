@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
@@ -27,8 +28,6 @@ import com.ibl.apps.myphotokeyboard.billing.IabHelper;
 import com.ibl.apps.myphotokeyboard.billing.IabResult;
 import com.ibl.apps.myphotokeyboard.billing.Inventory;
 import com.ibl.apps.myphotokeyboard.billing.Purchase;
-import com.ibl.apps.myphotokeyboard.utils.CustomTextView;
-import com.ibl.apps.myphotokeyboard.utils.CustomTextViewBold;
 import com.ibl.apps.myphotokeyboard.utils.GlobalClass;
 
 import org.json.JSONObject;
@@ -41,8 +40,7 @@ import permission.auron.com.marshmallowpermissionhelper.ActivityManagePermission
 
 public class PackageActivity extends ActivityManagePermission implements View.OnClickListener {
 
-    private CustomTextViewBold txtRestore;
-    private CustomTextView remove_adds, background, theme_slot, colors, fonts, sounds;
+    private TextView remove_adds, background, theme_slot, colors, fonts, sounds, txtRestore;
     private AdView mAdView;
     IabHelper mHelper;
     String currentPlan;

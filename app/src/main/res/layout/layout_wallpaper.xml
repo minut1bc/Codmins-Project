@@ -1,129 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linWallpaperLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="visible">
 
     <LinearLayout
-        android:id="@+id/linWallpaperLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:visibility="gone">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/linGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/gallery_round"
+            android:paddingBottom="5dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="5dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/ic_gallery" />
 
-                <LinearLayout
-                    android:id="@+id/linGallery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/gallery_round"
-                    android:orientation="vertical"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="40dp"
-                    android:paddingRight="40dp"
-                    android:paddingTop="5dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_gallery" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent" />
-
-                <LinearLayout
-                    android:id="@+id/linCamera"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/camera_round"
-                    android:orientation="vertical"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="40dp"
-                    android:paddingRight="40dp"
-                    android:paddingTop="5dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_camera" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rvDefaultColor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <GridView
-                    android:id="@+id/gvColor"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:columnWidth="50dp"
-                    android:gravity="center"
-                    android:horizontalSpacing="5dp"
-                    android:listSelector="@android:color/transparent"
-                    android:numColumns="auto_fit"
-                    android:scrollbars="none"
-                    android:verticalSpacing="5dp" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:visibility="gone"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/view_gradient_bg" />
-
-                <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/gvTextual"
-                    android:visibility="gone"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:columnWidth="50dp"
-                    android:gravity="center"
-                    android:horizontalSpacing="5dp"
-                    android:listSelector="@android:color/transparent"
-                    android:numColumns="auto_fit"
-                    android:scrollbars="none"
-                    android:verticalSpacing="5dp" />
-            </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/camera_round"
+            android:paddingBottom="5dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="5dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/ic_camera" />
+
+        </LinearLayout>
+
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvDefaultColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <GridView
+            android:id="@+id/gvColor"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:columnWidth="50dp"
+            android:horizontalSpacing="5dp"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="auto_fit"
+            android:scrollbars="none"
+            android:verticalSpacing="5dp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/view_gradient_bg"
+            android:visibility="gone" />
+
+        <GridView
+            android:id="@+id/gvTextual"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:columnWidth="50dp"
+            android:horizontalSpacing="5dp"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="auto_fit"
+            android:scrollbars="none"
+            android:verticalSpacing="5dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
 </LinearLayout>
