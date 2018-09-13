@@ -393,7 +393,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.linGuide:
-                Uri uri = Uri.parse("https://play.google.com/store/apps/developer?id=IBL+Infotech"); // missing 'http://' will cause crashed
+                Uri uri = Uri.parse("https://play.google.com/store/apps/developer?id=Codmins+Keyboards"); // missing 'http://' will cause crashed
                 Intent intent6 = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent6);
                 break;
