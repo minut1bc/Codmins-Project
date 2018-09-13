@@ -2,14 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cc2"
+    android:background="@drawable/setup_screen_background"
     android:gravity="center"
     android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="162dp"
-        android:contentDescription="TODO" />
+        android:layout_height="230dp"
+        android:layout_marginBottom="30dp"
+
+        android:src="@drawable/setup_screen_logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,6 +67,8 @@
             android:text="Go now"
             android:textAlignment="center"
             android:textColor="@android:color/white" />
+
+
     </LinearLayout>
 
 </LinearLayout>

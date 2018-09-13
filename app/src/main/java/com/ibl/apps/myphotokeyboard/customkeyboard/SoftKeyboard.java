@@ -2423,7 +2423,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         GlobalClass.printLog("SoftKeyboard", "---------------checkToggleCapsLock---------------");
 
         long now = System.currentTimeMillis();
-        if (mLastShiftTime + 800 > now) {
+        if (mLastShiftTime + 700 > now) {
             mCapsLock = !mCapsLock;
             mLastShiftTime = 0;
 
