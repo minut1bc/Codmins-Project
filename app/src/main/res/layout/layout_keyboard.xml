@@ -348,6 +348,7 @@
                 android:layout_weight="1.5"
                 android:background="@drawable/key_bg"
                 android:padding="10dp"
+                android:contentDescription="TODO"
                 android:src="@drawable/ic_shift_on" />
 
             <TextView
@@ -444,6 +445,7 @@
                 android:layout_weight="1.5"
                 android:background="@drawable/key_bg"
                 android:padding="10dp"
+                android:contentDescription="TODO"
                 android:src="@drawable/ic_backspace" />
         </LinearLayout>
 
@@ -487,6 +489,7 @@
                 android:layout_margin="1dp"
                 android:layout_weight="5"
                 android:background="@drawable/key_bg"
+                android:contentDescription="TODO"
                 android:scaleType="fitXY" />
 
             <TextView

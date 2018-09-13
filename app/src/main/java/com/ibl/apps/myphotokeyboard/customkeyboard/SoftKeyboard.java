@@ -1586,7 +1586,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         ivEmoji = view.findViewById(R.id.ivEmoji);
         ivArt = view.findViewById(R.id.ivArt);
         mInputView = view.findViewById(R.id.keyboard);
-        RelativeLayout linKeyboard = view.findViewById(R.id.linKeyboard);
+        LinearLayout linKeyboard = view.findViewById(R.id.linKeyboard);
         linEmoji = view.findViewById(R.id.linEmoji);
         ivClose = view.findViewById(R.id.ivCancel);
         gvEmoji = view.findViewById(R.id.gvEmoji);
