@@ -35,7 +35,7 @@ public class SplashActivity extends ActivityManagePermission {
     }
 
     private void askForPermission() {
-        askCompactPermissions(new String[]{PermissionUtils.Manifest_CAMERA, PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE, PermissionUtils.Manifest_READ_EXTERNAL_STORAGE}, new PermissionResult() {
+        askCompactPermissions(new String[]{PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE, PermissionUtils.Manifest_READ_EXTERNAL_STORAGE}, new PermissionResult() {
                     @Override
                     public void permissionGranted() {
                         if (GlobalClass.KeyboardIsEnabled(SplashActivity.this) && GlobalClass.KeyboardIsSet(SplashActivity.this)) {

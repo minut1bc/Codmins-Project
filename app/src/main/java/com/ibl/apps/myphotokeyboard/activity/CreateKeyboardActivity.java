@@ -1,6 +1,5 @@
 package com.ibl.apps.myphotokeyboard.activity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,12 +12,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,7 +36,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.ibl.apps.myphotokeyboard.BuildConfig;
 import com.ibl.apps.myphotokeyboard.R;
 import com.ibl.apps.myphotokeyboard.adapter.FillDefaultColorAdapter;
 import com.ibl.apps.myphotokeyboard.adapter.FillFontColorAdapter;
@@ -58,11 +52,9 @@ import com.ibl.apps.myphotokeyboard.utils.AsyncDownload;
 import com.ibl.apps.myphotokeyboard.utils.GlobalClass;
 import com.ibl.apps.myphotokeyboard.utils.MyBounceInterpolator_anim;
 import com.ibl.apps.myphotokeyboard.utils.RecyclerItemClickListener;
-import com.ibl.apps.myphotokeyboard.utils.Utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -93,11 +85,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private FillFontStyleAdapter fillFontStyleAdapter;
     private LinearLayout linFontStyleLayout;
     private FillSoundEffectAdapter fillSoundEffectAdapter;
-    public static File mFileTemp;
-    public static final String TEMP_PHOTO_FILE_NAME = "temp_photo.jpeg";
-    public static final int FONT_RESULT_CODE = 100;
-    public static final int RESULT_FROM_CAMERA = 99;
-    public static final int RESULT_FROM_GALLERY = 98;
     static CreateKeyboardActivity createKeyboardActivity;
     private ImageView ivKeyboardBg;
     private GridView gvSoundEffect;
@@ -182,8 +169,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         rvDefaultColor = findViewById(R.id.rvDefaultColor);
         rvDefaultColorKeyDesign = findViewById(R.id.rvDefaultColorKeyDesign);
         rvDefaultColorFontStyle = findViewById(R.id.rvDefaultColorFontStyle);
-        LinearLayout linCamera = findViewById(R.id.linCamera);
-        LinearLayout linGallery = findViewById(R.id.linGallery);
 
         ivKeyboardBg = findViewById(R.id.ivKeyboardBg);
 
@@ -227,13 +212,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
         rvDefaultColorFontStyle.setNestedScrollingEnabled(false);
         rvDefaultColorFontStyle.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-
-        String state = Environment.getExternalStorageState();
-        if ("mounted".equals(state)) {
-            mFileTemp = new File(Environment.getExternalStorageDirectory(), TEMP_PHOTO_FILE_NAME);
-        } else {
-            mFileTemp = new File(getFilesDir(), TEMP_PHOTO_FILE_NAME);
-        }
 
         // set context
         context = CreateKeyboardActivity.this;
@@ -317,9 +295,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         ivKeyDesign.setOnClickListener(this);
         ivFontStyle.setOnClickListener(this);
         ivSoundEffect.setOnClickListener(this);
-
-        linGallery.setOnClickListener(this);
-        linCamera.setOnClickListener(this);
 
         // set listener for radius
         radiusOne.setOnClickListener(this);
@@ -890,55 +865,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         fillWallpaperTextualAdapter.notifyDataSetChanged();
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case RESULT_FROM_GALLERY /*98*/:
-                    GlobalClass.printLog("Gallery higher version", "----if-----");
-                    new AnonymousClass2photoSave(data).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                    break;
-                case RESULT_FROM_CAMERA /*99*/:
-                    GlobalClass.printLog("camera version", "----if-----");
-
-                    new AsyncTask<Void, Void, Void>() {
-                        ProgressDialog pd;
-
-                        protected void onPreExecute() {
-                            this.pd = new ProgressDialog(CreateKeyboardActivity.this, 5);
-                            this.pd.setMessage("Please Wait");
-                            this.pd.show();
-                            super.onPreExecute();
-                        }
-
-                        protected Void doInBackground(Void... params) {
-                            try {
-                                BitmapFactory.Options opts = new BitmapFactory.Options();
-                                opts.inJustDecodeBounds = true;
-                                Bitmap selectedImage = BitmapFactory.decodeFile(CreateKeyboardActivity.mFileTemp.getAbsolutePath(), opts);
-                                opts.inJustDecodeBounds = false;
-                                selectedImage = BitmapFactory.decodeFile(CreateKeyboardActivity.mFileTemp.getAbsolutePath(), opts);
-                                FileOutputStream fos = new FileOutputStream(CreateKeyboardActivity.mFileTemp);
-                                selectedImage.compress(Bitmap.CompressFormat.JPEG, CreateKeyboardActivity.FONT_RESULT_CODE, fos);
-                                fos.flush();
-                                fos.close();
-                            } catch (Exception e1) {
-                                e1.printStackTrace();
-                                GlobalClass.printLog("Camera click exception", "-------------" + e1.getMessage());
-                            }
-                            return null;
-                        }
-
-                        protected void onPostExecute(Void result) {
-                            this.pd.dismiss();
-                            Intent newIntent = new Intent(CreateKeyboardActivity.this, CropActivity.class);
-                            CreateKeyboardActivity.this.startActivityForResult(newIntent, 7);
-                        }
-                    }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                    break;
-            }
-        }
-    }
-
     private void beep(int volume) {
 
         AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -985,7 +911,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 }
             }
         } catch (Exception ignored) {
-
         }
     }
 
@@ -1016,67 +941,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         return 0;
     }
 
-    class AnonymousClass2photoSave extends AsyncTask<Void, Void, Void> {
-
-        ProgressDialog pd;
-        private final Intent val$data;
-
-        AnonymousClass2photoSave(Intent intent) {
-            GlobalClass.printLog("AnonymousClass2photoSave ", "----construction-----");
-
-            this.val$data = intent;
-        }
-
-        protected void onPreExecute() {
-            GlobalClass.printLog("AnonymousClass2photoSave ", "----onPreExecute-----");
-
-            this.pd = new ProgressDialog(CreateKeyboardActivity.this, 5);
-            this.pd.setMessage("Please Wait");
-            this.pd.show();
-            super.onPreExecute();
-        }
-
-
-        protected Void doInBackground(Void... params) {
-            Uri selectedImageUri = this.val$data.getData();
-            String realPath = null;
-            try {
-                realPath = Utils.getRealPathFromURI(CreateKeyboardActivity.this.getApplicationContext(), selectedImageUri);
-            } catch (Exception e) {
-                try {
-                    realPath = Utils.getPathFromUriLolipop(CreateKeyboardActivity.this.getApplicationContext(), selectedImageUri);
-                } catch (Exception e2) {
-                    Toast.makeText(CreateKeyboardActivity.this.getApplicationContext(), "Load Image failed. Try again", Toast.LENGTH_SHORT).show();
-                }
-            }
-            try {
-                BitmapFactory.Options opts = new BitmapFactory.Options();
-                opts.inJustDecodeBounds = true;
-                Bitmap selectedImage;
-                opts.inJustDecodeBounds = false;
-                selectedImage = BitmapFactory.decodeFile(realPath, opts);
-
-                FileOutputStream fos = new FileOutputStream(CreateKeyboardActivity.mFileTemp);
-                selectedImage.compress(Bitmap.CompressFormat.JPEG, CreateKeyboardActivity.FONT_RESULT_CODE, fos);
-                fos.flush();
-                fos.close();
-            } catch (Exception e3) {
-                GlobalClass.printLog("AnonymousClass2photoSave exception", "----doInBackground-----" + e3.getMessage());
-            }
-            return null;
-        }
-
-        protected void onPostExecute(Void result) {
-
-            GlobalClass.printLog("AnonymousClass2photoSave ", "----onPostExecute-----");
-
-            this.pd.dismiss();
-            Intent newIntent1 = new Intent(CreateKeyboardActivity.this, CropActivity.class);
-            CreateKeyboardActivity.this.startActivityForResult(newIntent1, 7);
-            super.onPostExecute(result);
-        }
-    }
-
     public static String removeWords(String word, String remove) {
         return word.replace(remove, "");
     }
@@ -1096,7 +960,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 ivStrokeFive.setBorderWidth(0);
                 ivStrokeOne.setBorderColor(getResources().getColor(R.color.pink));
                 GlobalClass.tempKeyStroke = "1";
-
                 setRadius();
                 break;
 
@@ -1110,6 +973,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyStroke = "2";
                 setRadius();
                 break;
+
             case R.id.ivStrokeThree:
                 ivStrokeOne.setBorderWidth(0);
                 ivStrokeTwo.setBorderWidth(0);
@@ -1120,6 +984,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyStroke = "3";
                 setRadius();
                 break;
+
             case R.id.ivStrokeFour:
                 ivStrokeOne.setBorderWidth(0);
                 ivStrokeTwo.setBorderWidth(0);
@@ -1130,6 +995,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyStroke = "4";
                 setRadius();
                 break;
+
             case R.id.ivStrokeFive:
                 ivStrokeOne.setBorderWidth(0);
                 ivStrokeTwo.setBorderWidth(0);
@@ -1140,6 +1006,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyStroke = "5";
                 setRadius();
                 break;
+
             case R.id.ivOpacityHundred:
                 ivOpacityHundred.setBorderWidth(5);
                 ivOpacitySeventyFive.setBorderWidth(0);
@@ -1150,6 +1017,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyOpacity = "255";
                 setRadius();
                 break;
+
             case R.id.ivOpacitySeventyFive:
                 ivOpacityHundred.setBorderWidth(0);
                 ivOpacitySeventyFive.setBorderWidth(5);
@@ -1160,6 +1028,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyOpacity = "192";
                 setRadius();
                 break;
+
             case R.id.ivOpacityFifty:
                 ivOpacityHundred.setBorderWidth(0);
                 ivOpacitySeventyFive.setBorderWidth(0);
@@ -1170,6 +1039,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyOpacity = "128";
                 setRadius();
                 break;
+
             case R.id.ivOpacityTwentyFive:
                 ivOpacityHundred.setBorderWidth(0);
                 ivOpacitySeventyFive.setBorderWidth(0);
@@ -1180,6 +1050,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyOpacity = "64";
                 setRadius();
                 break;
+
             case R.id.ivOpacityZero:
                 ivOpacityHundred.setBorderWidth(0);
                 ivOpacitySeventyFive.setBorderWidth(0);
@@ -1190,6 +1061,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyOpacity = "0";
                 setRadius();
                 break;
+
             case R.id.radiusOne:
                 radiusOne.setBorderWidth(5);
                 radiusTwo.setBorderWidth(0);
@@ -1200,6 +1072,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyRadius = "0";
                 setRadius();
                 break;
+
             case R.id.radiusTwo:
                 radiusOne.setBorderWidth(0);
                 radiusTwo.setBorderWidth(5);
@@ -1210,6 +1083,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyRadius = "9";
                 setRadius();
                 break;
+
             case R.id.radiusThree:
                 radiusOne.setBorderWidth(0);
                 radiusTwo.setBorderWidth(0);
@@ -1220,6 +1094,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyRadius = "18";
                 setRadius();
                 break;
+
             case R.id.radiusFour:
                 radiusOne.setBorderWidth(0);
                 radiusTwo.setBorderWidth(0);
@@ -1230,6 +1105,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyRadius = "25";
                 setRadius();
                 break;
+
             case R.id.radiusFive:
                 radiusOne.setBorderWidth(0);
                 radiusTwo.setBorderWidth(0);
@@ -1241,10 +1117,12 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyRadius = "34";
                 setRadius();
                 break;
+
             case R.id.ivHome:
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 strtaDS();
                 break;
+
             case R.id.txtApply:
                 KeyboardData keyboardData = new KeyboardData();
                 keyboardData.setIsColor(GlobalClass.tempIsColor);
@@ -1365,16 +1243,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
                 break;
 
-            case R.id.linCamera:
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                intent.putExtra("output", FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", CreateKeyboardActivity.mFileTemp));
-                CreateKeyboardActivity.this.startActivityForResult(intent, CreateKeyboardActivity.RESULT_FROM_CAMERA);
-                break;
-            case R.id.linGallery:
-                Intent photoPickerIntent = new Intent("android.intent.action.PICK", MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                photoPickerIntent.setType("image/*");
-                CreateKeyboardActivity.this.startActivityForResult(photoPickerIntent, CreateKeyboardActivity.RESULT_FROM_GALLERY);
-                break;
         }
     }
 

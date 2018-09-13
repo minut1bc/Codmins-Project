@@ -17,11 +17,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.firebase.crash.FirebaseCrash;
 import com.ibl.apps.myphotokeyboard.R;
 import com.ibl.apps.myphotokeyboard.adapter.KeyboardViewPagerAdapter;
 import com.ibl.apps.myphotokeyboard.billing.IabHelper;
@@ -33,7 +33,6 @@ import com.ibl.apps.myphotokeyboard.subscriptionmenu.PackageActivity;
 import com.ibl.apps.myphotokeyboard.utils.GlobalClass;
 import com.kobakei.ratethisapp.RateThisApp;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import me.relex.circleindicator.CircleIndicator;
@@ -45,8 +44,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
 
     private ImageView ivCreateKeyboard;
     private Context context;
-    public static File mFileTemp;
-    public static final String TEMP_PHOTO_FILE_NAME = "temp_photo.jpeg";
     private ViewPager viewPager;
     private KeyboardViewPagerAdapter keyboardViewPagerAdapter;
     ArrayList<KeyboardData> keyboardDataArrayList = new ArrayList<>();
@@ -59,6 +56,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
     private AdView mAdView;
     IabHelper mHelper;
     CircleIndicator indicator;
+
     // Called when consumption is complete
     IabHelper.OnConsumeFinishedListener consumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
@@ -188,8 +186,8 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(getResources().getColor(R.color.dark_gray));
         }
-        FirebaseCrash.log("Activity created");
-        FirebaseCrash.logcat(Log.ERROR, "tag", "Message");
+        Crashlytics.log("Activity created");
+        Crashlytics.log(Log.ERROR, "tag", "Message");
 
         // set context
         context = MainActivity.this;
@@ -758,7 +756,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
     }
 
     private void askForPermission() {
-        askCompactPermissions(new String[]{PermissionUtils.Manifest_CAMERA, PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE, PermissionUtils.Manifest_READ_EXTERNAL_STORAGE}, new PermissionResult() {
+        askCompactPermissions(new String[]{PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE, PermissionUtils.Manifest_READ_EXTERNAL_STORAGE}, new PermissionResult() {
             @Override
             public void permissionGranted() {
             }
@@ -800,4 +798,5 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
             }
         }, 2000);
     }
+
 }
