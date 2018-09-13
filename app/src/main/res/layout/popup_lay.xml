@@ -1,244 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/popup_linear"
-    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:background="#80000000"
         android:id="@+id/popup_linear1"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="11.0">
+        android:layout_height="wrap_content"
+        android:background="#80000000">
 
         <Button
             android:id="@+id/buttona"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
             android:text="a"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttonb"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="a"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="b"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttonc"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="a"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="c"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttond"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="a"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="d"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttone"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="a"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="e"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttonf"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="X"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="f"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttong"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="X" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="g" />
 
         <Button
             android:id="@+id/buttonh"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="X"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="h"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttoni"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="X"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="i"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttonj"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="X"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="j"
             android:textColor="@color/dark_gray" />
     </LinearLayout>
 
     <LinearLayout
-        android:background="#80000000"
         android:id="@+id/popup_linear2"
-        android:layout_below="@+id/popup_linear1"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="11.0">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/popup_linear1"
+        android:background="#80000000">
 
         <Button
             android:id="@+id/buttonk"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="X"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="k"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttonl"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="a"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="l"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttonm"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="a"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="m"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttonn"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="a"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="n"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttono"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="a"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="o"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttonp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="a"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="p"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttonq"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="X"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="q"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttonr"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="X" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="r" />
 
         <Button
             android:id="@+id/buttons"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="X"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="s"
             android:textColor="@color/dark_gray" />
 
         <Button
             android:id="@+id/buttont"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1.0"
             android:layout_width="0dp"
-            android:text="X"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="t"
             android:textColor="@color/dark_gray" />
+
     </LinearLayout>
+
 </RelativeLayout>

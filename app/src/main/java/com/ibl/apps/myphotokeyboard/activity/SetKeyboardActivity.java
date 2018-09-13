@@ -10,10 +10,10 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ibl.apps.myphotokeyboard.R;
-import com.ibl.apps.myphotokeyboard.utils.CustomTextView;
 import com.ibl.apps.myphotokeyboard.utils.GlobalClass;
 
 public class SetKeyboardActivity extends AppCompatActivity implements View.OnClickListener {
@@ -21,8 +21,8 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
     private InputMethodChangedReceiver imChange;
     private boolean isKeyboardEnabled;
     private boolean isKeyboardSet;
-    private CustomTextView txtEnableKeyboard;
-    private CustomTextView txtSwitchKeyboard;
+    private TextView txtEnableKeyboard;
+    private TextView txtSwitchKeyboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +103,7 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
             }
         }
         isKeyboardSet = GlobalClass.KeyboardIsSet(SetKeyboardActivity.this);
-        CustomTextView button;
+        TextView button;
         if (!isKeyboardEnabled) {
             button = txtEnableKeyboard;
             if (!isKeyboardEnabled) {
@@ -122,7 +122,7 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
             super.onWindowFocusChanged(hasFocus);
         } else {
             boolean z2;
-            CustomTextView button2 = txtEnableKeyboard;
+            TextView button2 = txtEnableKeyboard;
             z2 = !isKeyboardEnabled;
             button2.setEnabled(z2);
             txtEnableKeyboard.clearAnimation();
