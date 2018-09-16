@@ -55,6 +55,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Example of writing an input method for a soft keyboard.  This code is
@@ -103,6 +104,10 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private ImageView ivFood;
     private ImageView ivSocial;
     private ImageView ivGoogleSearch;
+
+    private AudioManager audioManager;
+    private MediaPlayer mediaPlayer;
+    private Vibrator vibrator;
 
     Context mContext;
     private String[] emojiArrayList;
@@ -1558,10 +1563,13 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         mContext = SoftKeyboard.this;
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         mWordSeparators = getResources().getString(R.string.word_separators);
-        final TextServicesManager tsm = (TextServicesManager) getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
+        TextServicesManager tsm = (TextServicesManager) getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
         if (tsm != null) {
-            mScs = tsm.newSpellCheckerSession(null, null, this, true);
+            mScs = tsm.newSpellCheckerSession(null, Locale.ENGLISH, this, true);
         }
+
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
     }
 
@@ -2587,13 +2595,12 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         Log.e("KEYBOARD", "hello" + GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.SOUND_STATUS, "off"));
 
-        if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.SOUND_STATUS, "off").equals("on") && isNormalMode()) {
+        if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.SOUND_STATUS, "off").equals("on")) {
 
             //remove this comment for the play key tone
-            beep(10);
+            performKeySound(10);
         }
 
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         if (vibrator != null)
             vibrator.vibrate(100);
 
@@ -2656,58 +2663,37 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         Log.d("SoftKeyboard", "onGetSentenceSuggestions");
         final List<String> sb = new ArrayList<>();
         for (final SentenceSuggestionsInfo ssi : results) {
-            for (int j = 0; j < ssi.getSuggestionsCount(); ++j) {
+            for (int i = 0; i < ssi.getSuggestionsCount(); ++i) {
                 dumpSuggestionsInfoInternal(
-                        sb, ssi.getSuggestionsInfoAt(j), ssi.getOffsetAt(j), ssi.getLengthAt(j));
+                        sb, ssi.getSuggestionsInfoAt(i), ssi.getOffsetAt(i), ssi.getLengthAt(i));
             }
         }
         Log.d("SoftKeyboard", "SUGGESTIONS: " + sb.toString());
         setSuggestions(sb, true, true);
     }
 
-    private void beep(int volume) {
-        GlobalClass.printLog("SoftKeyboard", "---------------beep---------------");
+    private void performKeySound(int volume) {
+        GlobalClass.printLog("SoftKeyboard", "---------------performKeySound---------------");
 
-        AudioManager manager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        MediaPlayer player;
+        int ringerMode = audioManager.getRingerMode();
 
-        try {
-            player = MediaPlayer.create(this, GlobalClass.tempSoundName);
-            if (manager != null) {
-                manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
-            }
-            player.start();
+        if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
+            try {
+                mediaPlayer = MediaPlayer.create(this, GlobalClass.tempSoundName);
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+                mediaPlayer.start();
 
-            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    mp.release();
-                }
-            });
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                    }
+                });
 
-        } catch (Exception ignored) {
-        }
-    }
-
-    public boolean isNormalMode() {
-        GlobalClass.printLog("SoftKeyboard", "---------------isNormalMode---------------");
-
-        AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-
-        if (am != null) {
-            switch (am.getRingerMode()) {
-                case AudioManager.RINGER_MODE_SILENT:
-                    return false;
-                case AudioManager.RINGER_MODE_VIBRATE:
-                    return false;
-                case AudioManager.RINGER_MODE_NORMAL:
-                    return true;
-                default:
-                    return false;
+            } catch (Exception ignored) {
             }
         }
-        return false;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.ibl.apps.myphotokeyboard.customkeyboard;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -35,7 +36,7 @@ public class CandidateView extends View {
     private int[] mWordWidth = new int[MAX_SUGGESTIONS];
     private int[] mWordX = new int[MAX_SUGGESTIONS];
 
-    private static final int X_GAP = 60;
+    private static final int X_GAP = 10;
 
     private static final List<String> EMPTY_LIST = new ArrayList<>();
 
@@ -154,7 +155,7 @@ public class CandidateView extends View {
         }
         int x = 0;
         final int count = mSuggestions.size();
-        final int height = getHeight(); //...
+        final int height = getHeight();
         GlobalClass.printLog("Canditate View", "==getHeight====" + getHeight());
         final Rect bgPadding = mBgPadding;
         final Paint paint = mPaint;
@@ -222,8 +223,8 @@ public class CandidateView extends View {
         invalidate();
     }
 
-    public void setSuggestions(List<String> suggestions, boolean completions,
-                               boolean typedWordValid) {
+    @SuppressLint("WrongCall")
+    public void setSuggestions(List<String> suggestions, boolean completions, boolean typedWordValid) {
         clear();
         if (suggestions != null) {
             mSuggestions = new ArrayList<>(suggestions);
@@ -231,8 +232,8 @@ public class CandidateView extends View {
         mTypedWordValid = typedWordValid;
         scrollTo(0, 0);
         mTargetScrollX = 0;
-//        // Compute the total width
-//        onDraw(null);
+        // Compute the total width
+        onDraw(null);
         invalidate();
         requestLayout();
     }
@@ -291,10 +292,11 @@ public class CandidateView extends View {
      *
      * @param x
      */
+    @SuppressLint("WrongCall")
     public void takeSuggestionAt(float x) {
         mTouchX = (int) x;
-//        // To detect candidate
-//        onDraw(null);
+        // To detect candidate
+        onDraw(null);
         if (mSelectedIndex >= 0) {
             mService.pickSuggestionManually(mSelectedIndex);
         }
