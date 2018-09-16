@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +28,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -54,7 +52,6 @@ import com.ibl.apps.myphotokeyboard.utils.MyBounceInterpolator_anim;
 import com.ibl.apps.myphotokeyboard.utils.RecyclerItemClickListener;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -417,7 +414,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.selectsounds = position;
                 if (position != 0) {
                     GlobalClass.tempSoundName = newSoundDataArrayList.get(position).getResourceId();
-                    beep(10);
+                    performKeySound(10);
                     GlobalClass.tempSoundStatus = "on";
                 } else {
                     GlobalClass.tempSoundStatus = "off";
@@ -865,53 +862,29 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         fillWallpaperTextualAdapter.notifyDataSetChanged();
     }
 
-    private void beep(int volume) {
+    private void performKeySound(int volume) {
 
         AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         MediaPlayer player;
 
         try {
-            String filename = GlobalClass.tempSoundName + ".mp3";
-
-            File file = new File(filename);
-
-            if (file.exists()) {
-                if (GlobalClass.tempSoundName != 0) {
-                    player = MediaPlayer.create(context, GlobalClass.tempSoundName);
-                    assert manager != null;
-                    manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
-                    player.start();
-
-                    player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            mp.release();
-                        }
-                    });
-                } else {
-                    file = new File(filename);
-
-                    if (file.exists()) {
-                        player = MediaPlayer.create(context, Uri.fromFile(file));
-                        assert manager != null;
-                        manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
-                        player.start();
-
-                        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-                            @Override
-                            public void onCompletion(MediaPlayer mp) {
-                                mp.release();
-                            }
-                        });
-                    } else {
-                        Toast.makeText(context, "Some problem play key tone.", Toast.LENGTH_SHORT).show();
-                    }
-                }
+            player = MediaPlayer.create(context, GlobalClass.tempSoundName);
+            if (manager != null) {
+                manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
             }
+            player.start();
+
+
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mp.release();
+                }
+            });
         } catch (Exception ignored) {
         }
+
     }
 
     private int getColorPos(int colorCode) {
