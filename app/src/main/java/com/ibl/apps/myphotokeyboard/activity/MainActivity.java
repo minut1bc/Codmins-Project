@@ -199,17 +199,20 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
         RateThisApp.setCallback(new RateThisApp.Callback() {
             @Override
             public void onYesClicked() {
-//                Toast.makeText(MainActivity.this, "Yes event", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Yes event", Toast.LENGTH_SHORT).show();
+                //Rate now event
             }
 
             @Override
             public void onNoClicked() {
-//                Toast.makeText(MainActivity.this, "No event", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "No event", Toast.LENGTH_SHORT).show();
+                // No thanks text
             }
 
             @Override
             public void onCancelClicked() {
-//                Toast.makeText(MainActivity.this, "Cancel event", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Cancel event", Toast.LENGTH_SHORT).show();
+                //Later text
             }
         });
         RateThisApp.showRateDialog(MainActivity.this, R.style.MyAlertDialogStyle2);
@@ -345,9 +348,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelectcolor());
                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelview());
                     GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBitmapback());
-                }
-                else
-                {
+                } else {
                     ivApply.setImageDrawable(getResources().getDrawable(R.drawable.btn_disable));
                 }
 
