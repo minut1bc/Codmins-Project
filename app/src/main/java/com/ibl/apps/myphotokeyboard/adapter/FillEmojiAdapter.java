@@ -38,13 +38,16 @@ public class FillEmojiAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = new ViewHolder();
-        convertView = inflater.inflate(R.layout.row_emoji_item, null);
 
-        holder.txtEmoji = convertView.findViewById(R.id.txtEmoji);
+        ViewHolder viewHolder = new ViewHolder();
+
+        if (convertView == null)
+            convertView = inflater.inflate(R.layout.row_emoji_item, parent, false);
+
+        viewHolder.txtEmoji = convertView.findViewById(R.id.txtEmoji);
 
         if (emojiArrayList[position] != null && !emojiArrayList[position].isEmpty())
-            holder.txtEmoji.setText(emojiArrayList[position]);
+            viewHolder.txtEmoji.setText(emojiArrayList[position]);
 
         return convertView;
     }

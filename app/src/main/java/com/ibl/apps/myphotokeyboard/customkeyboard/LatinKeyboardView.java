@@ -81,7 +81,8 @@ public class LatinKeyboardView extends KeyboardView {
 
 
             npd1.setAlpha(Integer.parseInt(GlobalClass.getPreferencesString(context, GlobalClass.KEY_OPACITY, "255")));
-            npd_presed1.setAlpha(Integer.parseInt(GlobalClass.getPreferencesString(context, GlobalClass.KEY_OPACITY, "255")));
+            // npd_presed1.setAlpha(Integer.parseInt(GlobalClass.getPreferencesString(context, GlobalClass.KEY_OPACITY, "255")));   TODO: Maybe look into variable opacity tint
+            npd_presed1.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
 
             npd1.setCornerRadius(Float.parseFloat(GlobalClass.getPreferencesString(context, GlobalClass.KEY_RADIUS, "18")));
             npd_presed1.setCornerRadius(Float.parseFloat(GlobalClass.getPreferencesString(context, GlobalClass.KEY_RADIUS, "18")));
@@ -111,7 +112,7 @@ public class LatinKeyboardView extends KeyboardView {
 
             npd1.setBounds(key.x + 5, key.y + 5, (key.x + key.width) - 5, (key.y + key.height) - 5);
             npd_presed1.setBounds(key.x + 5, key.y + 5, (key.x + key.width) - 5, (key.y + key.height) - 5);
-            if (key.pressed) {
+            if (!key.pressed) {
                 npd1.draw(canvas);
             } else {
                 npd_presed1.draw(canvas);

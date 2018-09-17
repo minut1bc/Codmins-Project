@@ -851,12 +851,11 @@
 
 
     <!--live id-->
-   <!-- <string name="banner_home_footer">ca-app-pub-1041813022220163/8312067772</string>
-    <string name="interstitial_full_screen">ca-app-pub-1041813022220163/7928924396</string>-->
+    <!-- <string name="banner_home_footer">ca-app-pub-1041813022220163/8312067772</string>
+     <string name="interstitial_full_screen">ca-app-pub-1041813022220163/7928924396</string>-->
     <!--<string name="native_ad_id_large">ca-app-pub-2086017583390552/3647608070</string>-->
     <!--<string name="native_ad_id_small"> ca-app-pub-2086017583390552/3291071772</string>-->
     <!--<string name="native_ad_id_medium">ca-app-pub-2086017583390552/6958854042</string>-->
-
 
 
     <!--Test id-->
