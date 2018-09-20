@@ -1045,6 +1045,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             updateCandidates();
         } else {
             getCurrentInputConnection().commitText(String.valueOf((char) primaryCode), 1);
+            updateShiftKeyState(getCurrentInputEditorInfo());
         }
     }
 

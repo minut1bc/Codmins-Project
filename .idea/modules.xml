@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PhotoKeyboard.iml" filepath="$PROJECT_DIR$/PhotoKeyboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FmlMariaRpdl.iml" filepath="$PROJECT_DIR$/FmlMariaRpdl.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
