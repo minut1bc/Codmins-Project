@@ -652,7 +652,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
     @Override
     public void onCurrentInputMethodSubtypeChanged(InputMethodSubtype subtype) {
-        mInputView.setSubtypeOnSpaceKey(subtype);
+        if (mInputView != null)
+            mInputView.setSubtypeOnSpaceKey(subtype);
     }
 
     /**
