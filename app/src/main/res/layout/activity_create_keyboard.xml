@@ -42,9 +42,19 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/txtDemo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Demo text"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:visibility="gone" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:gravity="center">
 
         <ImageView
@@ -68,7 +78,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:background="@drawable/wallpaper_round"
+            android:background="@drawable/go_now_enable"
             android:gravity="center"
             android:padding="5dp">
 
@@ -106,7 +116,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:background="@drawable/key_design_round"
+            android:background="@drawable/go_now_enable"
             android:gravity="center"
             android:padding="5dp"
             android:visibility="gone">
@@ -146,7 +156,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:background="@drawable/font_round"
+            android:background="@drawable/go_now_enable"
             android:gravity="center"
             android:padding="5dp"
             android:visibility="gone">
@@ -185,7 +195,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:background="@drawable/sound_effect_round"
+            android:background="@drawable/go_now_enable"
             android:gravity="center"
             android:padding="5dp"
             android:visibility="gone">
@@ -205,15 +215,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/txtDemo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Demo text"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
