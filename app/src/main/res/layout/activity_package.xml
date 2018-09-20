@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/toolbar_package_bg">
+        android:background="@color/MidnightBlue">
 
         <ImageView
             android:id="@+id/ivBack"
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/in_app_remove_ads"
+            android:background="@drawable/theme_color2"
             android:gravity="center">
 
             <ImageView
@@ -91,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/in_app_text_color_bg"
+            android:background="@drawable/theme_color3"
             android:gravity="center">
 
             <ImageView
@@ -147,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/in_app_themes_slots"
+            android:background="@drawable/theme_color4"
             android:gravity="center">
 
             <ImageView
@@ -201,7 +201,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/in_app_colors"
+            android:background="@drawable/theme_color11"
             android:gravity="center">
 
             <ImageView
@@ -256,7 +256,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/in_app_fonts"
+            android:background="@drawable/theme_color12"
             android:gravity="center">
 
             <ImageView
@@ -311,7 +311,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/in_app_sounds"
+            android:background="@drawable/theme_color13"
             android:gravity="center">
 
             <ImageView
