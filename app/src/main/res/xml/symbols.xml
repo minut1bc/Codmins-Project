@@ -10,30 +10,39 @@
             android:codes="49"
             android:keyEdgeFlags="left"
             android:keyLabel="1" />
+
         <Key
             android:codes="50"
             android:keyLabel="2" />
+
         <Key
             android:codes="51"
             android:keyLabel="3" />
+
         <Key
             android:codes="52"
             android:keyLabel="4" />
+
         <Key
             android:codes="53"
             android:keyLabel="5" />
+
         <Key
             android:codes="54"
             android:keyLabel="6" />
+
         <Key
             android:codes="55"
             android:keyLabel="7" />
+
         <Key
             android:codes="56"
             android:keyLabel="8" />
+
         <Key
             android:codes="57"
             android:keyLabel="9" />
+
         <Key
             android:codes="48"
             android:keyEdgeFlags="right"
@@ -45,15 +54,19 @@
             android:codes="64"
             android:keyEdgeFlags="left"
             android:keyLabel="\@" />
+
         <Key
             android:codes="35"
             android:keyLabel="\#" />
+
         <Key
             android:codes="36"
             android:keyLabel="$" />
+
         <Key
             android:codes="95"
             android:keyLabel="_" />
+
         <Key
             android:codes="38"
             android:keyLabel="&amp;" />
@@ -123,36 +136,46 @@
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
-        <!--<Key android:codes="-3" android:keyIcon="@drawable/sym_keyboard_done"-->
-        <!--android:keyWidth="15%p" android:keyEdgeFlags="left" />-->
+        <!--
+        <Key android:codes="-3" android:keyIcon="@drawable/sym_keyboard_done"
+            android:keyWidth="14.8%p" android:keyEdgeFlags="left"/>
+        -->
+
         <Key
             android:codes="-2"
             android:keyEdgeFlags="left"
             android:keyLabel="ABC"
             android:keyWidth="15%p" />
+
         <!--
             android:codes: -101 is not a framework-defined key code but a key code that is
             privately defined in com.example.android.softkeyboard.LatinKeyboardView.
         -->
-        <!--<Key android:codes="-101" android:keyIcon="@drawable/sym_keyboard_language_switch"-->
-        <!--android:keyWidth="10%p" />-->
+        <!--
+        <Key
+            android:codes="-101"
+            android:keyIcon="@drawable/sym_keyboard_language_switch"
+            android:keyWidth="10%p" />
+        -->
 
         <Key
             android:codes="44"
             android:keyLabel=","
             android:keyWidth="14%p" />
+
         <Key
             android:codes="32"
             android:isRepeatable="true"
             android:keyWidth="40.5%p" />
+
         <Key
             android:codes="46"
             android:keyLabel="."
             android:keyWidth="14%p" />
+
         <Key
             android:codes="10"
             android:keyEdgeFlags="right"
             android:keyWidth="15%p" />
     </Row>
-
 </Keyboard>
