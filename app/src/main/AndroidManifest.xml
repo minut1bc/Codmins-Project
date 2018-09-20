@@ -35,9 +35,6 @@
             android:name="com.ibl.apps.myphotokeyboard.customkeyboard.SoftKeyboard"
             android:label="My Photo Keyboard"
             android:permission="android.permission.BIND_INPUT_METHOD">
-            <meta-data
-                android:name="android.view.im"
-                android:resource="@xml/method" />
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
             </intent-filter>
