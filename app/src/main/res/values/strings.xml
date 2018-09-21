@@ -14,7 +14,7 @@
 
     <!-- Labels for subtype -->
     <string name="label_subtype_generic">%s</string>
-    <string name="label_subtype_en_GB">English (GB)</string>
+    <string name="label_subtype_en_GB">Universe Keyboard</string>
 
     <!-- Titles for ImePreference -->
     <string name="settings_name">Sample Soft Keyboard Settings</string>
@@ -22,7 +22,7 @@
     <string name="select_language">Select input languages</string>
     <string name="general_category">General</string>
 
-    <string name="subtype_en_US">English (US)</string>
+    <string name="subtype_en_US">Universe Keyboard</string>
     <string name="keyboard">Keyboard</string>
     <string name="guide">Guide</string>
     <string name="wallpaper">Wallpaper</string>

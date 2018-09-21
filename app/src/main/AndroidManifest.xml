@@ -33,7 +33,7 @@
         </activity>
         <service
             android:name=".customkeyboard.SoftKeyboard"
-            android:label="My Photo Keyboard"
+            android:label="Universe Keyboard"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
