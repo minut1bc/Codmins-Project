@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ibl.apps.myphotokeyboard">
+    package="com.codminskeyboards.universekeyboard">
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -15,16 +15,16 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".utils.MyPhotoKeyboardApplication"
+        android:name=".utils.UniverseKeyboardApplication"
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.ibl.apps.myphotokeyboard.activity.SplashActivity">
+        <activity android:name="com.codminskeyboards.universekeyboard.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name="com.ibl.apps.myphotokeyboard.customkeyboard.SoftKeyboard"
+            android:name=".customkeyboard.SoftKeyboard"
             android:label="My Photo Keyboard"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
@@ -44,23 +44,23 @@
         </service>
 
         <activity
-            android:name="com.ibl.apps.myphotokeyboard.activity.CreateKeyboardActivity"
+            android:name=".activity.CreateKeyboardActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.ibl.apps.myphotokeyboard.activity.MainActivity"
+            android:name="com.codminskeyboards.universekeyboard.activity.MainActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.ibl.apps.myphotokeyboard.subscriptionmenu.PackageActivity"
+            android:name="com.codminskeyboards.universekeyboard.subscriptionmenu.PackageActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.ibl.apps.myphotokeyboard.activity.SetKeyboardActivity"
+            android:name="com.codminskeyboards.universekeyboard.activity.SetKeyboardActivity"
             android:screenOrientation="portrait" />
 
         <service
-            android:name="com.ibl.apps.myphotokeyboard.utils.MyDownloadService"
+            android:name="com.codminskeyboards.universekeyboard.utils.MyDownloadService"
             android:enabled="true"
             android:exported="true" />
         <!--If your targetSdkVersion is 24 or higher, we have to use FileProvider class to give access to the particular file or folder to make them accessible for other apps.-->

@@ -1,5 +1,5 @@
 <input-method xmlns:android="http://schemas.android.com/apk/res/android"
-    android:settingsActivity="com.ibl.apps.photokeyboard.customkeyboard.ImePreferences"
+    android:settingsActivity="com.codminskeyboards.universekeyboard.customkeyboard.ImePreferences"
     android:supportsSwitchingToNextInputMethod="true">
     <subtype
         android:icon="@drawable/icon_en_us"

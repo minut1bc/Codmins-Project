@@ -1,4 +1,4 @@
-package com.ibl.apps.myphotokeyboard.customkeyboard;
+package com.blackcj.customkeyboard;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

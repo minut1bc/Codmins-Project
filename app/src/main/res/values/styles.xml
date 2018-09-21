@@ -15,9 +15,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="PhotoKeyboard" />
+    <style name="UniverseKeyboard" />
     <!-- Base application theme. -->
-    <style name="KeyImageButton" parent="PhotoKeyboard">
+    <style name="KeyImageButton" parent="UniverseKeyboard">
         <item name="background">@android:color/transparent</item>
     </style>
 
