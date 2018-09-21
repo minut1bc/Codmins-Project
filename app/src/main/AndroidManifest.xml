@@ -78,8 +78,8 @@
         </provider>
 
         <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="ae8696c9f626fd42728f7563dcd18f9e781c6a2a" />
+            android:name="com.google.android.gms.ads.ca-app-pub-2002759323605741~1307687673"
+            android:value="ca-app-pub-2002759323605741~1307687673"/>
 
     </application>
 

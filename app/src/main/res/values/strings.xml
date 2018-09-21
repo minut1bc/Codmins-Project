@@ -1651,9 +1651,9 @@
 
 
     <!--Test id-->
-    <string name="banner_home_footer">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="interstitial_full_screen">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="native_ad_id_large">ca-app-pub-2086017583390552/3647608070</string>
+    <string name="banner_home_footer">ca-app-pub-2002759323605741/5494344697</string>
+    <string name="interstitial_full_screen">ca-app-pub-2002759323605741/8308210294</string>
+    <string name="native_ad_id_large">ca-app-pub-2002759323605741/3544104244</string>
 
 
     <color name="BlanchedAlmond">#FFEBCD</color>
