@@ -71,7 +71,7 @@
         android:layout_margin="10dp"
         android:fontFamily="@font/gothic_bold"
         android:gravity="center"
-        android:text="Placeholder Keyboard"
+        android:text="Universe Keyboard"
         android:textColor="@android:color/white"
         android:textSize="24sp" />
 
