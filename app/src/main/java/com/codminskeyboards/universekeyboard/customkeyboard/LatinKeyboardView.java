@@ -16,7 +16,6 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
-import com.codminskeyboards.universekeyboard.utils.Utils;
 
 import java.util.List;
 
@@ -157,16 +156,7 @@ public class LatinKeyboardView extends KeyboardView {
                         String s;
                         this.newpaint.setTextSize((float) (((int) getResources().getDimension(R.dimen.key_text_size))));
                         this.newpaint.setTypeface(Typeface.DEFAULT);
-                        if (!Utils.tmpdeletefalg || !Utils.isEnglishCharacter()) {
-                            s = key.label.toString();
-                            if (Utils.editorisOpen) {
-                                s = key.label.toString();
-                            }
-                        } else if (Utils.editorisOpen) {
-                            s = key.label.toString();
-                        } else {
-                            s = key.label.toString().toUpperCase();
-                        }
+                        s = key.label.toString();
                         newpaint.setTextAlign(Paint.Align.CENTER);
                         newpaint.setColor(Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")));
 
