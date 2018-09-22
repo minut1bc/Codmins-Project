@@ -262,7 +262,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
 
         InterstitialAd mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-2002759323605741/8308210294");
-        //mInterstitialAd.setAdUnitId("ca-app-pub-1041813022220163/7928924396");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         ivCreateKeyboard = findViewById(R.id.ivCreateKeyboard);

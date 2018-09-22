@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHelper {
 
@@ -101,24 +102,18 @@ public class DatabaseHelper {
     }
 
     // ---opens the database---
-    public DatabaseHelper open() throws SQLException {
+    private void open() throws SQLException {
         DatabaseHelper1 dbHelper = new DatabaseHelper1(context);
 
         if (sqLiteDb == null || !sqLiteDb.isOpen()) {
             sqLiteDb = dbHelper.getWritableDatabase();
             sqLiteDb = dbHelper.getReadableDatabase();
         }
-//        if (!sqLiteDb.isReadOnly()) {
-//            // Enable foreign key constraints
-//            sqLiteDb.execSQL("PRAGMA foreign_keys=ON;");
-//        }
-        return this;
     }
 
     // ---closes the database---
     private void close() {
         if (sqLiteDb != null && sqLiteDb.isOpen()) {
-//            dbHelper.close();
             sqLiteDb.close();
         }
     }
@@ -144,7 +139,7 @@ public class DatabaseHelper {
     public Cursor getTableDataById(String tableName, String field, String value) {
         open();
         String selectRowQuery = "SELECT * FROM " + tableName + " WHERE " + field + " = '" + value + "'";
-//        Log.e("---selectRowQuery---", "" + selectRowQuery);
+        Log.e("---selectRowQuery---", "" + selectRowQuery);
 
         return sqLiteDb.rawQuery(selectRowQuery, null);
     }
@@ -152,7 +147,7 @@ public class DatabaseHelper {
     public Cursor getRowData(String tableName, String whereColumnId, String columnValue, boolean isGetAllData) {
         open();
 
-        String selectRowQuery = null;
+        String selectRowQuery;
         if (isGetAllData) {
             selectRowQuery = "SELECT * FROM " + tableName + "WHERE"
                     + whereColumnId + " = '" + columnValue + "'";

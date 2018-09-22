@@ -35,6 +35,7 @@ class InputMethodSettingsImpl implements InputMethodSettingsInterface {
     public boolean init(final Context context, final PreferenceScreen prefScreen) {
         mContext = context;
         mImm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert mImm != null;
         mImi = getMyImi(context, mImm);
         if (mImi == null || mImi.getSubtypeCount() <= 1) {
             return false;

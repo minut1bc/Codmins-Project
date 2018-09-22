@@ -30,9 +30,11 @@ public class LatinKeyboardView extends KeyboardView {
     Drawable npdSpace;
     Drawable npdDoubleSpace;
 
+    GradientDrawable npd1;
+    GradientDrawable npd_presed1;
+
     public Paint newpaint;
     private Context context;
-
 
     public LatinKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -45,6 +47,16 @@ public class LatinKeyboardView extends KeyboardView {
         this.npdDelete = context.getResources().getDrawable(R.drawable.ic_backspace);
         this.npdDone = context.getResources().getDrawable(R.drawable.ic_enter_new);
         this.npdDoubleSpace = context.getResources().getDrawable(R.drawable.ic_shift_double_on);
+
+        npd1 = new GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[]{GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight)),
+                        GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight))});
+
+        npd_presed1 = new GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[]{GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight)),
+                        GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight))});
 
     }
 
@@ -68,16 +80,6 @@ public class LatinKeyboardView extends KeyboardView {
         List<Key> keys;
         keys = getKeyboard().getKeys();
         for (Key key : keys) {
-
-            GradientDrawable npd1 = new GradientDrawable(
-                    GradientDrawable.Orientation.TOP_BOTTOM,
-                    new int[]{GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight)),
-                            GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight))});
-            GradientDrawable npd_presed1 = new GradientDrawable(
-                    GradientDrawable.Orientation.TOP_BOTTOM,
-                    new int[]{GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight)),
-                            GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight))});
-
 
             npd1.setAlpha(Integer.parseInt(GlobalClass.getPreferencesString(context, GlobalClass.KEY_OPACITY, "255")));
             // npd_presed1.setAlpha(Integer.parseInt(GlobalClass.getPreferencesString(context, GlobalClass.KEY_OPACITY, "255")));   TODO: Maybe look into variable opacity tint

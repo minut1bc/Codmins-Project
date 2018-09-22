@@ -51,7 +51,6 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -117,6 +116,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     MyBounceInterpolator_anim interpolator;
     ArrayList<NewSoundData> newSoundDataArrayList = new ArrayList<>();
 
+    private AudioManager audioManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,13 +135,14 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         getColorFromDatabase();
         getFontFromDatabase();
         getSoundFromDatabase();
+
+
+        audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
     }
 
     private void setContent() {
 
         mInterstitialAd = new InterstitialAd(this);
-        //mInterstitialAd.setAdUnitId("ca-app-pub-2086017583390552/5535404813");
-        //mInterstitialAd.setAdUnitId("ca-app-pub-1041813022220163/7928924396");
         mInterstitialAd.setAdUnitId("ca-app-pub-2002759323605741/8308210294");
 
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -808,12 +810,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         final LinearLayout adContainer = findViewById(R.id.adContainer);
         final AdView mAdView = new AdView(this);
         mAdView.setAdSize(AdSize.SMART_BANNER);
-//        mAdView.setAdUnitId(GlobalClass.getPreferenceString(ImageViewActivity.this, getString(R.string.android_banner), ""));
-
-//        adContainer.addView(mAdView);
-//        AdRequest adRequest = new AdRequest.Builder().build();
         AdRequest adRequest = new AdRequest.Builder().build();
-//        mAdView.loadAd(adRequest);
 
         mInterstitial = new InterstitialAd(this);
         mInterstitial.setAdUnitId(GlobalClass.getPrefrenceString(CreateKeyboardActivity.this, getString(R.string.android_inst), ""));
@@ -842,47 +839,25 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         });
     }
 
-    public void setKeyboardBackground(Bitmap bitmap) {
-
-        GlobalClass.selectwallpaper = -1;
-        GlobalClass.selectbgcolor = 7;
-        GlobalClass.selectfontcolor = 1;
-        GlobalClass.selectsounds = 0;
-        GlobalClass.selectfonts = 0;
-
-        ivKeyboardBg.setImageBitmap(bitmap);
-
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        GlobalClass.keyboardBitmapBack = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
-        fillDefaultColorAdapter.notifyDataSetChanged();
-        fillWallpaperColorAdapter.notifyDataSetChanged();
-        fillWallpaperTextualAdapter.notifyDataSetChanged();
-    }
-
     private void performKeySound(int volume) {
 
-        AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        MediaPlayer player;
+        int ringerMode = audioManager.getRingerMode();
 
-        try {
-            player = MediaPlayer.create(context, GlobalClass.tempSoundName);
-            if (manager != null) {
-                manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+        if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
+            try {
+                MediaPlayer mediaPlayer = MediaPlayer.create(context, GlobalClass.tempSoundName);
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+                mediaPlayer.start();
+
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                    }
+                });
+            } catch (Exception ignored) {
             }
-            player.start();
-
-
-            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    mp.release();
-                }
-            });
-        } catch (Exception ignored) {
         }
 
     }
@@ -1215,7 +1190,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 gvSoundEffect.setVisibility(View.VISIBLE);
 
                 break;
-
         }
     }
 

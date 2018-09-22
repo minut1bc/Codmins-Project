@@ -46,7 +46,8 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = new ViewHolder();
 
-        convertView = inflater.inflate(R.layout.row_wallpaper_color_item, null);
+        if (convertView == null)
+            convertView = inflater.inflate(R.layout.row_wallpaper_color_item, parent, false);
         holder.ivColorItem = convertView.findViewById(R.id.ivColorItem);
         holder.flBg = convertView.findViewById(R.id.flBg);
         holder.ivLock = convertView.findViewById(R.id.ivLock);
@@ -79,7 +80,6 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
         } else {
             holder.ivLock.setVisibility(View.GONE);
         }
-
 
         return convertView;
     }

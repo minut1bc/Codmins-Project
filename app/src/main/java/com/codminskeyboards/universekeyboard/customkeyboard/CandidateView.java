@@ -45,6 +45,7 @@ public class CandidateView extends View {
     private int mColorOther;
     private int mVerticalPadding;
     private Paint mPaint;
+    private Rect mPadding;
     private boolean mScrolled;
     private int mTargetScrollX;
 
@@ -79,6 +80,8 @@ public class CandidateView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(r.getDimensionPixelSize(R.dimen.candidate_font_height));
         mPaint.setStrokeWidth(0);
+
+        mPadding = new Rect();
 
         mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -125,10 +128,9 @@ public class CandidateView extends View {
 
         // Get the desired height of the icon menu view (last row of items does
         // not have a divider below)
-        Rect padding = new Rect();
-        mSelectionHighlight.getPadding(padding);
+        mSelectionHighlight.getPadding(mPadding);
         final int desiredHeight = ((int) mPaint.getTextSize()) + mVerticalPadding
-                + padding.top + padding.bottom;
+                + mPadding.top + mPadding.bottom;
 
         // Maximum possible width and desired height
         setMeasuredDimension(measuredWidth,

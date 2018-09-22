@@ -41,41 +41,7 @@ public class MyDownloadService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-//        getKeyboardData();
     }
-
-//    private void getKeyboardData() {
-//        GlobalClass.printLog("start service", "----MyDownloadService---getKeyboardData-------");
-//        ApiInterface apiService = APIClient.getClient();
-//        Call<ResponseObject<ResponseData>> call = apiService.getKeyboardData();
-//        call.enqueue(new Callback<ResponseObject<ResponseData>>() {
-//            @Override
-//            public void onResponse(Call<ResponseObject<ResponseData>> call, final Response<ResponseObject<ResponseData>> response) {
-//                try {
-//                    if (response.body() != null) {
-//                        dbHelper = new DatabaseHelper(context);
-//                        GlobalClass.printLog("----onResponse-----", "Size" + response.body().getResponse_data().getWallpaper().getPaid().getTextual().size());
-//
-//                        MergeDefaultColorArray(response.body().getResponse_data().getColor());
-//                        MergeWallPaperColorArray(response.body().getResponse_data().getWallpaper());
-//                        MergeWallPaperTextualArray(response.body().getResponse_data().getWallpaper());
-//                        MergeFontArray(response.body().getResponse_data().getFonts());
-//                        MergeSoundArray(response.body().getResponse_data().getSound());
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    GlobalClass.printLog("-------- e-------", "" + e.toString());
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseObject<ResponseData>> call, Throwable t) {
-//                GlobalClass.printLog("-------- t-------", "" + t.toString());
-//                call.cancel();
-//            }
-//        });
-//    }
 
 
     @Override
@@ -121,9 +87,6 @@ public class MyDownloadService extends Service {
             }
         }
         insertSoundArray(soundArrayList);
-
-//            setSoundEffectGridView(soundArrayList);
-
     }
 
     private void MergeFontArray(Fonts fonts) {
@@ -234,7 +197,6 @@ public class MyDownloadService extends Service {
                 }
             }
             insertTextualWallPaperArray(textualWallpaperArrayList);
-//            setTextualGridView(textualWallpaperArrayList);
         }
     }
 
