@@ -1,4 +1,4 @@
-package com.codminskeyboards.universekeyboard.Interface;
+package com.codminskeyboards.universekeyboard.utils;
 
 import android.view.View;
 

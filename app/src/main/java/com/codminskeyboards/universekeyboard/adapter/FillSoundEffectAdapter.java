@@ -11,8 +11,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.codminskeyboards.universekeyboard.R;
+import com.codminskeyboards.universekeyboard.activity.PackageActivity;
 import com.codminskeyboards.universekeyboard.model.NewSoundData;
-import com.codminskeyboards.universekeyboard.subscriptionmenu.PackageActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
 import java.util.ArrayList;

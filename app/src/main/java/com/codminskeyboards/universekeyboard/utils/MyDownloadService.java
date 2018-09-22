@@ -2,7 +2,6 @@ package com.codminskeyboards.universekeyboard.utils;
 
 import android.app.Service;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.IBinder;
@@ -22,20 +21,17 @@ import com.codminskeyboards.universekeyboard.model.Wallpaper;
 import java.util.ArrayList;
 
 public class MyDownloadService extends Service {
-    private Context context;
-    private AsyncDownload asyncDownload;
     private Cursor cursor;
     private DatabaseHelper dbHelper;
-    private ArrayList<FontsPaid> soundArray;
 
     public MyDownloadService() {
         GlobalClass.printLog("start service", "----MyDownloadService---construcor-------");
     }
 
     @Override
-    public void onStart(Intent intent, int startId) {
-        super.onStart(intent, startId);
-        context = this;
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+        return START_NOT_STICKY;
     }
 
     @Override

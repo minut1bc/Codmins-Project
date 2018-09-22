@@ -24,7 +24,6 @@ import com.codminskeyboards.universekeyboard.billing.IabResult;
 import com.codminskeyboards.universekeyboard.billing.Inventory;
 import com.codminskeyboards.universekeyboard.billing.Purchase;
 import com.codminskeyboards.universekeyboard.model.KeyboardData;
-import com.codminskeyboards.universekeyboard.subscriptionmenu.PackageActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdListener;

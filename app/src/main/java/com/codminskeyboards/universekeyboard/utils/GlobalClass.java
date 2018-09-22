@@ -32,7 +32,6 @@ public class GlobalClass {
     private static SharedPreferences preferences;
     private static int cntads = 0;
 
-
     public static final String IS_COLOR = "isColor";
     public static final String KEYBOARD_BG_IMAGE = "keyboardBgImage";
     public static final String KEYBOARD_COLOR_CODE = "keyboardColorCode";
@@ -41,7 +40,6 @@ public class GlobalClass {
     public static final String KEY_RADIUS = "keyRadius";
     public static final String KEY_OPACITY = "keyOpacity";
     public static final String KEY_STROKE = "keyStroke";
-
 
     public static final String FONT_COLOR = "fontColor";
     public static final String FONT_NAME = "fontName";
@@ -155,11 +153,9 @@ public class GlobalClass {
             R.drawable.theme35,
             R.drawable.theme36,
     };
-    Context context;
 
     public GlobalClass(Context context) {
-        this.context = context;
-        preferences = this.context.getSharedPreferences(context.getPackageName(), 0);
+        preferences = context.getSharedPreferences(context.getPackageName(), 0);
         editor = preferences.edit();
 
         newColorDataArrayList.add(new NewColorData(0, R.color.one, true, false));

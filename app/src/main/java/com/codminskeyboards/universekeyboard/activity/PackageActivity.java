@@ -1,4 +1,4 @@
-package com.codminskeyboards.universekeyboard.subscriptionmenu;
+package com.codminskeyboards.universekeyboard.activity;
 
 import android.annotation.SuppressLint;
 import android.content.ComponentName;

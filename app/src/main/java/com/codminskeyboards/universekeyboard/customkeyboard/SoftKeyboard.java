@@ -45,11 +45,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.codminskeyboards.universekeyboard.Interface.OnItemClickListener;
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.adapter.FillArtAdapter;
 import com.codminskeyboards.universekeyboard.adapter.FillEmojiAdapter;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
+import com.codminskeyboards.universekeyboard.utils.OnItemClickListener;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

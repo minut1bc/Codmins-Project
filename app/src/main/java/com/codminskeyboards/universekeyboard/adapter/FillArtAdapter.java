@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.codminskeyboards.universekeyboard.Interface.OnItemClickListener;
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
+import com.codminskeyboards.universekeyboard.utils.OnItemClickListener;
 
 public class FillArtAdapter extends RecyclerView.Adapter<FillArtAdapter.viewHolders> {
     Context context;

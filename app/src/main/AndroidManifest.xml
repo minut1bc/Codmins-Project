@@ -52,7 +52,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.codminskeyboards.universekeyboard.subscriptionmenu.PackageActivity"
+            android:name="com.codminskeyboards.universekeyboard.activity.PackageActivity"
             android:screenOrientation="portrait" />
 
         <activity
