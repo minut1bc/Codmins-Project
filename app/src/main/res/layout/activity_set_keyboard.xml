@@ -1,74 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/setup_screen_background"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:background="@drawable/setup_screen_background">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_marginBottom="30dp"
-
-        android:src="@drawable/setup_screen_logo" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/setupLogoImageView"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_marginTop="50dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="TODO"
+        android:src="@drawable/setup_screen_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/gothic"
-            android:text="@string/enable_keyboard"
-            android:textAlignment="center"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/txtEnableKeyboard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/go_now_enable"
-            android:fontFamily="@font/gothic"
-            android:padding="5dp"
-            android:text="Go now"
-            android:textAlignment="center"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/enableKeyboardTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_marginBottom="220dp"
+        android:fontFamily="@font/gothic"
+        android:text="@string/enable_keyboard"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setupLogoImageView" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/gothic"
-            android:text="@string/switch_keyboard"
-            android:textAlignment="center"
-            android:textColor="@color/white" />
+    <Button
+        android:id="@+id/enableKeyboardButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/go_now_enable"
+        android:fontFamily="@font/gothic"
+        android:minHeight="0dp"
+        android:padding="5dp"
+        android:text="Go now"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enableKeyboardTextView" />
 
-        <TextView
-            android:id="@+id/txtSwitchKeyboard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/go_now_enable"
-            android:fontFamily="@font/gothic"
-            android:padding="5dp"
-            android:text="Go now"
-            android:textAlignment="center"
-            android:textColor="@android:color/white" />
+    <TextView
+        android:id="@+id/switchKeyboardTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/gothic"
+        android:text="@string/switch_keyboard"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enableKeyboardButton" />
 
+    <Button
+        android:id="@+id/switchKeyboardButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/go_now_enable"
+        android:fontFamily="@font/gothic"
+        android:minHeight="0dp"
+        android:padding="5dp"
+        android:text="Go now"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchKeyboardTextView" />
 
-    </LinearLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +22,8 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
     private InputMethodChangedReceiver imChange;
     private boolean isKeyboardEnabled;
     private boolean isKeyboardSet;
-    private TextView txtEnableKeyboard;
-    private TextView txtSwitchKeyboard;
+    private Button enableKeyboardButton;
+    private Button switchKeyboardButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,36 +41,37 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void setContent() {
-        txtEnableKeyboard = findViewById(R.id.txtEnableKeyboard);
-        txtSwitchKeyboard = findViewById(R.id.txtSwitchKeyboard);
+        enableKeyboardButton = findViewById(R.id.enableKeyboardButton);
+        switchKeyboardButton = findViewById(R.id.switchKeyboardButton);
 
         imChange = new InputMethodChangedReceiver();
 
         isKeyboardEnabled = GlobalClass.KeyboardIsEnabled(SetKeyboardActivity.this);
         isKeyboardSet = GlobalClass.KeyboardIsSet(SetKeyboardActivity.this);
 
-        txtEnableKeyboard.setEnabled(!isKeyboardEnabled);
+        enableKeyboardButton.setEnabled(!isKeyboardEnabled);
         if (isKeyboardEnabled) {
-            txtSwitchKeyboard.setEnabled(false);
+            switchKeyboardButton.setEnabled(false);
         } else {
-            txtSwitchKeyboard.setEnabled(isKeyboardSet);
+            switchKeyboardButton.setEnabled(isKeyboardSet);
         }
-        txtEnableKeyboard.setOnClickListener(this);
-        txtSwitchKeyboard.setOnClickListener(this);
+        enableKeyboardButton.setOnClickListener(this);
+        switchKeyboardButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.txtEnableKeyboard:
+            case R.id.enableKeyboardButton:
                 enableKeyboard();
                 break;
-            case R.id.txtSwitchKeyboard:
+            case R.id.switchKeyboardButton:
                 GlobalClass.printLog("SetKeyboardActivity", "-------txtSwitchKeyboard---------");
                 switchKeyboard();
                 break;
         }
     }
+
     public void enableKeyboard() {
         startActivityForResult(new Intent("android.settings.INPUT_METHOD_SETTINGS"), 0);
         if (imChange != null) {
@@ -103,18 +105,18 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
             }
         }
         isKeyboardSet = GlobalClass.KeyboardIsSet(SetKeyboardActivity.this);
-        TextView button;
+        Button button;
         if (!isKeyboardEnabled) {
-            button = txtEnableKeyboard;
+            button = enableKeyboardButton;
             if (!isKeyboardEnabled) {
                 z = true;
             }
             button.setEnabled(z);
-            txtEnableKeyboard.startAnimation(shake);
+            enableKeyboardButton.startAnimation(shake);
         } else if (isKeyboardSet) {
-            txtSwitchKeyboard.clearAnimation();
+            switchKeyboardButton.clearAnimation();
             startActivity(new Intent(SetKeyboardActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-            button = txtSwitchKeyboard;
+            button = switchKeyboardButton;
             if (!isKeyboardSet) {
                 z = true;
             }
@@ -122,12 +124,12 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
             super.onWindowFocusChanged(hasFocus);
         } else {
             boolean z2;
-            TextView button2 = txtEnableKeyboard;
+            TextView button2 = enableKeyboardButton;
             z2 = !isKeyboardEnabled;
             button2.setEnabled(z2);
-            txtEnableKeyboard.clearAnimation();
-            txtSwitchKeyboard.startAnimation(shake);
-            button = txtSwitchKeyboard;
+            enableKeyboardButton.clearAnimation();
+            switchKeyboardButton.startAnimation(shake);
+            button = switchKeyboardButton;
             if (!isKeyboardSet) {
                 z = true;
             }
