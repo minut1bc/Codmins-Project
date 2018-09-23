@@ -63,6 +63,7 @@
             android:layout_marginRight="3dp"
             android:layout_marginTop="3dp"
             android:background="@android:color/transparent"
+            android:popupLayout="@layout/keyboard_popup_layout"
             android:keyPreviewLayout="@layout/preview" />
 
         <RelativeLayout
