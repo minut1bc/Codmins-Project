@@ -68,6 +68,14 @@ import java.util.Locale;
 public class SoftKeyboard extends InputMethodService implements KeyboardView.OnKeyboardActionListener,
         SpellCheckerSession.SpellCheckerSessionListener {
 
+    /**
+     * This boolean indicates the optional example code for performing
+     * processing of hard keys in addition to regular text generation
+     * from on-screen interaction.  It would be used for input methods that
+     * perform language translations (such as converting text entered on
+     * a QWERTY keyboard to Chinese), but may not be used for input methods
+     * that are primarily intended to be used for on-screen text entry.
+     */
     static final boolean PROCESS_HARD_KEYS = true;
     private InputMethodManager mInputMethodManager;
     private CandidateView mCandidateView;

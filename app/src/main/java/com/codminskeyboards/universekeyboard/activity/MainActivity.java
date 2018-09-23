@@ -206,6 +206,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
             public void onNoClicked() {
                 //Toast.makeText(MainActivity.this, "No event", Toast.LENGTH_SHORT).show();
                 // No thanks text
+                RateThisApp.stopRateDialog(context);
             }
 
             @Override
@@ -220,6 +221,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
             setAdMob();
         }
     }
+
 
     private void updateData() {
         if (mRequestCode == GlobalClass.RC_REQUEST_THEMES_SLOTES) {

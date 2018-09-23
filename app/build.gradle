@@ -16,12 +16,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "com.codminskeyboards.universekeyboard"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 11
         versionName '1.1'
         multiDexEnabled true
@@ -42,11 +42,11 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:animated-vector-drawable:26.1.0'
-    implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.android.support:customtabs:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:animated-vector-drawable:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:customtabs:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
 
     //add for retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.0.2'
@@ -55,14 +55,10 @@ dependencies {
     //For Image
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
 
     //add for permission
     implementation 'com.auron:permission-manage:1.1.6'
-
-    //add for image cropper
-    implementation 'com.edmodo:cropper:1.0.1'
 
     //to debud database
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.0'
@@ -76,15 +72,13 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-core:16.0.3'
-    implementation ('com.crashlytics.sdk.android:crashlytics:2.9.5') {
-        transitive = true
-    }
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
 
     // Rating App
-    implementation 'io.github.kobakei:ratethisapp:1.0.0'
+    implementation 'io.github.kobakei:ratethisapp:1.2.0'
 
     // Recyclerview
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
 
     //Viewpager Indicator
     implementation 'me.relex:circleindicator:1.2.2@aar'
