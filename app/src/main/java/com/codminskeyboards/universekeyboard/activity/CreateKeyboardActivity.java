@@ -413,8 +413,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         gvSoundEffect.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 GlobalClass.selectsounds = position;
+                GlobalClass.tempSoundName = newSoundDataArrayList.get(position).getResourceId();
                 if (position != 0) {
-                    GlobalClass.tempSoundName = newSoundDataArrayList.get(position).getResourceId();
                     performKeySound();
                     GlobalClass.tempSoundStatus = "on";
                 } else {

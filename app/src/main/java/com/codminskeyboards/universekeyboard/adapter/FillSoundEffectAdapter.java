@@ -36,7 +36,6 @@ public class FillSoundEffectAdapter extends BaseAdapter {
         return soundEffectArrayList.size();
     }
 
-
     @Override
     public Object getItem(int position) {
         return null;
