@@ -18,7 +18,6 @@ import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
 import com.codminskeyboards.universekeyboard.customkeyboard.SoftKeyboard;
 import com.codminskeyboards.universekeyboard.model.KeyboardData;
-import com.codminskeyboards.universekeyboard.model.NewColorData;
 import com.google.android.gms.ads.AdRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -100,7 +99,6 @@ public class GlobalClass {
     public static String key_isThemeLock = "isThemeLock";
 
     public static String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqgyXolVCkrSdFsdembldwrpGHmXPSvvA7mdegRUzufvziVIS9JtVnGS20EbmFTKcPLzyfwoXPSNbwvmKHJg7RnoiqcrQ4QbtkhsHmMO7paA+akHFTPQGLHN6TW5invO33A3VBu/hxMTj9jHr9jr0tGJWj5cWITc2BkUfHcD8SFkSUca/ruQRJg3DTWMqMRqSnTeGccQJBRx+sCU8MxYlp3BwwOyvEdmeCFsnhPLHRmk3MXv/JgVr3oEQylakq3PkNvDVXbO5GHRYR8bKD2YXVZ+56FsCxT4t3sQXCQQ84zp1tKN/nFm9pDAlXqEf9T1MQFZVriBzI8XsZCraLoVrVwIDAQAB";
-    private static ArrayList<NewColorData> newColorDataArrayList = new ArrayList<>();
 
     public static void checkStartAd() {
         cntads++;
@@ -157,48 +155,6 @@ public class GlobalClass {
     public GlobalClass(Context context) {
         preferences = context.getSharedPreferences(context.getPackageName(), 0);
         editor = preferences.edit();
-
-        newColorDataArrayList.add(new NewColorData(0, R.color.one, true, false));
-        newColorDataArrayList.add(new NewColorData(1, R.color.two, false, false));
-        newColorDataArrayList.add(new NewColorData(2, R.color.three, false, false));
-        newColorDataArrayList.add(new NewColorData(3, R.color.four, false, false));
-        newColorDataArrayList.add(new NewColorData(4, R.color.five, false, false));
-        newColorDataArrayList.add(new NewColorData(5, R.color.six, false, false));
-        newColorDataArrayList.add(new NewColorData(6, R.color.seven, false, false));
-        newColorDataArrayList.add(new NewColorData(7, R.color.eight, false, false));
-        newColorDataArrayList.add(new NewColorData(8, R.color.nine, false, false));
-        newColorDataArrayList.add(new NewColorData(9, R.color.ten, false, false));
-        newColorDataArrayList.add(new NewColorData(10, R.color.eleven, false, false));
-        newColorDataArrayList.add(new NewColorData(11, R.color.twelve, false, false));
-        newColorDataArrayList.add(new NewColorData(12, R.color.thirteen, false, false));
-        newColorDataArrayList.add(new NewColorData(13, R.color.fourteen, false, false));
-        newColorDataArrayList.add(new NewColorData(14, R.color.fifteen, false, false));
-        newColorDataArrayList.add(new NewColorData(15, R.color.sixteen, false, false));
-        newColorDataArrayList.add(new NewColorData(16, R.color.seventeen, false, false));
-        newColorDataArrayList.add(new NewColorData(17, R.color.eighteen, false, false));
-        newColorDataArrayList.add(new NewColorData(18, R.color.nineteen, false, false));
-        newColorDataArrayList.add(new NewColorData(19, R.color.twenty, false, false));
-        newColorDataArrayList.add(new NewColorData(20, R.color.twentyone, false, false));
-        newColorDataArrayList.add(new NewColorData(21, R.color.twentytwo, false, false));
-        newColorDataArrayList.add(new NewColorData(22, R.color.twentythree, false, false));
-        newColorDataArrayList.add(new NewColorData(23, R.color.twentyfour, false, false));
-        newColorDataArrayList.add(new NewColorData(24, R.color.twentyfive, false, false));
-        newColorDataArrayList.add(new NewColorData(25, R.color.twentysix, false, false));
-        newColorDataArrayList.add(new NewColorData(26, R.color.twentyseven, false, false));
-        newColorDataArrayList.add(new NewColorData(27, R.color.twentyeight, false, true));
-        newColorDataArrayList.add(new NewColorData(28, R.color.twentynine, false, true));
-        newColorDataArrayList.add(new NewColorData(29, R.color.thirty, false, true));
-        newColorDataArrayList.add(new NewColorData(30, R.color.thirtyone, false, true));
-        newColorDataArrayList.add(new NewColorData(31, R.color.thirtyone, false, true));
-        newColorDataArrayList.add(new NewColorData(32, R.color.thirtytwo, false, true));
-        newColorDataArrayList.add(new NewColorData(33, R.color.thirtythree, false, true));
-        newColorDataArrayList.add(new NewColorData(34, R.color.thirtyfour, false, true));
-        newColorDataArrayList.add(new NewColorData(36, R.color.thirtysix, false, true));
-        newColorDataArrayList.add(new NewColorData(37, R.color.thirtyseven, false, true));
-        newColorDataArrayList.add(new NewColorData(38, R.color.thirtyeight, false, true));
-        newColorDataArrayList.add(new NewColorData(39, R.color.thirtynine, false, true));
-        newColorDataArrayList.add(new NewColorData(40, R.color.fourty, false, true));
-        newColorDataArrayList.add(new NewColorData(41, R.color.fourtyone, false, true));
     }
 
     public static void setPreferencesString(Context context, String key, String value) {
