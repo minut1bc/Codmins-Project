@@ -1168,7 +1168,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.SOUND_STATUS, "off").equals("on")) {
             //remove this comment for the play key tone
-            performKeySound(10);
+            performKeySound();
         }
 
         performKeyVibration();
@@ -1239,7 +1239,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         setSuggestions(sb, true, true);
     }
 
-    private void performKeySound(int volume) {
+    private void performKeySound() {
         GlobalClass.printLog("SoftKeyboard", "---------------performKeySound---------------");
 
         int ringerMode = audioManager.getRingerMode();
@@ -1247,7 +1247,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
             try {
                 MediaPlayer mediaPlayer = MediaPlayer.create(this, GlobalClass.tempSoundName);
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
                 mediaPlayer.start();
 
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

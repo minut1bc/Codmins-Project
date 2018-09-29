@@ -136,7 +136,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         getFontFromDatabase();
         getSoundFromDatabase();
 
-
         audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
     }
 
@@ -416,7 +415,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.selectsounds = position;
                 if (position != 0) {
                     GlobalClass.tempSoundName = newSoundDataArrayList.get(position).getResourceId();
-                    performKeySound(10);
+                    performKeySound();
                     GlobalClass.tempSoundStatus = "on";
                 } else {
                     GlobalClass.tempSoundStatus = "off";
@@ -839,14 +838,14 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         });
     }
 
-    private void performKeySound(int volume) {
+    private void performKeySound() {
 
         int ringerMode = audioManager.getRingerMode();
 
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
             try {
                 MediaPlayer mediaPlayer = MediaPlayer.create(context, GlobalClass.tempSoundName);
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
                 mediaPlayer.start();
 
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
