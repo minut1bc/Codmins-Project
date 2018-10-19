@@ -116,6 +116,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private AudioManager audioManager;
     private Vibrator vibrator;
 
+    private int vibrationStrength;
+
     Context mContext;
     private String[] emojiArrayList;
     private String[] artArrayList;
@@ -189,6 +191,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         ivSocial = view.findViewById(R.id.ivSocial);
         LinearLayout linCategory = view.findViewById(R.id.linCategory);
         ivGoogleSearch = view.findViewById(R.id.ivgooglesearch);
+
+        vibrationStrength = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.vibrationStrength, 0);
 
         StaggeredGridLayoutManager gaggeredGridLayoutManager = new StaggeredGridLayoutManager(3, 1);
         rv_art_list.setLayoutManager(gaggeredGridLayoutManager);
@@ -1171,7 +1175,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             performKeySound();
         }
 
-        performKeyVibration();
+        performKeyVibration(vibrationStrength);
 
         // Disable preview key on Shift, Delete, Symbol, Language Switch, Space and Enter.
         if (primaryCode == -1 || primaryCode == -5 || primaryCode == -2 || primaryCode == -101 || primaryCode == 32 || primaryCode == 10)
@@ -1263,10 +1267,10 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         }
     }
 
-    private void performKeyVibration() {
+    private void performKeyVibration(int duration) {
         int ringerMode = audioManager.getRingerMode();
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL || ringerMode == AudioManager.RINGER_MODE_VIBRATE)
-            vibrator.vibrate(100);
+            vibrator.vibrate(duration);
     }
 
 }

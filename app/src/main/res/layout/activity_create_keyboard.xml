@@ -60,10 +60,10 @@
             android:id="@+id/ivWallpaper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
             android:contentDescription="TODO"
             android:src="@drawable/ic_wallpaper"
             android:visibility="gone" />
@@ -72,10 +72,10 @@
             android:id="@+id/linWallpaper"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:background="@drawable/go_now_enable"
             android:gravity="center"
@@ -99,10 +99,10 @@
             android:id="@+id/ivKeyDesign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
             android:contentDescription="TODO"
             android:src="@drawable/ic_keydesign" />
 
@@ -110,10 +110,10 @@
             android:id="@+id/linKeyDesign"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:background="@drawable/go_now_enable"
             android:gravity="center"
@@ -138,10 +138,10 @@
             android:id="@+id/ivFontStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
             android:contentDescription="TODO"
             android:src="@drawable/ic_font_style" />
 
@@ -150,10 +150,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:background="@drawable/go_now_enable"
             android:gravity="center"
@@ -178,10 +178,10 @@
             android:id="@+id/ivSoundEffect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
             android:contentDescription="TODO"
             android:src="@drawable/ic_soundeffect" />
 
@@ -189,10 +189,10 @@
             android:id="@+id/linSoundEffect"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:background="@drawable/go_now_enable"
             android:gravity="center"
@@ -294,8 +294,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
                     android:layout_marginStart="12dp"
+                    android:layout_marginLeft="12dp"
                     android:fontFamily="@font/gothic_bold"
                     android:gravity="center"
                     android:padding="4dp"
@@ -347,8 +347,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
                     android:layout_marginStart="12dp"
+                    android:layout_marginLeft="12dp"
                     android:fontFamily="@font/gothic_bold"
                     android:gravity="center"
                     android:padding="4dp"
@@ -400,8 +400,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
                     android:layout_marginStart="12dp"
+                    android:layout_marginLeft="12dp"
                     android:fontFamily="@font/gothic_bold"
                     android:gravity="center"
                     android:padding="4dp"
@@ -459,8 +459,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/light_gray"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp" />
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp" />
 
         </LinearLayout>
 
@@ -477,8 +477,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_weight="1"
                 android:columnWidth="60dp"
                 android:horizontalSpacing="5dp"
@@ -497,17 +497,50 @@
 
         </LinearLayout>
 
-        <GridView
-            android:id="@+id/gvSoundEffect"
+        <LinearLayout
+            android:id="@+id/linKeySoundLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.7"
-            android:horizontalSpacing="5dp"
-            android:listSelector="@android:color/transparent"
-            android:numColumns="5"
-            android:scrollbars="none"
-            android:verticalSpacing="8dp"
-            android:visibility="gone" />
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="Vibration strength" />
+
+            <SeekBar
+                android:id="@+id/seekBarVibration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/vibrationValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"
+                android:text="0ms" />
+
+            <GridView
+                android:id="@+id/gvSoundEffect"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:horizontalSpacing="5dp"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="5"
+                android:scrollbars="none"
+                android:verticalSpacing="8dp" />
+
+        </LinearLayout>
 
         <include
             layout="@layout/layout_keyboard"

@@ -13,6 +13,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.codminskeyboards.universekeyboard.R;
@@ -80,6 +82,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private RecyclerView rvDefaultColorFontStyle;
     private FillFontStyleAdapter fillFontStyleAdapter;
     private LinearLayout linFontStyleLayout;
+    TextView vibrationValueTextView;
     private FillSoundEffectAdapter fillSoundEffectAdapter;
     static CreateKeyboardActivity createKeyboardActivity;
     private ImageView ivKeyboardBg;
@@ -115,12 +118,18 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     Animation myAnim;
     MyBounceInterpolator_anim interpolator;
     ArrayList<NewSoundData> newSoundDataArrayList = new ArrayList<>();
+    int vibrationStrength;
 
     private AudioManager audioManager;
+    String vibrationStrengthText;
+    private LinearLayout linKeySoundLayout;
+    private Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        GlobalClass globalClass = new GlobalClass(CreateKeyboardActivity.this.getApplicationContext());
 
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -137,6 +146,39 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         getSoundFromDatabase();
 
         audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        vibrationValueTextView = findViewById(R.id.vibrationValueTextView);
+
+        int initialVibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.vibrationStrength, 0);
+
+        SeekBar seekBarVibration = findViewById(R.id.seekBarVibration);
+
+        seekBarVibration.setProgress(initialVibrationValue);
+        vibrationStrengthText = String.valueOf(initialVibrationValue) + " ms";
+        vibrationValueTextView.setText(vibrationStrengthText);
+
+        seekBarVibration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                vibrationStrengthText = String.valueOf(progress) + " ms";
+                vibrationValueTextView.setText(vibrationStrengthText);
+
+                vibrationStrength = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int progress = seekBar.getProgress();
+                vibrator.vibrate(progress);
+                GlobalClass.setPreferencesInt(context, GlobalClass.vibrationStrength, progress);
+            }
+        });
     }
 
     private void setContent() {
@@ -162,6 +204,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         linWallpaperLayout = findViewById(R.id.linWallpaperLayout);
         linKeyDesignLayout = findViewById(R.id.linKeyDesignLayout);
         linFontStyleLayout = findViewById(R.id.linFontStyleLayout);
+        linKeySoundLayout = findViewById(R.id.linKeySoundLayout);
         gvSoundEffect = findViewById(R.id.gvSoundEffect);
 
         rvDefaultColor = findViewById(R.id.rvDefaultColor);
@@ -1121,7 +1164,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 linWallpaperLayout.setVisibility(View.VISIBLE);
                 linKeyDesignLayout.setVisibility(View.GONE);
                 linFontStyleLayout.setVisibility(View.GONE);
-                gvSoundEffect.setVisibility(View.GONE);
+                linKeySoundLayout.setVisibility(View.GONE);
 
                 break;
 
@@ -1143,7 +1186,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 linWallpaperLayout.setVisibility(View.GONE);
                 linKeyDesignLayout.setVisibility(View.VISIBLE);
                 linFontStyleLayout.setVisibility(View.GONE);
-                gvSoundEffect.setVisibility(View.GONE);
+                linKeySoundLayout.setVisibility(View.GONE);
 
                 break;
 
@@ -1165,7 +1208,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 linWallpaperLayout.setVisibility(View.GONE);
                 linKeyDesignLayout.setVisibility(View.GONE);
                 linFontStyleLayout.setVisibility(View.VISIBLE);
-                gvSoundEffect.setVisibility(View.GONE);
+                linKeySoundLayout.setVisibility(View.GONE);
 
                 break;
             case R.id.ivSoundEffect:
@@ -1186,7 +1229,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 linWallpaperLayout.setVisibility(View.GONE);
                 linKeyDesignLayout.setVisibility(View.GONE);
                 linFontStyleLayout.setVisibility(View.GONE);
-                gvSoundEffect.setVisibility(View.VISIBLE);
+                linKeySoundLayout.setVisibility(View.VISIBLE);
 
                 break;
         }

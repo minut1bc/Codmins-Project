@@ -92,6 +92,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="TODO"
             android:src="@drawable/ic_add_button_round"
+            android:layout_gravity="center"
             android:visibility="gone" />
 
         <LinearLayout
