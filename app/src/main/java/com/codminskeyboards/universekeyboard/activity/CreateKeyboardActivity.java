@@ -38,7 +38,6 @@ import com.codminskeyboards.universekeyboard.adapter.FillFontStyleAdapter;
 import com.codminskeyboards.universekeyboard.adapter.FillKeyBgAdapter;
 import com.codminskeyboards.universekeyboard.adapter.FillSoundEffectAdapter;
 import com.codminskeyboards.universekeyboard.adapter.FillWallpaperColorAdapter;
-import com.codminskeyboards.universekeyboard.adapter.FillWallpaperTextualAdapter;
 import com.codminskeyboards.universekeyboard.database.DatabaseHelper;
 import com.codminskeyboards.universekeyboard.model.FontsPaid;
 import com.codminskeyboards.universekeyboard.model.KeyboardData;
@@ -73,7 +72,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private CreateKeyboardActivity context;
 
     String[] fontArray = new String[0];
-    private FillWallpaperTextualAdapter fillWallpaperTextualAdapter;
     private RecyclerView rvDefaultColor;
     private FillDefaultColorAdapter fillDefaultColorAdapter;
     private RecyclerView rvDefaultColorKeyDesign;
@@ -142,7 +140,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_create_keyboard);
         setContent();
         setColorGridView();
-        setTextualGridView();
         getColorFromDatabase();
         getFontFromDatabase();
         getSoundFromDatabase();
@@ -282,7 +279,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             } else {
                 ivKeyboardBg.setImageResource(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BG_IMAGE, 0));
                 GlobalClass.selectwallpaper = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTWALLPAPER, 0);
-                GlobalClass.selecttextwallpaper = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTTEXTWALLPAPER, 0);
                 GlobalClass.selectcolor = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTCOLOR, 0);
                 GlobalClass.selview = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTVIEW, 0);
             }
@@ -303,7 +299,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             // Default keyboard values
         } else {
             GlobalClass.selectwallpaper = 0;
-            GlobalClass.selecttextwallpaper = 0;
             GlobalClass.tempKeyboardBgImage = R.drawable.theme_color1;
             GlobalClass.selectcolor = 0;
             GlobalClass.selview = 2;
@@ -378,31 +373,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.tempKeyboardBgImage = GlobalClass.thumbArray[position];
                 GlobalClass.tempIsColor = "no";
                 fillWallpaperColorAdapter.notifyDataSetChanged();
-                fillWallpaperTextualAdapter.notifyDataSetChanged();
-                fillDefaultColorAdapter.notifyDataSetChanged();
-                GlobalClass.checkStartAd();
-            }
-        });
-    }
-
-    private void setTextualGridView() {
-        int[] colorWallpaperArrayList = GlobalClass.texArray;
-        GridView gvTextual = findViewById(R.id.gvTextual);
-        fillWallpaperTextualAdapter = new FillWallpaperTextualAdapter(this, colorWallpaperArrayList);
-        gvTextual.setAdapter(fillWallpaperTextualAdapter);
-
-
-        gvTextual.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, final int position, long id) {
-
-                ivKeyboardBg.setImageResource(GlobalClass.textureArray[position]);
-                GlobalClass.selecttextwallpaper = position;
-                GlobalClass.selview = 3;
-                GlobalClass.setPreferencesString(context, GlobalClass.IS_COLOR, "no");
-                GlobalClass.tempKeyboardBgImage = GlobalClass.textureArray[position];
-                GlobalClass.tempIsColor = "no";
-                fillWallpaperColorAdapter.notifyDataSetChanged();
-                fillWallpaperTextualAdapter.notifyDataSetChanged();
                 fillDefaultColorAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
             }
@@ -426,7 +396,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                         GlobalClass.tempKeyboardBgImage = GlobalClass.colorsHorizontal[position];
                         fillDefaultColorAdapter.notifyDataSetChanged();
                         fillWallpaperColorAdapter.notifyDataSetChanged();
-                        fillWallpaperTextualAdapter.notifyDataSetChanged();
                         GlobalClass.checkStartAd();
                     }
                 })
@@ -1130,7 +1099,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 keyboardData.setSoundStatus(GlobalClass.tempSoundStatus);
                 keyboardData.setSoundName(GlobalClass.tempSoundName);
                 keyboardData.setSelectwallpaper(GlobalClass.selectwallpaper);
-                keyboardData.setSelecttextwallpaper(GlobalClass.selecttextwallpaper);
                 keyboardData.setSelectcolor(GlobalClass.selectcolor);
                 keyboardData.setSelview(GlobalClass.selview);
                 keyboardData.setBitmapback(GlobalClass.keyboardBitmapBack);

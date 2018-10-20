@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
 import android.util.Base64;
@@ -42,19 +43,20 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View) object);
     }
 
+    @NonNull
     @SuppressLint("ResourceType")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public View instantiateItem(final ViewGroup container, final int position) {
+    public View instantiateItem(@NonNull final ViewGroup container, final int position) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.layout_keyboard, null);
@@ -324,7 +326,6 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 GlobalClass.tempSoundStatus = keyboardArrayList.get(position).getSoundStatus();
                 GlobalClass.tempSoundName = keyboardArrayList.get(position).getSoundName();
                 GlobalClass.selectwallpaper = keyboardArrayList.get(position).getSelectwallpaper();
-                GlobalClass.selecttextwallpaper = keyboardArrayList.get(position).getSelecttextwallpaper();
                 GlobalClass.selectcolor = keyboardArrayList.get(position).getSelectcolor();
                 GlobalClass.selview = keyboardArrayList.get(position).getSelview();
                 GlobalClass.keyboardBitmapBack = keyboardArrayList.get(position).getBitmapback();
@@ -341,7 +342,6 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, keyboardArrayList.get(position).getSoundStatus());
                 GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, keyboardArrayList.get(position).getSoundName());
                 GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, keyboardArrayList.get(position).getSelectwallpaper());
-                GlobalClass.setPreferencesInt(context, GlobalClass.SELECTTEXTWALLPAPER, keyboardArrayList.get(position).getSelecttextwallpaper());
                 GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, keyboardArrayList.get(position).getSelectcolor());
                 GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, keyboardArrayList.get(position).getSelview());
                 GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, keyboardArrayList.get(position).getBitmapback());

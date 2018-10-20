@@ -172,7 +172,6 @@ public class KeyboardData {
                 ", soundStatus='" + soundStatus + '\'' +
                 ", soundName=" + soundName +
                 ", selectcolor=" + selectcolor +
-                ", selecttextwallpaper=" + selecttextwallpaper +
                 ", selectwallpaper=" + selectwallpaper +
                 ", selview=" + selview +
                 ", bitmapback='" + bitmapback + '\'' +

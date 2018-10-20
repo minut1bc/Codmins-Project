@@ -344,7 +344,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                     GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundStatus());
                     GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundName());
                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelectwallpaper());
-                    GlobalClass.setPreferencesInt(context, GlobalClass.SELECTTEXTWALLPAPER, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelecttextwallpaper());
                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelectcolor());
                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelview());
                     GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBitmapback());
@@ -407,7 +406,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         setDefaultValue();
 
                         GlobalClass.selectwallpaper = 0;
-                        GlobalClass.selecttextwallpaper = 0;
                         GlobalClass.tempKeyboardBgImage = R.drawable.theme_color1;
                         GlobalClass.selectcolor = 0;
                         GlobalClass.selview = 2;
@@ -416,9 +414,9 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         GlobalClass.keyboardBitmapBack = null;
                         GlobalClass.tempFontColor = "#FFFFFF";
                         GlobalClass.tempKeyColor = getResources().getColor(R.color.eight);
-                        GlobalClass.tempKeyRadius = "18";
-                        GlobalClass.tempKeyStroke = "2";
-                        GlobalClass.tempKeyOpacity = "255";
+                        GlobalClass.tempKeyRadius = "34";
+                        GlobalClass.tempKeyStroke = "1";
+                        GlobalClass.tempKeyOpacity = "64";
                         GlobalClass.tempFontName = "";
                         GlobalClass.tempSoundStatus = "off";
                         GlobalClass.tempSoundName = 0;
@@ -439,7 +437,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, GlobalClass.tempSoundStatus);
                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, GlobalClass.tempSoundName);
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.selectwallpaper);
-                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTTEXTWALLPAPER, GlobalClass.selecttextwallpaper);
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.selectcolor);
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
                         GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, GlobalClass.keyboardBitmapBack);
@@ -465,7 +462,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundStatus());
                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundName());
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelectwallpaper());
-                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTTEXTWALLPAPER, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelecttextwallpaper());
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelectcolor());
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelview());
                         GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBitmapback());
@@ -509,7 +505,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                     }
 
                                     GlobalClass.selectwallpaper = 0;
-                                    GlobalClass.selecttextwallpaper = 0;
                                     GlobalClass.tempKeyboardBgImage = R.drawable.theme_color1;
                                     GlobalClass.selectcolor = 0;
                                     GlobalClass.selview = 2;
@@ -541,7 +536,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                     GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, GlobalClass.tempSoundStatus);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, GlobalClass.tempSoundName);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.selectwallpaper);
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.SELECTTEXTWALLPAPER, GlobalClass.selecttextwallpaper);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.selectcolor);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
                                     GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, GlobalClass.keyboardBitmapBack);
@@ -566,7 +560,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                         ivCreateKeyboard.setVisibility(View.GONE);
 
                                         GlobalClass.selectwallpaper = 0;
-                                        GlobalClass.selecttextwallpaper = 0;
                                         GlobalClass.tempKeyboardBgImage = R.drawable.theme_color1;
                                         GlobalClass.selectcolor = 0;
                                         GlobalClass.selview = 2;
@@ -598,7 +591,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                         GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, GlobalClass.tempSoundStatus);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, GlobalClass.tempSoundName);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.selectwallpaper);
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTTEXTWALLPAPER, GlobalClass.selecttextwallpaper);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.selectcolor);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
                                         GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, GlobalClass.keyboardBitmapBack);
@@ -701,12 +693,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
             GlobalClass.selectwallpaper = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTWALLPAPER, 0);
         }
 
-        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTTEXTWALLPAPER, 0) == 0) {
-            GlobalClass.selecttextwallpaper = 0;
-        } else {
-            GlobalClass.selecttextwallpaper = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTTEXTWALLPAPER, 0);
-        }
-
         if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTCOLOR, 0) == 0) {
             GlobalClass.selectcolor = 0;
         } else {
@@ -750,7 +736,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
         GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, GlobalClass.tempSoundStatus);
         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, GlobalClass.tempSoundName);
         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.selectwallpaper);
-        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTTEXTWALLPAPER, GlobalClass.selecttextwallpaper);
         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.selectcolor);
         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
         GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, GlobalClass.keyboardBitmapBack);

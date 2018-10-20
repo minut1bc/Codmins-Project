@@ -47,7 +47,6 @@ public class GlobalClass {
     public static final String SOUND_NAME = "soundName";
 
     public static final String SELECTWALLPAPER = "selectwallpaper";
-    public static final String SELECTTEXTWALLPAPER = "selecttextwallpaper";
     public static final String SELECTCOLOR = "selectcolor";
     public static final String SELECTVIEW = "selectview";
     public static final String KEYBOARDBITMAPBACK = "keyboardbitmapback";
@@ -84,7 +83,6 @@ public class GlobalClass {
     public static int tempKeyColor = 0;
     public static int selectcolor = 0;
     public static int selectwallpaper = 0;
-    public static int selecttextwallpaper = 0;
     public static int selectbgcolor = 7;
     public static int selectsounds = 0;
     public static int selectfonts = 0;
@@ -115,44 +113,6 @@ public class GlobalClass {
 
     }
 
-    public static int[] textureArray = {
-            R.drawable.theme1,
-            R.drawable.theme2,
-            R.drawable.theme3,
-            R.drawable.theme4,
-            R.drawable.theme5,
-            R.drawable.theme6,
-            R.drawable.theme7,
-            R.drawable.theme8,
-            R.drawable.theme9,
-            R.drawable.theme10,
-            R.drawable.theme11,
-            R.drawable.theme12,
-            R.drawable.theme13,
-            R.drawable.theme14,
-            R.drawable.theme15,
-            R.drawable.theme16,
-            R.drawable.theme17,
-            R.drawable.theme18,
-            R.drawable.theme19,
-            R.drawable.theme20,
-            R.drawable.theme21,
-            R.drawable.theme22,
-            R.drawable.theme23,
-            R.drawable.theme24,
-            R.drawable.theme25,
-            R.drawable.theme26,
-            R.drawable.theme27,
-            R.drawable.theme28,
-            R.drawable.theme29,
-            R.drawable.theme30,
-            R.drawable.theme31,
-            R.drawable.theme32,
-            R.drawable.theme33,
-            R.drawable.theme34,
-            R.drawable.theme35,
-            R.drawable.theme36,
-    };
 
     public GlobalClass(Context context) {
         preferences = context.getSharedPreferences(context.getPackageName(), 0);
@@ -335,45 +295,6 @@ public class GlobalClass {
             R.drawable.tc_31,
             R.drawable.tc_32,
             R.drawable.tc_33,
-    };
-
-    public static int[] texArray = {
-            R.drawable.t_1,
-            R.drawable.t_2,
-            R.drawable.t_3,
-            R.drawable.t_4,
-            R.drawable.t_5,
-            R.drawable.t_6,
-            R.drawable.t_7,
-            R.drawable.t_8,
-            R.drawable.t_9,
-            R.drawable.t_10,
-            R.drawable.t_11,
-            R.drawable.t_12,
-            R.drawable.t_13,
-            R.drawable.t_14,
-            R.drawable.t_15,
-            R.drawable.t_16,
-            R.drawable.t_17,
-            R.drawable.t_18,
-            R.drawable.t_19,
-            R.drawable.t_20,
-            R.drawable.t_21,
-            R.drawable.t_22,
-            R.drawable.t_23,
-            R.drawable.t_24,
-            R.drawable.t_25,
-            R.drawable.t_26,
-            R.drawable.t_27,
-            R.drawable.t_28,
-            R.drawable.t_29,
-            R.drawable.t_30,
-            R.drawable.t_31,
-            R.drawable.t_32,
-            R.drawable.t_33,
-            R.drawable.t_34,
-            R.drawable.t_35,
-            R.drawable.t_36,
     };
 
     public static int[] lessonClips = {

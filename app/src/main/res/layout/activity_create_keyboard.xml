@@ -252,26 +252,6 @@
                     android:scrollbars="none"
                     android:verticalSpacing="5dp" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/view_gradient_bg"
-                    android:visibility="gone" />
-
-                <GridView
-                    android:id="@+id/gvTextual"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:columnWidth="50dp"
-                    android:horizontalSpacing="5dp"
-                    android:listSelector="@android:color/transparent"
-                    android:numColumns="auto_fit"
-                    android:scrollbars="none"
-                    android:verticalSpacing="5dp"
-                    android:visibility="gone" />
-
             </LinearLayout>
 
         </LinearLayout>

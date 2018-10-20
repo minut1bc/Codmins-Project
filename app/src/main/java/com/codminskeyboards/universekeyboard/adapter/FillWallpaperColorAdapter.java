@@ -13,11 +13,9 @@ import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class FillWallpaperColorAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
-    Context context;
+    private Context context;
     private int[] colorWallpaperArrayList;
 
     public FillWallpaperColorAdapter(Context context, int[] colorWallpaperArrayList) {
@@ -48,6 +46,7 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
 
         if (convertView == null)
             convertView = inflater.inflate(R.layout.row_wallpaper_color_item, parent, false);
+        
         holder.ivColorItem = convertView.findViewById(R.id.ivColorItem);
         holder.flBg = convertView.findViewById(R.id.flBg);
         holder.ivLock = convertView.findViewById(R.id.ivLock);
@@ -62,7 +61,6 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
         }
 
         if (GlobalClass.getPrefrenceBoolean(context, GlobalClass.key_isWallPaperLock, true)) {
-
             if (position > 22) {
                 holder.ivLock.setVisibility(View.VISIBLE);
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {
@@ -75,8 +73,6 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
             } else {
                 holder.ivLock.setVisibility(View.GONE);
             }
-
-
         } else {
             holder.ivLock.setVisibility(View.GONE);
         }
@@ -85,7 +81,7 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        CircleImageView ivColorItem;
+        ImageView ivColorItem;
         FrameLayout flBg;
         ImageView ivLock;
     }
