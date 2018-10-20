@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.codminskeyboards.universekeyboard.R;
-import com.codminskeyboards.universekeyboard.activity.PackageActivity;
+import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -68,7 +68,7 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent i = new Intent(context, PackageActivity.class);
+                        Intent i = new Intent(context, PremiumStoreActivity.class);
                         context.startActivity(i);
                     }
                 });

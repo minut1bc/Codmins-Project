@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.codminskeyboards.universekeyboard.R;
-import com.codminskeyboards.universekeyboard.activity.PackageActivity;
+import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -48,7 +48,7 @@ public class FillDefaultColorAdapter extends RecyclerView.Adapter<FillDefaultCol
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent i = new Intent(context, PackageActivity.class);
+                        Intent i = new Intent(context, PremiumStoreActivity.class);
                         context.startActivity(i);
                     }
                 });

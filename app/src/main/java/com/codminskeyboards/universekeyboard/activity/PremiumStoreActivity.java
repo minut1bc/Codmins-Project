@@ -38,7 +38,7 @@ import java.util.List;
 
 import permission.auron.com.marshmallowpermissionhelper.ActivityManagePermission;
 
-public class PackageActivity extends ActivityManagePermission implements View.OnClickListener {
+public class PremiumStoreActivity extends ActivityManagePermission implements View.OnClickListener {
 
     private TextView remove_adds, background, theme_slot, colors, fonts, sounds, txtRestore;
     private AdView mAdView;
@@ -118,7 +118,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 
 
     List<String> arrSKUs = Arrays.asList(SKU_GET_ADDS, SKU_GET_BACKGROUNG, SKU_GET_COLORS, SKU_GET_SOUNDS, SKU_GET_FONTS, SKU_GET_THEME);
-    PackageActivity packageActivity;
+    PremiumStoreActivity premiumStoreActivity;
 
     @SuppressLint("ResourceAsColor")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -133,7 +133,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
             window.setStatusBarColor(getResources().getColor(R.color.in_app_sounds));
         }
 
-        setContentView(R.layout.activity_package);
+        setContentView(R.layout.activity_premium_store);
         setContent();
         String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqgyXolVCkrSdFsdembldwrpGHmXPSvvA7mdegRUzufvziVIS9JtVnGS20EbmFTKcPLzyfwoXPSNbwvmKHJg7RnoiqcrQ4QbtkhsHmMO7paA+akHFTPQGLHN6TW5invO33A3VBu/hxMTj9jHr9jr0tGJWj5cWITc2BkUfHcD8SFkSUca/ruQRJg3DTWMqMRqSnTeGccQJBRx+sCU8MxYlp3BwwOyvEdmeCFsnhPLHRmk3MXv/JgVr3oEQylakq3PkNvDVXbO5GHRYR8bKD2YXVZ+56FsCxT4t3sQXCQQ84zp1tKN/nFm9pDAlXqEf9T1MQFZVriBzI8XsZCraLoVrVwIDAQAB";
 
@@ -142,7 +142,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
-        mHelper = new IabHelper(PackageActivity.this, base64EncodedPublicKey);
+        mHelper = new IabHelper(PremiumStoreActivity.this, base64EncodedPublicKey);
         mHelper.enableDebugLogging(true);
         mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
             public void onIabSetupFinished(IabResult result) {
@@ -189,7 +189,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
                 try {
                     if (mHelper != null) {
                         mHelper.flagEndAsync();
-                        mHelper.launchPurchaseFlow(PackageActivity.this, SKU_GET_ADDS, RC_REQUEST1, purchaseFinishedListener, payload);
+                        mHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_ADDS, RC_REQUEST1, purchaseFinishedListener, payload);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -203,7 +203,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
                 try {
                     if (mHelper != null) {
                         mHelper.flagEndAsync();
-                        mHelper.launchPurchaseFlow(PackageActivity.this, SKU_GET_BACKGROUNG, RC_REQUEST2, purchaseFinishedListener, payload);
+                        mHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_BACKGROUNG, RC_REQUEST2, purchaseFinishedListener, payload);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -217,7 +217,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
                 try {
                     if (mHelper != null) {
                         mHelper.flagEndAsync();
-                        mHelper.launchPurchaseFlow(PackageActivity.this, SKU_GET_THEME, RC_REQUEST3, purchaseFinishedListener, payload);
+                        mHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_THEME, RC_REQUEST3, purchaseFinishedListener, payload);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -230,7 +230,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
                 try {
                     if (mHelper != null) {
                         mHelper.flagEndAsync();
-                        mHelper.launchPurchaseFlow(PackageActivity.this, SKU_GET_COLORS, RC_REQUEST4, purchaseFinishedListener, payload);
+                        mHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_COLORS, RC_REQUEST4, purchaseFinishedListener, payload);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -243,7 +243,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
                 try {
                     if (mHelper != null) {
                         mHelper.flagEndAsync();
-                        mHelper.launchPurchaseFlow(PackageActivity.this, SKU_GET_FONTS, RC_REQUEST5, purchaseFinishedListener, payload);
+                        mHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_FONTS, RC_REQUEST5, purchaseFinishedListener, payload);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -257,7 +257,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
                 try {
                     if (mHelper != null) {
                         mHelper.flagEndAsync();
-                        mHelper.launchPurchaseFlow(PackageActivity.this, SKU_GET_SOUNDS, RC_REQUEST6, purchaseFinishedListener, payload);
+                        mHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_SOUNDS, RC_REQUEST6, purchaseFinishedListener, payload);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -283,7 +283,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 
                     ArrayList<String> ownedSkus = ownedItems.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
 
-                    Toast.makeText(PackageActivity.this, "Restore Successfully ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PremiumStoreActivity.this, "Restore Successfully ", Toast.LENGTH_SHORT).show();
 
                     int flagI = 0;
                     assert purchaseDataList != null;
@@ -292,18 +292,18 @@ public class PackageActivity extends ActivityManagePermission implements View.On
                         String purchaseToken = o.optString("token", o.optString("purchaseToken"));
                         // Consume purchaseToken, handling any errors
 
-                        //Toast.makeText(PackageActivity.this, "Consumed: " + ownedSkus.get(flagI), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(PremiumStoreActivity.this, "Consumed: " + ownedSkus.get(flagI), Toast.LENGTH_SHORT).show();
 
                         //int response = mService.consumePurchase(3, getPackageName(), purchaseToken);
                         //
                         //if (response == 0) {
                         //Log.d("Consumed", "Consumed");
                         //
-                        //Toast.makeText(PackageActivity.this, "Consumed: " + ownedSkus.get(flagI), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(PremiumStoreActivity.this, "Consumed: " + ownedSkus.get(flagI), Toast.LENGTH_SHORT).show();
                         //} else {
                         //Log.d("", "No" + response);
-                        //Toast.makeText(PackageActivity.this, ""+purchaseToken, Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(PackageActivity.this, "NOT: " + ownedSkus.get(flagI), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(PremiumStoreActivity.this, ""+purchaseToken, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(PremiumStoreActivity.this, "NOT: " + ownedSkus.get(flagI), Toast.LENGTH_SHORT).show();
                         //}
                         flagI++;
 
@@ -313,22 +313,22 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 //                        String purchaseToken = "inapp:" + getPackageName() + ":"+singleSKU;
 //                        try {
 //                            Log.d("","Running");
-////                            Toast.makeText(PackageActivity.this, "Running", Toast.LENGTH_SHORT).show();
+////                            Toast.makeText(PremiumStoreActivity.this, "Running", Toast.LENGTH_SHORT).show();
 //                            int response = mService.consumePurchase(3, getPackageName(), "android.test.puchased");
 //                            if(response==0)
 //                            {
 //                                Log.d("Consumed","Consumed");
 //
-//                                Toast.makeText(PackageActivity.this, "Consumed: "+singleSKU, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(PremiumStoreActivity.this, "Consumed: "+singleSKU, Toast.LENGTH_SHORT).show();
 //                            }else {
 //                                Log.d("","No"+response);
-//                                Toast.makeText(PackageActivity.this, ""+purchaseToken, Toast.LENGTH_SHORT).show();
-//                                Toast.makeText(PackageActivity.this, "NOT: "+singleSKU, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(PremiumStoreActivity.this, ""+purchaseToken, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(PremiumStoreActivity.this, "NOT: "+singleSKU, Toast.LENGTH_SHORT).show();
 //                            }
 //                        }catch (RemoteException e)
 //                        {
 //                            Log.d("Errorr",""+e);
-//                            Toast.makeText(PackageActivity.this, "Error", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(PremiumStoreActivity.this, "Error", Toast.LENGTH_SHORT).show();
 //                        }
 
 //                        Log.e("SKUs", "onClick: "+arrSKUs );
@@ -353,9 +353,9 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 //                                Log.e("SKUs", "onQueryInventoryFinished: "+singleSKU );
 //                                if (purchase != null) {
 //                                    //purchased
-//                                    Toast.makeText(PackageActivity.this, "Purchased"+singleSKU, Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(PremiumStoreActivity.this, "Purchased"+singleSKU, Toast.LENGTH_SHORT).show();
 //                                }else {
-//                                    Toast.makeText(PackageActivity.this, "NotPurchased"+singleSKU, Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(PremiumStoreActivity.this, "NotPurchased"+singleSKU, Toast.LENGTH_SHORT).show();
 //
 //                                }
 //                            }
@@ -364,7 +364,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 
 
 //                    Bundle ownedItems = mService.getPurchases(3, "com.codminskeyboards.universekeyboard", "inapp", null);
-//                    Toast.makeText(PackageActivity.this, "ownedItems: " + ownedItems.size(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(PremiumStoreActivity.this, "ownedItems: " + ownedItems.size(), Toast.LENGTH_SHORT).show();
 //                    int response = ownedItems.getInt("RESPONSE_CODE");
 //                    Log.e("7887", "onClick: "+response );
 //                    if (response == 0) {
@@ -415,8 +415,8 @@ public class PackageActivity extends ActivityManagePermission implements View.On
 //
 //                        GlobalClass.printLog("allPurchasedProduct: ", allPurchasedProduct);
 //                        Log.e("12121", "onClick: "+ownedSkus );
-//                        Toast.makeText(PackageActivity.this, "PurchasedProduct: " + ownedSkus.size(), Toast.LENGTH_SHORT).show();
-//                        Toast.makeText(PackageActivity.this, "allPurchasedProduct: " + ownedSkus, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(PremiumStoreActivity.this, "PurchasedProduct: " + ownedSkus.size(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(PremiumStoreActivity.this, "allPurchasedProduct: " + ownedSkus, Toast.LENGTH_SHORT).show();
 //
 //                        // if continuationToken != null, call getPurchases again
 //                        // and pass in the token to retrieve more items
@@ -657,7 +657,7 @@ public class PackageActivity extends ActivityManagePermission implements View.On
     }
 
     void alert(String message) {
-        AlertDialog.Builder bld = new AlertDialog.Builder(PackageActivity.this);
+        AlertDialog.Builder bld = new AlertDialog.Builder(PremiumStoreActivity.this);
         bld.setMessage(message);
         bld.setNeutralButton("OK", null);
         GlobalClass.printLog(TAG, " Showing alert dialog: " + message);
@@ -679,8 +679,8 @@ public class PackageActivity extends ActivityManagePermission implements View.On
         }
     }
 
-    public PackageActivity getInstance() {
-        return packageActivity;
+    public PremiumStoreActivity getInstance() {
+        return premiumStoreActivity;
     }
 
     @Override

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/premiumStoreBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/MidnightBlue"
+        app:layout_constraintBottom_toTopOf="@+id/removeAddsBackgroundView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_back"
+        android:tint="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/premiumStoreBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/premiumStoreBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/premiumStoreBackgroundView" />
+
+    <TextView
+        android:id="@+id/premiumStoreTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/gothic_bold"
+        android:gravity="center"
+        android:text="Premium Store"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/premiumStoreBackgroundView"
+        app:layout_constraintEnd_toEndOf="@+id/premiumStoreBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/premiumStoreBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/premiumStoreBackgroundView" />
+
+    <TextView
+        android:id="@+id/txtRestore"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:fontFamily="@font/gothic_bold"
+        android:padding="10dp"
+        android:text="@string/restore"
+        android:textColor="@color/gray"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/premiumStoreBackgroundView"
+        app:layout_constraintEnd_toEndOf="@+id/premiumStoreBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/premiumStoreBackgroundView" />
+
+    <View
+        android:id="@+id/removeAddsBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/theme_color2"
+        app:layout_constraintBottom_toTopOf="@+id/texualColorBackgroundBackgroundView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/premiumStoreBackgroundView" />
+
+    <ImageView
+        android:id="@+id/removeAdsImageView"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_ads"
+        app:layout_constraintBottom_toBottomOf="@+id/removeAddsBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/removeAddsBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/removeAddsBackgroundView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:fontFamily="@font/gothic"
+        android:text="Remove Ads"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/removeAdsImageView"
+        app:layout_constraintStart_toEndOf="@+id/removeAdsImageView"
+        app:layout_constraintTop_toTopOf="@+id/removeAdsImageView" />
+
+    <TextView
+        android:id="@+id/remove_adds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/white_border"
+        android:fontFamily="@font/gothic"
+        android:padding="7dp"
+        android:text="$ 0.99"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/removeAdsImageView"
+        app:layout_constraintEnd_toEndOf="@+id/removeAddsBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/removeAdsImageView" />
+
+    <View
+        android:id="@+id/texualColorBackgroundBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/theme_color3"
+        app:layout_constraintBottom_toTopOf="@+id/themesBackgroundView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/removeAddsBackgroundView" />
+
+    <ImageView
+        android:id="@+id/texualColorBackgroundImageView"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_theme_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/texualColorBackgroundBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/texualColorBackgroundBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/texualColorBackgroundBackgroundView" />
+
+    <TextView
+        android:id="@+id/texualColorBackgroundTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="20"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/texualColorBackgroundImageView"
+        app:layout_constraintTop_toTopOf="@+id/texualColorBackgroundImageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/gothic"
+        android:text="@string/texual_color_background"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/texualColorBackgroundTextView"
+        app:layout_constraintTop_toBottomOf="@+id/texualColorBackgroundTextView" />
+
+    <TextView
+        android:id="@+id/background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/white_border"
+        android:fontFamily="@font/gothic"
+        android:padding="7dp"
+        android:text="$ 0.99"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/texualColorBackgroundImageView"
+        app:layout_constraintEnd_toEndOf="@+id/texualColorBackgroundBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/texualColorBackgroundImageView" />
+
+    <View
+        android:id="@+id/themesBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/theme_color4"
+        app:layout_constraintBottom_toTopOf="@+id/colorsBackgroundView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/texualColorBackgroundBackgroundView" />
+
+    <ImageView
+        android:id="@+id/themesImageView"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_theme"
+        app:layout_constraintBottom_toBottomOf="@+id/themesBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/themesBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/themesBackgroundView" />
+
+    <TextView
+        android:id="@+id/themesNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="5"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/themesImageView"
+        app:layout_constraintTop_toTopOf="@+id/themesImageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gothic"
+        android:text="@string/themes_slots"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/themesNumberTextView"
+        app:layout_constraintTop_toBottomOf="@+id/themesNumberTextView" />
+
+    <TextView
+        android:id="@+id/theme_slot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/white_border"
+        android:fontFamily="@font/gothic"
+        android:padding="7dp"
+        android:text="$ 0.99"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/themesImageView"
+        app:layout_constraintEnd_toEndOf="@+id/themesBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/themesImageView" />
+
+    <View
+        android:id="@+id/colorsBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/theme_color11"
+        app:layout_constraintBottom_toTopOf="@+id/fontsBackgroundView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/themesBackgroundView" />
+
+    <ImageView
+        android:id="@+id/colorsImageView"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_color"
+        app:layout_constraintBottom_toBottomOf="@+id/colorsBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/colorsBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/colorsBackgroundView" />
+
+    <TextView
+        android:id="@+id/colorsNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="10"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/colorsImageView"
+        app:layout_constraintTop_toTopOf="@+id/colorsImageView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/gothic"
+        android:text="@string/colors"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/colorsNumberTextView"
+        app:layout_constraintTop_toBottomOf="@+id/colorsNumberTextView" />
+
+    <TextView
+        android:id="@+id/colors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/white_border"
+        android:fontFamily="@font/gothic"
+        android:padding="7dp"
+        android:text="$ 0.99"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/colorsImageView"
+        app:layout_constraintEnd_toEndOf="@+id/colorsBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/colorsImageView" />
+
+    <View
+        android:id="@+id/fontsBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/theme_color12"
+        app:layout_constraintBottom_toTopOf="@+id/soundsBackgroundView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/colorsBackgroundView" />
+
+    <ImageView
+        android:id="@+id/fontsImageView"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_aa"
+        app:layout_constraintBottom_toBottomOf="@+id/fontsBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/fontsBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/fontsBackgroundView" />
+
+    <TextView
+        android:id="@+id/fontsNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="15"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/fontsImageView"
+        app:layout_constraintTop_toTopOf="@+id/fontsImageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gothic"
+        android:text="@string/fonts"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/fontsNumberTextView"
+        app:layout_constraintTop_toBottomOf="@+id/fontsNumberTextView" />
+
+    <TextView
+        android:id="@+id/fonts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/white_border"
+        android:fontFamily="@font/gothic"
+        android:padding="7dp"
+        android:text="$ 1.99"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/fontsImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fontsImageView" />
+
+    <View
+        android:id="@+id/soundsBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/theme_color13"
+        app:layout_constraintBottom_toTopOf="@+id/ads"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fontsBackgroundView"
+        tools:layout_editor_absoluteY="484dp" />
+
+    <ImageView
+        android:id="@+id/soundsImageView"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_soundeffect_selected"
+        app:layout_constraintBottom_toBottomOf="@+id/soundsBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/soundsBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/soundsBackgroundView" />
+
+    <TextView
+        android:id="@+id/soundsNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="10"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/soundsImageView"
+        app:layout_constraintTop_toTopOf="@+id/soundsImageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:fontFamily="@font/gothic"
+        android:text="@string/sounds"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/soundsImageView"
+        app:layout_constraintTop_toBottomOf="@+id/soundsNumberTextView" />
+
+    <TextView
+        android:id="@+id/sounds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:background="@drawable/white_border"
+        android:fontFamily="@font/gothic"
+        android:padding="7dp"
+        android:text="$ 0.99"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/soundsImageView"
+        app:layout_constraintEnd_toEndOf="@+id/soundsBackgroundView"
+        app:layout_constraintTop_toTopOf="@+id/soundsImageView" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/ads"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:adSize="BANNER"
+        app:adUnitId="@string/banner_home_footer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

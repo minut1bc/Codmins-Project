@@ -13,7 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.signature.StringSignature;
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
-import com.codminskeyboards.universekeyboard.activity.PackageActivity;
+import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -63,7 +63,7 @@ public class FillFontColorAdapter extends RecyclerView.Adapter<FillFontColorAdap
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(context, PackageActivity.class);
+                        Intent intent = new Intent(context, PremiumStoreActivity.class);
                         context.startActivity(intent);
                     }
                 });

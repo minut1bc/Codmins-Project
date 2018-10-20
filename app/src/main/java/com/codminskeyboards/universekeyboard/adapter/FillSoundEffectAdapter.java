@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.codminskeyboards.universekeyboard.R;
-import com.codminskeyboards.universekeyboard.activity.PackageActivity;
+import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.model.NewSoundData;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
@@ -64,7 +64,7 @@ public class FillSoundEffectAdapter extends BaseAdapter {
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(context, PackageActivity.class);
+                        Intent intent = new Intent(context, PremiumStoreActivity.class);
                         context.startActivity(intent);
                     }
                 });

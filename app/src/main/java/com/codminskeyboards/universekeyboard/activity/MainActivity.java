@@ -397,7 +397,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                 startActivity(intent6);
                 break;
             case R.id.linPackage:
-                startActivity(new Intent(MainActivity.this, PackageActivity.class));
+                startActivity(new Intent(MainActivity.this, PremiumStoreActivity.class));
                 break;
             case R.id.ivApply:
                 if (GlobalClass.KeyboardIsEnabled(MainActivity.this) && GlobalClass.KeyboardIsSet(MainActivity.this)) {

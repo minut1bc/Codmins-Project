@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.codminskeyboards.universekeyboard.R;
-import com.codminskeyboards.universekeyboard.activity.PackageActivity;
+import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
 public class FillWallpaperTextualAdapter extends BaseAdapter {
@@ -60,7 +60,7 @@ public class FillWallpaperTextualAdapter extends BaseAdapter {
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent i = new Intent(activity, PackageActivity.class);
+                        Intent i = new Intent(activity, PremiumStoreActivity.class);
                         activity.startActivity(i);
                     }
 
