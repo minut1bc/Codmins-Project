@@ -124,6 +124,9 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
     SoundPool soundPool;
 
+    int ringerMode;
+    int soundID;
+
     /**
      * Main initialization of the input method component.  Be sure to call
      * to super class.
@@ -143,6 +146,11 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
+        ringerMode = audioManager.getRingerMode();
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
+
+        if (soundPool == null)
+            soundPool = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);
     }
 
     /**
@@ -195,6 +203,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         ivGoogleSearch = view.findViewById(R.id.ivgooglesearch);
 
         vibrationStrength = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.vibrationStrength, 0);
+
+        GlobalClass.tempSoundName = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SOUND_NAME, R.raw.balloon_snap);
 
         StaggeredGridLayoutManager gaggeredGridLayoutManager = new StaggeredGridLayoutManager(3, 1);
         rv_art_list.setLayoutManager(gaggeredGridLayoutManager);
@@ -1248,18 +1258,13 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private void performKeySound() {
         GlobalClass.printLog("SoftKeyboard", "---------------performKeySound---------------");
 
-        int ringerMode = audioManager.getRingerMode();
-
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
-            if (soundPool == null)
-                soundPool = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);
 
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
-            final int soundId = soundPool.load(this, GlobalClass.tempSoundName, 1);
+            soundID = soundPool.load(this, GlobalClass.tempSoundName, 1);
             soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
                 public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                    soundPool.play(soundId, 1, 1, 0, 0, 1);
+                    soundPool.play(soundID, 1, 1, 0, 0, 1);
                 }
             });
         }
