@@ -10,7 +10,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -124,6 +124,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     String vibrationStrengthText;
     private LinearLayout linKeySoundLayout;
     private Vibrator vibrator;
+
+    SoundPool soundPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -298,6 +300,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             String fontName = removeWords(GlobalClass.tempFontName, remove);
             GlobalClass.selectfonts = getFontPos(fontName);
 
+            // Default keyboard values
         } else {
             GlobalClass.selectwallpaper = 0;
             GlobalClass.selecttextwallpaper = 0;
@@ -308,10 +311,10 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.tempKeyboardColorCode = 0;
             GlobalClass.keyboardBitmapBack = null;
             GlobalClass.tempFontColor = "#FFFFFF";
-            GlobalClass.tempKeyColor = getResources().getColor(R.color.eight);
-            GlobalClass.tempKeyRadius = "18";
-            GlobalClass.tempKeyStroke = "2";
-            GlobalClass.tempKeyOpacity = "255";
+            GlobalClass.tempKeyColor = getResources().getColor(R.color.two);
+            GlobalClass.tempKeyRadius = "34";                                       // ranges between (0, 9, 18, 25, 34)
+            GlobalClass.tempKeyStroke = "1";                                        // ranges between (1, 2, 3, 4, 5)
+            GlobalClass.tempKeyOpacity = "64";                                      // ranges between (0, 64, 128, 192, 255)
             GlobalClass.tempFontName = "";
             GlobalClass.tempSoundStatus = "off";
             GlobalClass.tempSoundName = 0;
@@ -887,15 +890,15 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
             try {
-                MediaPlayer mediaPlayer = MediaPlayer.create(context, GlobalClass.tempSoundName);
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
-                mediaPlayer.start();
+                if (soundPool == null)
+                    soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
+                // audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
+                final int soundId = soundPool.load(context, GlobalClass.tempSoundName, 1);
+                soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                     @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        mp.release();
+                    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                        soundPool.play(soundId, 1, 1, 0, 0, 1);
                     }
                 });
             } catch (Exception ignored) {

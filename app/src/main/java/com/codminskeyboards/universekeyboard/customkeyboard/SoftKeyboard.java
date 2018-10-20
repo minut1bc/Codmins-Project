@@ -14,7 +14,7 @@ import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.net.Uri;
 import android.os.IBinder;
 import android.os.Vibrator;
@@ -121,6 +121,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     Context mContext;
     private String[] emojiArrayList;
     private String[] artArrayList;
+
+    SoundPool soundPool;
 
     /**
      * Main initialization of the input method component.  Be sure to call
@@ -1249,21 +1251,17 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         int ringerMode = audioManager.getRingerMode();
 
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
-            try {
-                MediaPlayer mediaPlayer = MediaPlayer.create(this, GlobalClass.tempSoundName);
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
-                mediaPlayer.start();
+            if (soundPool == null)
+                soundPool = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);
 
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        mp.release();
-                    }
-                });
-
-            } catch (Exception ignored) {
-            }
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
+            final int soundId = soundPool.load(this, GlobalClass.tempSoundName, 1);
+            soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    soundPool.play(soundId, 1, 1, 0, 0, 1);
+                }
+            });
         }
     }
 
