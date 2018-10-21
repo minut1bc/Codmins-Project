@@ -14,6 +14,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -95,10 +96,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private CircleImageView ivOpacityFifty;
     private CircleImageView ivOpacityTwentyFive;
     private CircleImageView ivOpacityZero;
-    private LinearLayout linFirstRowKeyboard;
-    private LinearLayout linTwoRowKeyboard;
-    private LinearLayout linThreeRowKeyboard;
-    private LinearLayout linFourRowKeyboard;
+    private ConstraintLayout keyboardKeysLayout;
     private CircleImageView ivStrokeOne;
     private CircleImageView ivStrokeTwo;
     private CircleImageView ivStrokeThree;
@@ -226,11 +224,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         ivOpacityTwentyFive = findViewById(R.id.ivOpacityTwentyFive);
         ivOpacityZero = findViewById(R.id.ivOpacityZero);
 
-        // id for get keyboard key id
-        linFirstRowKeyboard = findViewById(R.id.linFirstRowKeyboard);
-        linTwoRowKeyboard = findViewById(R.id.linTwoRowKeyboard);
-        linThreeRowKeyboard = findViewById(R.id.linThreeRowKeyboard);
-        linFourRowKeyboard = findViewById(R.id.linFourRowKeyboard);
+        // id for the preview keyboard layout
+        keyboardKeysLayout = findViewById(R.id.keyboardKeysLayout);
 
         //id for apply stroke
         ivStrokeOne = findViewById(R.id.ivStrokeOne);
@@ -592,54 +587,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         ivCancel.setImageDrawable(imgCancel);
 
         GradientDrawable npd1;
-        for (int i = 0; i < linFirstRowKeyboard.getChildCount(); i++) {
-            final View mChild = linFirstRowKeyboard.getChildAt(i);
-            if (mChild instanceof ImageView || mChild instanceof TextView) {
-                npd1 = new GradientDrawable(
-                        GradientDrawable.Orientation.TOP_BOTTOM,
-                        new int[]{GlobalClass.tempKeyColor,
-                                GlobalClass.tempKeyColor});
-                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
-
-                npd1.setCornerRadius(Float.parseFloat(GlobalClass.tempKeyRadius));
-                npd1.setAlpha(Integer.parseInt(GlobalClass.tempKeyOpacity));
-
-                switch (GlobalClass.tempKeyStroke) {
-                    case "1":
-                        npd1.setStroke(0, context.getResources().getColor(R.color.colorPrimary));
-                        break;
-                    case "2":
-                        npd1.setStroke(2, android.graphics.Color.WHITE);
-                        break;
-                    case "3":
-                        npd1.setStroke(2, android.graphics.Color.BLACK);
-                        break;
-                    case "4":
-                        npd1.setStroke(4, android.graphics.Color.BLACK);
-                        break;
-                    case "5":
-                        npd1.setStroke(3, getResources().getColor(R.color.gray));
-                        break;
-                }
-
-                mChild.setBackground(npd1);
-
-                if (mChild instanceof TextView) {
-                    ((TextView) mChild).setTextColor(android.graphics.Color.parseColor(GlobalClass.tempFontColor));
-                    if (GlobalClass.tempFontName.length() != 0 && GlobalClass.tempFontName != null
-                            && !GlobalClass.tempFontName.isEmpty()) {
-                        try {
-
-                            Typeface font = Typeface.createFromAsset(this.getAssets(), GlobalClass.tempFontName);
-                            ((TextView) mChild).setTypeface(font);
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < linTwoRowKeyboard.getChildCount(); i++) {
-            final View mChild = linTwoRowKeyboard.getChildAt(i);
+        for (int i = 0; i < keyboardKeysLayout.getChildCount(); i++) {
+            final View mChild = keyboardKeysLayout.getChildAt(i);
             if (mChild instanceof ImageView || mChild instanceof TextView) {
                 // Recursively attempt another ViewGroup.
                 npd1 = new GradientDrawable(
@@ -676,102 +625,10 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                     if (GlobalClass.tempFontName.length() != 0 && GlobalClass.tempFontName != null
                             && !GlobalClass.tempFontName.isEmpty()) {
                         try {
+
                             Typeface font = Typeface.createFromAsset(this.getAssets(), GlobalClass.tempFontName);
                             ((TextView) mChild).setTypeface(font);
                         } catch (Exception ignored) {
-
-                        }
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < linThreeRowKeyboard.getChildCount(); i++) {
-            final View mChild = linThreeRowKeyboard.getChildAt(i);
-            if (mChild instanceof ImageView || mChild instanceof TextView) {
-                // Recursively attempt another ViewGroup.
-                npd1 = new GradientDrawable(
-                        GradientDrawable.Orientation.TOP_BOTTOM,
-                        new int[]{GlobalClass.tempKeyColor,
-                                GlobalClass.tempKeyColor});
-                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
-
-                npd1.setCornerRadius(Float.parseFloat(GlobalClass.tempKeyRadius));
-                npd1.setAlpha(Integer.parseInt(GlobalClass.tempKeyOpacity));
-
-                switch (GlobalClass.tempKeyStroke) {
-                    case "1":
-                        npd1.setStroke(0, context.getResources().getColor(R.color.colorPrimary));
-                        break;
-                    case "2":
-                        npd1.setStroke(2, android.graphics.Color.WHITE);
-                        break;
-                    case "3":
-                        npd1.setStroke(2, android.graphics.Color.BLACK);
-                        break;
-                    case "4":
-                        npd1.setStroke(4, android.graphics.Color.BLACK);
-                        break;
-                    case "5":
-                        npd1.setStroke(3, getResources().getColor(R.color.gray));
-                        break;
-                }
-
-                mChild.setBackground(npd1);
-
-                if (mChild instanceof TextView) {
-                    ((TextView) mChild).setTextColor(android.graphics.Color.parseColor(GlobalClass.tempFontColor));
-                    if (GlobalClass.tempFontName.length() != 0 && GlobalClass.tempFontName != null
-                            && !GlobalClass.tempFontName.isEmpty()) {
-                        try {
-                            Typeface font = Typeface.createFromAsset(this.getAssets(), GlobalClass.tempFontName);
-                            ((TextView) mChild).setTypeface(font);
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-            }
-        }
-
-        for (int i = 0; i < linFourRowKeyboard.getChildCount(); i++) {
-            final View mChild = linFourRowKeyboard.getChildAt(i);
-            if (mChild instanceof ImageView || mChild instanceof TextView) {
-                npd1 = new GradientDrawable(
-                        GradientDrawable.Orientation.TOP_BOTTOM,
-                        new int[]{GlobalClass.tempKeyColor,
-                                GlobalClass.tempKeyColor});
-                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
-                npd1.setCornerRadius(Float.parseFloat(GlobalClass.tempKeyRadius));
-                npd1.setAlpha(Integer.parseInt(GlobalClass.tempKeyOpacity));
-
-                switch (GlobalClass.tempKeyStroke) {
-                    case "1":
-                        npd1.setStroke(0, context.getResources().getColor(R.color.colorPrimary));
-                        break;
-                    case "2":
-                        npd1.setStroke(2, android.graphics.Color.WHITE);
-                        break;
-                    case "3":
-                        npd1.setStroke(2, android.graphics.Color.BLACK);
-                        break;
-                    case "4":
-                        npd1.setStroke(4, android.graphics.Color.BLACK);
-                        break;
-                    case "5":
-                        npd1.setStroke(3, getResources().getColor(R.color.gray));
-                        break;
-                }
-
-                mChild.setBackground(npd1);
-
-                if (mChild instanceof TextView) {
-                    ((TextView) mChild).setTextColor(android.graphics.Color.parseColor(GlobalClass.tempFontColor));
-                    if (GlobalClass.tempFontName.length() != 0 && GlobalClass.tempFontName != null
-                            && !GlobalClass.tempFontName.isEmpty()) {
-                        try {
-                            Typeface font = Typeface.createFromAsset(this.getAssets(), GlobalClass.tempFontName);
-                            ((TextView) mChild).setTypeface(font);
-                        } catch (Exception ignored) {
-
                         }
                     }
                 }

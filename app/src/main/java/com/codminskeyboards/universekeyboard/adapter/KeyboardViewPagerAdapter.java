@@ -11,13 +11,13 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.PagerAdapter;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.codminskeyboards.universekeyboard.BuildConfig;
@@ -62,10 +62,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.layout_keyboard, null);
 
         ImageView ivKeyboardBg = view.findViewById(R.id.ivKeyboardBg);
-        LinearLayout linFirstRowKeyboard = view.findViewById(R.id.linFirstRowKeyboard);
-        LinearLayout linTwoRowKeyboard = view.findViewById(R.id.linTwoRowKeyboard);
-        LinearLayout linThreeRowKeyboard = view.findViewById(R.id.linThreeRowKeyboard);
-        LinearLayout linFourRowKeyboard = view.findViewById(R.id.linFourRowKeyboard);
+        ConstraintLayout keyboardKeysLayout = view.findViewById(R.id.keyboardKeysLayout);
 
         ImageView ivDone = view.findViewById(R.id.ivDone);
         ImageView ivSpace = view.findViewById(R.id.ivSpace);
@@ -90,171 +87,8 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
         ivCancel.setColorFilter(color);
 
         GradientDrawable npd1;
-        for (int i = 0; i < linFirstRowKeyboard.getChildCount(); i++) {
-            final View mChild = linFirstRowKeyboard.getChildAt(i);
-
-            if (mChild instanceof ImageView || mChild instanceof TextView) {
-                // Recursively attempt another ViewGroup.
-                npd1 = new GradientDrawable(
-                        GradientDrawable.Orientation.TOP_BOTTOM,
-                        new int[]{keyboardArrayList.get(position).getKeyBgColor(),
-                                keyboardArrayList.get(position).getKeyBgColor()});
-
-                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
-
-                npd1.setCornerRadius(Float.parseFloat(keyboardArrayList.get(position).getKeyRadius()));
-                npd1.setAlpha(Integer.parseInt(keyboardArrayList.get(position).getKeyOpacity()));
-
-                switch (keyboardArrayList.get(position).getKeyStroke()) {
-                    case "1":
-                        npd1.setStroke(0, context.getResources().getColor(R.color.colorPrimary));
-                        break;
-                    case "2":
-                        npd1.setStroke(2, android.graphics.Color.WHITE);
-                        break;
-                    case "3":
-                        npd1.setStroke(2, android.graphics.Color.BLACK);
-                        break;
-                    case "4":
-                        npd1.setStroke(4, android.graphics.Color.BLACK);
-                        break;
-                    case "5":
-                        npd1.setStroke(3, android.graphics.Color.GRAY);
-                        break;
-                }
-
-                mChild.setBackground(npd1);
-
-                if (mChild instanceof TextView) {
-
-                    ((TextView) mChild).setTextColor(android.graphics.Color.parseColor(keyboardArrayList.get(position).getFontColor()));
-                    ((TextView) mChild).setTextSize(10);
-                    if (keyboardArrayList.get(position).getFontName().length() != 0 && keyboardArrayList.get(position).getFontName() != null
-                            && !keyboardArrayList.get(position).getFontName().isEmpty()) {
-                        try {
-                            Typeface font = Typeface.createFromAsset(context.getAssets(), keyboardArrayList.get(position).getFontName());
-                            ((TextView) mChild).setTypeface(font);
-
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-            }
-        }
-
-        for (int i = 0; i < linTwoRowKeyboard.getChildCount(); i++) {
-            final View mChild = linTwoRowKeyboard.getChildAt(i);
-
-            if (mChild instanceof ImageView || mChild instanceof TextView) {
-                // Recursively attempt another ViewGroup.
-                npd1 = new GradientDrawable(
-                        GradientDrawable.Orientation.TOP_BOTTOM,
-                        new int[]{keyboardArrayList.get(position).getKeyBgColor(),
-                                keyboardArrayList.get(position).getKeyBgColor()});
-                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
-
-                npd1.setCornerRadius(Float.parseFloat(keyboardArrayList.get(position).getKeyRadius()));
-                npd1.setAlpha(Integer.parseInt(keyboardArrayList.get(position).getKeyOpacity()));
-
-                switch (keyboardArrayList.get(position).getKeyStroke()) {
-                    case "1":
-                        npd1.setStroke(0, context.getResources().getColor(R.color.colorPrimary));
-                        break;
-                    case "2":
-                        npd1.setStroke(2, android.graphics.Color.WHITE);
-                        break;
-                    case "3":
-                        npd1.setStroke(2, android.graphics.Color.BLACK);
-                        break;
-                    case "4":
-                        npd1.setStroke(4, android.graphics.Color.BLACK);
-                        GlobalClass.printLog("click on four", "---------apply stroke----------");
-                        break;
-                    case "5":
-                        npd1.setStroke(3, android.graphics.Color.GRAY);
-                        GlobalClass.printLog("click on five", "---------apply stroke----------");
-                        break;
-                }
-
-                mChild.setBackground(npd1);
-
-                if (mChild instanceof TextView) {
-                    ((TextView) mChild).setTextColor(android.graphics.Color.parseColor(keyboardArrayList.get(position).getFontColor()));
-                    ((TextView) mChild).setTextSize(10);
-
-                    if (keyboardArrayList.get(position).getFontName().length() != 0 && keyboardArrayList.get(position).getFontName() != null
-                            && !keyboardArrayList.get(position).getFontName().isEmpty()) {
-                        try {
-                            Typeface font = Typeface.createFromAsset(context.getAssets(), keyboardArrayList.get(position).getFontName());
-                            ((TextView) mChild).setTypeface(font);
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-            } else {
-                // Set the font if it is a TextView.
-                GlobalClass.printLog("call the setRadius", "------else-------" + i);
-
-            }
-        }
-
-        for (int i = 0; i < linThreeRowKeyboard.getChildCount(); i++) {
-            final View mChild = linThreeRowKeyboard.getChildAt(i);
-
-            GlobalClass.printLog("call the setRadius", "----if---------" + i);
-            // Set the font if it is a TextView.
-            if (mChild instanceof ImageView || mChild instanceof TextView) {
-                // Recursively attempt another ViewGroup.
-                npd1 = new GradientDrawable(
-                        GradientDrawable.Orientation.TOP_BOTTOM,
-                        new int[]{keyboardArrayList.get(position).getKeyBgColor(),
-                                keyboardArrayList.get(position).getKeyBgColor()});
-                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
-
-                npd1.setCornerRadius(Float.parseFloat(keyboardArrayList.get(position).getKeyRadius()));
-                npd1.setAlpha(Integer.parseInt(keyboardArrayList.get(position).getKeyOpacity()));
-
-                switch (keyboardArrayList.get(position).getKeyStroke()) {
-                    case "1":
-                        npd1.setStroke(0, context.getResources().getColor(R.color.colorPrimary));
-                        break;
-                    case "2":
-                        npd1.setStroke(2, android.graphics.Color.WHITE);
-                        break;
-                    case "3":
-                        npd1.setStroke(2, android.graphics.Color.BLACK);
-                        break;
-                    case "4":
-                        npd1.setStroke(4, android.graphics.Color.BLACK);
-                        GlobalClass.printLog("click on four", "---------apply stroke----------");
-                        break;
-                    case "5":
-                        npd1.setStroke(3, android.graphics.Color.GRAY);
-                        GlobalClass.printLog("click on five", "---------apply stroke----------");
-                        break;
-                }
-
-                mChild.setBackground(npd1);
-
-                if (mChild instanceof TextView) {
-                    ((TextView) mChild).setTextColor(android.graphics.Color.parseColor(keyboardArrayList.get(position).getFontColor()));
-                    ((TextView) mChild).setTextSize(10);
-
-                    if (keyboardArrayList.get(position).getFontName().length() != 0 && keyboardArrayList.get(position).getFontName() != null
-                            && !keyboardArrayList.get(position).getFontName().isEmpty()) {
-                        try {
-
-                            Typeface font = Typeface.createFromAsset(context.getAssets(), keyboardArrayList.get(position).getFontName());
-                            ((TextView) mChild).setTypeface(font);
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-            } else GlobalClass.printLog("call the setRadius", "------else-------" + i);
-        }
-
-        for (int i = 0; i < linFourRowKeyboard.getChildCount(); i++) {
-            final View mChild = linFourRowKeyboard.getChildAt(i);
+        for (int i = 0; i < keyboardKeysLayout.getChildCount(); i++) {
+            final View mChild = keyboardKeysLayout.getChildAt(i);
 
             GlobalClass.printLog("call the setRadius", "----if---------" + i);
             if (mChild instanceof ImageView || mChild instanceof TextView) {

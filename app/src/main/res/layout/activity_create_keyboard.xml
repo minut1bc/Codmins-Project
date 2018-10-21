@@ -211,6 +211,7 @@
                 android:fontFamily="@font/gothic"
                 android:text="@string/sound_effect"
                 android:textColor="@android:color/white" />
+
         </LinearLayout>
 
     </LinearLayout>
@@ -219,14 +220,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:weightSum="3">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/linWallpaperLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.7"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
@@ -234,25 +234,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <LinearLayout
+            <GridView
+                android:id="@+id/gvColor"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <GridView
-                    android:id="@+id/gvColor"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:columnWidth="50dp"
-                    android:horizontalSpacing="5dp"
-                    android:listSelector="@android:color/transparent"
-                    android:numColumns="auto_fit"
-                    android:scrollbars="none"
-                    android:verticalSpacing="5dp" />
-
-            </LinearLayout>
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:columnWidth="50dp"
+                android:horizontalSpacing="5dp"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="auto_fit"
+                android:scrollbars="none"
+                android:verticalSpacing="5dp" />
 
         </LinearLayout>
 
@@ -260,7 +253,7 @@
             android:id="@+id/linKeyDesignLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.7"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -448,7 +441,7 @@
             android:id="@+id/linFontStyleLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.7"
+            android:layout_weight="1."
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -481,7 +474,7 @@
             android:id="@+id/linKeySoundLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.7"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -525,8 +518,7 @@
         <include
             layout="@layout/layout_keyboard"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.3" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

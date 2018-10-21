@@ -1,481 +1,645 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/ivKeyboardBg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:contentDescription="TODO"
         android:scaleType="fitXY"
-        android:src="@drawable/theme_color1" />
+        android:src="@drawable/theme_color1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/rlEmoji"
+    <View
+        android:id="@+id/topBarView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#80000000">
+        android:layout_height="34dp"
+        android:background="#80000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/ivAbc"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="2dp"
-            android:contentDescription="TODO"
-            android:src="@drawable/ic_textmessage"
-            android:tint="@color/silver" />
+    <ImageView
+        android:id="@+id/ivAbc"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_textmessage"
+        android:tint="@color/silver"
+        app:layout_constraintBottom_toBottomOf="@+id/topBarView"
+        app:layout_constraintStart_toStartOf="@+id/topBarView"
+        app:layout_constraintTop_toTopOf="@+id/topBarView" />
 
-        <ImageView
-            android:id="@+id/ivEmoji"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="2dp"
-            android:contentDescription="TODO"
-            android:src="@drawable/ic_smile"
-            android:tint="@color/silver" />
+    <ImageView
+        android:id="@+id/ivEmoji"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_smile"
+        android:tint="@color/silver"
+        app:layout_constraintBottom_toBottomOf="@+id/topBarView"
+        app:layout_constraintStart_toEndOf="@+id/ivAbc"
+        app:layout_constraintTop_toTopOf="@+id/topBarView" />
 
-        <ImageView
-            android:id="@+id/ivArt"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="2dp"
-            android:contentDescription="TODO"
-            android:src="@drawable/ic_color_dish"
-            android:tint="@color/silver" />
+    <ImageView
+        android:id="@+id/ivArt"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_color_dish"
+        android:tint="@color/silver"
+        app:layout_constraintBottom_toBottomOf="@+id/topBarView"
+        app:layout_constraintStart_toEndOf="@+id/ivEmoji"
+        app:layout_constraintTop_toTopOf="@+id/topBarView" />
 
-        <ImageView
-            android:id="@+id/ivgooglesearch"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="2dp"
-            android:contentDescription="TODO"
-            android:src="@drawable/ic_megnify"
-            android:tint="@color/silver" />
+    <ImageView
+        android:id="@+id/ivgooglesearch"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_megnify"
+        android:tint="@color/silver"
+        app:layout_constraintBottom_toBottomOf="@+id/topBarView"
+        app:layout_constraintStart_toEndOf="@+id/ivArt"
+        app:layout_constraintTop_toTopOf="@+id/topBarView" />
 
-    </LinearLayout>
-
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/keyboardKeysLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rlEmoji"
+        android:layout_height="0dp"
         android:layout_margin="3dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/ivKeyboardBg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBarView">
 
-        <LinearLayout
-            android:id="@+id/linFirstRowKeyboard"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/keyQ"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Q"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@id/borderViewLeft"
+            app:layout_constraintEnd_toStartOf="@+id/keyW"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txtQ"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="Q"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/txtW"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="W"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/txtE"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="E"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/txtR"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="R"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/txtT"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="T"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/txtY"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="Y"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/txtU"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="U"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/txtI"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="I"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/txtO"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="O"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/txtP"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="P"
-                android:textColor="@android:color/white" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linTwoRowKeyboard"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/keyW"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="W"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/keyQ"
+            app:layout_constraintEnd_toStartOf="@+id/keyE"
+            app:layout_constraintStart_toEndOf="@+id/keyQ"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="A"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="S"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="D"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="F"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="G"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="H"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="J"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="K"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="L"
-                android:textColor="@android:color/white" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linThreeRowKeyboard"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/keyE"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="E"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/keyQ"
+            app:layout_constraintEnd_toStartOf="@+id/keyR"
+            app:layout_constraintStart_toEndOf="@+id/keyW"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivShift"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1.5"
-                android:background="@drawable/key_bg"
-                android:contentDescription="TODO"
-                android:padding="10dp"
-                android:src="@drawable/ic_shift_on" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="Z"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="X"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="C"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="V"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="B"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="N"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="M"
-                android:textColor="@android:color/white" />
-
-            <ImageView
-                android:id="@+id/ivCancel"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1.5"
-                android:background="@drawable/key_bg"
-                android:contentDescription="TODO"
-                android:padding="10dp"
-                android:src="@drawable/ic_backspace" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linFourRowKeyboard"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/keyR"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="R"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/keyQ"
+            app:layout_constraintEnd_toStartOf="@+id/keyT"
+            app:layout_constraintStart_toEndOf="@+id/keyE"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1.5"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="123"
-                android:textColor="@android:color/white" />
+        <TextView
+            android:id="@+id/keyT"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="T"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/keyQ"
+            app:layout_constraintEnd_toStartOf="@+id/keyY"
+            app:layout_constraintStart_toEndOf="@+id/keyR"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text=","
-                android:textColor="@android:color/white" />
+        <TextView
+            android:id="@+id/keyY"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Y"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/keyQ"
+            app:layout_constraintEnd_toStartOf="@+id/keyU"
+            app:layout_constraintStart_toEndOf="@+id/keyT"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivSpace"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="5"
-                android:background="@drawable/key_bg"
-                android:contentDescription="TODO"
-                android:scaleType="fitXY" />
+        <TextView
+            android:id="@+id/keyU"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="U"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/keyQ"
+            app:layout_constraintEnd_toStartOf="@+id/keyI"
+            app:layout_constraintStart_toEndOf="@+id/keyY"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/key_bg"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="."
-                android:textColor="@android:color/white" />
+        <TextView
+            android:id="@+id/keyI"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="I"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/keyQ"
+            app:layout_constraintEnd_toStartOf="@+id/keyO"
+            app:layout_constraintStart_toEndOf="@+id/keyU"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivDone"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:layout_weight="1.5"
-                android:background="@drawable/key_bg"
-                android:contentDescription="TODO"
-                android:padding="10dp"
-                android:src="@drawable/ic_enter_new" />
+        <TextView
+            android:id="@+id/keyO"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="O"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/keyQ"
+            app:layout_constraintEnd_toStartOf="@+id/keyP"
+            app:layout_constraintStart_toEndOf="@+id/keyI"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/keyP"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="P"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/keyQ"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/keyO"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        <View
+            android:id="@+id/borderViewLeft"
+            android:layout_width="15dp"
+            android:layout_height="0dp"
+            android:layout_margin="1dp"
+            app:layout_constraintBottom_toTopOf="@id/ivShift"
+            app:layout_constraintEnd_toStartOf="@+id/keyA"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/keyQ" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/keyA"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="A"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
+            app:layout_constraintEnd_toStartOf="@+id/keyS"
+            app:layout_constraintStart_toEndOf="@+id/borderViewLeft"
+            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+
+        <TextView
+            android:id="@+id/keyS"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="S"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
+            app:layout_constraintEnd_toStartOf="@+id/keyD"
+            app:layout_constraintStart_toEndOf="@+id/keyA"
+            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+
+        <TextView
+            android:id="@+id/keyD"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="D"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
+            app:layout_constraintEnd_toStartOf="@+id/keyF"
+            app:layout_constraintStart_toEndOf="@+id/keyS"
+            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+
+        <TextView
+            android:id="@+id/keyF"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="F"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
+            app:layout_constraintEnd_toStartOf="@+id/keyG"
+            app:layout_constraintStart_toEndOf="@+id/keyD"
+            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+
+        <TextView
+            android:id="@+id/keyG"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="G"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
+            app:layout_constraintEnd_toStartOf="@+id/keyH"
+            app:layout_constraintStart_toEndOf="@+id/keyF"
+            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+
+        <TextView
+            android:id="@+id/keyH"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="H"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
+            app:layout_constraintEnd_toStartOf="@+id/keyJ"
+            app:layout_constraintStart_toEndOf="@+id/keyG"
+            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+
+        <TextView
+            android:id="@+id/keyJ"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="J"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
+            app:layout_constraintEnd_toStartOf="@+id/keyK"
+            app:layout_constraintStart_toEndOf="@+id/keyH"
+            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+
+        <TextView
+            android:id="@+id/keyK"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="K"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
+            app:layout_constraintEnd_toStartOf="@+id/keyL"
+            app:layout_constraintStart_toEndOf="@+id/keyJ"
+            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+
+        <TextView
+            android:id="@+id/keyL"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="L"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
+            app:layout_constraintEnd_toStartOf="@+id/borderViewRight"
+            app:layout_constraintStart_toEndOf="@+id/keyK"
+            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+
+        <View
+            android:id="@+id/borderViewRight"
+            android:layout_width="15dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/keyL"
+            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+
+        <ImageView
+            android:id="@+id/ivShift"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/key_bg"
+            android:contentDescription="TODO"
+            android:padding="5dp"
+            android:src="@drawable/ic_shift_on"
+            app:layout_constraintBottom_toTopOf="@id/keySymbols"
+            app:layout_constraintEnd_toStartOf="@+id/keyZ"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/borderViewLeft" />
+
+        <TextView
+            android:id="@+id/keyZ"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Z"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintEnd_toStartOf="@+id/keyX"
+            app:layout_constraintStart_toEndOf="@+id/ivShift"
+            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+
+        <TextView
+            android:id="@+id/keyX"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="X"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintEnd_toStartOf="@+id/keyC"
+            app:layout_constraintStart_toEndOf="@+id/keyZ"
+            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+
+        <TextView
+            android:id="@+id/keyC"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="C"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintEnd_toStartOf="@+id/keyV"
+            app:layout_constraintStart_toEndOf="@+id/keyX"
+            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+
+        <TextView
+            android:id="@+id/keyV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="V"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintEnd_toStartOf="@+id/keyB"
+            app:layout_constraintStart_toEndOf="@+id/keyC"
+            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+
+        <TextView
+            android:id="@+id/keyB"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="B"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintEnd_toStartOf="@+id/keyN"
+            app:layout_constraintStart_toEndOf="@+id/keyV"
+            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+
+        <TextView
+            android:id="@+id/keyN"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="N"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintEnd_toStartOf="@+id/keyM"
+            app:layout_constraintStart_toEndOf="@+id/keyB"
+            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+
+        <TextView
+            android:id="@+id/keyM"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="M"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintEnd_toStartOf="@id/ivCancel"
+            app:layout_constraintStart_toEndOf="@+id/keyN"
+            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+
+        <ImageView
+            android:id="@+id/ivCancel"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:contentDescription="TODO"
+            android:padding="5dp"
+            android:src="@drawable/ic_backspace"
+            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/keyM"
+            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+
+        <TextView
+            android:id="@+id/keySymbols"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="123"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/keyComma"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivShift" />
+
+        <TextView
+            android:id="@+id/keyComma"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text=","
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivSpace"
+            app:layout_constraintStart_toEndOf="@+id/keySymbols"
+            app:layout_constraintTop_toTopOf="@+id/keySymbols" />
+
+        <ImageView
+            android:id="@+id/ivSpace"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:contentDescription="TODO"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/keyDot"
+            app:layout_constraintStart_toEndOf="@+id/keyComma"
+            app:layout_constraintTop_toTopOf="@+id/keySymbols" />
+
+        <TextView
+            android:id="@+id/keyDot"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="."
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivDone"
+            app:layout_constraintStart_toEndOf="@+id/ivSpace"
+            app:layout_constraintTop_toTopOf="@+id/keySymbols" />
+
+        <ImageView
+            android:id="@+id/ivDone"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:contentDescription="TODO"
+            android:padding="5dp"
+            android:src="@drawable/ic_enter_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/keyDot"
+            app:layout_constraintTop_toTopOf="@+id/keySymbols" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
