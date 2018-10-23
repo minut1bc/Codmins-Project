@@ -2,6 +2,7 @@ package com.codminskeyboards.universekeyboard.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +27,12 @@ public class FillKeyBgAdapter extends RecyclerView.Adapter<FillKeyBgAdapter.View
     private int[] defaultColorFreeArrayList;
     private ClickListener clickListener;
 
-    public FillKeyBgAdapter(Context context, int[] defaultColorFreeArrayList) {
+    private CreateKeyboardActivity createKeyboardActivity;
+
+    public FillKeyBgAdapter(Context context, int[] defaultColorFreeArrayList, CreateKeyboardActivity createKeyboardActivity) {
         super();
         this.context = context;
+        this.createKeyboardActivity = createKeyboardActivity;
         this.defaultColorFreeArrayList = defaultColorFreeArrayList;
     }
 
@@ -41,15 +45,15 @@ public class FillKeyBgAdapter extends RecyclerView.Adapter<FillKeyBgAdapter.View
 
     }
 
+    @NonNull
     @Override
-    public FillKeyBgAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public FillKeyBgAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_fill_color_item, viewGroup, false);
-        FillKeyBgAdapter.ViewHolder viewHolder = new FillKeyBgAdapter.ViewHolder(v);
-        return viewHolder;
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(final FillKeyBgAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final FillKeyBgAdapter.ViewHolder holder, int position) {
 
         Glide.with(context)
                 .load(defaultColorFreeArrayList[position])
@@ -187,8 +191,8 @@ public class FillKeyBgAdapter extends RecyclerView.Adapter<FillKeyBgAdapter.View
                     } else if (getAdapterPosition() == 39) {
                         tempKeyColor = context.getResources().getColor(R.color.fourtyone);
                     }
-                    if (CreateKeyboardActivity.getInstance() != null) {
-                        CreateKeyboardActivity.getInstance().setRadius();
+                    if (createKeyboardActivity != null) {
+                        createKeyboardActivity.setRadius();
                     }
 
                     notifyDataSetChanged();

@@ -2,6 +2,7 @@ package com.codminskeyboards.universekeyboard.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,15 +25,15 @@ public class FillDefaultColorAdapter extends RecyclerView.Adapter<FillDefaultCol
         this.colorArrayList = colorArrayList;
     }
 
+    @NonNull
     @Override
-    public FillDefaultColorAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public FillDefaultColorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_keyborad_bg_color_item, viewGroup, false);
-        FillDefaultColorAdapter.ViewHolder viewHolder = new FillDefaultColorAdapter.ViewHolder(v);
-        return viewHolder;
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(final FillDefaultColorAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final FillDefaultColorAdapter.ViewHolder holder, final int position) {
 
         holder.ivColorItem.setImageResource(colorArrayList[position]);
 

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linKeyDesignLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/roundnessTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gothic_bold"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="Roundness"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/radiusOne"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="40dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/radiusOne"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_one"
+        app:layout_constraintBottom_toTopOf="@id/borderColorTextView"
+        app:layout_constraintEnd_toStartOf="@id/radiusTwo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/roundnessTextView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/radiusTwo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_two"
+        app:layout_constraintBottom_toTopOf="@id/borderColorTextView"
+        app:layout_constraintEnd_toStartOf="@id/radiusThree"
+        app:layout_constraintStart_toEndOf="@id/radiusOne"
+        app:layout_constraintTop_toBottomOf="@id/roundnessTextView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/radiusThree"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_three"
+        app:layout_constraintBottom_toTopOf="@id/borderColorTextView"
+        app:layout_constraintEnd_toStartOf="@id/radiusFour"
+        app:layout_constraintStart_toEndOf="@id/radiusTwo"
+        app:layout_constraintTop_toBottomOf="@id/roundnessTextView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/radiusFour"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_four"
+        app:layout_constraintBottom_toTopOf="@id/borderColorTextView"
+        app:layout_constraintEnd_toStartOf="@id/radiusFive"
+        app:layout_constraintStart_toEndOf="@id/radiusThree"
+        app:layout_constraintTop_toBottomOf="@id/roundnessTextView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/radiusFive"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_five"
+        app:layout_constraintBottom_toTopOf="@id/borderColorTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/radiusFour"
+        app:layout_constraintTop_toBottomOf="@id/roundnessTextView" />
+
+    <TextView
+        android:id="@+id/borderColorTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gothic_bold"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="Border color"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/ivStrokeOne"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radiusOne" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivStrokeOne"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_effect_one"
+        app:layout_constraintBottom_toTopOf="@id/opacityTextView"
+        app:layout_constraintEnd_toStartOf="@id/ivStrokeTwo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/borderColorTextView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivStrokeTwo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_effect_two"
+        app:layout_constraintBottom_toTopOf="@id/opacityTextView"
+        app:layout_constraintEnd_toStartOf="@id/ivStrokeThree"
+        app:layout_constraintStart_toEndOf="@id/ivStrokeOne"
+        app:layout_constraintTop_toBottomOf="@id/borderColorTextView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivStrokeThree"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_effect_three"
+        app:layout_constraintBottom_toTopOf="@id/opacityTextView"
+        app:layout_constraintEnd_toStartOf="@id/ivStrokeFour"
+        app:layout_constraintStart_toEndOf="@id/ivStrokeTwo"
+        app:layout_constraintTop_toBottomOf="@id/borderColorTextView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivStrokeFour"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_effect_four"
+        app:layout_constraintBottom_toTopOf="@id/opacityTextView"
+        app:layout_constraintEnd_toStartOf="@id/ivStrokeFive"
+        app:layout_constraintStart_toEndOf="@id/ivStrokeThree"
+        app:layout_constraintTop_toBottomOf="@id/borderColorTextView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivStrokeFive"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_effect_five"
+        app:layout_constraintBottom_toTopOf="@id/opacityTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivStrokeFour"
+        app:layout_constraintTop_toBottomOf="@id/borderColorTextView" />
+
+    <TextView
+        android:id="@+id/opacityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:fontFamily="@font/gothic_bold"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="Opacity"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/ivOpacityHundred"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivStrokeOne" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivOpacityHundred"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_100precents"
+        app:layout_constraintBottom_toBottomOf="@id/rvDefaultColorKeyDesign"
+        app:layout_constraintEnd_toStartOf="@id/ivOpacitySeventyFive"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/opacityTextView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivOpacitySeventyFive"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_75precents"
+        app:layout_constraintBottom_toTopOf="@id/rvDefaultColorKeyDesign"
+        app:layout_constraintEnd_toStartOf="@id/ivOpacityFifty"
+        app:layout_constraintStart_toEndOf="@id/ivOpacityHundred"
+        app:layout_constraintTop_toBottomOf="@id/opacityTextView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivOpacityFifty"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_50precents"
+        app:layout_constraintBottom_toTopOf="@id/rvDefaultColorKeyDesign"
+        app:layout_constraintEnd_toStartOf="@id/ivOpacityTwentyFive"
+        app:layout_constraintStart_toEndOf="@id/ivOpacitySeventyFive"
+        app:layout_constraintTop_toBottomOf="@id/opacityTextView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivOpacityTwentyFive"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_25precents"
+        app:layout_constraintBottom_toTopOf="@id/rvDefaultColorKeyDesign"
+        app:layout_constraintEnd_toStartOf="@id/ivOpacityZero"
+        app:layout_constraintStart_toEndOf="@id/ivOpacityFifty"
+        app:layout_constraintTop_toBottomOf="@id/opacityTextView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivOpacityZero"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_0precents"
+        app:layout_constraintBottom_toTopOf="@id/rvDefaultColorKeyDesign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivOpacityTwentyFive"
+        app:layout_constraintTop_toBottomOf="@id/opacityTextView" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvDefaultColorKeyDesign"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/light_gray"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivOpacityHundred" />
+
+</android.support.constraint.ConstraintLayout>

@@ -26,4 +26,5 @@
         android:layout_centerInParent="true"
         android:background="@drawable/ic_lock"
         android:visibility="gone" />
+
 </RelativeLayout>

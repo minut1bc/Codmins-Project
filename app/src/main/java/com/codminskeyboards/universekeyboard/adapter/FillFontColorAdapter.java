@@ -2,6 +2,7 @@ package com.codminskeyboards.universekeyboard.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +25,12 @@ public class FillFontColorAdapter extends RecyclerView.Adapter<FillFontColorAdap
     private int[] defaultColorFreeArrayList;
     private ClickListener clickListener;
 
-    public FillFontColorAdapter(Context context, int[] defaultColorFreeArrayList) {
+    private CreateKeyboardActivity createKeyboardActivity;
+
+    public FillFontColorAdapter(Context context, int[] defaultColorFreeArrayList, CreateKeyboardActivity createKeyboardActivity) {
         super();
         this.context = context;
+        this.createKeyboardActivity = createKeyboardActivity;
         this.defaultColorFreeArrayList = defaultColorFreeArrayList;
     }
 
@@ -38,15 +42,15 @@ public class FillFontColorAdapter extends RecyclerView.Adapter<FillFontColorAdap
         void itemClicked(View view, int position);
     }
 
+    @NonNull
     @Override
-    public FillFontColorAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public FillFontColorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_fill_color_iteme, viewGroup, false);
-        FillFontColorAdapter.ViewHolder viewHolder = new FillFontColorAdapter.ViewHolder(v);
-        return viewHolder;
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(final FillFontColorAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final FillFontColorAdapter.ViewHolder holder, int position) {
 
         Glide.with(context)
                 .load(defaultColorFreeArrayList[position])
@@ -187,8 +191,8 @@ public class FillFontColorAdapter extends RecyclerView.Adapter<FillFontColorAdap
                         GlobalClass.tempFontColor = "#68875D";
                     }
 
-                    if (CreateKeyboardActivity.getInstance() != null)
-                        CreateKeyboardActivity.getInstance().setRadius();
+                    if (createKeyboardActivity != null)
+                        createKeyboardActivity.setRadius();
                     notifyDataSetChanged();
                     GlobalClass.checkStartAd();
                 }

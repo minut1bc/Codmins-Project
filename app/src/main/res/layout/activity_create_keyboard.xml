@@ -216,11 +216,18 @@
 
     </LinearLayout>
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerCreateKeyboardActivity"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/linWallpaperLayout"
@@ -500,7 +507,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="4dp"
-                android:text="0ms" />
+                android:text="0 ms" />
 
             <GridView
                 android:id="@+id/gvSoundEffect"
@@ -515,12 +522,12 @@
 
         </LinearLayout>
 
-        <include
-            layout="@layout/layout_keyboard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
     </LinearLayout>
+
+    <include
+        layout="@layout/layout_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
 
