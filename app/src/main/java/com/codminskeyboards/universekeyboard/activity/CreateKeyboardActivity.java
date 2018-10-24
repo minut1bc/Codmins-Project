@@ -10,6 +10,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -47,7 +48,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
     String[] fontArray = new String[0];
 
-    private ImageView ivKeyboardBg;
     private CircleImageView radiusOne;
     private CircleImageView radiusTwo;
     private CircleImageView radiusThree;
@@ -77,6 +77,9 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     MyBounceInterpolator_anim interpolator;
     ArrayList<KeyboardData> keyboardDataArrayList = new ArrayList<>();
 
+    TabLayout tabLayout;
+    int tabPosition;
+
     public static CreateKeyboardActivity getInstance() {        //TODO: remove need for getInstance()
         return createKeyboardActivity;
     }
@@ -87,7 +90,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
         GlobalClass globalClass = new GlobalClass(CreateKeyboardActivity.this.getApplicationContext());
 
-
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -97,9 +99,51 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_create_keyboard);
         setContent();
 
+        tabLayout = findViewById(R.id.tabLayout);
+
         ViewPager viewPager = findViewById(R.id.viewPagerCreateKeyboardActivity);
         MyFragmentPagerAdapter viewPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setOffscreenPageLimit(4);
+
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                super.onTabSelected(tab);
+                tabPosition = tab.getPosition();
+                switch (tabPosition) {
+                    case 0:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.green));
+                        txtMainTitle.setTextColor(getResources().getColor(R.color.green));
+                        break;
+                    case 1:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.pink));
+                        txtMainTitle.setTextColor(getResources().getColor(R.color.pink));
+                        break;
+                    case 2:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.dark_red));
+                        txtMainTitle.setTextColor(getResources().getColor(R.color.dark_red));
+                        break;
+                    case 3:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.orange));
+                        txtMainTitle.setTextColor(getResources().getColor(R.color.orange));
+                        break;
+                }
+            }
+        });
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.green));
+        txtMainTitle.setTextColor(getResources().getColor(R.color.green));
+    }
+
+    public void setupTabIcons() {
+        if (tabLayout.getTabCount() >= 4) {
+            tabLayout.getTabAt(0).setIcon(R.drawable.ic_wallpaper);
+            tabLayout.getTabAt(1).setIcon(R.drawable.ic_keydesign);
+            tabLayout.getTabAt(2).setIcon(R.drawable.ic_font_style);
+            tabLayout.getTabAt(3).setIcon(R.drawable.ic_soundeffect);
+        }
     }
 
     public void setRadius() {
@@ -497,33 +541,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 finish();
                 startActivity(new Intent(context, com.codminskeyboards.universekeyboard.activity.MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 strtaDS();
-                break;
-
-            case R.id.ivWallpaper:
-
-                //set title color
-                txtMainTitle.setTextColor(getResources().getColor(R.color.green));
-
-                break;
-
-            case R.id.ivKeyDesign:
-
-                //set title color
-                txtMainTitle.setTextColor(getResources().getColor(R.color.pink));
-
-                break;
-
-            case R.id.ivFontStyle:
-
-                //set title color
-                txtMainTitle.setTextColor(getResources().getColor(R.color.dark_red));
-
-                break;
-            case R.id.ivSoundEffect:
-
-                //set title colors
-                txtMainTitle.setTextColor(getResources().getColor(R.color.orange));
-
                 break;
         }
     }

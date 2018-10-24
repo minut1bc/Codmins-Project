@@ -17,14 +17,17 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        if (i == 0) {
-            return new WallpaperFragment();
-        } else if (i == 1) {
-            return new KeyDesignFragment();
-        } else if (i == 2) {
-            return new FontFragment();
-        } else {
-            return new SoundFragment();
+        switch (i) {
+            case 0:
+                return new WallpaperFragment();
+            case 1:
+                return new KeyDesignFragment();
+            case 2:
+                return new FontFragment();
+            case 3:
+                return new SoundFragment();
+            default:
+                return new WallpaperFragment();
         }
     }
 
@@ -32,4 +35,6 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return 4;
     }
+
+
 }

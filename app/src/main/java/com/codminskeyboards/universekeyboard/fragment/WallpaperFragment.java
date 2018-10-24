@@ -34,7 +34,7 @@ public class WallpaperFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View wallpaperFragmentView = inflater.inflate(R.layout.fragment_wallpaper, container, false);
+        View wallpaperFragmentView = inflater.inflate(R.layout.wallpaper_fragment, container, false);
 
         GlobalClass globalClass = new GlobalClass(context);
 
