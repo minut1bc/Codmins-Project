@@ -192,7 +192,7 @@ public class FillFontColorAdapter extends RecyclerView.Adapter<FillFontColorAdap
                     }
 
                     if (createKeyboardActivity != null)
-                        createKeyboardActivity.setRadius();
+                        createKeyboardActivity.redrawKeyboard();
                     notifyDataSetChanged();
                     GlobalClass.checkStartAd();
                 }

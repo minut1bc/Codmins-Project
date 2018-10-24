@@ -1,376 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:background="@color/colorPrimary">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:gravity="center">
-
-        <ImageView
-            android:id="@+id/ivHome"
-            android:layout_width="61dp"
-            android:layout_height="wrap_content"
-            android:contentDescription="TODO"
-            android:padding="13dp"
-            android:src="@drawable/ic_home" />
-
-        <TextView
-            android:id="@+id/txtMainTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/gothic_bold"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/txtApply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/gothic_bold"
-            android:padding="10dp"
-            android:text="Apply"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/ivHome"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:contentDescription="TODO"
+        android:padding="14dp"
+        android:src="@drawable/ic_home"
+        app:layout_constraintBottom_toTopOf="@id/tabLayout"
+        app:layout_constraintEnd_toStartOf="@id/txtMainTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtDemo"
-        android:layout_width="match_parent"
+        android:id="@+id/txtMainTitle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Demo text"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:visibility="gone" />
+        android:fontFamily="@font/gothic_bold"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivHome"
+        app:layout_constraintEnd_toStartOf="@+id/txtApply"
+        app:layout_constraintStart_toEndOf="@+id/ivHome"
+        app:layout_constraintTop_toTopOf="@+id/ivHome" />
+
+    <TextView
+        android:id="@+id/txtApply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gothic_bold"
+        android:padding="10dp"
+        android:text="Apply"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivHome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txtMainTitle"
+        app:layout_constraintTop_toTopOf="@+id/ivHome" />
+
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@id/viewPagerCreateKeyboardActivity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivHome" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPagerCreateKeyboardActivity"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:id="@+id/linWallpaperLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvDefaultColor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <GridView
-                android:id="@+id/gvColor"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:columnWidth="50dp"
-                android:horizontalSpacing="5dp"
-                android:listSelector="@android:color/transparent"
-                android:numColumns="auto_fit"
-                android:scrollbars="none"
-                android:verticalSpacing="5dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linKeyDesignLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginLeft="12dp"
-                    android:fontFamily="@font/gothic_bold"
-                    android:gravity="center"
-                    android:padding="4dp"
-                    android:text="Roundness"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/radiusOne"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_one" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/radiusTwo"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_two" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/radiusThree"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_three" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/radiusFour"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_four" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/radiusFive"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_five" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginLeft="12dp"
-                    android:fontFamily="@font/gothic_bold"
-                    android:gravity="center"
-                    android:padding="4dp"
-                    android:text="Border color"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivStrokeOne"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_effect_one" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivStrokeTwo"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_effect_two" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivStrokeThree"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_effect_three" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivStrokeFour"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_effect_four" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivStrokeFive"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_effect_five" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginLeft="12dp"
-                    android:fontFamily="@font/gothic_bold"
-                    android:gravity="center"
-                    android:padding="4dp"
-                    android:text="Opacity"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivOpacityHundred"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_100precents" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivOpacitySeventyFive"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_75precents" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivOpacityFifty"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_50precents" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivOpacityTwentyFive"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_25precents" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivOpacityZero"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/btn_0precents" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvDefaultColorKeyDesign"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/light_gray"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linFontStyleLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1."
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <GridView
-                android:id="@+id/gvFont"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:columnWidth="60dp"
-                android:horizontalSpacing="5dp"
-                android:listSelector="@android:color/transparent"
-                android:numColumns="5"
-                android:scrollbars="none"
-                android:verticalSpacing="8dp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvDefaultColorFontStyle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/light_gray"
-                android:foregroundGravity="center"
-                android:paddingTop="2dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linKeySoundLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:text="Vibration strength" />
-
-            <SeekBar
-                android:id="@+id/seekBarVibration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:id="@+id/vibrationValueTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="4dp"
-                android:text="0 ms" />
-
-            <GridView
-                android:id="@+id/gvSoundEffect"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:horizontalSpacing="5dp"
-                android:listSelector="@android:color/transparent"
-                android:numColumns="5"
-                android:scrollbars="none"
-                android:verticalSpacing="8dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+        app:layout_constraintBottom_toTopOf="@id/previewKeyboardLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
     <include
+        android:id="@+id/previewKeyboardLayout"
         layout="@layout/layout_keyboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewPagerCreateKeyboardActivity" />
 
-</LinearLayout>
-
-
-
+</android.support.constraint.ConstraintLayout>

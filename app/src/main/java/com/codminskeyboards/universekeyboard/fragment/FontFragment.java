@@ -124,7 +124,7 @@ public class FontFragment extends Fragment {
                 if (createKeyboardActivity != null) {
                     if (fontArray[position] != null) {
                         GlobalClass.tempFontName = "fonts/" + fontArray[position];
-                        createKeyboardActivity.setRadius();
+                        createKeyboardActivity.redrawKeyboard();
                     }
                 }
 

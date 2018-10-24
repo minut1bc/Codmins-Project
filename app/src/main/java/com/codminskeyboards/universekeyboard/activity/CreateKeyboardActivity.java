@@ -3,9 +3,9 @@ package com.codminskeyboards.universekeyboard.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,8 +38,6 @@ import com.google.android.gms.ads.InterstitialAd;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class CreateKeyboardActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView ivHome;
@@ -47,26 +45,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private CreateKeyboardActivity context;
 
     String[] fontArray = new String[0];
-
-    private CircleImageView radiusOne;
-    private CircleImageView radiusTwo;
-    private CircleImageView radiusThree;
-    private CircleImageView radiusFour;
-    private CircleImageView radiusFive;
-    private CircleImageView ivOpacityHundred;
-    private CircleImageView ivOpacitySeventyFive;
-    private CircleImageView ivOpacityFifty;
-    private CircleImageView ivOpacityTwentyFive;
-    private CircleImageView ivOpacityZero;
     private ConstraintLayout keyboardKeysLayout;
-    private CircleImageView ivStrokeOne;
-    private CircleImageView ivStrokeTwo;
-    private CircleImageView ivStrokeThree;
-    private CircleImageView ivStrokeFour;
-    private CircleImageView ivStrokeFive;
-    private ImageView ivDone;
-    private ImageView ivShift;
-    private ImageView ivCancel;
 
     static CreateKeyboardActivity createKeyboardActivity;
     public InterstitialAd mInterstitialAd;
@@ -146,90 +125,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         }
     }
 
-    public void setRadius() {
-        switch (GlobalClass.tempKeyRadius) {
-            case "0":
-                radiusOne.setBorderWidth(5);
-                radiusOne.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-            case "9":
-                radiusTwo.setBorderWidth(5);
-                radiusTwo.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-            case "18":
-                radiusThree.setBorderWidth(5);
-                radiusThree.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-            case "25":
-                radiusFour.setBorderWidth(5);
-                radiusFour.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-            case "34":
-                radiusFive.setBorderWidth(5);
-                radiusFive.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-        }
-
-        switch (GlobalClass.tempKeyStroke) {
-            case "1":
-                ivStrokeOne.setBorderWidth(5);
-                ivStrokeOne.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-            case "2":
-                ivStrokeTwo.setBorderWidth(5);
-                ivStrokeTwo.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-            case "3":
-                ivStrokeThree.setBorderWidth(5);
-                ivStrokeThree.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-            case "4":
-                ivStrokeFour.setBorderWidth(5);
-                ivStrokeFour.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-            case "5":
-                ivStrokeFive.setBorderWidth(5);
-                ivStrokeFive.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-        }
-
-
-        switch (GlobalClass.tempKeyOpacity) {
-            case "255":
-                ivOpacityHundred.setBorderWidth(5);
-                ivOpacityHundred.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-            case "192":
-                ivOpacitySeventyFive.setBorderWidth(5);
-                ivOpacitySeventyFive.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-            case "128":
-                ivOpacityFifty.setBorderWidth(5);
-                ivOpacityFifty.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-            case "64":
-                ivOpacityTwentyFive.setBorderWidth(5);
-                ivOpacityTwentyFive.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-            case "0":
-                ivOpacityZero.setBorderWidth(5);
-                ivOpacityZero.setBorderColor(getResources().getColor(R.color.pink));
-                break;
-        }
-
-
-        final Drawable imgDone = getResources().getDrawable(R.drawable.ic_enter_new);
-        imgDone.setColorFilter(android.graphics.Color.parseColor(GlobalClass.tempFontColor), PorterDuff.Mode.SRC_ATOP);
-        ivDone.setImageDrawable(imgDone);
-
-        final Drawable imgShift = getResources().getDrawable(R.drawable.ic_shift_on);
-        imgShift.setColorFilter(android.graphics.Color.parseColor(GlobalClass.tempFontColor), PorterDuff.Mode.SRC_ATOP);
-        ivShift.setImageDrawable(imgShift);
-
-        final Drawable imgCancel = getResources().getDrawable(R.drawable.ic_backspace);
-        imgCancel.setColorFilter(android.graphics.Color.parseColor(GlobalClass.tempFontColor), PorterDuff.Mode.SRC_ATOP);
-        ivCancel.setImageDrawable(imgCancel);
-
+    public void redrawKeyboard() {
         GradientDrawable npd1;
         for (int i = 0; i < keyboardKeysLayout.getChildCount(); i++) {
             final View mChild = keyboardKeysLayout.getChildAt(i);
@@ -249,13 +145,13 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                         npd1.setStroke(0, context.getResources().getColor(R.color.colorPrimary));
                         break;
                     case "2":
-                        npd1.setStroke(2, android.graphics.Color.WHITE);
+                        npd1.setStroke(2, Color.WHITE);
                         break;
                     case "3":
-                        npd1.setStroke(2, android.graphics.Color.BLACK);
+                        npd1.setStroke(2, Color.BLACK);
                         break;
                     case "4":
-                        npd1.setStroke(4, android.graphics.Color.BLACK);
+                        npd1.setStroke(4, Color.BLACK);
                         break;
                     case "5":
                         npd1.setStroke(3, getResources().getColor(R.color.gray));
@@ -276,10 +172,11 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                         }
                     }
                 }
+
+                if (mChild instanceof ImageView)
+                    ((ImageView) mChild).setColorFilter(Color.parseColor(GlobalClass.tempFontColor), PorterDuff.Mode.SRC_ATOP);
             }
         }
-
-        GlobalClass.checkStartAd();
     }
 
     public void strtaDS() {
@@ -395,32 +292,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         TextView txtApply = findViewById(R.id.txtApply);
         txtMainTitle = findViewById(R.id.txtMainTitle);
 
-        radiusOne = findViewById(R.id.radiusOne);
-        radiusTwo = findViewById(R.id.radiusTwo);
-        radiusThree = findViewById(R.id.radiusThree);
-        radiusFour = findViewById(R.id.radiusFour);
-        radiusFive = findViewById(R.id.radiusFive);
-
-        // id for apply opacity
-        ivOpacityHundred = findViewById(R.id.ivOpacityHundred);
-        ivOpacitySeventyFive = findViewById(R.id.ivOpacitySeventyFive);
-        ivOpacityFifty = findViewById(R.id.ivOpacityFifty);
-        ivOpacityTwentyFive = findViewById(R.id.ivOpacityTwentyFive);
-        ivOpacityZero = findViewById(R.id.ivOpacityZero);
-
         // id for the preview keyboard layout
         keyboardKeysLayout = findViewById(R.id.keyboardKeysLayout);
-
-        //id for apply stroke
-        ivStrokeOne = findViewById(R.id.ivStrokeOne);
-        ivStrokeTwo = findViewById(R.id.ivStrokeTwo);
-        ivStrokeThree = findViewById(R.id.ivStrokeThree);
-        ivStrokeFour = findViewById(R.id.ivStrokeFour);
-        ivStrokeFive = findViewById(R.id.ivStrokeFive);
-
-        ivDone = findViewById(R.id.ivDone);
-        ivShift = findViewById(R.id.ivShift);
-        ivCancel = findViewById(R.id.ivCancel);
 
         ImageView ivKeyboardBg = findViewById(R.id.ivKeyboardBg);
 
@@ -436,7 +309,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         if (getIntent().getBooleanExtra("isEdit", false)) {
             isEdit = true;
@@ -491,7 +363,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             ivKeyboardBg.setImageResource(GlobalClass.tempKeyboardBgImage);
         }
 
-        setRadius();
+        redrawKeyboard();
 
         myAnim = AnimationUtils.loadAnimation(this, R.anim.button);
         interpolator = new MyBounceInterpolator_anim(0.2, 20);

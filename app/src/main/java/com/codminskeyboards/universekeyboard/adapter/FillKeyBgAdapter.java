@@ -192,7 +192,7 @@ public class FillKeyBgAdapter extends RecyclerView.Adapter<FillKeyBgAdapter.View
                         tempKeyColor = context.getResources().getColor(R.color.fourtyone);
                     }
                     if (createKeyboardActivity != null) {
-                        createKeyboardActivity.setRadius();
+                        createKeyboardActivity.redrawKeyboard();
                     }
 
                     notifyDataSetChanged();

@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
@@ -41,10 +40,6 @@ public class KeyDesignFragment extends Fragment {
     CircleImageView ivStrokeThree;
     CircleImageView ivStrokeFour;
     CircleImageView ivStrokeFive;
-
-    ImageView ivDone;
-    ImageView ivShift;
-    ImageView ivCancel;
 
     CreateKeyboardActivity createKeyboardActivity;
     MyOnClickListener onClickListener = new MyOnClickListener() {
@@ -247,10 +242,6 @@ public class KeyDesignFragment extends Fragment {
         ivStrokeFour = keyDesignView.findViewById(R.id.ivStrokeFour);
         ivStrokeFive = keyDesignView.findViewById(R.id.ivStrokeFive);
 
-        ivDone = createKeyboardActivity.findViewById(R.id.ivDone);
-        ivShift = createKeyboardActivity.findViewById(R.id.ivShift);
-        ivCancel = createKeyboardActivity.findViewById(R.id.ivCancel);
-
         radiusOne.setOnClickListener(onClickListener);
         radiusTwo.setOnClickListener(onClickListener);
         radiusThree.setOnClickListener(onClickListener);
@@ -291,7 +282,77 @@ public class KeyDesignFragment extends Fragment {
     }
 
     public void setRadius() {
-        createKeyboardActivity.setRadius();
+        switch (GlobalClass.tempKeyRadius) {
+            case "0":
+                radiusOne.setBorderWidth(5);
+                radiusOne.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+            case "9":
+                radiusTwo.setBorderWidth(5);
+                radiusTwo.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+            case "18":
+                radiusThree.setBorderWidth(5);
+                radiusThree.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+            case "25":
+                radiusFour.setBorderWidth(5);
+                radiusFour.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+            case "34":
+                radiusFive.setBorderWidth(5);
+                radiusFive.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+        }
+
+        switch (GlobalClass.tempKeyStroke) {
+            case "1":
+                ivStrokeOne.setBorderWidth(5);
+                ivStrokeOne.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+            case "2":
+                ivStrokeTwo.setBorderWidth(5);
+                ivStrokeTwo.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+            case "3":
+                ivStrokeThree.setBorderWidth(5);
+                ivStrokeThree.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+            case "4":
+                ivStrokeFour.setBorderWidth(5);
+                ivStrokeFour.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+            case "5":
+                ivStrokeFive.setBorderWidth(5);
+                ivStrokeFive.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+        }
+
+
+        switch (GlobalClass.tempKeyOpacity) {
+            case "255":
+                ivOpacityHundred.setBorderWidth(5);
+                ivOpacityHundred.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+            case "192":
+                ivOpacitySeventyFive.setBorderWidth(5);
+                ivOpacitySeventyFive.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+            case "128":
+                ivOpacityFifty.setBorderWidth(5);
+                ivOpacityFifty.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+            case "64":
+                ivOpacityTwentyFive.setBorderWidth(5);
+                ivOpacityTwentyFive.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+            case "0":
+                ivOpacityZero.setBorderWidth(5);
+                ivOpacityZero.setBorderColor(getResources().getColor(R.color.pink));
+                break;
+        }
+
+        createKeyboardActivity.redrawKeyboard();
     }
 
     void getColorFromDatabase() {
