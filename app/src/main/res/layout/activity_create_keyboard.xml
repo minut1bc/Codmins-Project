@@ -45,7 +45,6 @@
         app:layout_constraintStart_toEndOf="@id/txtMainTitle"
         app:layout_constraintTop_toTopOf="@+id/ivHome" />
 
-
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"

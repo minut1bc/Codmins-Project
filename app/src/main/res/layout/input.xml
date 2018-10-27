@@ -29,24 +29,6 @@
             android:src="@drawable/ic_smile"
             android:tint="@color/silver" />
 
-        <ImageView
-            android:id="@+id/ivArt"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="2dp"
-            android:contentDescription="TODO"
-            android:src="@drawable/ic_color_dish"
-            android:tint="@color/silver" />
-
-        <ImageView
-            android:id="@+id/ivgooglesearch"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="2dp"
-            android:contentDescription="TODO"
-            android:src="@drawable/ic_megnify"
-            android:tint="@color/silver" />
-
     </LinearLayout>
 
     <FrameLayout
@@ -65,6 +47,12 @@
             android:background="@android:color/transparent"
             android:popupLayout="@layout/keyboard_popup_layout"
             android:keyPreviewLayout="@layout/preview" />
+
+        <br.com.instachat.emojilibrary.model.layout.EmojiKeyboardLayout
+            android:id="@+id/emoji_keyboard_layout"
+            android:layout_width="match_parent"
+            android:layout_height="264dp"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:id="@+id/linEmoji"
@@ -162,17 +150,6 @@
             </LinearLayout>
 
         </RelativeLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_art_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="3dp"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:scrollbars="none"
-            android:visibility="gone" />
 
     </FrameLayout>
 

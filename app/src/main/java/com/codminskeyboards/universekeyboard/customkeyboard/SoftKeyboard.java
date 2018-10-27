@@ -3,7 +3,6 @@ package com.codminskeyboards.universekeyboard.customkeyboard;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
@@ -15,12 +14,9 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.net.Uri;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.InputType;
 import android.text.method.MetaKeyKeyListener;
 import android.util.Base64;
@@ -46,13 +42,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codminskeyboards.universekeyboard.R;
-import com.codminskeyboards.universekeyboard.adapter.FillArtAdapter;
 import com.codminskeyboards.universekeyboard.adapter.FillEmojiAdapter;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
-import com.codminskeyboards.universekeyboard.utils.OnItemClickListener;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -99,11 +91,9 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private List<String> mSuggestions;
 
     private ImageView ivEmoji;
-    private ImageView ivArt;
     private RelativeLayout linEmoji;
     private ImageView ivClose;
     private GridView gvEmoji;
-    private RecyclerView rv_art_list;
     private FillEmojiAdapter fillEmojiAdapter;
     private ImageView ivAbc;
     private ImageView ivSmile;
@@ -111,7 +101,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private ImageView ivLamp;
     private ImageView ivFood;
     private ImageView ivSocial;
-    private ImageView ivGoogleSearch;
 
     private AudioManager audioManager;
     private Vibrator vibrator;
@@ -120,7 +109,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
     Context mContext;
     private String[] emojiArrayList;
-    private String[] artArrayList;
 
     SoundPool soundPool;
 
@@ -138,6 +126,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         mContext = SoftKeyboard.this;
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         mWordSeparators = getResources().getString(R.string.word_separators);
+
         TextServicesManager tsm = (TextServicesManager) getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
         if (tsm != null) {
             mScs = tsm.newSpellCheckerSession(null, Locale.ENGLISH, this, true);
@@ -184,15 +173,14 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     @Override
     public View onCreateInputView() {
         GlobalClass globalClass = new GlobalClass(SoftKeyboard.this.getApplicationContext());
+
         final View view = getLayoutInflater().inflate(R.layout.input, null);
         ivEmoji = view.findViewById(R.id.ivEmoji);
-        ivArt = view.findViewById(R.id.ivArt);
         mInputView = view.findViewById(R.id.keyboard);
         LinearLayout linKeyboard = view.findViewById(R.id.linKeyboard);
         linEmoji = view.findViewById(R.id.linEmoji);
         ivClose = view.findViewById(R.id.ivCancel);
         gvEmoji = view.findViewById(R.id.gvEmoji);
-        rv_art_list = view.findViewById(R.id.rv_art_list);
         ivAbc = view.findViewById(R.id.ivAbc);
         ivSmile = view.findViewById(R.id.ivSmile);
         ivAnimal = view.findViewById(R.id.ivAnimal);
@@ -200,17 +188,10 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         ivFood = view.findViewById(R.id.ivFood);
         ivSocial = view.findViewById(R.id.ivSocial);
         LinearLayout linCategory = view.findViewById(R.id.linCategory);
-        ivGoogleSearch = view.findViewById(R.id.ivgooglesearch);
 
         vibrationStrength = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.vibrationStrength, 0);
 
         GlobalClass.tempSoundName = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SOUND_NAME, R.raw.balloon_snap);
-
-        StaggeredGridLayoutManager gaggeredGridLayoutManager = new StaggeredGridLayoutManager(3, 1);
-        rv_art_list.setLayoutManager(gaggeredGridLayoutManager);
-        artArrayList = getResources().getStringArray(R.array.art);
-        FillArtAdapter fillArtAdapter = new FillArtAdapter(getApplicationContext(), artArrayList);
-        rv_art_list.setAdapter(fillArtAdapter);
 
         emojiArrayList = getResources().getStringArray(R.array.smile);
         fillEmojiAdapter = new FillEmojiAdapter(getApplicationContext(), emojiArrayList);
@@ -406,20 +387,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             }
         });
 
-        fillArtAdapter.setClickListener(new OnItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                if (mPredictionOn) {
-                    mComposing.append(artArrayList[position]);
-                    getCurrentInputConnection().setComposingText(mComposing, 1);
-                    updateShiftKeyState(getCurrentInputEditorInfo());
-                    updateCandidates();
-                } else {
-                    getCurrentInputConnection().commitText(artArrayList[position], 1);
-                }
-            }
-        });
-
         ivAbc.setColorFilter(ContextCompat.getColor(mContext, R.color.white), PorterDuff.Mode.MULTIPLY);
 
         ivAbc.setOnClickListener(new View.OnClickListener() {
@@ -428,12 +395,9 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
                 mInputView.setVisibility(View.VISIBLE);
                 linEmoji.setVisibility(View.GONE);
-                rv_art_list.setVisibility(View.GONE);
 
                 ivAbc.setColorFilter(ContextCompat.getColor(mContext, R.color.white), PorterDuff.Mode.MULTIPLY);
                 ivEmoji.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
-                ivArt.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
-                ivGoogleSearch.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
             }
         });
 
@@ -443,48 +407,10 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
                 mInputView.setVisibility(View.GONE);
                 linEmoji.setVisibility(View.VISIBLE);
-                rv_art_list.setVisibility(View.GONE);
 
                 ivAbc.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
                 ivEmoji.setColorFilter(ContextCompat.getColor(mContext, R.color.white), PorterDuff.Mode.MULTIPLY);
-                ivArt.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
-                ivGoogleSearch.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
 
-            }
-        });
-
-        ivArt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mInputView.setVisibility(View.GONE);
-                linEmoji.setVisibility(View.GONE);
-                rv_art_list.setVisibility(View.VISIBLE);
-
-                ivAbc.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
-                ivEmoji.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
-                ivArt.setColorFilter(ContextCompat.getColor(mContext, R.color.white), PorterDuff.Mode.MULTIPLY);
-                ivGoogleSearch.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
-            }
-        });
-
-        ivGoogleSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String Search = null;
-                try {
-                    Search = URLEncoder.encode("", "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                Uri uri = Uri.parse("http://www.google.com/#q=" + Search);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-
-                ivAbc.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
-                ivEmoji.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
-                ivArt.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
-                ivGoogleSearch.setColorFilter(ContextCompat.getColor(mContext, R.color.white), PorterDuff.Mode.MULTIPLY);
             }
         });
 

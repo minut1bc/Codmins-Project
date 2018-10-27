@@ -8,19 +8,21 @@
     <ImageView
         android:id="@+id/ivKeyboardBg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:contentDescription="TODO"
         android:scaleType="fitXY"
         android:src="@drawable/theme_color1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/topBarView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="34dp"
         android:background="#80000000"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,6 +38,7 @@
         android:src="@drawable/ic_textmessage"
         android:tint="@color/silver"
         app:layout_constraintBottom_toBottomOf="@+id/topBarView"
+        app:layout_constraintEnd_toStartOf="@id/ivEmoji"
         app:layout_constraintStart_toStartOf="@+id/topBarView"
         app:layout_constraintTop_toTopOf="@+id/topBarView" />
 
@@ -51,6 +54,7 @@
         android:src="@drawable/ic_smile"
         android:tint="@color/silver"
         app:layout_constraintBottom_toBottomOf="@+id/topBarView"
+        app:layout_constraintEnd_toStartOf="@id/ivArt"
         app:layout_constraintStart_toEndOf="@+id/ivAbc"
         app:layout_constraintTop_toTopOf="@+id/topBarView" />
 
@@ -66,6 +70,7 @@
         android:src="@drawable/ic_color_dish"
         android:tint="@color/silver"
         app:layout_constraintBottom_toBottomOf="@+id/topBarView"
+        app:layout_constraintEnd_toStartOf="@id/ivgooglesearch"
         app:layout_constraintStart_toEndOf="@+id/ivEmoji"
         app:layout_constraintTop_toTopOf="@+id/topBarView" />
 
