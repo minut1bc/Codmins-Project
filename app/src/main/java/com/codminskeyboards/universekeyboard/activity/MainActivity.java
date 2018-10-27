@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codminskeyboards.universekeyboard.R;
@@ -273,8 +274,8 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
         ivNoData = findViewById(R.id.ivNoData);
         linKeyboardData = findViewById(R.id.linKeyboardData);
         ivApply = findViewById(R.id.ivApply);
-        LinearLayout linPackage = findViewById(R.id.linPackage);
-        LinearLayout linGuide = findViewById(R.id.linGuide);
+        TextView linPackage = findViewById(R.id.linPackage);
+        TextView linGuide = findViewById(R.id.linGuide);
 
         mHelper = new IabHelper(MainActivity.this, GlobalClass.base64EncodedPublicKey);
 
