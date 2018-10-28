@@ -54,39 +54,7 @@
         android:src="@drawable/ic_smile"
         android:tint="@color/silver"
         app:layout_constraintBottom_toBottomOf="@+id/topBarView"
-        app:layout_constraintEnd_toStartOf="@id/ivArt"
         app:layout_constraintStart_toEndOf="@+id/ivAbc"
-        app:layout_constraintTop_toTopOf="@+id/topBarView" />
-
-    <ImageView
-        android:id="@+id/ivArt"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="2dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="TODO"
-        android:src="@drawable/ic_color_dish"
-        android:tint="@color/silver"
-        app:layout_constraintBottom_toBottomOf="@+id/topBarView"
-        app:layout_constraintEnd_toStartOf="@id/ivgooglesearch"
-        app:layout_constraintStart_toEndOf="@+id/ivEmoji"
-        app:layout_constraintTop_toTopOf="@+id/topBarView" />
-
-    <ImageView
-        android:id="@+id/ivgooglesearch"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="2dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="TODO"
-        android:src="@drawable/ic_megnify"
-        android:tint="@color/silver"
-        app:layout_constraintBottom_toBottomOf="@+id/topBarView"
-        app:layout_constraintStart_toEndOf="@+id/ivArt"
         app:layout_constraintTop_toTopOf="@+id/topBarView" />
 
     <android.support.constraint.ConstraintLayout

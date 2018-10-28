@@ -21,42 +21,31 @@ import java.util.List;
 
 public class LatinKeyboardView extends KeyboardView {
 
+    Context context;
+
     static final int KEYCODE_OPTIONS = -100;
     static final int KEYCODE_LANGUAGE_SWITCH = -101;
-    Drawable npdDelete;
-    Drawable npdDone;
-    Drawable npdShiftOff;
-    Drawable npdShiftOn;
-    Drawable npdSpace;
-    Drawable npdDoubleSpace;
 
-    GradientDrawable npd1;
-    GradientDrawable npd_presed1;
+    GradientDrawable keyBackground;
+    GradientDrawable keyPressedBackground;
 
-    public Paint newpaint;
-    private Context context;
+    Drawable capsLockDrawable = getResources().getDrawable(R.drawable.ic_shift_double_on);
+    Drawable shiftOffDrawable = getResources().getDrawable(R.drawable.ic_shift_off);
+    Drawable shiftOnDrawable = getResources().getDrawable(R.drawable.ic_shift_on);
+    Drawable enterDrawable = getResources().getDrawable(R.drawable.ic_enter_new);
+    Drawable deleteDrawable = getResources().getDrawable(R.drawable.ic_backspace);
+    Drawable spaceDrawable = getResources().getDrawable(R.drawable.ic_space);
+
+    Paint paint = new Paint();
 
     public LatinKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-        this.newpaint = new Paint();
+        int keyBgColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight));
 
-        this.npdShiftOff = context.getResources().getDrawable(R.drawable.ic_shift_off);
-        this.npdShiftOn = context.getResources().getDrawable(R.drawable.ic_shift_on);
-        this.npdSpace = context.getResources().getDrawable(R.drawable.ic_space);
-        this.npdDelete = context.getResources().getDrawable(R.drawable.ic_backspace);
-        this.npdDone = context.getResources().getDrawable(R.drawable.ic_enter_new);
-        this.npdDoubleSpace = context.getResources().getDrawable(R.drawable.ic_shift_double_on);
+        keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyBgColor, keyBgColor});
 
-        npd1 = new GradientDrawable(
-                GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight)),
-                        GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight))});
-
-        npd_presed1 = new GradientDrawable(
-                GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight)),
-                        GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight))});
+        keyPressedBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyBgColor, keyBgColor});
 
     }
 
@@ -79,104 +68,105 @@ public class LatinKeyboardView extends KeyboardView {
         super.onDraw(canvas);
         List<Key> keys;
         keys = getKeyboard().getKeys();
+
+        int fontColor = Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF"));
+        int keyOpacity = Integer.parseInt(GlobalClass.getPreferencesString(context, GlobalClass.KEY_OPACITY, "255"));
+        Float keyRadius = Float.parseFloat(GlobalClass.getPreferencesString(context, GlobalClass.KEY_RADIUS, "18"));
+        String keyStroke = GlobalClass.getPreferencesString(context, GlobalClass.KEY_STROKE, "2");
+        String fontName = GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "");
+        int tint = 0x77000000;
+
         for (Key key : keys) {
 
-            npd1.setAlpha(Integer.parseInt(GlobalClass.getPreferencesString(context, GlobalClass.KEY_OPACITY, "255")));
-            // npd_presed1.setAlpha(Integer.parseInt(GlobalClass.getPreferencesString(context, GlobalClass.KEY_OPACITY, "255")));   TODO: Maybe look into variable opacity tint
-            npd_presed1.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+            keyBackground.setAlpha(keyOpacity);
+            //keyPressedBackground.setAlpha(keyOpacity);            // TODO: Maybe look into variable opacity tint
+            keyPressedBackground.setColorFilter(tint, PorterDuff.Mode.SRC_ATOP);
 
-            npd1.setCornerRadius(Float.parseFloat(GlobalClass.getPreferencesString(context, GlobalClass.KEY_RADIUS, "18")));
-            npd_presed1.setCornerRadius(Float.parseFloat(GlobalClass.getPreferencesString(context, GlobalClass.KEY_RADIUS, "18")));
+            keyBackground.setCornerRadius(keyRadius);
+            keyPressedBackground.setCornerRadius(keyRadius);
 
-            switch (GlobalClass.getPreferencesString(context, GlobalClass.KEY_STROKE, "2")) {
+            switch (keyStroke) {
                 case "1":
-                    npd1.setStroke(0, context.getResources().getColor(R.color.colorPrimary));
-                    npd_presed1.setStroke(0, context.getResources().getColor(R.color.colorPrimary));
+                    keyBackground.setStroke(0, getResources().getColor(R.color.colorPrimary));
+                    keyPressedBackground.setStroke(0, getResources().getColor(R.color.colorPrimary));
                     break;
                 case "2":
-                    npd1.setStroke(2, android.graphics.Color.WHITE);
-                    npd_presed1.setStroke(2, android.graphics.Color.WHITE);
+                    keyBackground.setStroke(2, Color.WHITE);
+                    keyPressedBackground.setStroke(2, Color.WHITE);
                     break;
                 case "3":
-                    npd1.setStroke(2, android.graphics.Color.BLACK);
-                    npd_presed1.setStroke(2, android.graphics.Color.BLACK);
+                    keyBackground.setStroke(2, Color.BLACK);
+                    keyPressedBackground.setStroke(2, Color.BLACK);
                     break;
                 case "4":
-                    npd1.setStroke(4, android.graphics.Color.BLACK);
-                    npd_presed1.setStroke(4, android.graphics.Color.BLACK);
+                    keyBackground.setStroke(4, Color.BLACK);
+                    keyPressedBackground.setStroke(4, Color.BLACK);
                     break;
                 case "5":
-                    npd1.setStroke(3, android.graphics.Color.GRAY);
-                    npd_presed1.setStroke(3, android.graphics.Color.GRAY);
+                    keyBackground.setStroke(3, Color.GRAY);
+                    keyPressedBackground.setStroke(3, Color.GRAY);
                     break;
             }
 
-            npd1.setBounds(key.x + 5, key.y + 5, (key.x + key.width) - 5, (key.y + key.height) - 5);
-            npd_presed1.setBounds(key.x + 5, key.y + 5, (key.x + key.width) - 5, (key.y + key.height) - 5);
+            keyBackground.setBounds(key.x + 5, key.y + 5, (key.x + key.width) - 5, (key.y + key.height) - 5);
+            keyPressedBackground.setBounds(key.x + 5, key.y + 5, (key.x + key.width) - 5, (key.y + key.height) - 5);
             if (!key.pressed) {
-                npd1.draw(canvas);
+                keyBackground.draw(canvas);
             } else {
-                npd_presed1.draw(canvas);
+                keyPressedBackground.draw(canvas);
             }
             switch (key.codes[0]) {
                 case Keyboard.KEYCODE_SHIFT /*-978903*/:
                     if (SoftKeyboard.mCapsLock) {
-                        this.npdDoubleSpace.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
-                        this.npdDoubleSpace.setBounds(key.x + 40, key.y + 30, key.x + key.width - 40, key.y + key.height - 30);
-                        this.npdDoubleSpace.draw(canvas);
+                        capsLockDrawable.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+                        capsLockDrawable.setBounds(key.x + 40, key.y + 30, key.x + key.width - 40, key.y + key.height - 30);
+                        capsLockDrawable.draw(canvas);
                     } else {
                         if (!getKeyboard().isShifted()) {
-                            npdShiftOff.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
-                            this.npdShiftOff.setBounds(key.x + 40, key.y + 30, key.x + key.width - 40, key.y + key.height - 30);
-                            this.npdShiftOff.draw(canvas);
+                            shiftOffDrawable.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+                            shiftOffDrawable.setBounds(key.x + 40, key.y + 30, key.x + key.width - 40, key.y + key.height - 30);
+                            shiftOffDrawable.draw(canvas);
                             break;
                         } else {
-                            npdShiftOn.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
-                            this.npdShiftOn.setBounds(key.x + 40, key.y + 30, key.x + key.width - 40, key.y + key.height - 30);
-                            this.npdShiftOn.draw(canvas);
+                            shiftOnDrawable.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+                            shiftOnDrawable.setBounds(key.x + 40, key.y + 30, key.x + key.width - 40, key.y + key.height - 30);
+                            shiftOnDrawable.draw(canvas);
                         }
                     }
 
                     break;
                 case 10 /*-978903*/:
-                    this.npdDone.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
-                    this.npdDone.setBounds(key.x + 40, key.y + 30, key.x + key.width - 40, key.y + key.height - 30);
-                    this.npdDone.draw(canvas);
+                    enterDrawable.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+                    enterDrawable.setBounds(key.x + 40, key.y + 30, key.x + key.width - 40, key.y + key.height - 30);
+                    enterDrawable.draw(canvas);
                     break;
                 case Keyboard.KEYCODE_DELETE /*-978903*/:
-                    this.npdDelete.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
-                    this.npdDelete.setBounds(key.x + 40, key.y + 30, key.x + key.width - 40, key.y + key.height - 30);
-                    this.npdDelete.draw(canvas);
+                    deleteDrawable.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+                    deleteDrawable.setBounds(key.x + 40, key.y + 30, key.x + key.width - 40, key.y + key.height - 30);
+                    deleteDrawable.draw(canvas);
                     break;
                 case 32 /*-978903*/:
-                    /*npdSpace.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
-                    this.npdSpace.setBounds(key.x , key.y, key.x + key.width, key.y + key.height);
-                    this.npdSpace.draw(canvas);*/
+                    /*spaceDrawable.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+                    spaceDrawable.setBounds(key.x , key.y, key.x + key.width, key.y + key.height);
+                    spaceDrawable.draw(canvas);*/
                     break;
                 default:
                     if (key.label != null) {
-                        String s;
-                        this.newpaint.setTextSize((float) (((int) getResources().getDimension(R.dimen.key_text_size))));
-                        this.newpaint.setTypeface(Typeface.DEFAULT);
-                        s = key.label.toString();
-                        newpaint.setTextAlign(Paint.Align.CENTER);
-                        newpaint.setColor(Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")));
+                        String keyLabel = key.label.toString();
+                        paint.setTextSize(getResources().getDimension(R.dimen.key_text_size));
+                        paint.setTypeface(Typeface.DEFAULT);
+                        paint.setTextAlign(Paint.Align.CENTER);
+                        paint.setColor(fontColor);
+                        Typeface font = Typeface.DEFAULT;
 
-                        if (GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "").length() != 0 && GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "") != null
-                                && !GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "").isEmpty()) {
-                            try {
-                                Typeface font = Typeface.createFromAsset(context.getAssets(), GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, ""));
-                                newpaint.setTypeface(font);
+                        if (!fontName.isEmpty())
+                            font = Typeface.createFromAsset(context.getAssets(), fontName);
+                        paint.setTypeface(font);
 
-                            } catch (Exception ignored) {
-                            }
-                        }
-                        canvas.drawText(s, (float) (key.x + (key.width / 2)), (float) ((key.y + (key.height / 1.8)) + ((int) getResources().getDimension(R.dimen.text_top_margin))), this.newpaint);
+                        canvas.drawText(keyLabel, (float) (key.x + (key.width / 2)), (float) ((key.y + (key.height / 1.8)) + ((int) getResources().getDimension(R.dimen.text_top_margin))), paint);
                     }
                     break;
             }
         }
-
     }
-
 }

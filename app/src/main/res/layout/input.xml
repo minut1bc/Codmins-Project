@@ -48,12 +48,6 @@
             android:popupLayout="@layout/keyboard_popup_layout"
             android:keyPreviewLayout="@layout/preview" />
 
-        <br.com.instachat.emojilibrary.model.layout.EmojiKeyboardLayout
-            android:id="@+id/emoji_keyboard_layout"
-            android:layout_width="match_parent"
-            android:layout_height="264dp"
-            android:visibility="gone" />
-
         <RelativeLayout
             android:id="@+id/linEmoji"
             android:layout_width="match_parent"

@@ -88,6 +88,6 @@ dependencies {
 
     implementation 'com.github.florent37:bubbletab:1.0.0'
 
-    implementation 'br.com.instachat:emoji-library:1.0.8'
+    implementation 'com.vanniktech:emoji-google:0.5.1'
 }
 apply plugin: "com.google.gms.google-services"
