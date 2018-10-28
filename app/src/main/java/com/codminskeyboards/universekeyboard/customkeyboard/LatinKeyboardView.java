@@ -46,9 +46,7 @@ public class LatinKeyboardView extends KeyboardView {
         int keyBgColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight));
 
         keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyBgColor, keyBgColor});
-
         keyPressedBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyBgColor, keyBgColor});
-
     }
 
     @Override
@@ -169,7 +167,7 @@ public class LatinKeyboardView extends KeyboardView {
                             font = Typeface.createFromAsset(context.getAssets(), fontName);
                         paint.setTypeface(font);
 
-                        canvas.drawText(keyLabel, (float) (key.x + (key.width / 2)), (float) ((key.y + (key.height / 1.8)) + ((int) getResources().getDimension(R.dimen.text_top_margin))), paint);
+                        canvas.drawText(keyLabel, key.x + (key.width / 2), (float) (key.y + (key.height / 1.8) + getResources().getDimension(R.dimen.text_top_margin)), paint);
                     }
                     break;
             }
