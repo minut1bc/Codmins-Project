@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appName "Universe Keyboard">]>
+
 <resources>
     <!-- Title for Latin keyboard  -->
-    <string name="app_name">Universe Keyboard</string>
+    <string name="app_name">&appName;</string>
 
     <!-- Symbols that are commonly considered word separators in this language -->
     <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|&quot;</string>
@@ -10,27 +11,48 @@
     <string name="label_go_key">Go</string>
     <string name="label_next_key">Next</string>
     <string name="label_send_key">Send</string>
-    <string name="rateus">Rate Universe Keyboard</string>
+    <string name="rta_dialog_title">Rate &appName;</string>
 
     <!-- Labels for subtype -->
     <string name="label_subtype_generic">%s</string>
-    <string name="label_subtype_en_GB">Universe Keyboard</string>
+    <string name="label_subtype_en_GB">&appName;</string>
+    <string name="subtype_en_US">&appName;</string>
 
     <!-- Titles for ImePreference -->
     <string name="settings_name">Sample Soft Keyboard Settings</string>
     <string name="language_selection_title">Input languages</string>
     <string name="select_language">Select input languages</string>
-    <string name="general_category">General</string>
 
-    <string name="subtype_en_US">Universe Keyboard</string>
-    <string name="keyboard">Keyboard</string>
-    <string name="guide">Guide</string>
-    <string name="wallpaper">Wallpaper</string>
-    <string name="key_design">Key Design</string>
-    <string name="font_style">Font Style</string>
-    <string name="sound_effect">Sound Effect</string>
-    <string name="please_wait">Please wait</string>
+    <string name="abc">ABC</string>
+    <string name="backgrounds">Backgrounds</string>
+    <string name="themes_slots">Themes Slots</string>
+    <string name="colors">Colors</string>
+    <string name="fonts">Fonts</string>
+    <string name="sounds">Sounds</string>
+    <string name="restore">Restore</string>
 
+    <string name="remove_ads_purchased">RemoveAdsPurchased</string>
+    <string name="texual_color_purchased">TexualColorPurchased</string>
+    <string name="theme_slot_purchased">ThemeSlotPurchased</string>
+    <string name="colors_purchased">ColorsPurchased</string>
+    <string name="fonts_purchased">FontsPurchased</string>
+    <string name="sounds_purchased">SoundsPurchased</string>
+    <string name="enable_keyboard">Step 1: Enable &appName;</string>
+    <string name="switch_keyboard">Step 2: Switch to &appName;</string>
+
+    <string name="android_inst">android_inst</string>
+
+    <!--live id-->
+    <!-- <string name="banner_home_footer">ca-app-pub-1041813022220163/8312067772</string>
+     <string name="interstitial_full_screen">ca-app-pub-1041813022220163/7928924396</string>-->
+    <!--<string name="native_ad_id_large">ca-app-pub-2086017583390552/3647608070</string>-->
+    <!--<string name="native_ad_id_small"> ca-app-pub-2086017583390552/3291071772</string>-->
+    <!--<string name="native_ad_id_medium">ca-app-pub-2086017583390552/6958854042</string>-->
+
+    <!--Test id-->
+    <string name="banner_home_footer">ca-app-pub-2002759323605741/5494344697</string>
+    <string name="interstitial_full_screen">ca-app-pub-2002759323605741/8308210294</string>
+    <string name="native_ad_id_large">ca-app-pub-2002759323605741/3544104244</string>
 
     <array name="smile">
         <item>😃</item>
@@ -828,42 +850,6 @@
         <item>🔹</item>
     </array>
 
-    <string name="abc">ABC</string>
-    <string name="texual_color_background"><![CDATA[Texual & Color Background]]></string>
-    <string name="themes_slots">Themes Slots</string>
-    <string name="colors">Colors</string>
-    <string name="fonts">Fonts</string>
-    <string name="sounds">Sounds</string>
-    <string name="packages">Package</string>
-    <string name="restore">Restore</string>
-
-    <string name="remove_ads_purchased">RemoveAdsPurchased</string>
-    <string name="texual_color_purchased">TexualColorPurchased</string>
-    <string name="theme_slot_purchased">ThemeSlotPurchased</string>
-    <string name="colors_purchased">ColorsPurchased</string>
-    <string name="fonts_purchased">FontsPurchased</string>
-    <string name="sounds_purchased">SoundsPurchased</string>
-    <string name="enable_keyboard">Step 1: Enable Universe Keyboard</string>
-    <string name="switch_keyboard">Step 2: Switch to Universe Keyboard</string>
-
-    <string name="android_banner">android_banner</string>
-    <string name="android_inst">android_inst</string>
-
-
-    <!--live id-->
-    <!-- <string name="banner_home_footer">ca-app-pub-1041813022220163/8312067772</string>
-     <string name="interstitial_full_screen">ca-app-pub-1041813022220163/7928924396</string>-->
-    <!--<string name="native_ad_id_large">ca-app-pub-2086017583390552/3647608070</string>-->
-    <!--<string name="native_ad_id_small"> ca-app-pub-2086017583390552/3291071772</string>-->
-    <!--<string name="native_ad_id_medium">ca-app-pub-2086017583390552/6958854042</string>-->
-
-
-    <!--Test id-->
-    <string name="banner_home_footer">ca-app-pub-2002759323605741/5494344697</string>
-    <string name="interstitial_full_screen">ca-app-pub-2002759323605741/8308210294</string>
-    <string name="native_ad_id_large">ca-app-pub-2002759323605741/3544104244</string>
-
-
     <color name="BlanchedAlmond">#FFEBCD</color>
     <color name="Blue">#0000FF</color>
     <color name="BlueViolet">#8A2BE2</color>
@@ -1157,6 +1143,5 @@
         <item>Yellow</item>
         <item>YellowGreen</item>
     </array>
-
 
 </resources>

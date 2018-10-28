@@ -405,7 +405,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             BitmapDrawable background = new BitmapDrawable(mContext.getResources(), decodedByte);
             linKeyboard.setBackground(background);
         } else {
-            linKeyboard.setBackgroundResource(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BG_IMAGE, R.drawable.theme_color1));
+            linKeyboard.setBackgroundResource(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BG_IMAGE, R.drawable.background_1));
         }
 
         for (Keyboard.Key k : mQwertyKeyboard.getKeys()) {

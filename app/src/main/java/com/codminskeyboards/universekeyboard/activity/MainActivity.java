@@ -216,7 +216,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                 //Later text
             }
         });
-        RateThisApp.showRateDialog(MainActivity.this, R.style.MyAlertDialogStyle2);
+        RateThisApp.showRateDialog(MainActivity.this, R.style.AlertDialogStyle);
         setContent();
         if (GlobalClass.getPrefrenceBoolean(context, GlobalClass.key_isAdLock, true)) {
             setAdMob();
@@ -263,7 +263,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
     private void setContent() {
 
         InterstitialAd mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-2002759323605741/8308210294");
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_full_screen));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         ivCreateKeyboard = findViewById(R.id.ivCreateKeyboard);
@@ -407,7 +407,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         setDefaultValue();
 
                         GlobalClass.selectwallpaper = 0;
-                        GlobalClass.tempKeyboardBgImage = R.drawable.theme_color1;
+                        GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
                         GlobalClass.selectcolor = 0;
                         GlobalClass.selview = 2;
                         GlobalClass.tempIsColor = "no";
@@ -506,7 +506,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                     }
 
                                     GlobalClass.selectwallpaper = 0;
-                                    GlobalClass.tempKeyboardBgImage = R.drawable.theme_color1;
+                                    GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
                                     GlobalClass.selectcolor = 0;
                                     GlobalClass.selview = 2;
                                     GlobalClass.tempIsColor = "no";
@@ -561,7 +561,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                         ivCreateKeyboard.setVisibility(View.GONE);
 
                                         GlobalClass.selectwallpaper = 0;
-                                        GlobalClass.tempKeyboardBgImage = R.drawable.theme_color1;
+                                        GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
                                         GlobalClass.selectcolor = 0;
                                         GlobalClass.selview = 2;
                                         GlobalClass.tempIsColor = "no";
@@ -635,7 +635,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
         }
 
         if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BG_IMAGE, 0) == 0) {
-            GlobalClass.tempKeyboardBgImage = R.drawable.theme_color1;
+            GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
         } else {
             GlobalClass.tempKeyboardBgImage = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BG_IMAGE, 0);
         }

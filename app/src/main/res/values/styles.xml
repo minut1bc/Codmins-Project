@@ -7,30 +7,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- Base application theme. -->
-    <style name="AppThemeHome" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/home_bg</item>
-        <item name="colorPrimaryDark">@color/home_bg</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="UniverseKeyboard" />
-    <!-- Base application theme. -->
-    <style name="KeyImageButton" parent="UniverseKeyboard">
-        <item name="background">@android:color/transparent</item>
-    </style>
-
-    <style name="Widget.KeyboardView10" parent="@android:style/Widget.KeyboardView">
+    <style name="KeyboardViewStyle" parent="@android:style/Widget.KeyboardView">
         <item name="android:paddingTop">2.0dip</item>
-        <item name="android:paddingRight">0.0dip</item>
-        <item name="android:paddingBottom">0.0dip</item>
         <item name="android:shadowColor">@android:color/transparent</item>
         <item name="android:keyBackground">@android:color/transparent</item>
         <item name="android:keyTextColor">@android:color/transparent</item>
     </style>
 
-    <style name="MyAlertDialogStyle2" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/home_bg</item>
         <item name="android:textColorPrimary">#000000</item>
         <item name="android:background">#ffffff</item>

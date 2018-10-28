@@ -151,45 +151,45 @@ public class FillKeyBgAdapter extends RecyclerView.Adapter<FillKeyBgAdapter.View
                     } else if (getAdapterPosition() == 19) {
                         tempKeyColor = context.getResources().getColor(R.color.twenty);
                     } else if (getAdapterPosition() == 20) {
-                        tempKeyColor = context.getResources().getColor(R.color.twentyone);
+                        tempKeyColor = context.getResources().getColor(R.color.twentyOne);
                     } else if (getAdapterPosition() == 21) {
-                        tempKeyColor = context.getResources().getColor(R.color.twentytwo);
+                        tempKeyColor = context.getResources().getColor(R.color.twentyTwo);
                     } else if (getAdapterPosition() == 22) {
-                        tempKeyColor = context.getResources().getColor(R.color.twentythree);
+                        tempKeyColor = context.getResources().getColor(R.color.twentyThree);
                     } else if (getAdapterPosition() == 23) {
-                        tempKeyColor = context.getResources().getColor(R.color.twentyfour);
+                        tempKeyColor = context.getResources().getColor(R.color.twentyFour);
                     } else if (getAdapterPosition() == 24) {
-                        tempKeyColor = context.getResources().getColor(R.color.twentyfive);
+                        tempKeyColor = context.getResources().getColor(R.color.twentyFive);
                     } else if (getAdapterPosition() == 25) {
-                        tempKeyColor = context.getResources().getColor(R.color.twentysix);
+                        tempKeyColor = context.getResources().getColor(R.color.twentySix);
                     } else if (getAdapterPosition() == 26) {
-                        tempKeyColor = context.getResources().getColor(R.color.twentyseven);
+                        tempKeyColor = context.getResources().getColor(R.color.twentySeven);
                     } else if (getAdapterPosition() == 27) {
-                        tempKeyColor = context.getResources().getColor(R.color.twentyeight);
+                        tempKeyColor = context.getResources().getColor(R.color.twentyEight);
                     } else if (getAdapterPosition() == 28) {
-                        tempKeyColor = context.getResources().getColor(R.color.twentynine);
+                        tempKeyColor = context.getResources().getColor(R.color.twentyNine);
                     } else if (getAdapterPosition() == 29) {
                         tempKeyColor = context.getResources().getColor(R.color.thirty);
                     } else if (getAdapterPosition() == 30) {
-                        tempKeyColor = context.getResources().getColor(R.color.thirtyone);
+                        tempKeyColor = context.getResources().getColor(R.color.thirtyOne);
                     } else if (getAdapterPosition() == 31) {
-                        tempKeyColor = context.getResources().getColor(R.color.thirtytwo);
+                        tempKeyColor = context.getResources().getColor(R.color.thirtyTwo);
                     } else if (getAdapterPosition() == 32) {
-                        tempKeyColor = context.getResources().getColor(R.color.thirtythree);
+                        tempKeyColor = context.getResources().getColor(R.color.thirtyThree);
                     } else if (getAdapterPosition() == 33) {
-                        tempKeyColor = context.getResources().getColor(R.color.thirtyfour);
+                        tempKeyColor = context.getResources().getColor(R.color.thirtyFour);
                     } else if (getAdapterPosition() == 34) {
-                        tempKeyColor = context.getResources().getColor(R.color.thirtysix);
+                        tempKeyColor = context.getResources().getColor(R.color.thirtySix);
                     } else if (getAdapterPosition() == 35) {
-                        tempKeyColor = context.getResources().getColor(R.color.thirtyseven);
+                        tempKeyColor = context.getResources().getColor(R.color.thirtySeven);
                     } else if (getAdapterPosition() == 36) {
-                        tempKeyColor = context.getResources().getColor(R.color.thirtyeight);
+                        tempKeyColor = context.getResources().getColor(R.color.thirtyEight);
                     } else if (getAdapterPosition() == 37) {
-                        tempKeyColor = context.getResources().getColor(R.color.thirtynine);
+                        tempKeyColor = context.getResources().getColor(R.color.thirtyNine);
                     } else if (getAdapterPosition() == 38) {
-                        tempKeyColor = context.getResources().getColor(R.color.fourty);
+                        tempKeyColor = context.getResources().getColor(R.color.forty);
                     } else if (getAdapterPosition() == 39) {
-                        tempKeyColor = context.getResources().getColor(R.color.fourtyone);
+                        tempKeyColor = context.getResources().getColor(R.color.fortyOne);
                     }
                     if (createKeyboardActivity != null) {
                         createKeyboardActivity.redrawKeyboard();

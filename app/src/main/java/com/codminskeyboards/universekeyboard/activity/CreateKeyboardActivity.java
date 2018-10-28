@@ -284,7 +284,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     private void setContent() {
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-2002759323605741/8308210294");
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_full_screen));
 
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
@@ -342,7 +342,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             // Default keyboard values
         } else {
             GlobalClass.selectwallpaper = 0;
-            GlobalClass.tempKeyboardBgImage = R.drawable.theme_color1;
+            GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
             GlobalClass.selectcolor = 0;
             GlobalClass.selview = 2;
             GlobalClass.tempIsColor = "no";

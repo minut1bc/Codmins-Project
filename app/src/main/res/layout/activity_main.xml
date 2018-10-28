@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cc3"
+    android:background="@drawable/main_activity_background"
     android:fitsSystemWindows="false"
     android:orientation="vertical">
 
@@ -57,9 +58,10 @@
         android:layout_margin="10dp"
         android:fontFamily="@font/gothic_bold"
         android:gravity="center"
-        android:text="Universe Keyboard"
+        android:text="@string/app_name"
         android:textColor="@android:color/white"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        tools:text="Universe Keyboard" />
 
     <LinearLayout
         android:id="@+id/adContainer"
@@ -78,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:contentDescription="TODO"
-            android:src="@drawable/ic_add_button_round"
+            android:src="@drawable/ic_add_button"
             android:visibility="gone" />
 
         <LinearLayout
@@ -147,7 +149,7 @@
             android:layout_gravity="bottom|center"
             android:layout_margin="10dp"
             android:contentDescription="TODO"
-            android:src="@drawable/ic_add_button_round"
+            android:src="@drawable/ic_add_button"
             android:visibility="gone" />
 
         <com.google.android.gms.ads.AdView

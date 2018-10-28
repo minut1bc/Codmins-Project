@@ -10,7 +10,7 @@
 
         <com.codminskeyboards.universekeyboard.customkeyboard.LatinKeyboardView
             android:id="@+id/keyboard"
-            style="@style/Widget.KeyboardView10"
+            style="@style/KeyboardViewStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
