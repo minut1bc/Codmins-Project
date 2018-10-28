@@ -68,7 +68,6 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
         ImageView ivSpace = view.findViewById(R.id.ivSpace);
         ImageView ivShift = view.findViewById(R.id.ivShift);
         ImageView ivCancel = view.findViewById(R.id.ivCancel);
-        ImageView ivEmoji = view.findViewById(R.id.ivEmoji);
 
         if (BuildConfig.VERSION_CODE >= 21)
             view.setClipToOutline(true);

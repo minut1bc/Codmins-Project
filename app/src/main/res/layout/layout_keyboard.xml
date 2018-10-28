@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,46 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/topBarView"
-        android:layout_width="0dp"
-        android:layout_height="34dp"
-        android:background="#80000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivAbc"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="2dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="TODO"
-        android:src="@drawable/ic_textmessage"
-        android:tint="@color/silver"
-        app:layout_constraintBottom_toBottomOf="@+id/topBarView"
-        app:layout_constraintEnd_toStartOf="@id/ivEmoji"
-        app:layout_constraintStart_toStartOf="@+id/topBarView"
-        app:layout_constraintTop_toTopOf="@+id/topBarView" />
-
-    <ImageView
-        android:id="@+id/ivEmoji"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="2dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="TODO"
-        android:src="@drawable/ic_smile"
-        android:tint="@color/silver"
-        app:layout_constraintBottom_toBottomOf="@+id/topBarView"
-        app:layout_constraintStart_toEndOf="@+id/ivAbc"
-        app:layout_constraintTop_toTopOf="@+id/topBarView" />
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/keyboardKeysLayout"
         android:layout_width="match_parent"
@@ -65,7 +24,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/ivKeyboardBg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBarView">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/keyQ"
@@ -564,9 +523,23 @@
             android:text=","
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/ivSpace"
+            app:layout_constraintEnd_toStartOf="@id/keyEmoji"
             app:layout_constraintStart_toEndOf="@+id/keySymbols"
             app:layout_constraintTop_toTopOf="@+id/keySymbols" />
+
+        <ImageView
+            android:id="@+id/keyEmoji"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/key_bg"
+            android:padding="5dp"
+            android:src="@drawable/ic_smile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivSpace"
+            app:layout_constraintStart_toEndOf="@id/keyComma"
+            app:layout_constraintTop_toTopOf="@id/keySymbols" />
 
         <ImageView
             android:id="@+id/ivSpace"
@@ -579,7 +552,7 @@
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/keyDot"
-            app:layout_constraintStart_toEndOf="@+id/keyComma"
+            app:layout_constraintStart_toEndOf="@+id/keyEmoji"
             app:layout_constraintTop_toTopOf="@+id/keySymbols" />
 
         <TextView

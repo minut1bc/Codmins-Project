@@ -25,6 +25,7 @@ public class LatinKeyboardView extends KeyboardView {
 
     static final int KEYCODE_OPTIONS = -100;
     static final int KEYCODE_LANGUAGE_SWITCH = -101;
+    static final int KEYCODE_EMOJI = -102;
 
     GradientDrawable keyBackground;
     GradientDrawable keyPressedBackground;
@@ -35,6 +36,7 @@ public class LatinKeyboardView extends KeyboardView {
     Drawable enterDrawable = getResources().getDrawable(R.drawable.ic_enter_new);
     Drawable deleteDrawable = getResources().getDrawable(R.drawable.ic_backspace);
     Drawable spaceDrawable = getResources().getDrawable(R.drawable.ic_space);
+    Drawable emojiDrawable = getResources().getDrawable(R.drawable.ic_smile);
 
     Paint paint = new Paint();
 
@@ -150,6 +152,10 @@ public class LatinKeyboardView extends KeyboardView {
                     spaceDrawable.setBounds(key.x , key.y, key.x + key.width, key.y + key.height);
                     spaceDrawable.draw(canvas);*/
                     break;
+                case -102:
+                    emojiDrawable.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+                    emojiDrawable.setBounds(key.x + 20, key.y + 35, key.x + key.width - 20, key.y + key.height - 35);
+                    emojiDrawable.draw(canvas);
                 default:
                     if (key.label != null) {
                         String keyLabel = key.label.toString();

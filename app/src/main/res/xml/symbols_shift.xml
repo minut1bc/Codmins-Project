@@ -161,18 +161,17 @@
         <Key
             android:codes="60"
             android:keyLabel="&lt;"
-            android:keyWidth="14%p" />
-        <!--android:keyWidth="10%p" />-->
+            android:keyWidth="10%p" />
 
         <Key
             android:codes="32"
             android:isRepeatable="true"
-            android:keyWidth="40.5%p" />
+            android:keyWidth="48.5%p" />
 
         <Key
             android:codes="62"
             android:keyLabel="&gt;"
-            android:keyWidth="14%p" />
+            android:keyWidth="10%p" />
 
         <Key
             android:codes="10"

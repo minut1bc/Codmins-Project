@@ -16,7 +16,6 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.IBinder;
 import android.os.Vibrator;
-import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.text.method.MetaKeyKeyListener;
 import android.util.Base64;
@@ -48,6 +47,7 @@ import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 /**
  * Example of writing an input method for a soft keyboard.  This code is
  * focused on simplicity over completeness, so it should in no way be considered
@@ -89,7 +89,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private SpellCheckerSession mScs;
     private List<String> mSuggestions;
 
-    private ImageView ivEmoji;
     private RelativeLayout linEmoji;
     private ImageView ivClose;
     private GridView gvEmoji;
@@ -174,7 +173,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         GlobalClass globalClass = new GlobalClass(SoftKeyboard.this.getApplicationContext());
 
         final View view = getLayoutInflater().inflate(R.layout.input, null);
-        ivEmoji = view.findViewById(R.id.ivEmoji);
         mInputView = view.findViewById(R.id.keyboard);
         LinearLayout linKeyboard = view.findViewById(R.id.linKeyboard);
         linEmoji = view.findViewById(R.id.linEmoji);
@@ -386,30 +384,10 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             }
         });
 
-        ivAbc.setColorFilter(ContextCompat.getColor(mContext, R.color.white), PorterDuff.Mode.MULTIPLY);
-
         ivAbc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                mInputView.setVisibility(View.VISIBLE);
-                linEmoji.setVisibility(View.GONE);
-
-                ivAbc.setColorFilter(ContextCompat.getColor(mContext, R.color.white), PorterDuff.Mode.MULTIPLY);
-                ivEmoji.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
-            }
-        });
-
-        ivEmoji.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mInputView.setVisibility(View.GONE);
-                linEmoji.setVisibility(View.VISIBLE);
-
-                ivAbc.setColorFilter(ContextCompat.getColor(mContext, R.color.silver), PorterDuff.Mode.MULTIPLY);
-                ivEmoji.setColorFilter(ContextCompat.getColor(mContext, R.color.white), PorterDuff.Mode.MULTIPLY);
-
+                handleEmoji();
             }
         });
 
@@ -874,6 +852,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 setLatinKeyboard(mSymbolsKeyboard);
                 mSymbolsKeyboard.setShifted(false);
             }
+        } else if (primaryCode == LatinKeyboardView.KEYCODE_EMOJI) {
+            handleEmoji();
         } else {
             handleCharacter(primaryCode, keyCodes);
         }
@@ -1020,6 +1000,16 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
     private void handleLanguageSwitch() {
         mInputMethodManager.switchToNextInputMethod(getToken(), false /* onlyCurrentIme */);
+    }
+
+    private void handleEmoji() {
+        if (mInputView.getVisibility() == View.VISIBLE) {
+            mInputView.setVisibility(View.GONE);
+            linEmoji.setVisibility(View.VISIBLE);
+        } else {
+            mInputView.setVisibility(View.VISIBLE);
+            linEmoji.setVisibility(View.GONE);
+        }
     }
 
     private void checkToggleCapsLock() {
