@@ -1,4 +1,4 @@
-package com.blackcj.customkeyboard;
+package com.codminskeyboards.universekeyboard;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

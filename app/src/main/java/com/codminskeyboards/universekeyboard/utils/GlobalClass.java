@@ -122,13 +122,11 @@ public class GlobalClass {
     public static void setPreferencesString(Context context, String key, String value) {
         editor.putString(key, value);
         editor.commit();
-
     }
 
     public static void setPreferencesInt(Context context, String key, int value) {
         editor.putInt(key, value);
         editor.commit();
-
     }
 
     public static String getPreferencesString(Context context, String key, String defValue) {
