@@ -1,17 +1,14 @@
 package com.codminskeyboards.universekeyboard.activity;
 
+import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codminskeyboards.universekeyboard.R;
@@ -19,7 +16,8 @@ import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
 public class SetKeyboardActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private InputMethodChangedReceiver imChange;
+    Context context;
+    private InputMethodChangedReceiver inputMethodChangedReceiver;
     private boolean isKeyboardEnabled;
     private boolean isKeyboardSet;
     private Button enableKeyboardButton;
@@ -29,32 +27,25 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(getResources().getColor(R.color.dark_gray));
-        }
+        context = SetKeyboardActivity.this;
 
         setContentView(R.layout.activity_set_keyboard);
-        setContent();
-    }
 
-    private void setContent() {
         enableKeyboardButton = findViewById(R.id.enableKeyboardButton);
         switchKeyboardButton = findViewById(R.id.switchKeyboardButton);
 
-        imChange = new InputMethodChangedReceiver();
+        inputMethodChangedReceiver = new InputMethodChangedReceiver();
 
-        isKeyboardEnabled = GlobalClass.KeyboardIsEnabled(SetKeyboardActivity.this);
-        isKeyboardSet = GlobalClass.KeyboardIsSet(SetKeyboardActivity.this);
+        isKeyboardEnabled = GlobalClass.KeyboardIsEnabled(context);
+        isKeyboardSet = GlobalClass.KeyboardIsSet(context);
 
         enableKeyboardButton.setEnabled(!isKeyboardEnabled);
-        if (isKeyboardEnabled) {
+
+        if (isKeyboardEnabled)
             switchKeyboardButton.setEnabled(false);
-        } else {
+        else
             switchKeyboardButton.setEnabled(isKeyboardSet);
-        }
+
         enableKeyboardButton.setOnClickListener(this);
         switchKeyboardButton.setOnClickListener(this);
     }
@@ -74,66 +65,54 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
 
     public void enableKeyboard() {
         startActivityForResult(new Intent("android.settings.INPUT_METHOD_SETTINGS"), 0);
-        if (imChange != null) {
-            imChange.cancel();
-        }
-        imChange = null;
-        imChange = new InputMethodChangedReceiver();
+        if (inputMethodChangedReceiver != null)
+            inputMethodChangedReceiver.cancel();
+        inputMethodChangedReceiver = null;
+        inputMethodChangedReceiver = new InputMethodChangedReceiver();
     }
 
     public void switchKeyboard() {
-        InputMethodManager imeManager = (InputMethodManager) SetKeyboardActivity.this.getSystemService(INPUT_METHOD_SERVICE);
-        if (imeManager != null) {
-            imeManager.showInputMethodPicker();
-        } else {
-            Toast.makeText(SetKeyboardActivity.this, "Error", Toast.LENGTH_SHORT).show();
-        }
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null)
+            inputMethodManager.showInputMethodPicker();
+        else
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
     }
 
     public void onWindowFocusChanged(boolean hasFocus) {
         boolean z = false;
-        Animation shake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.buttonanimation);
-        isKeyboardEnabled = GlobalClass.KeyboardIsEnabled(SetKeyboardActivity.this);
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.buttonanimation);
+        isKeyboardEnabled = GlobalClass.KeyboardIsEnabled(context);
 
         if (isKeyboardEnabled) {
             try {
-                if (imChange != null) {
-                    imChange.cancel();
-                }
+                if (inputMethodChangedReceiver != null)
+                    inputMethodChangedReceiver.cancel();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        isKeyboardSet = GlobalClass.KeyboardIsSet(SetKeyboardActivity.this);
-        Button button;
+
+        isKeyboardSet = GlobalClass.KeyboardIsSet(context);
         if (!isKeyboardEnabled) {
-            button = enableKeyboardButton;
-            if (!isKeyboardEnabled) {
+            if (!isKeyboardEnabled)
                 z = true;
-            }
-            button.setEnabled(z);
-            enableKeyboardButton.startAnimation(shake);
+            enableKeyboardButton.setEnabled(z);
+            enableKeyboardButton.startAnimation(animation);
         } else if (isKeyboardSet) {
             switchKeyboardButton.clearAnimation();
-            startActivity(new Intent(SetKeyboardActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-            button = switchKeyboardButton;
-            if (!isKeyboardSet) {
+            startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            if (!isKeyboardSet)
                 z = true;
-            }
-            button.setEnabled(z);
+            switchKeyboardButton.setEnabled(z);
             super.onWindowFocusChanged(hasFocus);
         } else {
-            boolean z2;
-            TextView button2 = enableKeyboardButton;
-            z2 = !isKeyboardEnabled;
-            button2.setEnabled(z2);
+            enableKeyboardButton.setEnabled(!isKeyboardEnabled);
             enableKeyboardButton.clearAnimation();
-            switchKeyboardButton.startAnimation(shake);
-            button = switchKeyboardButton;
-            if (!isKeyboardSet) {
+            switchKeyboardButton.startAnimation(animation);
+            if (!isKeyboardSet)
                 z = true;
-            }
-            button.setEnabled(z);
+            switchKeyboardButton.setEnabled(z);
         }
     }
 }
