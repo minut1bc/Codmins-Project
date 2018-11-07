@@ -2,15 +2,12 @@ package com.codminskeyboards.universekeyboard.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
-import permission.auron.com.marshmallowpermissionhelper.ActivityManagePermission;
-import permission.auron.com.marshmallowpermissionhelper.PermissionResult;
-import permission.auron.com.marshmallowpermissionhelper.PermissionUtils;
-
-public class SplashActivity extends ActivityManagePermission {
+public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,35 +24,18 @@ public class SplashActivity extends ActivityManagePermission {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    askForPermission();
+                    
+                    if (GlobalClass.KeyboardIsEnabled(SplashActivity.this) && GlobalClass.KeyboardIsSet(SplashActivity.this)) {
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                        finish();
+                    } else {
+                        startActivity(new Intent(SplashActivity.this, SetKeyboardActivity.class));
+                        finish();
+                    }
                 }
             }
         };
         splashThread.start();
-    }
-
-    private void askForPermission() {
-        askCompactPermissions(new String[]{PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE, PermissionUtils.Manifest_READ_EXTERNAL_STORAGE}, new PermissionResult() {
-                    @Override
-                    public void permissionGranted() {
-                        if (GlobalClass.KeyboardIsEnabled(SplashActivity.this) && GlobalClass.KeyboardIsSet(SplashActivity.this)) {
-                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                            finish();
-                        } else {
-                            startActivity(new Intent(SplashActivity.this, SetKeyboardActivity.class));
-                            finish();
-                        }
-                    }
-
-                    @Override
-                    public void permissionDenied() {
-                    }
-
-                    @Override
-                    public void permissionForeverDenied() {
-                    }
-                }
-        );
     }
 }
 

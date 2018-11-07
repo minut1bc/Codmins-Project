@@ -57,10 +57,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
 
-    //add for permission
-    implementation 'com.auron:permission-manage:1.1.6'
-
-    //to debud database
+    //to debug database
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.0'
 
     // add dependency
