@@ -4,15 +4,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,39 +29,31 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.kobakei.ratethisapp.RateThisApp;
+import com.kila.apprater_dialog.lars.AppRater;
 
 import java.util.ArrayList;
 
 import me.relex.circleindicator.CircleIndicator;
-import permission.auron.com.marshmallowpermissionhelper.ActivityManagePermission;
-import permission.auron.com.marshmallowpermissionhelper.PermissionResult;
-import permission.auron.com.marshmallowpermissionhelper.PermissionUtils;
 
-public class MainActivity extends ActivityManagePermission implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageView ivCreateKeyboard;
+    IabHelper iabHelper;
     private Context context;
     private ViewPager viewPager;
     private KeyboardViewPagerAdapter keyboardViewPagerAdapter;
     ArrayList<KeyboardData> keyboardDataArrayList = new ArrayList<>();
-    private ImageView ivNoData;
+    CircleIndicator circleIndicator;
     private LinearLayout linKeyboardData;
-    private ImageView ivApply;
+    boolean doubleBackToExitPressedOnce = false;
     boolean isThemeSlotPurchased = false;
-    private int mRequestCode;
     private String TAG = "Grid View Activity";
-    private AdView mAdView;
-    IabHelper mHelper;
-    CircleIndicator indicator;
-
     // Called when consumption is complete
     IabHelper.OnConsumeFinishedListener consumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
             GlobalClass.printLog(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
 
             // if we were disposed of in the meantime, quit.
-            if (mHelper == null) return;
+            if (iabHelper == null) return;
 
             // We know this is the "gas" sku because it's the only one we consume,
             // so we don't check which sku was consumed. If you have more than one
@@ -86,7 +76,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
             GlobalClass.printLog(TAG, "Query inventory finished.");
 
             // Have we been disposed of in the meantime? If so, quit.
-            if (mHelper == null) return;
+            if (iabHelper == null) return;
 
             // Is it a failure?
             if (result.isFailure()) {
@@ -109,9 +99,42 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
 
             GlobalClass.printLog("getFiftyGraphs====================", "" + getThemeSlotPurchase);
             if (getThemeSlotPurchase != null && verifyDeveloperPayload(getThemeSlotPurchase)) {
-                mHelper.consumeAsync(getThemeSlotPurchase, consumeFinishedListener);
+                iabHelper.consumeAsync(getThemeSlotPurchase, consumeFinishedListener);
             }
             GlobalClass.printLog(TAG, "Initial inventory query finished; enabling main UI.");
+        }
+    };
+    private ImageView addKeyboardImageView;
+    private ImageView createKeyboardImageView;
+    private ImageView applyImageView;
+    private int requestCode;
+    // Callback for when a purchase is finished
+    IabHelper.OnIabPurchaseFinishedListener purchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
+        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
+
+            GlobalClass.printLog(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
+
+            // if we were disposed of in the meantime, quit.
+            if (iabHelper == null) return;
+
+            if (result.isSuccess()) {
+                updateData();
+            }
+
+            if (result.isFailure()) {
+                complain("Error purchasing: " + result);
+                return;
+            }
+
+            if (!verifyDeveloperPayload(purchase)) {
+                complain("Error purchasing. Authenticity verification failed.");
+                return;
+            }
+
+            updateData();
+            GlobalClass.printLog(TAG, "purchase Data- - - " + purchase);
+            iabHelper.consumeAsync(purchase, consumeFinishedListener);
+
         }
     };
 
@@ -146,142 +169,85 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
         return true;
     }
 
-    // Callback for when a purchase is finished
-    IabHelper.OnIabPurchaseFinishedListener purchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
-        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-
-            GlobalClass.printLog(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
-
-            // if we were disposed of in the meantime, quit.
-            if (mHelper == null) return;
-
-            if (result.isSuccess()) {
-                updateData();
-            }
-
-            if (result.isFailure()) {
-                complain("Error purchasing: " + result);
-                return;
-            }
-
-            if (!verifyDeveloperPayload(purchase)) {
-                complain("Error purchasing. Authenticity verification failed.");
-                return;
-            }
-
-            updateData();
-            GlobalClass.printLog(TAG, "purchase Data- - - " + purchase);
-            mHelper.consumeAsync(purchase, consumeFinishedListener);
-
-        }
-    };
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(getResources().getColor(R.color.dark_gray));
-        }
+        context = MainActivity.this;
+
         Crashlytics.log("Activity created");
         Crashlytics.log(Log.ERROR, "tag", "Message");
 
-        // set context
-        context = MainActivity.this;
-
-        // get the permission
-        askForPermission();
         setContentView(R.layout.activity_main);
-        RateThisApp.init(new RateThisApp.Config(3, 5));
-        RateThisApp.setCallback(new RateThisApp.Callback() {
-            @Override
-            public void onYesClicked() {
-                //Toast.makeText(MainActivity.this, "Yes event", Toast.LENGTH_SHORT).show();
-                //Rate now event
-            }
 
-            @Override
-            public void onNoClicked() {
-                //Toast.makeText(MainActivity.this, "No event", Toast.LENGTH_SHORT).show();
-                // No thanks text
-                RateThisApp.stopRateDialog(context);
-            }
+        new AppRater.DefaultBuilder(context, getPackageName())
+                .showDefault()
+                .daysToWait(0)
+                .timesToLaunch(1)
+                .title("Rate " + getResources().getString(R.string.app_name))
+                .appLaunched();
 
-            @Override
-            public void onCancelClicked() {
-                //Toast.makeText(MainActivity.this, "Cancel event", Toast.LENGTH_SHORT).show();
-                //Later text
-            }
-        });
-        RateThisApp.showRateDialog(MainActivity.this, R.style.AlertDialogStyle);
         setContent();
-        if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isAdLock, true)) {
+
+        if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isAdLock, true))
             setAdMob();
-        }
     }
 
 
     private void updateData() {
-        if (mRequestCode == GlobalClass.RC_REQUEST_THEMES_SLOTES) {
-            GlobalClass.setPreferencesBool(MainActivity.this, getString(R.string.theme_slot_purchased), true);
-        }
+        if (requestCode == GlobalClass.RC_REQUEST_THEMES_SLOTES)
+            GlobalClass.setPreferencesBool(context, getString(R.string.theme_slot_purchased), true);
     }
 
     private void setAdMob() {
-        mAdView = findViewById(R.id.ads);
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
+        adView = findViewById(R.id.ads);
+        adView.loadAd(new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
+        adView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
-                mAdView.setVisibility(View.VISIBLE);
+                adView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onAdClosed() {
-                mAdView.setVisibility(View.GONE);
+                adView.setVisibility(View.GONE);
             }
 
             @Override
             public void onAdFailedToLoad(int errorCode) {
-                mAdView.setVisibility(View.GONE);
+                adView.setVisibility(View.GONE);
             }
-
         });
 
     }
 
     void complain(String message) {
         GlobalClass.printLog(TAG, "**** TrivialDrive Error: " + message);
-        //alert("Error: " + message);
     }
 
     private void setContent() {
+        InterstitialAd interstitialAd = new InterstitialAd(context);
+        interstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_full_screen));
+        interstitialAd.loadAd(new AdRequest.Builder().build());
 
-        InterstitialAd mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_full_screen));
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-        ivCreateKeyboard = findViewById(R.id.ivCreateKeyboard);
+        addKeyboardImageView = findViewById(R.id.addKeyboardImageView);
         viewPager = findViewById(R.id.viewPager);
         viewPager.setPageMarginDrawable(R.drawable.drawable_bg);
 
-        ImageView ivDelete = findViewById(R.id.ivDelete);
-        ivNoData = findViewById(R.id.ivNoData);
+        ImageView deleteImageView = findViewById(R.id.deleteImageView);
+        createKeyboardImageView = findViewById(R.id.createKeyboardImageView);
         linKeyboardData = findViewById(R.id.linKeyboardData);
-        ivApply = findViewById(R.id.ivApply);
-        TextView linPackage = findViewById(R.id.linPackage);
-        TextView linGuide = findViewById(R.id.linGuide);
+        applyImageView = findViewById(R.id.applyImageView);
+        TextView premiumTextView = findViewById(R.id.premiumTextView);
+        TextView moreTextView = findViewById(R.id.moreTextView);
 
-        mHelper = new IabHelper(MainActivity.this, GlobalClass.base64EncodedPublicKey);
+        iabHelper = new IabHelper(context, GlobalClass.base64EncodedPublicKey);
 
         // enable debug logging (for a production application, you should set this to false).
-        mHelper.enableDebugLogging(true);
-        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+        iabHelper.enableDebugLogging(true);
+        iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
             public void onIabSetupFinished(IabResult result) {
                 if (!result.isSuccess()) {
                     // Oh noes, there was a problem.
@@ -290,23 +256,23 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                 }
 
                 // Have we been disposed of in the meantime? If so, quit.
-                if (mHelper == null) return;
-                mHelper.queryInventoryAsync(mGotInventoryListener);
+                if (iabHelper == null) return;
+                iabHelper.queryInventoryAsync(mGotInventoryListener);
             }
         });
-        ivCreateKeyboard.setOnClickListener(this);
-        ivDelete.setOnClickListener(this);
-        ivNoData.setOnClickListener(this);
-        ivApply.setOnClickListener(this);
-        linGuide.setOnClickListener(this);
-        linPackage.setOnClickListener(this);
+
+        addKeyboardImageView.setOnClickListener(this);
+        deleteImageView.setOnClickListener(this);
+        createKeyboardImageView.setOnClickListener(this);
+        applyImageView.setOnClickListener(this);
+        moreTextView.setOnClickListener(this);
+        premiumTextView.setOnClickListener(this);
 
         keyboardDataArrayList = GlobalClass.getPreferencesArrayList(context);
 
         if (keyboardDataArrayList != null) {
             if (keyboardDataArrayList.size() != 0) {
-
-                for (int i = 0; i < keyboardDataArrayList.size(); i++) {
+                for (int i = 0; i < keyboardDataArrayList.size(); i++)
                     if (keyboardDataArrayList.get(i).isSelected()) {
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, keyboardDataArrayList.get(i).getKeyboardColorCode());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, keyboardDataArrayList.get(i).getKeyboardBgImage());
@@ -319,19 +285,18 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(i).getSoundStatus());
                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, keyboardDataArrayList.get(i).getSoundName());
                     }
-                }
 
                 keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(context, keyboardDataArrayList);
-                indicator = findViewById(R.id.indicator);
+                circleIndicator = findViewById(R.id.circleIndicator);
                 viewPager.setAdapter(keyboardViewPagerAdapter);
-                indicator.setViewPager(viewPager);
-                ivNoData.setVisibility(View.GONE);
+                circleIndicator.setViewPager(viewPager);
+                createKeyboardImageView.setVisibility(View.GONE);
                 linKeyboardData.setVisibility(View.VISIBLE);
-                ivCreateKeyboard.setVisibility(View.VISIBLE);
+                addKeyboardImageView.setVisibility(View.VISIBLE);
 
                 if (keyboardDataArrayList.size() == 1) {
                     keyboardDataArrayList.get(0).setSelected(true);
-                    ivApply.setImageDrawable(getResources().getDrawable(R.drawable.btn_apply));
+                    applyImageView.setImageDrawable(getResources().getDrawable(R.drawable.btn_apply));
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyboardColorCode());
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyboardBgImage());
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyBgColor());
@@ -346,20 +311,19 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelectcolor());
                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelview());
                     GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBitmapback());
-                } else {
-                    ivApply.setImageDrawable(getResources().getDrawable(R.drawable.btn_disable));
-                }
+                } else
+                    applyImageView.setImageDrawable(getResources().getDrawable(R.drawable.btn_disable));
 
             } else {
-                ivNoData.setVisibility(View.VISIBLE);
+                createKeyboardImageView.setVisibility(View.VISIBLE);
                 linKeyboardData.setVisibility(View.GONE);
-                ivCreateKeyboard.setVisibility(View.GONE);
+                addKeyboardImageView.setVisibility(View.GONE);
             }
         } else {
             keyboardDataArrayList = new ArrayList<>();
-            ivNoData.setVisibility(View.VISIBLE);
+            createKeyboardImageView.setVisibility(View.VISIBLE);
             linKeyboardData.setVisibility(View.GONE);
-            ivCreateKeyboard.setVisibility(View.GONE);
+            addKeyboardImageView.setVisibility(View.GONE);
         }
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -369,18 +333,14 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
 
             @Override
             public void onPageSelected(int i) {
-                if (keyboardDataArrayList.get(i).isSelected()) {
-                    ivApply.setImageDrawable(context.getResources().getDrawable(R.drawable.btn_apply));
-                } else {
-
-                    ivApply.setImageDrawable(context.getResources().getDrawable(R.drawable.btn_disable));
-                }
+                if (keyboardDataArrayList.get(i).isSelected())
+                    applyImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.btn_apply));
+                else
+                    applyImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.btn_disable));
             }
 
             @Override
             public void onPageScrollStateChanged(int i) {
-
-
             }
         });
 
@@ -389,19 +349,19 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.linGuide:
+            case R.id.moreTextView:
                 Uri uri = Uri.parse("https://play.google.com/store/apps/developer?id=Codmins+Keyboards");
-                Intent intent6 = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent6);
+                startActivity(new Intent(Intent.ACTION_VIEW, uri));
                 break;
-            case R.id.linPackage:
-                startActivity(new Intent(MainActivity.this, PremiumStoreActivity.class));
+            case R.id.premiumTextView:
+                startActivity(new Intent(context, PremiumStoreActivity.class));
                 break;
-            case R.id.ivApply:
-                if (GlobalClass.KeyboardIsEnabled(MainActivity.this) && GlobalClass.KeyboardIsSet(MainActivity.this)) {
+            case R.id.applyImageView:
+                if (GlobalClass.KeyboardIsEnabled(context) && GlobalClass.KeyboardIsSet(context)) {
                     if (keyboardDataArrayList.get(viewPager.getCurrentItem()).isSelected()) {
                         keyboardDataArrayList.get(viewPager.getCurrentItem()).setSelected(false);
-                        ivApply.setImageDrawable(context.getResources().getDrawable(R.drawable.btn_disable));
+                        applyImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.btn_disable));
+
                         setDefaultValue();
 
                         GlobalClass.selectwallpaper = 0;
@@ -445,7 +405,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                 keyboardDataArrayList.get(i).setSelected(false);
                             }
                         }
-                        ivApply.setImageDrawable(context.getResources().getDrawable(R.drawable.btn_apply));
+                        applyImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.btn_apply));
 
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyboardColorCode());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyboardBgImage());
@@ -462,12 +422,12 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelview());
                         GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBitmapback());
                     }
-                } else {
-                    startActivity(new Intent(MainActivity.this, com.codminskeyboards.universekeyboard.activity.SetKeyboardActivity.class));
-                }
+                } else
+                    startActivity(new Intent(context, SetKeyboardActivity.class));
+
                 GlobalClass.setPreferencesArrayList(context, keyboardDataArrayList);
                 break;
-            case R.id.ivDelete:
+            case R.id.deleteImageView:
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setMessage("Do you want to delete your custom keyboard ?")
                         .setCancelable(true)
@@ -479,8 +439,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 if (keyboardDataArrayList.get(viewPager.getCurrentItem()).isSelected()) {
-
-                                    ivApply.setImageDrawable(context.getResources().getDrawable(R.drawable.btn_disable));
+                                    applyImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.btn_disable));
                                     if (keyboardDataArrayList.size() != 0) {
                                         keyboardDataArrayList.remove(viewPager.getCurrentItem());
                                         GlobalClass.setPreferencesArrayList(context, keyboardDataArrayList);
@@ -489,15 +448,16 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                         keyboardViewPagerAdapter.notifyDataSetChanged();
 
                                     }
+
                                     //setDefaultValue();
                                     if (keyboardDataArrayList.size() != 0) {
-                                        ivNoData.setVisibility(View.GONE);
+                                        createKeyboardImageView.setVisibility(View.GONE);
                                         linKeyboardData.setVisibility(View.VISIBLE);
-                                        ivCreateKeyboard.setVisibility(View.VISIBLE);
+                                        addKeyboardImageView.setVisibility(View.VISIBLE);
                                     } else {
-                                        ivNoData.setVisibility(View.VISIBLE);
+                                        createKeyboardImageView.setVisibility(View.VISIBLE);
                                         linKeyboardData.setVisibility(View.GONE);
-                                        ivCreateKeyboard.setVisibility(View.GONE);
+                                        addKeyboardImageView.setVisibility(View.GONE);
                                     }
 
                                     GlobalClass.selectwallpaper = 0;
@@ -535,7 +495,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                     GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, GlobalClass.keyboardBitmapBack);
 
                                 } else {
-
                                     if (keyboardDataArrayList.size() != 0) {
                                         keyboardDataArrayList.remove(viewPager.getCurrentItem());
                                         GlobalClass.setPreferencesArrayList(context, keyboardDataArrayList);
@@ -543,15 +502,16 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                         viewPager.setAdapter(keyboardViewPagerAdapter);
                                         keyboardViewPagerAdapter.notifyDataSetChanged();
                                     }
+
                                     //setDefaultValue();
                                     if (keyboardDataArrayList.size() != 0) {
-                                        ivNoData.setVisibility(View.GONE);
+                                        createKeyboardImageView.setVisibility(View.GONE);
                                         linKeyboardData.setVisibility(View.VISIBLE);
-                                        ivCreateKeyboard.setVisibility(View.VISIBLE);
+                                        addKeyboardImageView.setVisibility(View.VISIBLE);
                                     } else {
-                                        ivNoData.setVisibility(View.VISIBLE);
+                                        createKeyboardImageView.setVisibility(View.VISIBLE);
                                         linKeyboardData.setVisibility(View.GONE);
-                                        ivCreateKeyboard.setVisibility(View.GONE);
+                                        addKeyboardImageView.setVisibility(View.GONE);
 
                                         GlobalClass.selectwallpaper = 0;
                                         GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
@@ -587,127 +547,53 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
                                         GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, GlobalClass.keyboardBitmapBack);
                                     }
-
                                 }
-                                indicator.setViewPager(viewPager);
+                                circleIndicator.setViewPager(viewPager);
 
                             }
                         });
                 AlertDialog alert = builder.create();
                 alert.show();
                 break;
-            case R.id.ivCreateKeyboard:
+
+            case R.id.addKeyboardImageView:
                 setDefaultValue();
-                Intent intent1 = new Intent(context, CreateKeyboardActivity.class);
-                intent1.putExtra("isEdit", false);
-                startActivity(intent1);
+
+                Intent intent = new Intent(context, CreateKeyboardActivity.class);
+                intent.putExtra("isEdit", false);
+                startActivity(intent);
+
                 GlobalClass.checkStartAd();
+
                 finish();
                 break;
 
-            case R.id.ivNoData:
-                ivCreateKeyboard.performClick();
+            case R.id.createKeyboardImageView:
+                addKeyboardImageView.performClick();
         }
-
     }
 
     public void setDefaultValue() {
-        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_COLOR_CODE, 0) == 0) {
-            GlobalClass.tempKeyboardColorCode = R.color.one;
-        } else {
-            GlobalClass.tempKeyboardColorCode = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_COLOR_CODE, 0);
-        }
+        GlobalClass.tempKeyboardColorCode = GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, R.color.one);
+        GlobalClass.tempKeyboardBgImage = GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, R.drawable.background_1);
+        GlobalClass.tempKeyColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight));
+        GlobalClass.tempKeyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
+        GlobalClass.tempKeyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
+        GlobalClass.tempKeyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
+        GlobalClass.tempFontColor = GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF");
+        GlobalClass.tempFontName = GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "");
+        GlobalClass.soundStatus = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_STATUS, false);
+        GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_NAME, R.raw.balloon_snap);
+        GlobalClass.selectwallpaper = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTWALLPAPER, 0);
+        GlobalClass.selectcolor = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTCOLOR, 0);
+        GlobalClass.selview = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTVIEW, 0);
+        GlobalClass.keyboardBitmapBack = GlobalClass.getPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, null);
 
-        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BG_IMAGE, 0) == 0) {
-            GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
-        } else {
-            GlobalClass.tempKeyboardBgImage = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BG_IMAGE, 0);
-        }
-
-        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_BG_COLOR, 0) == 0) {
-            GlobalClass.tempKeyColor = getResources().getColor(R.color.eight);
-        } else {
-            GlobalClass.tempKeyColor = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_BG_COLOR, 0);
-        }
-
-        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_RADIUS, 18) == 18) {
-            GlobalClass.tempKeyRadius = 18;
-        } else {
-            GlobalClass.tempKeyRadius = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_RADIUS, 18);
-        }
-
-        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_STROKE, 2) == 2) {
-            GlobalClass.tempKeyStroke = 2;
-        } else {
-            GlobalClass.tempKeyStroke = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_STROKE, 2);
-        }
-
-        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_OPACITY, 255) == 255) {
-            GlobalClass.tempKeyOpacity = 255;
-        } else {
-            GlobalClass.tempKeyOpacity = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_OPACITY, 255);
-        }
-
-        if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "") == null) {
-            GlobalClass.tempFontColor = "#FFFFFF";
-        } else {
-            GlobalClass.tempFontColor = GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF");
-        }
-
-        if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_NAME, "") == null) {
-            GlobalClass.tempFontName = "";
-        } else {
-            GlobalClass.tempFontName = GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_NAME, "");
-        }
-
-        if (GlobalClass.getPreferencesBool(getApplicationContext(), GlobalClass.SOUND_STATUS, false) == false) {
-            GlobalClass.soundStatus = false;
-        } else {
-            GlobalClass.soundStatus = GlobalClass.getPreferencesBool(getApplicationContext(), GlobalClass.SOUND_STATUS, false);
-        }
-
-        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SOUND_NAME, 0) == 0) {
-            GlobalClass.soundId = 0;
-        } else {
-            GlobalClass.soundId = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SOUND_NAME, R.raw.balloon_snap);
-        }
-
-        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTWALLPAPER, 0) == 0) {
-            GlobalClass.selectwallpaper = 0;
-        } else {
-            GlobalClass.selectwallpaper = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTWALLPAPER, 0);
-        }
-
-        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTCOLOR, 0) == 0) {
-            GlobalClass.selectcolor = 0;
-        } else {
-            GlobalClass.selectcolor = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTCOLOR, 0);
-        }
-
-        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTVIEW, 0) == 0) {
-            GlobalClass.selview = 0;
-        } else {
-            GlobalClass.selview = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTVIEW, 0);
-        }
-
-        if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEYBOARDBITMAPBACK, null) == null) {
-            GlobalClass.keyboardBitmapBack = null;
-        } else {
-            GlobalClass.keyboardBitmapBack = GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEYBOARDBITMAPBACK, null);
-        }
-
-        if (GlobalClass.selectbgcolor == 0) {
+        if (GlobalClass.selectbgcolor == 0)
             GlobalClass.selectbgcolor = 7;
-        }
-        if (GlobalClass.selectfontcolor == 0) {
+
+        if (GlobalClass.selectfontcolor == 0)
             GlobalClass.selectfontcolor = 1;
-        }
-        if (GlobalClass.selectsounds == 0) {
-            GlobalClass.selectsounds = 0;
-        }
-        if (GlobalClass.selectfonts == 0) {
-            GlobalClass.selectfonts = 0;
-        }
 
         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.tempKeyboardBgImage);
@@ -725,31 +611,6 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
         GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, GlobalClass.keyboardBitmapBack);
     }
 
-    private void askForPermission() {
-        askCompactPermissions(new String[]{PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE, PermissionUtils.Manifest_READ_EXTERNAL_STORAGE}, new PermissionResult() {
-            @Override
-            public void permissionGranted() {
-            }
-
-            @Override
-            public void permissionDenied() {
-            }
-
-            @Override
-            public void permissionForeverDenied() {
-
-            }
-        });
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    boolean doubleBackToExitPressedOnce = false;
-
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -758,10 +619,9 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
-
             @Override
             public void run() {
                 doubleBackToExitPressedOnce = false;
