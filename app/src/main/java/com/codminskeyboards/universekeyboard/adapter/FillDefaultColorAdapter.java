@@ -37,11 +37,10 @@ public class FillDefaultColorAdapter extends RecyclerView.Adapter<FillDefaultCol
 
         holder.ivColorItem.setImageResource(colorArrayList[position]);
 
-        if (position == GlobalClass.selectcolor && GlobalClass.selview == 1) {
+        if (position == GlobalClass.selectcolor && GlobalClass.selview == 1)
             holder.flBg.setVisibility(View.VISIBLE);
-        } else {
+        else
             holder.flBg.setVisibility(View.GONE);
-        }
 
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isColorLock, true)) {
             if (position > 26) {

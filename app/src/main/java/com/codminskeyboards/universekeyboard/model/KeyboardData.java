@@ -2,20 +2,18 @@ package com.codminskeyboards.universekeyboard.model;
 
 public class KeyboardData {
 
-    private String isColor;
     private int keyboardBgImage;
     private int keyboardColorCode;
-    private float keyRadius;
+    private int keyRadius;
     private int keyStroke;
     private int keyOpacity;
     private int keyBgColor;
     private String fontColor;
     private String fontName;
     private boolean isSelected;
-    private String soundStatus;
+    private boolean soundStatus;
     private int soundName;
     private int selectcolor;
-    private int selecttextwallpaper;
     private int selectwallpaper;
     private int selview;
     private String bitmapback;
@@ -36,14 +34,6 @@ public class KeyboardData {
         isSelected = selected;
     }
 
-    public String getIsColor() {
-        return isColor;
-    }
-
-    public void setIsColor(String isColor) {
-        this.isColor = isColor;
-    }
-
     public int getKeyboardBgImage() {
         return keyboardBgImage;
     }
@@ -60,11 +50,11 @@ public class KeyboardData {
         this.keyboardColorCode = keyboardColorCode;
     }
 
-    public float getKeyRadius() {
+    public int getKeyRadius() {
         return keyRadius;
     }
 
-    public void setKeyRadius(Float keyRadius) {
+    public void setKeyRadius(int keyRadius) {
         this.keyRadius = keyRadius;
     }
 
@@ -108,11 +98,11 @@ public class KeyboardData {
         this.fontName = fontName;
     }
 
-    public String getSoundStatus() {
+    public boolean getSoundStatus() {
         return soundStatus;
     }
 
-    public void setSoundStatus(String soundStatus) {
+    public void setSoundStatus(boolean soundStatus) {
         this.soundStatus = soundStatus;
     }
 
@@ -130,14 +120,6 @@ public class KeyboardData {
 
     public void setSelectcolor(int selectcolor) {
         this.selectcolor = selectcolor;
-    }
-
-    public int getSelecttextwallpaper() {
-        return selecttextwallpaper;
-    }
-
-    public void setSelecttextwallpaper(int selecttextwallpaper) {
-        this.selecttextwallpaper = selecttextwallpaper;
     }
 
     public int getSelectwallpaper() {
@@ -159,7 +141,6 @@ public class KeyboardData {
     @Override
     public String toString() {
         return "KeyboardData{" +
-                "isColor='" + isColor + '\'' +
                 ", keyboardBgImage=" + keyboardBgImage +
                 ", keyboardColorCode=" + keyboardColorCode +
                 ", keyRadius='" + keyRadius + '\'' +

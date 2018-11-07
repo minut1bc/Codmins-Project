@@ -71,7 +71,7 @@ public class LatinKeyboardView extends KeyboardView {
 
         int fontColor = Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF"));
         int keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
-        float keyRadius = GlobalClass.getPreferencesFloat(context, GlobalClass.KEY_RADIUS, 18);
+        float keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
         int keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
         String fontName = GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "");
         int tint = 0x77000000;

@@ -207,7 +207,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusFour.setBorderWidth(0);
                     radiusFive.setBorderWidth(5);
                     radiusFive.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.setPreferencesFloat(context, GlobalClass.KEY_RADIUS, 11);
+                    GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, 11);
                     GlobalClass.tempKeyRadius = 34;
                     setRadius();
                     break;
@@ -261,6 +261,7 @@ public class KeyDesignFragment extends Fragment {
         ivStrokeFive.setOnClickListener(onClickListener);
 
         setRadius();
+
         getColorFromDatabase();
 
         return keyDesignView;
@@ -282,7 +283,7 @@ public class KeyDesignFragment extends Fragment {
     }
 
     public void setRadius() {
-        switch ((int) GlobalClass.tempKeyRadius) {
+        switch (GlobalClass.tempKeyRadius) {
             case 0:
                 radiusOne.setBorderWidth(5);
                 radiusOne.setBorderColor(getResources().getColor(R.color.pink));

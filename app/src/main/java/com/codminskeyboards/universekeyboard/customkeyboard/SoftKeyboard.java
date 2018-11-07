@@ -188,7 +188,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         vibrationStrength = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.vibrationStrength, 0);
 
-        GlobalClass.tempSoundName = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SOUND_NAME, R.raw.balloon_snap);
+        GlobalClass.soundId = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SOUND_NAME, R.raw.balloon_snap);
 
         emojiArrayList = getResources().getStringArray(R.array.smile);
         fillEmojiAdapter = new FillEmojiAdapter(getApplicationContext(), emojiArrayList);
@@ -222,7 +222,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
                 npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
 
-                npd1.setCornerRadius(GlobalClass.getPreferencesFloat(getApplicationContext(), GlobalClass.KEY_RADIUS, 18));
+                npd1.setCornerRadius(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_RADIUS, 18));
                 npd1.setAlpha(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_OPACITY, 255));
 
                 switch (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_STROKE, 2)) {
@@ -1093,16 +1093,15 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
     public void onPress(int primaryCode) {
 
-        GlobalClass.printLog("SoftKeyboard", "---------------onPress---------------" + GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.SOUND_STATUS, "off"));
+        GlobalClass.printLog("SoftKeyboard", "---------------onPress---------------" + String.valueOf(GlobalClass.getPreferencesBool(getApplicationContext(), GlobalClass.SOUND_STATUS, false)));
 
-        Log.e("KEYBOARD", "hello" + GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.SOUND_STATUS, "off"));
+        Log.e("KEYBOARD", "hello" + String.valueOf(GlobalClass.getPreferencesBool(getApplicationContext(), GlobalClass.SOUND_STATUS, false)));
 
-        if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.SOUND_STATUS, "off").equals("on")) {
-            //remove this comment for the play key tone
+        if (GlobalClass.getPreferencesBool(getApplicationContext(), GlobalClass.SOUND_STATUS, false))
             performKeySound();
-        }
 
-        performKeyVibration(vibrationStrength);
+        if (vibrationStrength != 0)
+            performKeyVibration(vibrationStrength);
 
         // Disable preview key on Shift, Delete, Symbol, Language Switch, Space and Enter.
         if (primaryCode == -1 || primaryCode == -5 || primaryCode == -2 || primaryCode == -101 || primaryCode == 32 || primaryCode == 10)
@@ -1175,7 +1174,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
 
-            soundID = soundPool.load(this, GlobalClass.tempSoundName, 1);
+            soundID = soundPool.load(this, GlobalClass.soundId, 1);
             soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
                 public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {

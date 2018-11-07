@@ -9,6 +9,7 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,12 +87,12 @@ public class SoundFragment extends Fragment {
         gvSoundEffect.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 GlobalClass.selectsounds = position;
-                GlobalClass.tempSoundName = newSoundDataArrayList.get(position).getResourceId();
+                GlobalClass.soundId = newSoundDataArrayList.get(position).getResourceId();
                 if (position != 0) {
                     performKeySound();
-                    GlobalClass.tempSoundStatus = "on";
+                    GlobalClass.soundStatus = true;
                 } else {
-                    GlobalClass.tempSoundStatus = "off";
+                    GlobalClass.soundStatus = false;
                 }
                 fillSoundEffectAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
@@ -137,7 +138,8 @@ public class SoundFragment extends Fragment {
                     soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 
                 // audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
-                final int soundId = soundPool.load(context, GlobalClass.tempSoundName, 1);
+                final int soundId = soundPool.load(context, GlobalClass.soundId, 1);
+                Log.e("baaa", String.valueOf(GlobalClass.soundId));
                 soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                     @Override
                     public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {

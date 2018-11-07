@@ -45,7 +45,6 @@ public class SplashActivity extends ActivityManagePermission {
                             startActivity(new Intent(SplashActivity.this, SetKeyboardActivity.class));
                             finish();
                         }
-
                     }
 
                     @Override

@@ -15,10 +15,9 @@ import android.provider.Settings;
 import android.view.inputmethod.InputMethodManager;
 
 import com.codminskeyboards.universekeyboard.R;
-import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
 import com.codminskeyboards.universekeyboard.customkeyboard.SoftKeyboard;
 import com.codminskeyboards.universekeyboard.model.KeyboardData;
-import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -31,7 +30,6 @@ public class GlobalClass {
     private static SharedPreferences preferences;
     public static int tempKeyOpacity = 0;
 
-    public static final String IS_COLOR = "isColor";
     public static final String KEYBOARD_BG_IMAGE = "keyboardBgImage";
     public static final String KEYBOARD_COLOR_CODE = "keyboardColorCode";
 
@@ -61,7 +59,7 @@ public class GlobalClass {
     public static final int RC_REQUEST_FONTS = 505;
     public static final int RC_REQUEST_SOUNDS = 506;
 
-    public static int selview = 2;
+    public static int selview = 0;
 
     public static String REMOVE_AD = "universekeyboard.inapp.removead";
     public static String UNLOCK_TEXUAL_COLOR_BG = "universekeyboard.inapp.texualcolorbg";
@@ -70,16 +68,15 @@ public class GlobalClass {
     public static String UNLOCK_FONTS = "universekeyboard.inapp.fonts";
     public static String UNLOCK_SOUNDS = "universekeyboard.inapp.sounds";
 
-    public static String tempIsColor = null;
     public static String tempFontColor = null;
     public static String tempFontName = null;
-    public static String tempSoundStatus = null;
-    public static int tempSoundName = 0;
+    public static boolean soundStatus = false;
+    public static int soundId = 0;
     public static int tempKeyboardBgImage = 0;
     public static int tempKeyboardColorCode = 0;
     public static int tempKeyColor = 0;
     public static int tempKeyStroke = 0;
-    public static float tempKeyRadius = 0;
+    public static int tempKeyRadius = 0;
     public static int selectcolor = 0;
     public static int selectwallpaper = 0;
     public static int selectbgcolor = 7;
@@ -95,24 +92,28 @@ public class GlobalClass {
     public static String key_isAdLock = "isAdLock";
     public static String key_isSoundLock = "isSoundLock";
     public static String key_isThemeLock = "isThemeLock";
-
     public static String vibrationStrength = "vibrationStrength";
 
     public static String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqgyXolVCkrSdFsdembldwrpGHmXPSvvA7mdegRUzufvziVIS9JtVnGS20EbmFTKcPLzyfwoXPSNbwvmKHJg7RnoiqcrQ4QbtkhsHmMO7paA+akHFTPQGLHN6TW5invO33A3VBu/hxMTj9jHr9jr0tGJWj5cWITc2BkUfHcD8SFkSUca/ruQRJg3DTWMqMRqSnTeGccQJBRx+sCU8MxYlp3BwwOyvEdmeCFsnhPLHRmk3MXv/JgVr3oEQylakq3PkNvDVXbO5GHRYR8bKD2YXVZ+56FsCxT4t3sQXCQQ84zp1tKN/nFm9pDAlXqEf9T1MQFZVriBzI8XsZCraLoVrVwIDAQAB";
 
+    private static InterstitialAd interstitialAd;
+
+    public GlobalClass(Context context, InterstitialAd interstitialAd) {
+        GlobalClass.interstitialAd = interstitialAd;
+
+        preferences = context.getSharedPreferences(context.getPackageName(), 0);
+        editor = preferences.edit();
+    }
+
     public static void checkStartAd() {
         countAds++;
-        if (countAds >= 10) {
+        if (countAds > 9) {
             countAds = 0;
-            if (CreateKeyboardActivity.getInstance() != null && CreateKeyboardActivity.getInstance().interstitialAd != null) {
-                CreateKeyboardActivity.getInstance().interstitialAd.loadAd(new AdRequest.Builder().build());
-                CreateKeyboardActivity.getInstance().startAds();
-                CreateKeyboardActivity.getInstance().setAdMob();
-            }
+            if (interstitialAd.isLoaded())
+                interstitialAd.show();
         }
 
     }
-
 
     public GlobalClass(Context context) {
         preferences = context.getSharedPreferences(context.getPackageName(), 0);
@@ -129,21 +130,12 @@ public class GlobalClass {
         editor.commit();
     }
 
-    public static void setPreferencesFloat(Context context, String key, float value) {
-        editor.putFloat(key, value);
-        editor.commit();
-    }
-
     public static String getPreferencesString(Context context, String key, String defValue) {
         return preferences.getString(key, defValue);
     }
 
     public static int getPreferencesInt(Context context, String key, int defValue) {
         return preferences.getInt(key, defValue);
-    }
-
-    public static float getPreferencesFloat(Context context, String key, float defValue) {
-        return preferences.getFloat(key, defValue);
     }
 
     public static void setPreferencesBool(Context context, String key, boolean value) {

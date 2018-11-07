@@ -14,20 +14,15 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.adapter.MyFragmentPagerAdapter;
 import com.codminskeyboards.universekeyboard.model.KeyboardData;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
 import java.io.IOException;
@@ -36,32 +31,21 @@ import java.util.ArrayList;
 public class CreateKeyboardActivity extends AppCompatActivity implements View.OnClickListener {
 
     public InterstitialAd interstitialAd;
-    public InterstitialAd interstitial;
     private ImageView homeImageView;
 
     String[] fontArray = new String[0];
     private TextView titleTextView;
-
-    static CreateKeyboardActivity createKeyboardActivity;
     private Context context;
     private ConstraintLayout keysLayout;
     private boolean isEdit = false;
     private int editPosition;
     ArrayList<KeyboardData> keyboardDataArrayList = new ArrayList<>();
 
-    //TODO: remove need for getInstance()
-    public static CreateKeyboardActivity getInstance() {
-        return createKeyboardActivity;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         context = CreateKeyboardActivity.this;
-        createKeyboardActivity = this;
-
-        GlobalClass globalClass = new GlobalClass(context);
 
         setContentView(R.layout.activity_create_keyboard);
 
@@ -82,11 +66,16 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
         tabLayout.setupWithViewPager(fragmentViewPager);
 
-        if (tabLayout.getTabCount() >= 4) {
-            tabLayout.getTabAt(0).setIcon(R.drawable.ic_wallpaper);
-            tabLayout.getTabAt(1).setIcon(R.drawable.ic_keydesign);
-            tabLayout.getTabAt(2).setIcon(R.drawable.ic_font_style);
-            tabLayout.getTabAt(3).setIcon(R.drawable.ic_soundeffect);
+        TabLayout.Tab firstTab = tabLayout.getTabAt(0);
+        TabLayout.Tab secondTab = tabLayout.getTabAt(1);
+        TabLayout.Tab thirdTab = tabLayout.getTabAt(2);
+        TabLayout.Tab fourthTab = tabLayout.getTabAt(3);
+
+        if (firstTab != null && secondTab != null && thirdTab != null && fourthTab != null) {
+            firstTab.setIcon(R.drawable.ic_wallpaper);
+            secondTab.setIcon(R.drawable.ic_keydesign);
+            thirdTab.setIcon(R.drawable.ic_font_style);
+            fourthTab.setIcon(R.drawable.ic_soundeffect);
         }
 
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(fragmentViewPager) {
@@ -164,68 +153,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     }
 
     public void startAds() {
-        if (interstitialAd.isLoaded()) {
+        if (interstitialAd.isLoaded())
             interstitialAd.show();
-        }
-        interstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-                Log.i("Ads", "onAdLoaded");
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                // Code to be executed when an ad request fails.
-                Log.i("Ads", "onAdFailedToLoad");
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when the ad is displayed.
-                Log.i("Ads", "onAdOpened");
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-                Log.i("Ads", "onAdLeftApplication");
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when when the interstitial ad is closed.
-                Log.i("Ads", "onAdClosed");
-
-            }
-        });
-    }
-
-    public void setAdMob() {
-        final LinearLayout adContainer = findViewById(R.id.adContainer);
-        AdView adView = new AdView(context);
-
-        interstitial = new InterstitialAd(context);
-        interstitial.setAdUnitId(getResources().getString(R.string.interstitial_full_screen));
-        interstitial.loadAd(new AdRequest.Builder().build());
-
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                adContainer.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAdClosed() {
-                adContainer.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                adContainer.setVisibility(View.GONE);
-            }
-        });
     }
 
     private int getColorPos(int colorCode) {
@@ -264,6 +193,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         interstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_full_screen));
         interstitialAd.loadAd(new AdRequest.Builder().build());
 
+        GlobalClass globalClass = new GlobalClass(context, interstitialAd);
+
         homeImageView = findViewById(R.id.homeImageView);
         TextView applyTextView = findViewById(R.id.applyTextView);
         titleTextView = findViewById(R.id.titleTextView);
@@ -300,15 +231,15 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 GlobalClass.selview = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTVIEW, 0);
             }
 
-            GlobalClass.tempKeyRadius = GlobalClass.getPreferencesFloat(context, GlobalClass.KEY_RADIUS, 18);
+            GlobalClass.tempKeyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
             GlobalClass.tempKeyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
             GlobalClass.tempKeyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
             GlobalClass.tempFontName = GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "Abel_Regular.ttf");
-            GlobalClass.tempSoundStatus = GlobalClass.getPreferencesString(context, GlobalClass.SOUND_STATUS, "off");
-            GlobalClass.tempSoundName = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_NAME, R.raw.balloon_snap);
+            GlobalClass.soundStatus = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_STATUS, false);
+            GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_NAME, R.raw.balloon_snap);
             GlobalClass.selectbgcolor = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, 7));
             GlobalClass.selectfontcolor = getColorPos(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")));
-            GlobalClass.selectsounds = getSoundPos(GlobalClass.tempSoundName);
+            GlobalClass.selectsounds = getSoundPos(GlobalClass.soundId);
 
             String remove = "fonts/";
             String fontName = removeWords(GlobalClass.tempFontName, remove);
@@ -318,8 +249,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.selectwallpaper = 0;
             GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
             GlobalClass.selectcolor = 0;
-            GlobalClass.selview = 2;
-            GlobalClass.tempIsColor = "no";
+            GlobalClass.selview = 0;
             GlobalClass.tempKeyboardColorCode = 0;
             GlobalClass.keyboardBitmapBack = null;
             GlobalClass.tempFontColor = "#FFFFFF";
@@ -328,8 +258,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.tempKeyStroke = 1;                                        // ranges between (1, 2, 3, 4, 5)
             GlobalClass.tempKeyOpacity = 64;                                      // ranges between (0, 64, 128, 192, 255)
             GlobalClass.tempFontName = "";
-            GlobalClass.tempSoundStatus = "off";
-            GlobalClass.tempSoundName = 0;
+            GlobalClass.soundStatus = false;
+            GlobalClass.soundId = 0;
             GlobalClass.selectbgcolor = 7;
             GlobalClass.selectfontcolor = 1;
             GlobalClass.selectsounds = 0;
@@ -348,7 +278,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
             case R.id.applyTextView:
                 KeyboardData keyboardData = new KeyboardData();
-                keyboardData.setIsColor(GlobalClass.tempIsColor);
                 keyboardData.setKeyboardBgImage(GlobalClass.tempKeyboardBgImage);
                 keyboardData.setKeyboardColorCode(GlobalClass.tempKeyboardColorCode);
                 keyboardData.setKeyBgColor(GlobalClass.tempKeyColor);
@@ -357,8 +286,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 keyboardData.setKeyOpacity(GlobalClass.tempKeyOpacity);
                 keyboardData.setFontColor(GlobalClass.tempFontColor);
                 keyboardData.setFontName(GlobalClass.tempFontName);
-                keyboardData.setSoundStatus(GlobalClass.tempSoundStatus);
-                keyboardData.setSoundName(GlobalClass.tempSoundName);
+                keyboardData.setSoundStatus(GlobalClass.soundStatus);
+                keyboardData.setSoundName(GlobalClass.soundId);
                 keyboardData.setSelectwallpaper(GlobalClass.selectwallpaper);
                 keyboardData.setSelectcolor(GlobalClass.selectcolor);
                 keyboardData.setSelview(GlobalClass.selview);

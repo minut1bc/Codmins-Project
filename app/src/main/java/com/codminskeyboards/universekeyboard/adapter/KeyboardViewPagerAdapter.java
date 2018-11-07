@@ -149,7 +149,6 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
 
-                GlobalClass.tempIsColor = keyboardArrayList.get(position).getIsColor();
                 GlobalClass.tempKeyboardBgImage = keyboardArrayList.get(position).getKeyboardBgImage();
                 GlobalClass.tempKeyboardColorCode = keyboardArrayList.get(position).getKeyboardColorCode();
                 GlobalClass.tempKeyColor = keyboardArrayList.get(position).getKeyBgColor();
@@ -158,23 +157,22 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 GlobalClass.tempKeyOpacity = keyboardArrayList.get(position).getKeyOpacity();
                 GlobalClass.tempFontColor = keyboardArrayList.get(position).getFontColor();
                 GlobalClass.tempFontName = keyboardArrayList.get(position).getFontName();
-                GlobalClass.tempSoundStatus = keyboardArrayList.get(position).getSoundStatus();
-                GlobalClass.tempSoundName = keyboardArrayList.get(position).getSoundName();
+                GlobalClass.soundStatus = keyboardArrayList.get(position).getSoundStatus();
+                GlobalClass.soundId = keyboardArrayList.get(position).getSoundName();
                 GlobalClass.selectwallpaper = keyboardArrayList.get(position).getSelectwallpaper();
                 GlobalClass.selectcolor = keyboardArrayList.get(position).getSelectcolor();
                 GlobalClass.selview = keyboardArrayList.get(position).getSelview();
                 GlobalClass.keyboardBitmapBack = keyboardArrayList.get(position).getBitmapback();
 
-                GlobalClass.setPreferencesString(context, GlobalClass.IS_COLOR, keyboardArrayList.get(position).getIsColor());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, keyboardArrayList.get(position).getKeyboardColorCode());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, keyboardArrayList.get(position).getKeyboardBgImage());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, keyboardArrayList.get(position).getKeyBgColor());
-                GlobalClass.setPreferencesFloat(context, GlobalClass.KEY_RADIUS, keyboardArrayList.get(position).getKeyRadius());
+                GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, keyboardArrayList.get(position).getKeyRadius());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardArrayList.get(position).getKeyStroke());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardArrayList.get(position).getKeyOpacity());
                 GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, keyboardArrayList.get(position).getFontColor());
                 GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, keyboardArrayList.get(position).getFontName());
-                GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, keyboardArrayList.get(position).getSoundStatus());
+                GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardArrayList.get(position).getSoundStatus());
                 GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, keyboardArrayList.get(position).getSoundName());
                 GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, keyboardArrayList.get(position).getSelectwallpaper());
                 GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, keyboardArrayList.get(position).getSelectcolor());

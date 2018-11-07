@@ -27,7 +27,7 @@ public class WallpaperFragment extends Fragment {
     FillDefaultColorAdapter fillDefaultColorAdapter;
 
     RecyclerView rvDefaultColor;
-    ImageView previewKeyboardBackgroundImageView;
+    ImageView backgroundImageView;
     GridView gvColor;
     Context context;
 
@@ -42,7 +42,7 @@ public class WallpaperFragment extends Fragment {
         rvDefaultColor.setNestedScrollingEnabled(false);
         rvDefaultColor.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
-        previewKeyboardBackgroundImageView = getActivity().findViewById(R.id.backgroundImageView);
+        backgroundImageView = getActivity().findViewById(R.id.backgroundImageView);
         gvColor = wallpaperFragmentView.findViewById(R.id.gvColor);
 
         setColorGridView();
@@ -73,15 +73,13 @@ public class WallpaperFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, final int position, long id) {
 
                 try {
-                    previewKeyboardBackgroundImageView.setImageResource(GlobalClass.thumbArray[position]);
+                    backgroundImageView.setImageResource(GlobalClass.thumbArray[position]);
                 } catch (Exception ignored) {
                 }
 
                 GlobalClass.selectwallpaper = position;
-                GlobalClass.selview = 2;
-                GlobalClass.setPreferencesString(context, GlobalClass.IS_COLOR, "no");
+                GlobalClass.selview = 0;
                 GlobalClass.tempKeyboardBgImage = GlobalClass.thumbArray[position];
-                GlobalClass.tempIsColor = "no";
                 fillWallpaperColorAdapter.notifyDataSetChanged();
                 fillDefaultColorAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
@@ -99,10 +97,9 @@ public class WallpaperFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        previewKeyboardBackgroundImageView.setImageResource(GlobalClass.colorsHorizontal[position]);
+                        backgroundImageView.setImageResource(GlobalClass.colorsHorizontal[position]);
                         GlobalClass.selectcolor = position;
                         GlobalClass.selview = 1;
-                        GlobalClass.setPreferencesString(context, GlobalClass.IS_COLOR, "yes");
                         GlobalClass.tempKeyboardBgImage = GlobalClass.colorsHorizontal[position];
                         fillDefaultColorAdapter.notifyDataSetChanged();
                         fillWallpaperColorAdapter.notifyDataSetChanged();

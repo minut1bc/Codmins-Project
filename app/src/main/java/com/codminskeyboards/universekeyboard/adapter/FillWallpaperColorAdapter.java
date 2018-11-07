@@ -53,12 +53,10 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
 
         holder.ivColorItem.setImageResource(colorWallpaperArrayList[position]);
 
-        if (position == GlobalClass.selectwallpaper && GlobalClass.selview == 2) {
-            GlobalClass.tempIsColor = "no";
+        if (position == GlobalClass.selectwallpaper && GlobalClass.selview == 0)
             holder.flBg.setVisibility(View.VISIBLE);
-        } else {
+        else
             holder.flBg.setVisibility(View.GONE);
-        }
 
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isWallPaperLock, true)) {
             if (position > 22) {
