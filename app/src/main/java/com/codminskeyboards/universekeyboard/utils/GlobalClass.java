@@ -29,7 +29,7 @@ public class GlobalClass {
 
     private static SharedPreferences.Editor editor;
     private static SharedPreferences preferences;
-    private static int cntads = 0;
+    public static int tempKeyOpacity = 0;
 
     public static final String IS_COLOR = "isColor";
     public static final String KEYBOARD_BG_IMAGE = "keyboardBgImage";
@@ -71,9 +71,6 @@ public class GlobalClass {
     public static String UNLOCK_SOUNDS = "universekeyboard.inapp.sounds";
 
     public static String tempIsColor = null;
-    public static String tempKeyRadius = null;
-    public static String tempKeyStroke = null;
-    public static String tempKeyOpacity = null;
     public static String tempFontColor = null;
     public static String tempFontName = null;
     public static String tempSoundStatus = null;
@@ -81,12 +78,15 @@ public class GlobalClass {
     public static int tempKeyboardBgImage = 0;
     public static int tempKeyboardColorCode = 0;
     public static int tempKeyColor = 0;
+    public static int tempKeyStroke = 0;
+    public static float tempKeyRadius = 0;
     public static int selectcolor = 0;
     public static int selectwallpaper = 0;
     public static int selectbgcolor = 7;
     public static int selectsounds = 0;
     public static int selectfonts = 0;
     public static int selectfontcolor = 1;
+    private static int countAds = 0;
     public static String keyboardBitmapBack = null;
 
     public static String key_isWallPaperLock = "isWallPaperLock";
@@ -101,12 +101,12 @@ public class GlobalClass {
     public static String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqgyXolVCkrSdFsdembldwrpGHmXPSvvA7mdegRUzufvziVIS9JtVnGS20EbmFTKcPLzyfwoXPSNbwvmKHJg7RnoiqcrQ4QbtkhsHmMO7paA+akHFTPQGLHN6TW5invO33A3VBu/hxMTj9jHr9jr0tGJWj5cWITc2BkUfHcD8SFkSUca/ruQRJg3DTWMqMRqSnTeGccQJBRx+sCU8MxYlp3BwwOyvEdmeCFsnhPLHRmk3MXv/JgVr3oEQylakq3PkNvDVXbO5GHRYR8bKD2YXVZ+56FsCxT4t3sQXCQQ84zp1tKN/nFm9pDAlXqEf9T1MQFZVriBzI8XsZCraLoVrVwIDAQAB";
 
     public static void checkStartAd() {
-        cntads++;
-        if (cntads >= 10) {
-            cntads = 0;
-            if (CreateKeyboardActivity.getInstance() != null && CreateKeyboardActivity.getInstance().mInterstitialAd != null) {
-                CreateKeyboardActivity.getInstance().mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                CreateKeyboardActivity.getInstance().strtaDS();
+        countAds++;
+        if (countAds >= 10) {
+            countAds = 0;
+            if (CreateKeyboardActivity.getInstance() != null && CreateKeyboardActivity.getInstance().interstitialAd != null) {
+                CreateKeyboardActivity.getInstance().interstitialAd.loadAd(new AdRequest.Builder().build());
+                CreateKeyboardActivity.getInstance().startAds();
                 CreateKeyboardActivity.getInstance().setAdMob();
             }
         }
@@ -129,6 +129,11 @@ public class GlobalClass {
         editor.commit();
     }
 
+    public static void setPreferencesFloat(Context context, String key, float value) {
+        editor.putFloat(key, value);
+        editor.commit();
+    }
+
     public static String getPreferencesString(Context context, String key, String defValue) {
         return preferences.getString(key, defValue);
     }
@@ -137,17 +142,17 @@ public class GlobalClass {
         return preferences.getInt(key, defValue);
     }
 
-    public static void setPrefrenceBoolean(Context context, String key, boolean value) {
+    public static float getPreferencesFloat(Context context, String key, float defValue) {
+        return preferences.getFloat(key, defValue);
+    }
+
+    public static void setPreferencesBool(Context context, String key, boolean value) {
         editor.putBoolean(key, value);
         editor.commit();
     }
 
-    public static boolean getPrefrenceBoolean(Context context, String key, boolean defValue) {
+    public static boolean getPreferencesBool(Context context, String key, boolean defValue) {
         return preferences.getBoolean(key, defValue);
-    }
-
-    public static String getPrefrenceString(Context context, String key, String defValue) {
-        return preferences.getString(key, defValue);
     }
 
     public static void setPreferencesArrayList(Context context, ArrayList<KeyboardData> keyboardDataArrayList) {

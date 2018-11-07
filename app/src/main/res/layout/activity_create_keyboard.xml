@@ -6,19 +6,19 @@
     android:background="@color/colorPrimary">
 
     <ImageView
-        android:id="@+id/ivHome"
+        android:id="@+id/homeImageView"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/home_image_view"
         android:padding="14dp"
         android:src="@drawable/ic_home"
         app:layout_constraintBottom_toTopOf="@id/tabLayout"
-        app:layout_constraintEnd_toStartOf="@id/txtMainTitle"
+        app:layout_constraintEnd_toStartOf="@id/titleTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtMainTitle"
+        android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/gothic_bold"
@@ -26,37 +26,37 @@
         android:text="@string/app_name"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivHome"
-        app:layout_constraintEnd_toStartOf="@+id/txtApply"
-        app:layout_constraintStart_toEndOf="@+id/ivHome"
-        app:layout_constraintTop_toTopOf="@+id/ivHome" />
+        app:layout_constraintBottom_toBottomOf="@+id/homeImageView"
+        app:layout_constraintEnd_toStartOf="@+id/applyTextView"
+        app:layout_constraintStart_toEndOf="@+id/homeImageView"
+        app:layout_constraintTop_toTopOf="@+id/homeImageView" />
 
     <TextView
-        android:id="@+id/txtApply"
+        android:id="@+id/applyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/gothic_bold"
         android:padding="10dp"
-        android:text="Apply"
+        android:text="@string/apply"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivHome"
+        app:layout_constraintBottom_toBottomOf="@+id/homeImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/txtMainTitle"
-        app:layout_constraintTop_toTopOf="@+id/ivHome" />
+        app:layout_constraintStart_toEndOf="@id/titleTextView"
+        app:layout_constraintTop_toTopOf="@+id/homeImageView" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        app:layout_constraintBottom_toTopOf="@id/viewPagerCreateKeyboardActivity"
+        app:layout_constraintBottom_toTopOf="@id/fragmentViewPager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivHome" />
+        app:layout_constraintTop_toBottomOf="@+id/homeImageView" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewPagerCreateKeyboardActivity"
+        android:id="@+id/fragmentViewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/previewKeyboardLayout"
@@ -68,10 +68,11 @@
         android:id="@+id/previewKeyboardLayout"
         layout="@layout/layout_keyboard"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="196dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewPagerCreateKeyboardActivity" />
+        app:layout_constraintTop_toBottomOf="@id/fragmentViewPager" />
 
 </android.support.constraint.ConstraintLayout>

@@ -25,7 +25,7 @@ public class MyDownloadService extends Service {
     private DatabaseHelper dbHelper;
 
     public MyDownloadService() {
-        GlobalClass.printLog("start service", "----MyDownloadService---construcor-------");
+        GlobalClass.printLog("start service", "----MyDownloadService---constructor-------");
     }
 
     @Override
@@ -285,10 +285,10 @@ public class MyDownloadService extends Service {
             cursor = dbHelper.getTableDataById(DatabaseHelper.TABLE_COLOR_WALLPAPER, DatabaseHelper.KEY_COLOR_WALLPAPER_ID, colorWallpaperArrayList.get(i).getId() + "");
 
             if (cursor != null && cursor.getCount() > 0) {
-                //  Log.e("--------------", "corsor:-----------if--");
+                //  Log.e("--------------", "cursor:-----------if--");
                 dbHelper.updateRowData(DatabaseHelper.TABLE_COLOR_WALLPAPER, values, selection, selectionArgs);
             } else {
-                //Log.e("--------------", "corsor:-----------else--");
+                //Log.e("--------------", "cursor:-----------else--");
                 dbHelper.insertData(DatabaseHelper.TABLE_COLOR_WALLPAPER, values);
             }
 
@@ -313,10 +313,10 @@ public class MyDownloadService extends Service {
             cursor = dbHelper.getTableDataById(DatabaseHelper.TABLE_TEXTUAL_WALLPAPER, DatabaseHelper.KEY_TEXTUAL_WALLPAPER_ID, colorWallpaperArrayList.get(i).getId() + "");
 
             if (cursor != null && cursor.getCount() > 0) {
-                Log.e("--------------", "corsor:-----------if--");
+                Log.e("--------------", "cursor:-----------if--");
                 dbHelper.updateRowData(DatabaseHelper.TABLE_TEXTUAL_WALLPAPER, values, selection, selectionArgs);
             } else {
-                Log.e("--------------", "corsor:-----------else--");
+                Log.e("--------------", "cursor:-----------else--");
                 dbHelper.insertData(DatabaseHelper.TABLE_TEXTUAL_WALLPAPER, values);
             }
 

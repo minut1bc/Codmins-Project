@@ -711,24 +711,24 @@ public class IabHelper {
 
                 if (sku.contains(GlobalClass.REMOVE_AD)) {
                     Log.e("--if----------", "---HELPER CLASS--------" + sku);
-                    GlobalClass.setPrefrenceBoolean(mContext, mContext.getString(R.string.remove_ads_purchased), true);
+                    GlobalClass.setPreferencesBool(mContext, mContext.getString(R.string.remove_ads_purchased), true);
                 } else if (sku.contains(GlobalClass.UNLOCK_TEXUAL_COLOR_BG)) {
                     Log.e("--else if--1----------", "---HELPER CLASS--------" + sku);
-                    GlobalClass.setPrefrenceBoolean(mContext, mContext.getString(R.string.texual_color_purchased), true);
+                    GlobalClass.setPreferencesBool(mContext, mContext.getString(R.string.texual_color_purchased), true);
                 } else if (sku.contains(GlobalClass.UNLOCK_THEMES_SLOTES)) {
                     Log.e("--else if--2---------", "---HELPER CLASS--------" + sku);
-                    GlobalClass.setPrefrenceBoolean(mContext, mContext.getString(R.string.theme_slot_purchased), true);
+                    GlobalClass.setPreferencesBool(mContext, mContext.getString(R.string.theme_slot_purchased), true);
                 } else if (sku.contains(GlobalClass.UNLOCK_COLORS)) {
                     Log.e("--else if--3----------", "---HELPER CLASS--------" + sku);
-                    GlobalClass.setPrefrenceBoolean(mContext, mContext.getString(R.string.colors_purchased), true);
+                    GlobalClass.setPreferencesBool(mContext, mContext.getString(R.string.colors_purchased), true);
                 }
                 else if (sku.contains(GlobalClass.UNLOCK_FONTS)) {
                     Log.e("--else if--3----------", "---HELPER CLASS--------" + sku);
-                    GlobalClass.setPrefrenceBoolean(mContext, mContext.getString(R.string.fonts_purchased), true);
+                    GlobalClass.setPreferencesBool(mContext, mContext.getString(R.string.fonts_purchased), true);
                 }
                 else if (sku.contains(GlobalClass.UNLOCK_SOUNDS)) {
                     Log.e("--else if--3----------", "---HELPER CLASS--------" + sku);
-                    GlobalClass.setPrefrenceBoolean(mContext, mContext.getString(R.string.sounds_purchased), true);
+                    GlobalClass.setPreferencesBool(mContext, mContext.getString(R.string.sounds_purchased), true);
                 }
 
 

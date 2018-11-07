@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appName "Universe Keyboard">]>
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Change according to each app name --><!DOCTYPE resources [<!ENTITY appName "Universe Keyboard">]>
 
 <resources>
     <!-- Title for Latin keyboard  -->
@@ -12,6 +14,7 @@
     <string name="label_next_key">Next</string>
     <string name="label_send_key">Send</string>
     <string name="rta_dialog_title">Rate &appName;</string>
+    <string name="apply">Apply</string>
 
     <!-- Labels for subtype -->
     <string name="label_subtype_generic">%s</string>
@@ -23,7 +26,6 @@
     <string name="language_selection_title">Input languages</string>
     <string name="select_language">Select input languages</string>
 
-    <string name="abc">ABC</string>
     <string name="backgrounds">Backgrounds</string>
     <string name="themes_slots">Themes Slots</string>
     <string name="colors">Colors</string>
@@ -40,8 +42,6 @@
     <string name="enable_keyboard">Step 1: Enable &appName;</string>
     <string name="switch_keyboard">Step 2: Switch to &appName;</string>
 
-    <string name="android_inst">android_inst</string>
-
     <!--live id-->
     <!-- <string name="banner_home_footer">ca-app-pub-1041813022220163/8312067772</string>
      <string name="interstitial_full_screen">ca-app-pub-1041813022220163/7928924396</string>-->
@@ -53,6 +53,44 @@
     <string name="banner_home_footer">ca-app-pub-2002759323605741/5494344697</string>
     <string name="interstitial_full_screen">ca-app-pub-2002759323605741/8308210294</string>
     <string name="native_ad_id_large">ca-app-pub-2002759323605741/3544104244</string>
+
+    <string name="q">Q</string>
+    <string name="w">W</string>
+    <string name="e">E</string>
+    <string name="r">R</string>
+    <string name="t">T</string>
+    <string name="y">Y</string>
+    <string name="u">U</string>
+    <string name="i">I</string>
+    <string name="o">O</string>
+    <string name="p">P</string>
+    <string name="a">A</string>
+    <string name="s">S</string>
+    <string name="d">D</string>
+    <string name="f">F</string>
+    <string name="g">G</string>
+    <string name="h">H</string>
+    <string name="j">J</string>
+    <string name="k">K</string>
+    <string name="l">L</string>
+    <string name="z">Z</string>
+    <string name="x">X</string>
+    <string name="c">C</string>
+    <string name="v">V</string>
+    <string name="b">B</string>
+    <string name="n">N</string>
+    <string name="m">M</string>
+    <string name="_123">123</string>
+    <string name="shift_image_view">Shift image view</string>
+    <string name="backspace_image_view">Backspace image view</string>
+    <string name="comma">,</string>
+    <string name="emoji_key_image_view">Emoji key image view</string>
+    <string name="space_bar_image_view">Space bar image view</string>
+    <string name="stop">.</string>
+    <string name="enter_key_image_view">Enter key image view</string>
+
+    <string name="preview_keyboard_background_image_view">Preview keyboard background image view</string>
+    <string name="home_image_view">Home image view</string>
 
     <array name="smile">
         <item>😃</item>

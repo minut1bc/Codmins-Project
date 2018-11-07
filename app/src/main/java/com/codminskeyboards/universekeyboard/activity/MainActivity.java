@@ -218,7 +218,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
         });
         RateThisApp.showRateDialog(MainActivity.this, R.style.AlertDialogStyle);
         setContent();
-        if (GlobalClass.getPrefrenceBoolean(context, GlobalClass.key_isAdLock, true)) {
+        if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isAdLock, true)) {
             setAdMob();
         }
     }
@@ -226,7 +226,7 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
 
     private void updateData() {
         if (mRequestCode == GlobalClass.RC_REQUEST_THEMES_SLOTES) {
-            GlobalClass.setPrefrenceBoolean(MainActivity.this, getString(R.string.theme_slot_purchased), true);
+            GlobalClass.setPreferencesBool(MainActivity.this, getString(R.string.theme_slot_purchased), true);
         }
     }
 
@@ -312,9 +312,9 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, keyboardDataArrayList.get(i).getKeyboardColorCode());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, keyboardDataArrayList.get(i).getKeyboardBgImage());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, keyboardDataArrayList.get(i).getKeyBgColor());
-                        GlobalClass.setPreferencesString(context, GlobalClass.KEY_RADIUS, keyboardDataArrayList.get(i).getKeyRadius());
-                        GlobalClass.setPreferencesString(context, GlobalClass.KEY_STROKE, keyboardDataArrayList.get(i).getKeyStroke());
-                        GlobalClass.setPreferencesString(context, GlobalClass.KEY_OPACITY, keyboardDataArrayList.get(i).getKeyOpacity());
+                        GlobalClass.setPreferencesFloat(context, GlobalClass.KEY_RADIUS, keyboardDataArrayList.get(i).getKeyRadius());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardDataArrayList.get(i).getKeyStroke());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardDataArrayList.get(i).getKeyOpacity());
                         GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, keyboardDataArrayList.get(i).getFontColor());
                         GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, keyboardDataArrayList.get(i).getFontName());
                         GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(i).getSoundStatus());
@@ -337,9 +337,9 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyboardColorCode());
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyboardBgImage());
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyBgColor());
-                    GlobalClass.setPreferencesString(context, GlobalClass.KEY_RADIUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyRadius());
-                    GlobalClass.setPreferencesString(context, GlobalClass.KEY_STROKE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyStroke());
-                    GlobalClass.setPreferencesString(context, GlobalClass.KEY_OPACITY, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyOpacity());
+                    GlobalClass.setPreferencesFloat(context, GlobalClass.KEY_RADIUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyRadius());
+                    GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyStroke());
+                    GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyOpacity());
                     GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontColor());
                     GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontName());
                     GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundStatus());
@@ -415,9 +415,9 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         GlobalClass.keyboardBitmapBack = null;
                         GlobalClass.tempFontColor = "#FFFFFF";
                         GlobalClass.tempKeyColor = getResources().getColor(R.color.eight);
-                        GlobalClass.tempKeyRadius = "34";
-                        GlobalClass.tempKeyStroke = "1";
-                        GlobalClass.tempKeyOpacity = "64";
+                        GlobalClass.tempKeyRadius = 34;
+                        GlobalClass.tempKeyStroke = 1;
+                        GlobalClass.tempKeyOpacity = 64;
                         GlobalClass.tempFontName = "";
                         GlobalClass.tempSoundStatus = "off";
                         GlobalClass.tempSoundName = 0;
@@ -430,9 +430,9 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.tempKeyboardBgImage);
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, GlobalClass.tempKeyColor);
-                        GlobalClass.setPreferencesString(context, GlobalClass.KEY_RADIUS, GlobalClass.tempKeyRadius);
-                        GlobalClass.setPreferencesString(context, GlobalClass.KEY_STROKE, GlobalClass.tempKeyStroke);
-                        GlobalClass.setPreferencesString(context, GlobalClass.KEY_OPACITY, GlobalClass.tempKeyOpacity);
+                        GlobalClass.setPreferencesFloat(context, GlobalClass.KEY_RADIUS, GlobalClass.tempKeyRadius);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.tempKeyStroke);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, GlobalClass.tempKeyOpacity);
                         GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, GlobalClass.tempFontColor);
                         GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, GlobalClass.tempFontName);
                         GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, GlobalClass.tempSoundStatus);
@@ -455,9 +455,9 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyboardColorCode());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyboardBgImage());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyBgColor());
-                        GlobalClass.setPreferencesString(context, GlobalClass.KEY_RADIUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyRadius());
-                        GlobalClass.setPreferencesString(context, GlobalClass.KEY_STROKE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyStroke());
-                        GlobalClass.setPreferencesString(context, GlobalClass.KEY_OPACITY, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyOpacity());
+                        GlobalClass.setPreferencesFloat(context, GlobalClass.KEY_RADIUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyRadius());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyStroke());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyOpacity());
                         GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontColor());
                         GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontName());
                         GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundStatus());
@@ -514,9 +514,9 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                     GlobalClass.keyboardBitmapBack = null;
                                     GlobalClass.tempFontColor = "#FFFFFF";
                                     GlobalClass.tempKeyColor = getResources().getColor(R.color.eight);
-                                    GlobalClass.tempKeyRadius = "18";
-                                    GlobalClass.tempKeyStroke = "2";
-                                    GlobalClass.tempKeyOpacity = "255";
+                                    GlobalClass.tempKeyRadius = 18;
+                                    GlobalClass.tempKeyStroke = 2;
+                                    GlobalClass.tempKeyOpacity = 255;
                                     GlobalClass.tempFontName = "";
                                     GlobalClass.tempSoundStatus = "off";
                                     GlobalClass.tempSoundName = 0;
@@ -529,9 +529,9 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.tempKeyboardBgImage);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, GlobalClass.tempKeyColor);
-                                    GlobalClass.setPreferencesString(context, GlobalClass.KEY_RADIUS, GlobalClass.tempKeyRadius);
-                                    GlobalClass.setPreferencesString(context, GlobalClass.KEY_STROKE, GlobalClass.tempKeyStroke);
-                                    GlobalClass.setPreferencesString(context, GlobalClass.KEY_OPACITY, GlobalClass.tempKeyOpacity);
+                                    GlobalClass.setPreferencesFloat(context, GlobalClass.KEY_RADIUS, GlobalClass.tempKeyRadius);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.tempKeyStroke);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, GlobalClass.tempKeyOpacity);
                                     GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, GlobalClass.tempFontColor);
                                     GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, GlobalClass.tempFontName);
                                     GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, GlobalClass.tempSoundStatus);
@@ -569,9 +569,9 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                         GlobalClass.keyboardBitmapBack = null;
                                         GlobalClass.tempFontColor = "#FFFFFF";
                                         GlobalClass.tempKeyColor = getResources().getColor(R.color.eight);
-                                        GlobalClass.tempKeyRadius = "18";
-                                        GlobalClass.tempKeyStroke = "2";
-                                        GlobalClass.tempKeyOpacity = "255";
+                                        GlobalClass.tempKeyRadius = 18;
+                                        GlobalClass.tempKeyStroke = 2;
+                                        GlobalClass.tempKeyOpacity = 255;
                                         GlobalClass.tempFontName = "";
                                         GlobalClass.tempSoundStatus = "off";
                                         GlobalClass.tempSoundName = 0;
@@ -584,9 +584,9 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.tempKeyboardBgImage);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, GlobalClass.tempKeyColor);
-                                        GlobalClass.setPreferencesString(context, GlobalClass.KEY_RADIUS, GlobalClass.tempKeyRadius);
-                                        GlobalClass.setPreferencesString(context, GlobalClass.KEY_STROKE, GlobalClass.tempKeyStroke);
-                                        GlobalClass.setPreferencesString(context, GlobalClass.KEY_OPACITY, GlobalClass.tempKeyOpacity);
+                                        GlobalClass.setPreferencesFloat(context, GlobalClass.KEY_RADIUS, GlobalClass.tempKeyRadius);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.tempKeyStroke);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, GlobalClass.tempKeyOpacity);
                                         GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, GlobalClass.tempFontColor);
                                         GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, GlobalClass.tempFontName);
                                         GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, GlobalClass.tempSoundStatus);
@@ -646,22 +646,22 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
             GlobalClass.tempKeyColor = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_BG_COLOR, 0);
         }
 
-        if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_RADIUS, "") == null) {
-            GlobalClass.tempKeyRadius = "18";
+        if (GlobalClass.getPreferencesFloat(getApplicationContext(), GlobalClass.KEY_RADIUS, 18) == 18) {
+            GlobalClass.tempKeyRadius = 18;
         } else {
-            GlobalClass.tempKeyRadius = GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_RADIUS, "18");
+            GlobalClass.tempKeyRadius = GlobalClass.getPreferencesFloat(getApplicationContext(), GlobalClass.KEY_RADIUS, 18);
         }
 
-        if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_STROKE, "") == null) {
-            GlobalClass.tempKeyStroke = "2";
+        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_STROKE, 2) == 2) {
+            GlobalClass.tempKeyStroke = 2;
         } else {
-            GlobalClass.tempKeyStroke = GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_STROKE, "2");
+            GlobalClass.tempKeyStroke = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_STROKE, 2);
         }
 
-        if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_OPACITY, "") == null) {
-            GlobalClass.tempKeyOpacity = "255";
+        if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_OPACITY, 255) == 255) {
+            GlobalClass.tempKeyOpacity = 255;
         } else {
-            GlobalClass.tempKeyOpacity = GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_OPACITY, "255");
+            GlobalClass.tempKeyOpacity = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_OPACITY, 255);
         }
 
         if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "") == null) {
@@ -729,9 +729,9 @@ public class MainActivity extends ActivityManagePermission implements View.OnCli
         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.tempKeyboardBgImage);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, GlobalClass.tempKeyColor);
-        GlobalClass.setPreferencesString(context, GlobalClass.KEY_RADIUS, GlobalClass.tempKeyRadius);
-        GlobalClass.setPreferencesString(context, GlobalClass.KEY_STROKE, GlobalClass.tempKeyStroke);
-        GlobalClass.setPreferencesString(context, GlobalClass.KEY_OPACITY, GlobalClass.tempKeyOpacity);
+        GlobalClass.setPreferencesFloat(context, GlobalClass.KEY_RADIUS, GlobalClass.tempKeyRadius);
+        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.tempKeyStroke);
+        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, GlobalClass.tempKeyOpacity);
         GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, GlobalClass.tempFontColor);
         GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, GlobalClass.tempFontName);
         GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, GlobalClass.tempSoundStatus);

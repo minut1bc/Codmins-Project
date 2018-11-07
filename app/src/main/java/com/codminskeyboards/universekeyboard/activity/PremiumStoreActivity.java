@@ -48,7 +48,7 @@ public class PremiumStoreActivity extends ActivityManagePermission implements Vi
     static final String SKU_GET_ADDS = "universekeyboard.inapp.removead";
     static final String TAG = "SubscriptionTAG";
     public InterstitialAd mInterstitialAd;
-    static final String SKU_GET_BACKGROUNG = "universekeyboard.inapp.texualcolorbg";
+    static final String SKU_GET_BACKGROUND = "universekeyboard.inapp.texualcolorbg";
     static final String SKU_GET_THEME = "universekeyboard.inapp.theamslotes";
     static final String SKU_GET_COLORS = "universekeyboard.inapp.colors";
     static final String SKU_GET_FONTS = "universekeyboard.inapp.fonts";
@@ -79,22 +79,22 @@ public class PremiumStoreActivity extends ActivityManagePermission implements Vi
 
             switch (purchase.getSku()) {
                 case "universekeyboard.inapp.removead":
-                    GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isAdLock, false);
+                    GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isAdLock, false);
                     break;
                 case "universekeyboard.inapp.texualcolorbg":
-                    GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isWallPaperLock, false);
+                    GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isWallPaperLock, false);
                     break;
                 case "universekeyboard.inapp.theamslotes":
-                    GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isThemeLock, false);
+                    GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isThemeLock, false);
                     break;
                 case "universekeyboard.inapp.colors":
-                    GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isColorLock, false);
+                    GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isColorLock, false);
                     break;
                 case "universekeyboard.inapp.fonts":
-                    GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isFontLock, false);
+                    GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isFontLock, false);
                     break;
                 case "universekeyboard.inapp.sounds":
-                    GlobalClass.setPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isSoundLock, false);
+                    GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isSoundLock, false);
                     break;
             }
 
@@ -117,8 +117,107 @@ public class PremiumStoreActivity extends ActivityManagePermission implements Vi
     IInAppBillingService mService;
 
 
-    List<String> arrSKUs = Arrays.asList(SKU_GET_ADDS, SKU_GET_BACKGROUNG, SKU_GET_COLORS, SKU_GET_SOUNDS, SKU_GET_FONTS, SKU_GET_THEME);
+    List<String> arrSKUs = Arrays.asList(SKU_GET_ADDS, SKU_GET_BACKGROUND, SKU_GET_COLORS, SKU_GET_SOUNDS, SKU_GET_FONTS, SKU_GET_THEME);
     PremiumStoreActivity premiumStoreActivity;
+    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+            GlobalClass.printLog(TAG, "Query inventory finished.");
+
+            // Have we been disposed of in the meantime? If so, quit.
+            if (mHelper == null) return;
+
+            // Is it a failure?
+            if (result.isFailure()) {
+                complain("Failed to query inventory: " + result);
+                return;
+            }
+
+            GlobalClass.printLog(TAG, "Query inventory was successful.");
+
+            Purchase getAddPurchase = inventory.getPurchase(SKU_GET_ADDS);
+            isremoove_adds = (getAddPurchase != null && verifyDeveloperPayload(getAddPurchase));
+            GlobalClass.printLog(TAG, "User " + (isremoove_adds ? "HAS" : "DOES NOT HAVE") + " Purchase Yearly Subsription.");
+            GlobalClass.printLog("getYearPurchase====================", "" + getAddPurchase);
+            if (getAddPurchase != null && verifyDeveloperPayload(getAddPurchase)) {
+                mHelper.consumeAsync(getAddPurchase, consumeFinishedListener);
+            }
+
+            Purchase getBackgroundPurchase = inventory.getPurchase(SKU_GET_BACKGROUND);
+            isbackground = (getBackgroundPurchase != null && verifyDeveloperPayload(getBackgroundPurchase));
+            GlobalClass.printLog(TAG, "User " + (isbackground ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
+            GlobalClass.printLog("getBackgroundPurchase====================", "" + getBackgroundPurchase);
+            if (getBackgroundPurchase != null && verifyDeveloperPayload(getBackgroundPurchase)) {
+                mHelper.consumeAsync(getBackgroundPurchase, consumeFinishedListener);
+            }
+            Purchase getthemePurchase = inventory.getPurchase(SKU_GET_THEME);
+            istheme_slot = (getthemePurchase != null && verifyDeveloperPayload(getthemePurchase));
+            GlobalClass.printLog(TAG, "User " + (istheme_slot ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
+            GlobalClass.printLog("getthemePurchase====================", "" + getthemePurchase);
+            if (getthemePurchase != null && verifyDeveloperPayload(getthemePurchase)) {
+                mHelper.consumeAsync(getthemePurchase, consumeFinishedListener);
+            }
+            Purchase getColorPurchase = inventory.getPurchase(SKU_GET_COLORS);
+            iscolors = (getColorPurchase != null && verifyDeveloperPayload(getColorPurchase));
+            GlobalClass.printLog(TAG, "User " + (iscolors ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
+            GlobalClass.printLog("getColorPurchase====================", "" + getColorPurchase);
+            if (getColorPurchase != null && verifyDeveloperPayload(getColorPurchase)) {
+                mHelper.consumeAsync(getColorPurchase, consumeFinishedListener);
+            }
+            Purchase getFontPurchase = inventory.getPurchase(SKU_GET_FONTS);
+            isfonts = (getFontPurchase != null && verifyDeveloperPayload(getFontPurchase));
+            GlobalClass.printLog(TAG, "User " + (isfonts ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
+            GlobalClass.printLog("getFontPurchase====================", "" + getFontPurchase);
+            if (getFontPurchase != null && verifyDeveloperPayload(getFontPurchase)) {
+                mHelper.consumeAsync(getFontPurchase, consumeFinishedListener);
+            }
+            Purchase getSoundPurchase = inventory.getPurchase(SKU_GET_FONTS);
+            issounds = (getSoundPurchase != null && verifyDeveloperPayload(getSoundPurchase));
+            GlobalClass.printLog(TAG, "User " + (issounds ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
+            GlobalClass.printLog("getSoundPurchase====================", "" + getSoundPurchase);
+            if (getSoundPurchase != null && verifyDeveloperPayload(getSoundPurchase)) {
+                mHelper.consumeAsync(getSoundPurchase, consumeFinishedListener);
+            }
+
+
+            GlobalClass.printLog(TAG, "Initial inventory query finished; enabling main UI.");
+        }
+    };
+
+    public void setContent() {
+        ImageView ivBack = findViewById(R.id.ivBack);
+        txtRestore = findViewById(R.id.txtRestore);
+        remove_adds = findViewById(R.id.remove_adds);
+        background = findViewById(R.id.background);
+        theme_slot = findViewById(R.id.theme_slot);
+        colors = findViewById(R.id.colors);
+        fonts = findViewById(R.id.fonts);
+        sounds = findViewById(R.id.sounds);
+
+        ivBack.setOnClickListener(this);
+        txtRestore.setOnClickListener(this);
+    }
+
+    IabHelper.OnConsumeFinishedListener consumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
+        public void onConsumeFinished(Purchase purchase, IabResult result) {
+            GlobalClass.printLog(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
+
+            // if we were disposed of in the meantime, quit.
+            if (mHelper == null) return;
+
+            // We know this is the "gas" sku because it's the only one we consume,
+            // so we don't check which sku was consumed. If you have more than one
+            // sku, you probably should check...
+            if (result.isSuccess()) {
+                // successfully consumed, so we apply the effects of the item in our
+                // game world's logic, which in our case means filling the gas tank a bit
+                GlobalClass.printLog(TAG, "Consumption successful. Provisioning.");
+            } else {
+                complain("Error while consuming: " + result);
+            }
+            //updateUi();
+            GlobalClass.printLog(TAG, "End consumption flow.");
+        }
+    };
 
     @SuppressLint("ResourceAsColor")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -180,7 +279,7 @@ public class PremiumStoreActivity extends ActivityManagePermission implements Vi
         serviceIntent.setPackage("com.android.vending");
         bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
 
-        if (GlobalClass.getPrefrenceBoolean(getApplicationContext(), GlobalClass.key_isColorLock, true)) {
+        if (GlobalClass.getPreferencesBool(getApplicationContext(), GlobalClass.key_isColorLock, true)) {
             setAdMob();
         }
         remove_adds.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +302,7 @@ public class PremiumStoreActivity extends ActivityManagePermission implements Vi
                 try {
                     if (mHelper != null) {
                         mHelper.flagEndAsync();
-                        mHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_BACKGROUNG, RC_REQUEST2, purchaseFinishedListener, payload);
+                        mHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_BACKGROUND, RC_REQUEST2, purchaseFinishedListener, payload);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -432,107 +531,6 @@ public class PremiumStoreActivity extends ActivityManagePermission implements Vi
 
     }
 
-    public void setContent() {
-        ImageView ivBack = findViewById(R.id.ivBack);
-        txtRestore = findViewById(R.id.txtRestore);
-        remove_adds = findViewById(R.id.remove_adds);
-        background = findViewById(R.id.background);
-        theme_slot = findViewById(R.id.theme_slot);
-        colors = findViewById(R.id.colors);
-        fonts = findViewById(R.id.fonts);
-        sounds = findViewById(R.id.sounds);
-
-        ivBack.setOnClickListener(this);
-        txtRestore.setOnClickListener(this);
-    }
-
-    IabHelper.OnConsumeFinishedListener consumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
-        public void onConsumeFinished(Purchase purchase, IabResult result) {
-            GlobalClass.printLog(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
-
-            // if we were disposed of in the meantime, quit.
-            if (mHelper == null) return;
-
-            // We know this is the "gas" sku because it's the only one we consume,
-            // so we don't check which sku was consumed. If you have more than one
-            // sku, you probably should check...
-            if (result.isSuccess()) {
-                // successfully consumed, so we apply the effects of the item in our
-                // game world's logic, which in our case means filling the gas tank a bit
-                GlobalClass.printLog(TAG, "Consumption successful. Provisioning.");
-            } else {
-                complain("Error while consuming: " + result);
-            }
-            //updateUi();
-            GlobalClass.printLog(TAG, "End consumption flow.");
-        }
-    };
-
-
-    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-            GlobalClass.printLog(TAG, "Query inventory finished.");
-
-            // Have we been disposed of in the meantime? If so, quit.
-            if (mHelper == null) return;
-
-            // Is it a failure?
-            if (result.isFailure()) {
-                complain("Failed to query inventory: " + result);
-                return;
-            }
-
-            GlobalClass.printLog(TAG, "Query inventory was successful.");
-
-            Purchase getAddPurchase = inventory.getPurchase(SKU_GET_ADDS);
-            isremoove_adds = (getAddPurchase != null && verifyDeveloperPayload(getAddPurchase));
-            GlobalClass.printLog(TAG, "User " + (isremoove_adds ? "HAS" : "DOES NOT HAVE") + " Purchase Yearly Subsription.");
-            GlobalClass.printLog("getYearPurchase====================", "" + getAddPurchase);
-            if (getAddPurchase != null && verifyDeveloperPayload(getAddPurchase)) {
-                mHelper.consumeAsync(getAddPurchase, consumeFinishedListener);
-            }
-
-            Purchase getBackgroundPurchase = inventory.getPurchase(SKU_GET_BACKGROUNG);
-            isbackground = (getBackgroundPurchase != null && verifyDeveloperPayload(getBackgroundPurchase));
-            GlobalClass.printLog(TAG, "User " + (isbackground ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
-            GlobalClass.printLog("getBackgroundPurchase====================", "" + getBackgroundPurchase);
-            if (getBackgroundPurchase != null && verifyDeveloperPayload(getBackgroundPurchase)) {
-                mHelper.consumeAsync(getBackgroundPurchase, consumeFinishedListener);
-            }
-            Purchase getthemePurchase = inventory.getPurchase(SKU_GET_THEME);
-            istheme_slot = (getthemePurchase != null && verifyDeveloperPayload(getthemePurchase));
-            GlobalClass.printLog(TAG, "User " + (istheme_slot ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
-            GlobalClass.printLog("getthemePurchase====================", "" + getthemePurchase);
-            if (getthemePurchase != null && verifyDeveloperPayload(getthemePurchase)) {
-                mHelper.consumeAsync(getthemePurchase, consumeFinishedListener);
-            }
-            Purchase getColorPurchase = inventory.getPurchase(SKU_GET_COLORS);
-            iscolors = (getColorPurchase != null && verifyDeveloperPayload(getColorPurchase));
-            GlobalClass.printLog(TAG, "User " + (iscolors ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
-            GlobalClass.printLog("getColorPurchase====================", "" + getColorPurchase);
-            if (getColorPurchase != null && verifyDeveloperPayload(getColorPurchase)) {
-                mHelper.consumeAsync(getColorPurchase, consumeFinishedListener);
-            }
-            Purchase getFontPurchase = inventory.getPurchase(SKU_GET_FONTS);
-            isfonts = (getFontPurchase != null && verifyDeveloperPayload(getFontPurchase));
-            GlobalClass.printLog(TAG, "User " + (isfonts ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
-            GlobalClass.printLog("getFontPurchase====================", "" + getFontPurchase);
-            if (getFontPurchase != null && verifyDeveloperPayload(getFontPurchase)) {
-                mHelper.consumeAsync(getFontPurchase, consumeFinishedListener);
-            }
-            Purchase getSoundPurchase = inventory.getPurchase(SKU_GET_FONTS);
-            issounds = (getSoundPurchase != null && verifyDeveloperPayload(getSoundPurchase));
-            GlobalClass.printLog(TAG, "User " + (issounds ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
-            GlobalClass.printLog("getSoundPurchase====================", "" + getSoundPurchase);
-            if (getSoundPurchase != null && verifyDeveloperPayload(getSoundPurchase)) {
-                mHelper.consumeAsync(getSoundPurchase, consumeFinishedListener);
-            }
-
-
-            GlobalClass.printLog(TAG, "Initial inventory query finished; enabling main UI.");
-        }
-    };
-
     private void setAdMob() {
         mAdView = findViewById(R.id.ads);
         AdRequest adRequest = new AdRequest.Builder()
@@ -690,12 +688,12 @@ public class PremiumStoreActivity extends ActivityManagePermission implements Vi
                 finish();
 
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                strtaDS();
+                startAds();
                 break;
         }
     }
 
-    public void strtaDS() {
+    public void startAds() {
         if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         }

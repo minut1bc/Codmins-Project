@@ -5,11 +5,11 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/ivKeyboardBg"
+        android:id="@+id/backgroundImageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/preview_keyboard_background_image_view"
         android:scaleType="fitXY"
         android:src="@drawable/background_1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,14 +17,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/keyboardKeysLayout"
+        android:id="@+id/keysLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="3dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/ivKeyboardBg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
+        app:layout_constraintStart_toStartOf="@id/backgroundImageView"
+        app:layout_constraintTop_toTopOf="@id/backgroundImageView">
 
         <TextView
             android:id="@+id/keyQ"
@@ -36,7 +37,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Q"
+            android:text="@string/q"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toTopOf="@id/borderViewLeft"
             app:layout_constraintEnd_toStartOf="@+id/keyW"
@@ -52,7 +53,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="W"
+            android:text="@string/w"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
             app:layout_constraintEnd_toStartOf="@+id/keyE"
@@ -68,7 +69,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="E"
+            android:text="@string/e"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
             app:layout_constraintEnd_toStartOf="@+id/keyR"
@@ -84,7 +85,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="R"
+            android:text="@string/r"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
             app:layout_constraintEnd_toStartOf="@+id/keyT"
@@ -100,7 +101,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="T"
+            android:text="@string/t"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
             app:layout_constraintEnd_toStartOf="@+id/keyY"
@@ -116,7 +117,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Y"
+            android:text="@string/y"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
             app:layout_constraintEnd_toStartOf="@+id/keyU"
@@ -132,7 +133,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="U"
+            android:text="@string/u"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
             app:layout_constraintEnd_toStartOf="@+id/keyI"
@@ -148,7 +149,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="I"
+            android:text="@string/i"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
             app:layout_constraintEnd_toStartOf="@+id/keyO"
@@ -164,7 +165,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="O"
+            android:text="@string/o"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
             app:layout_constraintEnd_toStartOf="@+id/keyP"
@@ -180,7 +181,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="P"
+            android:text="@string/p"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
             app:layout_constraintEnd_toEndOf="parent"
@@ -192,7 +193,7 @@
             android:layout_width="15dp"
             android:layout_height="0dp"
             android:layout_margin="1dp"
-            app:layout_constraintBottom_toTopOf="@id/ivShift"
+            app:layout_constraintBottom_toTopOf="@id/shiftImageView"
             app:layout_constraintEnd_toStartOf="@+id/keyA"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/keyQ" />
@@ -206,7 +207,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="A"
+            android:text="@string/a"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
             app:layout_constraintEnd_toStartOf="@+id/keyS"
@@ -222,7 +223,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="S"
+            android:text="@string/s"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
             app:layout_constraintEnd_toStartOf="@+id/keyD"
@@ -238,7 +239,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="D"
+            android:text="@string/d"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
             app:layout_constraintEnd_toStartOf="@+id/keyF"
@@ -254,7 +255,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="F"
+            android:text="@string/f"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
             app:layout_constraintEnd_toStartOf="@+id/keyG"
@@ -270,7 +271,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="G"
+            android:text="@string/g"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
             app:layout_constraintEnd_toStartOf="@+id/keyH"
@@ -286,7 +287,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="H"
+            android:text="@string/h"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
             app:layout_constraintEnd_toStartOf="@+id/keyJ"
@@ -302,7 +303,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="J"
+            android:text="@string/j"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
             app:layout_constraintEnd_toStartOf="@+id/keyK"
@@ -318,7 +319,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="K"
+            android:text="@string/k"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
             app:layout_constraintEnd_toStartOf="@+id/keyL"
@@ -334,7 +335,7 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="L"
+            android:text="@string/l"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
             app:layout_constraintEnd_toStartOf="@+id/borderViewRight"
@@ -353,12 +354,12 @@
             app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
 
         <ImageView
-            android:id="@+id/ivShift"
+            android:id="@+id/shiftImageView"
             android:layout_width="40dp"
             android:layout_height="0dp"
             android:layout_margin="1dp"
             android:background="@drawable/key_bg"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/shift_image_view"
             android:padding="5dp"
             android:src="@drawable/ic_shift_on"
             app:layout_constraintBottom_toTopOf="@id/keySymbols"
@@ -376,12 +377,12 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Z"
+            android:text="@string/z"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
             app:layout_constraintEnd_toStartOf="@+id/keyX"
-            app:layout_constraintStart_toEndOf="@+id/ivShift"
-            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+            app:layout_constraintStart_toEndOf="@+id/shiftImageView"
+            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyX"
@@ -392,12 +393,12 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="X"
+            android:text="@string/x"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
             app:layout_constraintEnd_toStartOf="@+id/keyC"
             app:layout_constraintStart_toEndOf="@+id/keyZ"
-            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyC"
@@ -408,12 +409,12 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="C"
+            android:text="@string/c"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
             app:layout_constraintEnd_toStartOf="@+id/keyV"
             app:layout_constraintStart_toEndOf="@+id/keyX"
-            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyV"
@@ -424,12 +425,12 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="V"
+            android:text="@string/v"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
             app:layout_constraintEnd_toStartOf="@+id/keyB"
             app:layout_constraintStart_toEndOf="@+id/keyC"
-            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyB"
@@ -440,12 +441,12 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="B"
+            android:text="@string/b"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
             app:layout_constraintEnd_toStartOf="@+id/keyN"
             app:layout_constraintStart_toEndOf="@+id/keyV"
-            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyN"
@@ -456,12 +457,12 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="N"
+            android:text="@string/n"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
             app:layout_constraintEnd_toStartOf="@+id/keyM"
             app:layout_constraintStart_toEndOf="@+id/keyB"
-            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyM"
@@ -472,27 +473,27 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="M"
+            android:text="@string/m"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@id/ivShift"
-            app:layout_constraintEnd_toStartOf="@id/ivCancel"
+            app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
+            app:layout_constraintEnd_toStartOf="@id/emojiBackspaceImageView"
             app:layout_constraintStart_toEndOf="@+id/keyN"
-            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
 
         <ImageView
-            android:id="@+id/ivCancel"
+            android:id="@+id/emojiBackspaceImageView"
             android:layout_width="40dp"
             android:layout_height="0dp"
             android:layout_marginLeft="1dp"
             android:layout_marginRight="1dp"
             android:background="@drawable/key_bg"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/backspace_image_view"
             android:padding="5dp"
             android:src="@drawable/ic_backspace"
-            app:layout_constraintBottom_toBottomOf="@id/ivShift"
+            app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/keyM"
-            app:layout_constraintTop_toTopOf="@+id/ivShift" />
+            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
 
         <TextView
             android:id="@+id/keySymbols"
@@ -504,12 +505,12 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="123"
+            android:text="@string/_123"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/keyComma"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivShift" />
+            app:layout_constraintTop_toBottomOf="@+id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyComma"
@@ -520,15 +521,15 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text=","
+            android:text="@string/comma"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/keyEmoji"
+            app:layout_constraintEnd_toStartOf="@id/emojiImageView"
             app:layout_constraintStart_toEndOf="@+id/keySymbols"
             app:layout_constraintTop_toTopOf="@+id/keySymbols" />
 
         <ImageView
-            android:id="@+id/keyEmoji"
+            android:id="@+id/emojiImageView"
             android:layout_width="40dp"
             android:layout_height="0dp"
             android:layout_marginLeft="1dp"
@@ -537,22 +538,23 @@
             android:padding="5dp"
             android:src="@drawable/ic_smile"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/ivSpace"
+            android:contentDescription="@string/emoji_key_image_view"
             app:layout_constraintStart_toEndOf="@id/keyComma"
+            app:layout_constraintEnd_toStartOf="@id/spaceImageView"
             app:layout_constraintTop_toTopOf="@id/keySymbols" />
 
         <ImageView
-            android:id="@+id/ivSpace"
+            android:id="@+id/spaceImageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="1dp"
             android:layout_marginRight="1dp"
             android:background="@drawable/key_bg"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/space_bar_image_view"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/keyDot"
-            app:layout_constraintStart_toEndOf="@+id/keyEmoji"
+            app:layout_constraintStart_toEndOf="@+id/emojiImageView"
             app:layout_constraintTop_toTopOf="@+id/keySymbols" />
 
         <TextView
@@ -564,21 +566,21 @@
             android:background="@drawable/key_bg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="."
+            android:text="@string/stop"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/ivDone"
-            app:layout_constraintStart_toEndOf="@+id/ivSpace"
+            app:layout_constraintEnd_toStartOf="@id/enterImageView"
+            app:layout_constraintStart_toEndOf="@+id/spaceImageView"
             app:layout_constraintTop_toTopOf="@+id/keySymbols" />
 
         <ImageView
-            android:id="@+id/ivDone"
+            android:id="@+id/enterImageView"
             android:layout_width="40dp"
             android:layout_height="0dp"
             android:layout_marginLeft="1dp"
             android:layout_marginRight="1dp"
             android:background="@drawable/key_bg"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/enter_key_image_view"
             android:padding="5dp"
             android:src="@drawable/ic_enter_new"
             app:layout_constraintBottom_toBottomOf="parent"

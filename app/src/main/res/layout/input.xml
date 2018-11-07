@@ -2,131 +2,126 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linKeyboard"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="@dimen/keyboardHeight"
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="213dp">
+    <com.codminskeyboards.universekeyboard.customkeyboard.LatinKeyboardView
+        android:id="@+id/keyboard"
+        style="@style/KeyboardViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@android:color/transparent"
+        android:keyPreviewLayout="@layout/preview"
+        android:popupLayout="@layout/keyboard_popup_layout" />
 
-        <com.codminskeyboards.universekeyboard.customkeyboard.LatinKeyboardView
-            android:id="@+id/keyboard"
-            style="@style/KeyboardViewStyle"
+    <RelativeLayout
+        android:id="@+id/linEmoji"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/keyboardHeight"
+        android:background="#60000000"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <GridView
+            android:id="@+id/gvEmoji"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="3dp"
-            android:background="@android:color/transparent"
-            android:keyPreviewLayout="@layout/preview"
-            android:popupLayout="@layout/keyboard_popup_layout" />
+            android:layout_above="@+id/linCategory"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:numColumns="10"
+            android:scrollbars="none"
+            android:verticalSpacing="8dp" />
 
-        <RelativeLayout
-            android:id="@+id/linEmoji"
+        <LinearLayout
+            android:id="@+id/linCategory"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#60000000"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="#80000000"
+            android:padding="3dp">
 
-            <GridView
-                android:id="@+id/gvEmoji"
+            <ImageView
+                android:id="@+id/ivAbc"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/linCategory"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:contentDescription="TODO"
+                android:src="@drawable/ic_text_message"
+                android:tint="@color/silver" />
+
+            <ImageView
+                android:id="@+id/ivSmile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_margin="3dp"
-                android:gravity="center"
-                android:horizontalSpacing="5dp"
-                android:numColumns="10"
-                android:scrollbars="none"
-                android:verticalSpacing="8dp" />
+                android:layout_weight="1"
+                android:contentDescription="TODO"
+                android:src="@drawable/ic_smile_bold" />
 
-            <LinearLayout
-                android:id="@+id/linCategory"
+            <ImageView
+                android:id="@+id/ivAnimal"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_alignParentBottom="true"
-                android:background="#80000000"
-                android:padding="3dp">
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:contentDescription="TODO"
+                android:src="@drawable/ic_animal"
+                android:tint="@color/silver" />
 
-                <ImageView
-                    android:id="@+id/ivAbc"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/ic_textmessage"
-                    android:tint="@color/silver" />
+            <ImageView
+                android:id="@+id/ivLamp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:contentDescription="TODO"
+                android:src="@drawable/ic_lamp"
+                android:tint="@color/silver" />
 
-                <ImageView
-                    android:id="@+id/ivSmile"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/ic_smile_bold" />
+            <ImageView
+                android:id="@+id/ivFood"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:contentDescription="TODO"
+                android:src="@drawable/ic_food"
+                android:tint="@color/silver" />
 
-                <ImageView
-                    android:id="@+id/ivAnimal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/ic_animal"
-                    android:tint="@color/silver" />
+            <ImageView
+                android:id="@+id/ivSocial"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:contentDescription="TODO"
+                android:src="@drawable/ic_building"
+                android:tint="@color/silver" />
 
-                <ImageView
-                    android:id="@+id/ivLamp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/ic_lamp"
-                    android:tint="@color/silver" />
+            <ImageView
+                android:id="@+id/emojiBackspaceImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:contentDescription="TODO"
+                android:src="@drawable/ic_backspace"
+                android:tint="@color/silver" />
+        </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/ivFood"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/ic_food"
-                    android:tint="@color/silver" />
-
-                <ImageView
-                    android:id="@+id/ivSocial"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/ic_building"
-                    android:tint="@color/silver" />
-
-                <ImageView
-                    android:id="@+id/ivCancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/ic_backspace"
-                    android:tint="@color/silver" />
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </FrameLayout>
+    </RelativeLayout>
 
 </LinearLayout>

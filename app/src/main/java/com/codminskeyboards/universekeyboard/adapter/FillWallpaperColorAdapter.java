@@ -60,7 +60,7 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
             holder.flBg.setVisibility(View.GONE);
         }
 
-        if (GlobalClass.getPrefrenceBoolean(context, GlobalClass.key_isWallPaperLock, true)) {
+        if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isWallPaperLock, true)) {
             if (position > 22) {
                 holder.ivLock.setVisibility(View.VISIBLE);
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {

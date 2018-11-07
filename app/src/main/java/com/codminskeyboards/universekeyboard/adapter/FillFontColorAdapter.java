@@ -61,7 +61,7 @@ public class FillFontColorAdapter extends RecyclerView.Adapter<FillFontColorAdap
                 .placeholder(defaultColorFreeArrayList[position])
                 .into(holder.ivColorItem);
 
-        if (GlobalClass.getPrefrenceBoolean(context, GlobalClass.key_isColorLock, true)) {
+        if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isColorLock, true)) {
             if (position > 26) {
                 holder.ivLock.setVisibility(View.VISIBLE);
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {

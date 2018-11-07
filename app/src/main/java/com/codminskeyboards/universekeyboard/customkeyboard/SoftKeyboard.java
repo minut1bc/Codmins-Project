@@ -90,7 +90,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private List<String> mSuggestions;
 
     private RelativeLayout linEmoji;
-    private ImageView ivClose;
+    private ImageView emojiBackspaceImageView;
     private GridView gvEmoji;
     private FillEmojiAdapter fillEmojiAdapter;
     private ImageView ivAbc;
@@ -176,7 +176,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         mInputView = view.findViewById(R.id.keyboard);
         LinearLayout linKeyboard = view.findViewById(R.id.linKeyboard);
         linEmoji = view.findViewById(R.id.linEmoji);
-        ivClose = view.findViewById(R.id.ivCancel);
+        emojiBackspaceImageView = view.findViewById(R.id.emojiBackspaceImageView);
         gvEmoji = view.findViewById(R.id.gvEmoji);
         ivAbc = view.findViewById(R.id.ivAbc);
         ivSmile = view.findViewById(R.id.ivSmile);
@@ -199,7 +199,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         ivLamp.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
         ivFood.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
         ivSocial.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
-        ivClose.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
+        emojiBackspaceImageView.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
 
         for (int i = 0; i < linCategory.getChildCount(); i++) {
             final View mChild = linCategory.getChildAt(i);
@@ -222,23 +222,23 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
                 npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
 
-                npd1.setCornerRadius(Float.parseFloat(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_RADIUS, "18")));
-                npd1.setAlpha(Integer.parseInt(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_OPACITY, "255")));
+                npd1.setCornerRadius(GlobalClass.getPreferencesFloat(getApplicationContext(), GlobalClass.KEY_RADIUS, 18));
+                npd1.setAlpha(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_OPACITY, 255));
 
-                switch (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_STROKE, "2")) {
-                    case "1":
+                switch (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_STROKE, 2)) {
+                    case 1:
                         npd1.setStroke(0, getApplicationContext().getResources().getColor(R.color.colorPrimary));
                         break;
-                    case "2":
+                    case 2:
                         npd1.setStroke(2, android.graphics.Color.WHITE);
                         break;
-                    case "3":
+                    case 3:
                         npd1.setStroke(2, android.graphics.Color.BLACK);
                         break;
-                    case "4":
+                    case 4:
                         npd1.setStroke(4, android.graphics.Color.BLACK);
                         break;
-                    case "5":
+                    case 5:
                         npd1.setStroke(3, android.graphics.Color.GRAY);
                         break;
                 }
@@ -278,7 +278,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 ivLamp.setColorFilter(mContext.getResources().getColor(R.color.silver));
                 ivFood.setColorFilter(mContext.getResources().getColor(R.color.silver));
                 ivSocial.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivClose.setColorFilter(mContext.getResources().getColor(R.color.silver));
+                emojiBackspaceImageView.setColorFilter(mContext.getResources().getColor(R.color.silver));
             }
         });
 
@@ -300,7 +300,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 ivLamp.setColorFilter(mContext.getResources().getColor(R.color.silver));
                 ivFood.setColorFilter(mContext.getResources().getColor(R.color.silver));
                 ivSocial.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivClose.setColorFilter(mContext.getResources().getColor(R.color.silver));
+                emojiBackspaceImageView.setColorFilter(mContext.getResources().getColor(R.color.silver));
             }
         });
 
@@ -322,7 +322,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 ivLamp.setColorFilter(mContext.getResources().getColor(R.color.white));
                 ivFood.setColorFilter(mContext.getResources().getColor(R.color.silver));
                 ivSocial.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivClose.setColorFilter(mContext.getResources().getColor(R.color.silver));
+                emojiBackspaceImageView.setColorFilter(mContext.getResources().getColor(R.color.silver));
             }
         });
 
@@ -344,7 +344,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 ivLamp.setColorFilter(mContext.getResources().getColor(R.color.silver));
                 ivFood.setColorFilter(mContext.getResources().getColor(R.color.white));
                 ivSocial.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivClose.setColorFilter(mContext.getResources().getColor(R.color.silver));
+                emojiBackspaceImageView.setColorFilter(mContext.getResources().getColor(R.color.silver));
             }
         });
 
@@ -366,7 +366,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 ivLamp.setColorFilter(mContext.getResources().getColor(R.color.silver));
                 ivFood.setColorFilter(mContext.getResources().getColor(R.color.silver));
                 ivSocial.setColorFilter(mContext.getResources().getColor(R.color.white));
-                ivClose.setColorFilter(mContext.getResources().getColor(R.color.silver));
+                emojiBackspaceImageView.setColorFilter(mContext.getResources().getColor(R.color.silver));
             }
         });
 
@@ -391,7 +391,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             }
         });
 
-        ivClose.setOnClickListener(new View.OnClickListener() {
+        emojiBackspaceImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleBackspace();

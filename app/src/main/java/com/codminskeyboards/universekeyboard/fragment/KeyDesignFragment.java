@@ -53,7 +53,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeFour.setBorderWidth(0);
                     ivStrokeFive.setBorderWidth(0);
                     ivStrokeOne.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyStroke = "1";
+                    GlobalClass.tempKeyStroke = 1;
                     setRadius();
                     break;
 
@@ -64,7 +64,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeFive.setBorderWidth(0);
                     ivStrokeFour.setBorderWidth(0);
                     ivStrokeTwo.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyStroke = "2";
+                    GlobalClass.tempKeyStroke = 2;
                     setRadius();
                     break;
 
@@ -75,7 +75,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeFour.setBorderWidth(0);
                     ivStrokeFive.setBorderWidth(0);
                     ivStrokeThree.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyStroke = "3";
+                    GlobalClass.tempKeyStroke = 3;
                     setRadius();
                     break;
 
@@ -86,7 +86,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeFour.setBorderWidth(5);
                     ivStrokeFive.setBorderWidth(0);
                     ivStrokeFour.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyStroke = "4";
+                    GlobalClass.tempKeyStroke = 4;
                     setRadius();
                     break;
 
@@ -97,7 +97,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeFour.setBorderWidth(0);
                     ivStrokeFive.setBorderWidth(5);
                     ivStrokeFive.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyStroke = "5";
+                    GlobalClass.tempKeyStroke = 5;
                     setRadius();
                     break;
 
@@ -108,7 +108,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityTwentyFive.setBorderWidth(0);
                     ivOpacityZero.setBorderWidth(0);
                     ivOpacityHundred.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyOpacity = "255";
+                    GlobalClass.tempKeyOpacity = 255;
                     setRadius();
                     break;
 
@@ -119,7 +119,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityTwentyFive.setBorderWidth(0);
                     ivOpacityZero.setBorderWidth(0);
                     ivOpacitySeventyFive.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyOpacity = "192";
+                    GlobalClass.tempKeyOpacity = 192;
                     setRadius();
                     break;
 
@@ -130,7 +130,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityTwentyFive.setBorderWidth(0);
                     ivOpacityZero.setBorderWidth(0);
                     ivOpacityFifty.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyOpacity = "128";
+                    GlobalClass.tempKeyOpacity = 128;
                     setRadius();
                     break;
 
@@ -141,7 +141,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityTwentyFive.setBorderWidth(5);
                     ivOpacityZero.setBorderWidth(0);
                     ivOpacityTwentyFive.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyOpacity = "64";
+                    GlobalClass.tempKeyOpacity = 64;
                     setRadius();
                     break;
 
@@ -152,7 +152,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityTwentyFive.setBorderWidth(0);
                     ivOpacityZero.setBorderWidth(5);
                     ivOpacityZero.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyOpacity = "0";
+                    GlobalClass.tempKeyOpacity = 0;
                     setRadius();
                     break;
 
@@ -163,7 +163,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusFour.setBorderWidth(0);
                     radiusFive.setBorderWidth(0);
                     radiusOne.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyRadius = "0";
+                    GlobalClass.tempKeyRadius = 0;
                     setRadius();
                     break;
 
@@ -174,7 +174,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusFour.setBorderWidth(0);
                     radiusFive.setBorderWidth(0);
                     radiusTwo.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyRadius = "9";
+                    GlobalClass.tempKeyRadius = 9;
                     setRadius();
                     break;
 
@@ -185,7 +185,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusFour.setBorderWidth(0);
                     radiusFive.setBorderWidth(0);
                     radiusThree.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyRadius = "18";
+                    GlobalClass.tempKeyRadius = 18;
                     setRadius();
                     break;
 
@@ -196,7 +196,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusFour.setBorderWidth(5);
                     radiusFive.setBorderWidth(0);
                     radiusFour.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyRadius = "25";
+                    GlobalClass.tempKeyRadius = 25;
                     setRadius();
                     break;
 
@@ -207,8 +207,8 @@ public class KeyDesignFragment extends Fragment {
                     radiusFour.setBorderWidth(0);
                     radiusFive.setBorderWidth(5);
                     radiusFive.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.setPreferencesString(context, GlobalClass.KEY_RADIUS, "11");
-                    GlobalClass.tempKeyRadius = "34";
+                    GlobalClass.setPreferencesFloat(context, GlobalClass.KEY_RADIUS, 11);
+                    GlobalClass.tempKeyRadius = 34;
                     setRadius();
                     break;
             }
@@ -282,47 +282,47 @@ public class KeyDesignFragment extends Fragment {
     }
 
     public void setRadius() {
-        switch (GlobalClass.tempKeyRadius) {
-            case "0":
+        switch ((int) GlobalClass.tempKeyRadius) {
+            case 0:
                 radiusOne.setBorderWidth(5);
                 radiusOne.setBorderColor(getResources().getColor(R.color.pink));
                 break;
-            case "9":
+            case 9:
                 radiusTwo.setBorderWidth(5);
                 radiusTwo.setBorderColor(getResources().getColor(R.color.pink));
                 break;
-            case "18":
+            case 18:
                 radiusThree.setBorderWidth(5);
                 radiusThree.setBorderColor(getResources().getColor(R.color.pink));
                 break;
-            case "25":
+            case 25:
                 radiusFour.setBorderWidth(5);
                 radiusFour.setBorderColor(getResources().getColor(R.color.pink));
                 break;
-            case "34":
+            case 34:
                 radiusFive.setBorderWidth(5);
                 radiusFive.setBorderColor(getResources().getColor(R.color.pink));
                 break;
         }
 
         switch (GlobalClass.tempKeyStroke) {
-            case "1":
+            case 1:
                 ivStrokeOne.setBorderWidth(5);
                 ivStrokeOne.setBorderColor(getResources().getColor(R.color.pink));
                 break;
-            case "2":
+            case 2:
                 ivStrokeTwo.setBorderWidth(5);
                 ivStrokeTwo.setBorderColor(getResources().getColor(R.color.pink));
                 break;
-            case "3":
+            case 3:
                 ivStrokeThree.setBorderWidth(5);
                 ivStrokeThree.setBorderColor(getResources().getColor(R.color.pink));
                 break;
-            case "4":
+            case 4:
                 ivStrokeFour.setBorderWidth(5);
                 ivStrokeFour.setBorderColor(getResources().getColor(R.color.pink));
                 break;
-            case "5":
+            case 5:
                 ivStrokeFive.setBorderWidth(5);
                 ivStrokeFive.setBorderColor(getResources().getColor(R.color.pink));
                 break;
@@ -330,23 +330,23 @@ public class KeyDesignFragment extends Fragment {
 
 
         switch (GlobalClass.tempKeyOpacity) {
-            case "255":
+            case 255:
                 ivOpacityHundred.setBorderWidth(5);
                 ivOpacityHundred.setBorderColor(getResources().getColor(R.color.pink));
                 break;
-            case "192":
+            case 192:
                 ivOpacitySeventyFive.setBorderWidth(5);
                 ivOpacitySeventyFive.setBorderColor(getResources().getColor(R.color.pink));
                 break;
-            case "128":
+            case 128:
                 ivOpacityFifty.setBorderWidth(5);
                 ivOpacityFifty.setBorderColor(getResources().getColor(R.color.pink));
                 break;
-            case "64":
+            case 64:
                 ivOpacityTwentyFive.setBorderWidth(5);
                 ivOpacityTwentyFive.setBorderColor(getResources().getColor(R.color.pink));
                 break;
-            case "0":
+            case 0:
                 ivOpacityZero.setBorderWidth(5);
                 ivOpacityZero.setBorderColor(getResources().getColor(R.color.pink));
                 break;

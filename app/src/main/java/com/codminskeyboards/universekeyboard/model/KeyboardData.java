@@ -5,9 +5,9 @@ public class KeyboardData {
     private String isColor;
     private int keyboardBgImage;
     private int keyboardColorCode;
-    private String keyRadius;
-    private String keyStroke;
-    private String keyOpacity;
+    private float keyRadius;
+    private int keyStroke;
+    private int keyOpacity;
     private int keyBgColor;
     private String fontColor;
     private String fontName;
@@ -60,27 +60,27 @@ public class KeyboardData {
         this.keyboardColorCode = keyboardColorCode;
     }
 
-    public String getKeyRadius() {
+    public float getKeyRadius() {
         return keyRadius;
     }
 
-    public void setKeyRadius(String keyRadius) {
+    public void setKeyRadius(Float keyRadius) {
         this.keyRadius = keyRadius;
     }
 
-    public String getKeyStroke() {
+    public int getKeyStroke() {
         return keyStroke;
     }
 
-    public void setKeyStroke(String keyStroke) {
+    public void setKeyStroke(int keyStroke) {
         this.keyStroke = keyStroke;
     }
 
-    public String getKeyOpacity() {
+    public int getKeyOpacity() {
         return keyOpacity;
     }
 
-    public void setKeyOpacity(String keyOpacity) {
+    public void setKeyOpacity(int keyOpacity) {
         this.keyOpacity = keyOpacity;
     }
 

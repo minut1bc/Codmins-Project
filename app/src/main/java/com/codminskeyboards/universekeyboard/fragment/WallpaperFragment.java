@@ -27,7 +27,7 @@ public class WallpaperFragment extends Fragment {
     FillDefaultColorAdapter fillDefaultColorAdapter;
 
     RecyclerView rvDefaultColor;
-    ImageView ivKeyboardBg;
+    ImageView previewKeyboardBackgroundImageView;
     GridView gvColor;
     Context context;
 
@@ -42,7 +42,7 @@ public class WallpaperFragment extends Fragment {
         rvDefaultColor.setNestedScrollingEnabled(false);
         rvDefaultColor.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
-        ivKeyboardBg = getActivity().findViewById(R.id.ivKeyboardBg);
+        previewKeyboardBackgroundImageView = getActivity().findViewById(R.id.backgroundImageView);
         gvColor = wallpaperFragmentView.findViewById(R.id.gvColor);
 
         setColorGridView();
@@ -73,7 +73,7 @@ public class WallpaperFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, final int position, long id) {
 
                 try {
-                    ivKeyboardBg.setImageResource(GlobalClass.thumbArray[position]);
+                    previewKeyboardBackgroundImageView.setImageResource(GlobalClass.thumbArray[position]);
                 } catch (Exception ignored) {
                 }
 
@@ -99,7 +99,7 @@ public class WallpaperFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        ivKeyboardBg.setImageResource(GlobalClass.colorsHorizontal[position]);
+                        previewKeyboardBackgroundImageView.setImageResource(GlobalClass.colorsHorizontal[position]);
                         GlobalClass.selectcolor = position;
                         GlobalClass.selview = 1;
                         GlobalClass.setPreferencesString(context, GlobalClass.IS_COLOR, "yes");

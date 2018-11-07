@@ -61,13 +61,14 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
         assert inflater != null;
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.layout_keyboard, null);
 
-        ImageView ivKeyboardBg = view.findViewById(R.id.ivKeyboardBg);
-        ConstraintLayout keyboardKeysLayout = view.findViewById(R.id.keyboardKeysLayout);
+        ImageView previewKeyboardBackgroundImageView = view.findViewById(R.id.backgroundImageView);
+        ConstraintLayout keyboardKeysLayout = view.findViewById(R.id.keysLayout);
 
-        ImageView ivDone = view.findViewById(R.id.ivDone);
-        ImageView ivSpace = view.findViewById(R.id.ivSpace);
-        ImageView ivShift = view.findViewById(R.id.ivShift);
-        ImageView ivCancel = view.findViewById(R.id.ivCancel);
+        ImageView enterImageView = view.findViewById(R.id.enterImageView);
+        ImageView spaceImageView = view.findViewById(R.id.spaceImageView);
+        ImageView shiftImageView = view.findViewById(R.id.shiftImageView);
+        ImageView backspaceImageView = view.findViewById(R.id.emojiBackspaceImageView);
+        ImageView emojiImageView = view.findViewById(R.id.emojiImageView);
 
         if (BuildConfig.VERSION_CODE >= 21)
             view.setClipToOutline(true);
@@ -75,15 +76,16 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
         if (keyboardArrayList.get(position).getBitmapback() != null) {
             byte[] decodedString = Base64.decode(keyboardArrayList.get(position).getBitmapback(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            ivKeyboardBg.setImageBitmap(decodedByte);
+            previewKeyboardBackgroundImageView.setImageBitmap(decodedByte);
         } else {
-            ivKeyboardBg.setImageResource(keyboardArrayList.get(position).getKeyboardBgImage());
+            previewKeyboardBackgroundImageView.setImageResource(keyboardArrayList.get(position).getKeyboardBgImage());
         }
 
-        int color = Color.parseColor(keyboardArrayList.get(position).getFontColor());
-        ivShift.setColorFilter(color);
-        ivDone.setColorFilter(color);
-        ivCancel.setColorFilter(color);
+        int fontColor = Color.parseColor(keyboardArrayList.get(position).getFontColor());
+        shiftImageView.setColorFilter(fontColor);
+        enterImageView.setColorFilter(fontColor);
+        backspaceImageView.setColorFilter(fontColor);
+        emojiImageView.setColorFilter(fontColor);
 
         GradientDrawable npd1;
         for (int i = 0; i < keyboardKeysLayout.getChildCount(); i++) {
@@ -98,25 +100,25 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                                 keyboardArrayList.get(position).getKeyBgColor()});
                 npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
 
-                npd1.setCornerRadius(Float.parseFloat(keyboardArrayList.get(position).getKeyRadius()));
-                npd1.setAlpha(Integer.parseInt(keyboardArrayList.get(position).getKeyOpacity()));
+                npd1.setCornerRadius(keyboardArrayList.get(position).getKeyRadius());
+                npd1.setAlpha(keyboardArrayList.get(position).getKeyOpacity());
 
                 switch (keyboardArrayList.get(position).getKeyStroke()) {
-                    case "1":
+                    case 1:
                         npd1.setStroke(0, context.getResources().getColor(R.color.colorPrimary));
                         break;
-                    case "2":
+                    case 2:
                         npd1.setStroke(2, android.graphics.Color.WHITE);
                         break;
-                    case "3":
+                    case 3:
                         npd1.setStroke(2, android.graphics.Color.BLACK);
                         break;
-                    case "4":
+                    case 4:
                         npd1.setStroke(4, android.graphics.Color.BLACK);
 
                         GlobalClass.printLog("click on four", "---------apply stroke----------");
                         break;
-                    case "5":
+                    case 5:
                         npd1.setStroke(3, android.graphics.Color.GRAY);
                         GlobalClass.printLog("click on five", "---------apply stroke----------");
                         break;
@@ -167,9 +169,9 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, keyboardArrayList.get(position).getKeyboardColorCode());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, keyboardArrayList.get(position).getKeyboardBgImage());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, keyboardArrayList.get(position).getKeyBgColor());
-                GlobalClass.setPreferencesString(context, GlobalClass.KEY_RADIUS, keyboardArrayList.get(position).getKeyRadius());
-                GlobalClass.setPreferencesString(context, GlobalClass.KEY_STROKE, keyboardArrayList.get(position).getKeyStroke());
-                GlobalClass.setPreferencesString(context, GlobalClass.KEY_OPACITY, keyboardArrayList.get(position).getKeyOpacity());
+                GlobalClass.setPreferencesFloat(context, GlobalClass.KEY_RADIUS, keyboardArrayList.get(position).getKeyRadius());
+                GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardArrayList.get(position).getKeyStroke());
+                GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardArrayList.get(position).getKeyOpacity());
                 GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, keyboardArrayList.get(position).getFontColor());
                 GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, keyboardArrayList.get(position).getFontName());
                 GlobalClass.setPreferencesString(context, GlobalClass.SOUND_STATUS, keyboardArrayList.get(position).getSoundStatus());

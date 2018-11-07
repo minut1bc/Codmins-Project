@@ -43,7 +43,7 @@ public class FillDefaultColorAdapter extends RecyclerView.Adapter<FillDefaultCol
             holder.flBg.setVisibility(View.GONE);
         }
 
-        if (GlobalClass.getPrefrenceBoolean(context, GlobalClass.key_isColorLock, true)) {
+        if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isColorLock, true)) {
             if (position > 26) {
                 holder.ivLock.setVisibility(View.VISIBLE);
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {

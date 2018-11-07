@@ -58,7 +58,7 @@ public class FillSoundEffectAdapter extends BaseAdapter {
         holder.flBg = convertView.findViewById(R.id.flBg);
         holder.ivLock = convertView.findViewById(R.id.ivLock);
 
-        if (GlobalClass.getPrefrenceBoolean(context, GlobalClass.key_isSoundLock, true)) {
+        if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isSoundLock, true)) {
             if (position > 20) {
                 holder.ivLock.setVisibility(View.VISIBLE);
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,6 @@
 package com.codminskeyboards.universekeyboard.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
@@ -16,10 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,7 +24,6 @@ import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.adapter.MyFragmentPagerAdapter;
 import com.codminskeyboards.universekeyboard.model.KeyboardData;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
-import com.codminskeyboards.universekeyboard.utils.MyBounceInterpolator_anim;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -40,26 +35,22 @@ import java.util.ArrayList;
 
 public class CreateKeyboardActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageView ivHome;
-    private TextView txtMainTitle;
-    private CreateKeyboardActivity context;
+    public InterstitialAd interstitialAd;
+    public InterstitialAd interstitial;
+    private ImageView homeImageView;
 
     String[] fontArray = new String[0];
-    private ConstraintLayout keyboardKeysLayout;
+    private TextView titleTextView;
 
     static CreateKeyboardActivity createKeyboardActivity;
-    public InterstitialAd mInterstitialAd;
-    public com.google.android.gms.ads.InterstitialAd mInterstitial;
+    private Context context;
+    private ConstraintLayout keysLayout;
     private boolean isEdit = false;
     private int editPosition;
-    Animation myAnim;
-    MyBounceInterpolator_anim interpolator;
     ArrayList<KeyboardData> keyboardDataArrayList = new ArrayList<>();
 
-    TabLayout tabLayout;
-    int tabPosition;
-
-    public static CreateKeyboardActivity getInstance() {        //TODO: remove need for getInstance()
+    //TODO: remove need for getInstance()
+    public static CreateKeyboardActivity getInstance() {
         return createKeyboardActivity;
     }
 
@@ -67,123 +58,116 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        GlobalClass globalClass = new GlobalClass(CreateKeyboardActivity.this.getApplicationContext());
+        context = CreateKeyboardActivity.this;
+        createKeyboardActivity = this;
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(getResources().getColor(R.color.dark_gray));
-        }
+        GlobalClass globalClass = new GlobalClass(context);
+
         setContentView(R.layout.activity_create_keyboard);
+
         setContent();
 
-        tabLayout = findViewById(R.id.tabLayout);
+        redrawKeyboard();
 
-        ViewPager viewPager = findViewById(R.id.viewPagerCreateKeyboardActivity);
-        MyFragmentPagerAdapter viewPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(viewPagerAdapter);
-        viewPager.setOffscreenPageLimit(4);
-
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                super.onTabSelected(tab);
-                tabPosition = tab.getPosition();
-                switch (tabPosition) {
-                    case 0:
-                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.green));
-                        txtMainTitle.setTextColor(getResources().getColor(R.color.green));
-                        break;
-                    case 1:
-                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.pink));
-                        txtMainTitle.setTextColor(getResources().getColor(R.color.pink));
-                        break;
-                    case 2:
-                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.dark_red));
-                        txtMainTitle.setTextColor(getResources().getColor(R.color.dark_red));
-                        break;
-                    case 3:
-                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.orange));
-                        txtMainTitle.setTextColor(getResources().getColor(R.color.orange));
-                        break;
-                }
-            }
-        });
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.green));
-        txtMainTitle.setTextColor(getResources().getColor(R.color.green));
+        setViewPager();
     }
 
-    public void setupTabIcons() {
+    private void setViewPager() {
+        ViewPager fragmentViewPager = findViewById(R.id.fragmentViewPager);
+        final TabLayout tabLayout = findViewById(R.id.tabLayout);
+
+        MyFragmentPagerAdapter viewPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+        fragmentViewPager.setAdapter(viewPagerAdapter);
+        fragmentViewPager.setOffscreenPageLimit(4);
+
+        tabLayout.setupWithViewPager(fragmentViewPager);
+
         if (tabLayout.getTabCount() >= 4) {
             tabLayout.getTabAt(0).setIcon(R.drawable.ic_wallpaper);
             tabLayout.getTabAt(1).setIcon(R.drawable.ic_keydesign);
             tabLayout.getTabAt(2).setIcon(R.drawable.ic_font_style);
             tabLayout.getTabAt(3).setIcon(R.drawable.ic_soundeffect);
         }
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(fragmentViewPager) {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                super.onTabSelected(tab);
+                int tabPosition = tab.getPosition();
+                switch (tabPosition) {
+                    case 0:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.green));
+                        titleTextView.setTextColor(getResources().getColor(R.color.green));
+                        break;
+                    case 1:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.pink));
+                        titleTextView.setTextColor(getResources().getColor(R.color.pink));
+                        break;
+                    case 2:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.dark_red));
+                        titleTextView.setTextColor(getResources().getColor(R.color.dark_red));
+                        break;
+                    case 3:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.orange));
+                        titleTextView.setTextColor(getResources().getColor(R.color.orange));
+                        break;
+                }
+            }
+        });
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.green));
+        titleTextView.setTextColor(getResources().getColor(R.color.green));
     }
 
     public void redrawKeyboard() {
-        GradientDrawable npd1;
-        for (int i = 0; i < keyboardKeysLayout.getChildCount(); i++) {
-            final View mChild = keyboardKeysLayout.getChildAt(i);
-            if (mChild instanceof ImageView || mChild instanceof TextView) {
-                // Recursively attempt another ViewGroup.
-                npd1 = new GradientDrawable(
-                        GradientDrawable.Orientation.TOP_BOTTOM,
-                        new int[]{GlobalClass.tempKeyColor,
-                                GlobalClass.tempKeyColor});
-                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
-
-                npd1.setCornerRadius(Float.parseFloat(GlobalClass.tempKeyRadius));
-                npd1.setAlpha(Integer.parseInt(GlobalClass.tempKeyOpacity));
+        int fontColor = Color.parseColor(GlobalClass.tempFontColor);
+        GradientDrawable keyGradientDrawable;
+        for (int i = 0; i < keysLayout.getChildCount(); i++) {
+            View child = keysLayout.getChildAt(i);
+            if (child instanceof ImageView || child instanceof TextView) {
+                keyGradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{GlobalClass.tempKeyColor, GlobalClass.tempKeyColor});
+                keyGradientDrawable.setBounds(child.getLeft() + 5, child.getTop() + 5, child.getRight() - 5, child.getBottom() - 5);
+                keyGradientDrawable.setCornerRadius(GlobalClass.tempKeyRadius);
+                keyGradientDrawable.setAlpha(GlobalClass.tempKeyOpacity);
 
                 switch (GlobalClass.tempKeyStroke) {
-                    case "1":
-                        npd1.setStroke(0, context.getResources().getColor(R.color.colorPrimary));
+                    case 1:
+                        keyGradientDrawable.setStroke(0, getResources().getColor(R.color.colorPrimary));
                         break;
-                    case "2":
-                        npd1.setStroke(2, Color.WHITE);
+                    case 2:
+                        keyGradientDrawable.setStroke(2, Color.WHITE);
                         break;
-                    case "3":
-                        npd1.setStroke(2, Color.BLACK);
+                    case 3:
+                        keyGradientDrawable.setStroke(2, Color.BLACK);
                         break;
-                    case "4":
-                        npd1.setStroke(4, Color.BLACK);
+                    case 4:
+                        keyGradientDrawable.setStroke(4, Color.BLACK);
                         break;
-                    case "5":
-                        npd1.setStroke(3, getResources().getColor(R.color.gray));
+                    case 5:
+                        keyGradientDrawable.setStroke(3, getResources().getColor(R.color.gray));
                         break;
                 }
 
-                mChild.setBackground(npd1);
+                child.setBackground(keyGradientDrawable);
 
-                if (mChild instanceof TextView) {
-                    ((TextView) mChild).setTextColor(android.graphics.Color.parseColor(GlobalClass.tempFontColor));
-                    if (GlobalClass.tempFontName.length() != 0 && GlobalClass.tempFontName != null
-                            && !GlobalClass.tempFontName.isEmpty()) {
-                        try {
-
-                            Typeface font = Typeface.createFromAsset(this.getAssets(), GlobalClass.tempFontName);
-                            ((TextView) mChild).setTypeface(font);
-                        } catch (Exception ignored) {
-                        }
+                if (child instanceof TextView) {
+                    ((TextView) child).setTextColor(fontColor);
+                    try {
+                        ((TextView) child).setTypeface(Typeface.createFromAsset(getAssets(), GlobalClass.tempFontName));
+                    } catch (Exception ignored) {
                     }
                 }
 
-                if (mChild instanceof ImageView)
-                    ((ImageView) mChild).setColorFilter(Color.parseColor(GlobalClass.tempFontColor), PorterDuff.Mode.SRC_ATOP);
+                if (child instanceof ImageView)
+                    ((ImageView) child).setColorFilter((fontColor), PorterDuff.Mode.SRC_ATOP);
             }
         }
     }
 
-    public void strtaDS() {
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
+    public void startAds() {
+        if (interstitialAd.isLoaded()) {
+            interstitialAd.show();
         }
-        mInterstitialAd.setAdListener(new AdListener() {
+        interstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
@@ -219,20 +203,14 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
     public void setAdMob() {
         final LinearLayout adContainer = findViewById(R.id.adContainer);
-        final AdView mAdView = new AdView(this);
-        mAdView.setAdSize(AdSize.SMART_BANNER);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdView adView = new AdView(context);
 
-        mInterstitial = new InterstitialAd(this);
-        mInterstitial.setAdUnitId(GlobalClass.getPrefrenceString(CreateKeyboardActivity.this, getString(R.string.android_inst), ""));
-        mInterstitial.loadAd(adRequest);
-        mInterstitial.setAdListener(new AdListener() {
-            public void onAdLoaded() {
-                if (mInterstitial.isLoaded()) {
-                }
-            }
-        });
-        mAdView.setAdListener(new AdListener() {
+        interstitial = new InterstitialAd(context);
+        interstitial.setAdUnitId(getResources().getString(R.string.interstitial_full_screen));
+        interstitial.loadAd(new AdRequest.Builder().build());
+
+        adView.setAdSize(AdSize.SMART_BANNER);
+        adView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
                 adContainer.setVisibility(View.VISIBLE);
@@ -282,30 +260,25 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     }
 
     private void setContent() {
+        interstitialAd = new InterstitialAd(context);
+        interstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_full_screen));
+        interstitialAd.loadAd(new AdRequest.Builder().build());
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_full_screen));
+        homeImageView = findViewById(R.id.homeImageView);
+        TextView applyTextView = findViewById(R.id.applyTextView);
+        titleTextView = findViewById(R.id.titleTextView);
+        keysLayout = findViewById(R.id.keysLayout);
+        ImageView backgroundImageView = findViewById(R.id.backgroundImageView);
 
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        homeImageView.setOnClickListener(this);
+        applyTextView.setOnClickListener(this);
 
-        ivHome = findViewById(R.id.ivHome);
-        TextView txtApply = findViewById(R.id.txtApply);
-        txtMainTitle = findViewById(R.id.txtMainTitle);
-
-        // id for the preview keyboard layout
-        keyboardKeysLayout = findViewById(R.id.keyboardKeysLayout);
-
-        ImageView ivKeyboardBg = findViewById(R.id.ivKeyboardBg);
-
-        // set context
-        context = CreateKeyboardActivity.this;
-        createKeyboardActivity = this;
         if (GlobalClass.getPreferencesArrayList(context) != null) {
             keyboardDataArrayList = GlobalClass.getPreferencesArrayList(context);
         }
 
         try {
-            fontArray = context.getAssets().list("fonts");
+            fontArray = getAssets().list("fonts");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -313,34 +286,35 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         if (getIntent().getBooleanExtra("isEdit", false)) {
             isEdit = true;
             editPosition = getIntent().getIntExtra("position", 0);
-            if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEYBOARDBITMAPBACK, null) != null) {
-                byte[] decodedString = Base64.decode(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEYBOARDBITMAPBACK, null), Base64.DEFAULT);
+
+            if (GlobalClass.getPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, null) != null) {
+                byte[] decodedString = Base64.decode(GlobalClass.getPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, null), Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                ivKeyboardBg.setImageBitmap(decodedByte);
+                backgroundImageView.setImageBitmap(decodedByte);
                 GlobalClass.selview = 0;
 
             } else {
-                ivKeyboardBg.setImageResource(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BG_IMAGE, 0));
-                GlobalClass.selectwallpaper = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTWALLPAPER, 0);
-                GlobalClass.selectcolor = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTCOLOR, 0);
-                GlobalClass.selview = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SELECTVIEW, 0);
+                backgroundImageView.setImageResource(GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, 0));
+                GlobalClass.selectwallpaper = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTWALLPAPER, 0);
+                GlobalClass.selectcolor = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTCOLOR, 0);
+                GlobalClass.selview = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTVIEW, 0);
             }
-            GlobalClass.tempKeyRadius = GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_RADIUS, "18");
-            GlobalClass.tempKeyStroke = GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_STROKE, "2");
-            GlobalClass.tempKeyOpacity = GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEY_OPACITY, "255");
-            GlobalClass.tempFontName = GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_NAME, "Abel_Regular.ttf");
-            GlobalClass.tempSoundStatus = GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.SOUND_STATUS, "off");
-            GlobalClass.tempSoundName = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SOUND_NAME, R.raw.balloon_snap);
-            GlobalClass.selectbgcolor = getColorPos(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_BG_COLOR, 7));
-            GlobalClass.selectfontcolor = getColorPos(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")));
+
+            GlobalClass.tempKeyRadius = GlobalClass.getPreferencesFloat(context, GlobalClass.KEY_RADIUS, 18);
+            GlobalClass.tempKeyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
+            GlobalClass.tempKeyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
+            GlobalClass.tempFontName = GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "Abel_Regular.ttf");
+            GlobalClass.tempSoundStatus = GlobalClass.getPreferencesString(context, GlobalClass.SOUND_STATUS, "off");
+            GlobalClass.tempSoundName = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_NAME, R.raw.balloon_snap);
+            GlobalClass.selectbgcolor = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, 7));
+            GlobalClass.selectfontcolor = getColorPos(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")));
             GlobalClass.selectsounds = getSoundPos(GlobalClass.tempSoundName);
 
             String remove = "fonts/";
             String fontName = removeWords(GlobalClass.tempFontName, remove);
             GlobalClass.selectfonts = getFontPos(fontName);
 
-            // Default keyboard values
-        } else {
+        } else {        // Default keyboard values
             GlobalClass.selectwallpaper = 0;
             GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
             GlobalClass.selectcolor = 0;
@@ -350,9 +324,9 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.keyboardBitmapBack = null;
             GlobalClass.tempFontColor = "#FFFFFF";
             GlobalClass.tempKeyColor = getResources().getColor(R.color.two);
-            GlobalClass.tempKeyRadius = "34";                                       // ranges between (0, 9, 18, 25, 34)
-            GlobalClass.tempKeyStroke = "1";                                        // ranges between (1, 2, 3, 4, 5)
-            GlobalClass.tempKeyOpacity = "64";                                      // ranges between (0, 64, 128, 192, 255)
+            GlobalClass.tempKeyRadius = 34;                                       // ranges between (0, 9, 18, 25, 34)
+            GlobalClass.tempKeyStroke = 1;                                        // ranges between (1, 2, 3, 4, 5)
+            GlobalClass.tempKeyOpacity = 64;                                      // ranges between (0, 64, 128, 192, 255)
             GlobalClass.tempFontName = "";
             GlobalClass.tempSoundStatus = "off";
             GlobalClass.tempSoundName = 0;
@@ -360,30 +334,19 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.selectfontcolor = 1;
             GlobalClass.selectsounds = 0;
             GlobalClass.selectfonts = 0;
-            ivKeyboardBg.setImageResource(GlobalClass.tempKeyboardBgImage);
+            backgroundImageView.setImageResource(GlobalClass.tempKeyboardBgImage);
         }
-
-        redrawKeyboard();
-
-        myAnim = AnimationUtils.loadAnimation(this, R.anim.button);
-        interpolator = new MyBounceInterpolator_anim(0.2, 20);
-        myAnim.setInterpolator(interpolator);
-
-        // set listener
-        ivHome.setOnClickListener(this);
-        txtApply.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ivHome:
-                startActivity(new Intent(getApplicationContext(), com.codminskeyboards.universekeyboard.activity.MainActivity.class));
-                strtaDS();
+            case R.id.homeImageView:
+                startActivity(new Intent(context, MainActivity.class));
+                startAds();
                 break;
 
-            case R.id.txtApply:
+            case R.id.applyTextView:
                 KeyboardData keyboardData = new KeyboardData();
                 keyboardData.setIsColor(GlobalClass.tempIsColor);
                 keyboardData.setKeyboardBgImage(GlobalClass.tempKeyboardBgImage);
@@ -411,8 +374,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 }
                 GlobalClass.setPreferencesArrayList(context, keyboardDataArrayList);
                 finish();
-                startActivity(new Intent(context, com.codminskeyboards.universekeyboard.activity.MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                strtaDS();
+                startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startAds();
                 break;
         }
     }
@@ -420,7 +383,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        ivHome.performClick();
+        homeImageView.performClick();
     }
 
 }

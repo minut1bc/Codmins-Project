@@ -55,7 +55,7 @@ public class FillFontStyleAdapter extends BaseAdapter {
         holder.cIvBg = convertView.findViewById(R.id.cIvBg);
         holder.ivLock = convertView.findViewById(R.id.ivLock);
 
-        if (GlobalClass.getPrefrenceBoolean(context, GlobalClass.key_isFontLock, true)) {
+        if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isFontLock, true)) {
             if (position > 33) {
                 holder.ivLock.setVisibility(View.VISIBLE);
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {

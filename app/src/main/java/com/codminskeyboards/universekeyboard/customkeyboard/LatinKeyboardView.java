@@ -70,9 +70,9 @@ public class LatinKeyboardView extends KeyboardView {
         keys = getKeyboard().getKeys();
 
         int fontColor = Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF"));
-        int keyOpacity = Integer.parseInt(GlobalClass.getPreferencesString(context, GlobalClass.KEY_OPACITY, "255"));
-        Float keyRadius = Float.parseFloat(GlobalClass.getPreferencesString(context, GlobalClass.KEY_RADIUS, "18"));
-        String keyStroke = GlobalClass.getPreferencesString(context, GlobalClass.KEY_STROKE, "2");
+        int keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
+        float keyRadius = GlobalClass.getPreferencesFloat(context, GlobalClass.KEY_RADIUS, 18);
+        int keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
         String fontName = GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "");
         int tint = 0x77000000;
 
@@ -86,23 +86,23 @@ public class LatinKeyboardView extends KeyboardView {
             keyPressedBackground.setCornerRadius(keyRadius);
 
             switch (keyStroke) {
-                case "1":
+                case 1:
                     keyBackground.setStroke(0, getResources().getColor(R.color.colorPrimary));
                     keyPressedBackground.setStroke(0, getResources().getColor(R.color.colorPrimary));
                     break;
-                case "2":
+                case 2:
                     keyBackground.setStroke(2, Color.WHITE);
                     keyPressedBackground.setStroke(2, Color.WHITE);
                     break;
-                case "3":
+                case 3:
                     keyBackground.setStroke(2, Color.BLACK);
                     keyPressedBackground.setStroke(2, Color.BLACK);
                     break;
-                case "4":
+                case 4:
                     keyBackground.setStroke(4, Color.BLACK);
                     keyPressedBackground.setStroke(4, Color.BLACK);
                     break;
-                case "5":
+                case 5:
                     keyBackground.setStroke(3, Color.GRAY);
                     keyPressedBackground.setStroke(3, Color.GRAY);
                     break;
