@@ -30,7 +30,7 @@
         </activity>
         <service
             android:name=".customkeyboard.SoftKeyboard"
-            android:label="Universe Keyboard"
+            android:label="@string/app_name"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
@@ -56,23 +56,12 @@
             android:name="com.codminskeyboards.universekeyboard.activity.SetKeyboardActivity"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".customkeyboard.ImePreferences" />
+
         <service
             android:name="com.codminskeyboards.universekeyboard.utils.MyDownloadService"
             android:enabled="true"
             android:exported="true" />
-        <!--If your targetSdkVersion is 24 or higher, we have to use FileProvider class to give access to the particular file or folder to make them accessible for other apps.-->
-
-        <!--Steps to replace file:// uri with content:// uri:-->
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
 
         <meta-data
             android:name="com.google.android.gms.ads.ca-app-pub-2002759323605741~1307687673"

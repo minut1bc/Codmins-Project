@@ -13,10 +13,10 @@ import com.codminskeyboards.universekeyboard.inputmethodcommon.InputMethodSettin
 public class ImePreferences extends PreferenceActivity {
     @Override
     public Intent getIntent() {
-        final Intent modIntent = new Intent(super.getIntent());
-        modIntent.putExtra(EXTRA_SHOW_FRAGMENT, Settings.class.getName());
-        modIntent.putExtra(EXTRA_NO_HEADERS, true);
-        return modIntent;
+        final Intent intent = new Intent(super.getIntent());
+        intent.putExtra(EXTRA_SHOW_FRAGMENT, Settings.class.getName());
+        intent.putExtra(EXTRA_NO_HEADERS, true);
+        return intent;
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -68,44 +69,41 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
      * that are primarily intended to be used for on-screen text entry.
      */
     static final boolean PROCESS_HARD_KEYS = true;
-    private InputMethodManager mInputMethodManager;
-    private CandidateView mCandidateView;
-    private CompletionInfo[] mCompletions;
-    private StringBuilder mComposing = new StringBuilder();
-    private boolean mPredictionOn;
-    private boolean mCompletionOn;
-    private int mLastDisplayWidth;
-    public static boolean mCapsLock;
-    private long mLastShiftTime;
-    private long mMetaState;
-    private LatinKeyboardView mInputView;
-    private LatinKeyboard mSymbolsKeyboard;
-    private LatinKeyboard mSymbolsShiftedKeyboard;
-    private LatinKeyboard mQwertyKeyboard;
-    private LatinKeyboard mQwertyKeyboardShift;
-    private LatinKeyboard mCurKeyboard;
-    private String mWordSeparators;
-
-    private SpellCheckerSession mScs;
-    private List<String> mSuggestions;
+    public static boolean capsLock;
+    Context context;
+    private InputMethodManager inputMethodManager;
+    private CandidateView candidateView;
+    private CompletionInfo[] completions;
+    private StringBuilder composing = new StringBuilder();
+    private boolean predictionOn;
+    private boolean completionOn;
+    private int lastDisplayWidth;
+    private long lastShiftTime;
+    private long metaState;
+    private LatinKeyboardView inputView;
+    private LatinKeyboard symbolsKeyboard;
+    private LatinKeyboard symbolsShiftedKeyboard;
+    private LatinKeyboard qwertyKeyboard;
+    private LatinKeyboard qwertyShiftedKeyboard;
+    private LatinKeyboard currentKeyboard;
+    private String wordSeparators;
+    private SpellCheckerSession spellCheckerSession;
 
     private RelativeLayout linEmoji;
     private ImageView emojiBackspaceImageView;
-    private GridView gvEmoji;
+    private List<String> suggestions;
     private FillEmojiAdapter fillEmojiAdapter;
-    private ImageView ivAbc;
-    private ImageView ivSmile;
-    private ImageView ivAnimal;
-    private ImageView ivLamp;
-    private ImageView ivFood;
-    private ImageView ivSocial;
+    private GridView emojiGridView;
+    private ImageView smileImageView;
+    private ImageView animalImageView;
+    private ImageView lampImageView;
+    private ImageView foodImageView;
 
     private AudioManager audioManager;
     private Vibrator vibrator;
 
     private int vibrationStrength;
-
-    Context mContext;
+    private ImageView socialImageView;
     private String[] emojiArrayList;
 
     SoundPool soundPool;
@@ -121,14 +119,13 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     public void onCreate() {
         super.onCreate();
 
-        mContext = SoftKeyboard.this;
-        mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        mWordSeparators = getResources().getString(R.string.word_separators);
+        context = SoftKeyboard.this;
+        inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        wordSeparators = getResources().getString(R.string.word_separators);
 
-        TextServicesManager tsm = (TextServicesManager) getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
-        if (tsm != null) {
-            mScs = tsm.newSpellCheckerSession(null, Locale.ENGLISH, this, true);
-        }
+        TextServicesManager textServicesManager = (TextServicesManager) getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
+        if (textServicesManager != null)
+            spellCheckerSession = textServicesManager.newSpellCheckerSession(null, Locale.ENGLISH, this, true);
 
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -146,19 +143,19 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
      */
     @Override
     public void onInitializeInterface() {
-        if (mQwertyKeyboard != null) {
+        if (qwertyKeyboard != null) {
             // Configuration changes can happen after the keyboard gets recreated,
             // so we need to be able to re-build the keyboards if the available
             // space has changed.
             int displayWidth = getMaxWidth();
-            if (displayWidth == mLastDisplayWidth)
+            if (displayWidth == lastDisplayWidth)
                 return;
-            mLastDisplayWidth = displayWidth;
+            lastDisplayWidth = displayWidth;
         }
-        mQwertyKeyboard = new LatinKeyboard(this, R.xml.qwerty);
-        mQwertyKeyboardShift = new LatinKeyboard(this, R.xml.qwerty_shift);
-        mSymbolsKeyboard = new LatinKeyboard(this, R.xml.symbols);
-        mSymbolsShiftedKeyboard = new LatinKeyboard(this, R.xml.symbols_shift);
+        qwertyKeyboard = new LatinKeyboard(context, R.xml.qwerty);
+        qwertyShiftedKeyboard = new LatinKeyboard(context, R.xml.qwerty_shift);
+        symbolsKeyboard = new LatinKeyboard(context, R.xml.symbols);
+        symbolsShiftedKeyboard = new LatinKeyboard(context, R.xml.symbols_shift);
     }
 
     /**
@@ -170,89 +167,74 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     @SuppressLint("InflateParams")
     @Override
     public View onCreateInputView() {
-        GlobalClass globalClass = new GlobalClass(SoftKeyboard.this.getApplicationContext());
+        GlobalClass globalClass = new GlobalClass(context);
 
         final View view = getLayoutInflater().inflate(R.layout.input, null);
-        mInputView = view.findViewById(R.id.keyboard);
+
+        inputView = view.findViewById(R.id.keyboard);
         LinearLayout linKeyboard = view.findViewById(R.id.linKeyboard);
         linEmoji = view.findViewById(R.id.linEmoji);
         emojiBackspaceImageView = view.findViewById(R.id.emojiBackspaceImageView);
-        gvEmoji = view.findViewById(R.id.gvEmoji);
-        ivAbc = view.findViewById(R.id.ivAbc);
-        ivSmile = view.findViewById(R.id.ivSmile);
-        ivAnimal = view.findViewById(R.id.ivAnimal);
-        ivLamp = view.findViewById(R.id.ivLamp);
-        ivFood = view.findViewById(R.id.ivFood);
-        ivSocial = view.findViewById(R.id.ivSocial);
-        LinearLayout linCategory = view.findViewById(R.id.linCategory);
+        emojiGridView = view.findViewById(R.id.emojiGridView);
+        ImageView abcImageView = view.findViewById(R.id.abcImageView);
+        smileImageView = view.findViewById(R.id.smileImageView);
+        animalImageView = view.findViewById(R.id.animalImageView);
+        lampImageView = view.findViewById(R.id.lampImageView);
+        foodImageView = view.findViewById(R.id.foodImageView);
+        socialImageView = view.findViewById(R.id.socialImageView);
+        LinearLayout categoryLinearLayout = view.findViewById(R.id.categoryLinearLayout);
 
-        vibrationStrength = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.vibrationStrength, 0);
+        vibrationStrength = GlobalClass.getPreferencesInt(context, GlobalClass.vibrationStrength, 0);
 
-        GlobalClass.soundId = GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.SOUND_NAME, R.raw.balloon_snap);
+        GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_NAME, R.raw.balloon_snap);
 
         emojiArrayList = getResources().getStringArray(R.array.smile);
-        fillEmojiAdapter = new FillEmojiAdapter(getApplicationContext(), emojiArrayList);
-        gvEmoji.setAdapter(fillEmojiAdapter);
+        fillEmojiAdapter = new FillEmojiAdapter(context, emojiArrayList);
+        emojiGridView.setAdapter(fillEmojiAdapter);
 
-        ivSmile.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
-        ivAnimal.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
-        ivLamp.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
-        ivFood.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
-        ivSocial.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
-        emojiBackspaceImageView.setColorFilter(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")), PorterDuff.Mode.SRC_ATOP);
+        int fontColor = Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF"));
+        int keyBgColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight));
 
-        for (int i = 0; i < linCategory.getChildCount(); i++) {
-            final View mChild = linCategory.getChildAt(i);
-            if (mChild instanceof ImageView || mChild instanceof TextView) {
+        smileImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+        animalImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+        lampImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+        foodImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+        socialImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+        emojiBackspaceImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
 
-                GradientDrawable npd1;
-                if (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_BG_COLOR, mContext.getResources().getColor(R.color.eight)) == R.color.white) {
-                    npd1 = new GradientDrawable(
-                            GradientDrawable.Orientation.TOP_BOTTOM,
-                            new int[]{mContext.getResources().getColor(R.color.eight),
-                                    mContext.getResources().getColor(R.color.eight)});
+        for (int i = 0; i < categoryLinearLayout.getChildCount(); i++) {
+            final View child = categoryLinearLayout.getChildAt(i);
+            if (child instanceof ImageView || child instanceof TextView) {
+                GradientDrawable keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyBgColor, keyBgColor});
+                keyBackground.setBounds(child.getLeft() + 5, child.getTop() + 5, child.getRight() - 5, child.getBottom() - 5);
+                keyBackground.setCornerRadius(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18));
+                keyBackground.setAlpha(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255));
 
-                } else {
-                    npd1 = new GradientDrawable(
-                            GradientDrawable.Orientation.TOP_BOTTOM,
-                            new int[]{GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_BG_COLOR, mContext.getResources().getColor(R.color.eight)),
-                                    GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_BG_COLOR, mContext.getResources().getColor(R.color.eight))});
-
-                }
-
-                npd1.setBounds(mChild.getLeft() + 5, mChild.getTop() + 5, mChild.getRight() - 5, mChild.getBottom() - 5);
-
-                npd1.setCornerRadius(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_RADIUS, 18));
-                npd1.setAlpha(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_OPACITY, 255));
-
-                switch (GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEY_STROKE, 2)) {
+                switch (GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2)) {
                     case 1:
-                        npd1.setStroke(0, getApplicationContext().getResources().getColor(R.color.colorPrimary));
+                        keyBackground.setStroke(0, getResources().getColor(R.color.colorPrimary));
                         break;
                     case 2:
-                        npd1.setStroke(2, android.graphics.Color.WHITE);
+                        keyBackground.setStroke(2, android.graphics.Color.WHITE);
                         break;
                     case 3:
-                        npd1.setStroke(2, android.graphics.Color.BLACK);
+                        keyBackground.setStroke(2, android.graphics.Color.BLACK);
                         break;
                     case 4:
-                        npd1.setStroke(4, android.graphics.Color.BLACK);
+                        keyBackground.setStroke(4, android.graphics.Color.BLACK);
                         break;
                     case 5:
-                        npd1.setStroke(3, android.graphics.Color.GRAY);
+                        keyBackground.setStroke(3, android.graphics.Color.GRAY);
                         break;
                 }
 
-                mChild.setBackground(npd1);
+                child.setBackground(keyBackground);
 
-                if (mChild instanceof TextView) {
-                    ((TextView) mChild).setTextColor(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_COLOR, "#FFFFFF")));
-                    if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_NAME, "").length() != 0 && GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_NAME, "") != null
-                            && !GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.FONT_NAME, "").isEmpty()) {
+                if (child instanceof TextView) {
+                    ((TextView) child).setTextColor(fontColor);
+                    if (!GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "").isEmpty()) {
                         try {
-
-                            Typeface font = Typeface.createFromAsset(this.getAssets(), GlobalClass.tempFontName);
-                            ((TextView) mChild).setTypeface(font);
+                            ((TextView) child).setTypeface(Typeface.createFromAsset(getAssets(), GlobalClass.tempFontName));
                         } catch (Exception ignored) {
                         }
                     }
@@ -260,122 +242,122 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             }
         }
 
-        ivSmile.setOnClickListener(new View.OnClickListener() {
+        smileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 emojiArrayList = getResources().getStringArray(R.array.smile);
                 fillEmojiAdapter = new FillEmojiAdapter(getApplicationContext(), emojiArrayList);
-                gvEmoji.setAdapter(fillEmojiAdapter);
+                emojiGridView.setAdapter(fillEmojiAdapter);
 
-                ivSmile.setImageDrawable(getResources().getDrawable(R.drawable.ic_smile_bold));
-                ivAnimal.setImageDrawable(getResources().getDrawable(R.drawable.ic_animal));
-                ivLamp.setImageDrawable(getResources().getDrawable(R.drawable.ic_lamp));
-                ivFood.setImageDrawable(getResources().getDrawable(R.drawable.ic_food));
-                ivSocial.setImageDrawable(getResources().getDrawable(R.drawable.ic_building));
+                smileImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_smile_bold));
+                animalImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_animal));
+                lampImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_lamp));
+                foodImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_food));
+                socialImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_building));
 
-                ivSmile.setColorFilter(mContext.getResources().getColor(R.color.white));
-                ivAnimal.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivLamp.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivFood.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivSocial.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                emojiBackspaceImageView.setColorFilter(mContext.getResources().getColor(R.color.silver));
+                smileImageView.setColorFilter(getResources().getColor(R.color.white));
+                animalImageView.setColorFilter(getResources().getColor(R.color.silver));
+                lampImageView.setColorFilter(getResources().getColor(R.color.silver));
+                foodImageView.setColorFilter(getResources().getColor(R.color.silver));
+                socialImageView.setColorFilter(getResources().getColor(R.color.silver));
+                emojiBackspaceImageView.setColorFilter(getResources().getColor(R.color.silver));
             }
         });
 
-        ivAnimal.setOnClickListener(new View.OnClickListener() {
+        animalImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 emojiArrayList = getResources().getStringArray(R.array.animal);
                 fillEmojiAdapter = new FillEmojiAdapter(getApplicationContext(), emojiArrayList);
-                gvEmoji.setAdapter(fillEmojiAdapter);
+                emojiGridView.setAdapter(fillEmojiAdapter);
 
-                ivSmile.setImageDrawable(getResources().getDrawable(R.drawable.ic_smile_one));
-                ivAnimal.setImageDrawable(getResources().getDrawable(R.drawable.ic_animal_bold));
-                ivLamp.setImageDrawable(getResources().getDrawable(R.drawable.ic_lamp));
-                ivFood.setImageDrawable(getResources().getDrawable(R.drawable.ic_food));
-                ivSocial.setImageDrawable(getResources().getDrawable(R.drawable.ic_building));
+                smileImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_smile_one));
+                animalImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_animal_bold));
+                lampImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_lamp));
+                foodImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_food));
+                socialImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_building));
 
-                ivSmile.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivAnimal.setColorFilter(mContext.getResources().getColor(R.color.white));
-                ivLamp.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivFood.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivSocial.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                emojiBackspaceImageView.setColorFilter(mContext.getResources().getColor(R.color.silver));
+                smileImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                animalImageView.setColorFilter(context.getResources().getColor(R.color.white));
+                lampImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                foodImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                socialImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                emojiBackspaceImageView.setColorFilter(context.getResources().getColor(R.color.silver));
             }
         });
 
-        ivLamp.setOnClickListener(new View.OnClickListener() {
+        lampImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 emojiArrayList = getResources().getStringArray(R.array.lamp);
                 fillEmojiAdapter = new FillEmojiAdapter(getApplicationContext(), emojiArrayList);
-                gvEmoji.setAdapter(fillEmojiAdapter);
+                emojiGridView.setAdapter(fillEmojiAdapter);
 
-                ivSmile.setImageDrawable(getResources().getDrawable(R.drawable.ic_smile_one));
-                ivAnimal.setImageDrawable(getResources().getDrawable(R.drawable.ic_animal));
-                ivLamp.setImageDrawable(getResources().getDrawable(R.drawable.ic_lamp_bold));
-                ivFood.setImageDrawable(getResources().getDrawable(R.drawable.ic_food));
-                ivSocial.setImageDrawable(getResources().getDrawable(R.drawable.ic_building));
+                smileImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_smile_one));
+                animalImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_animal));
+                lampImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_lamp_bold));
+                foodImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_food));
+                socialImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_building));
 
-                ivSmile.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivAnimal.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivLamp.setColorFilter(mContext.getResources().getColor(R.color.white));
-                ivFood.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivSocial.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                emojiBackspaceImageView.setColorFilter(mContext.getResources().getColor(R.color.silver));
+                smileImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                animalImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                lampImageView.setColorFilter(context.getResources().getColor(R.color.white));
+                foodImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                socialImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                emojiBackspaceImageView.setColorFilter(context.getResources().getColor(R.color.silver));
             }
         });
 
-        ivFood.setOnClickListener(new View.OnClickListener() {
+        foodImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 emojiArrayList = getResources().getStringArray(R.array.food);
                 fillEmojiAdapter = new FillEmojiAdapter(getApplicationContext(), emojiArrayList);
-                gvEmoji.setAdapter(fillEmojiAdapter);
+                emojiGridView.setAdapter(fillEmojiAdapter);
 
-                ivSmile.setImageDrawable(getResources().getDrawable(R.drawable.ic_smile_one));
-                ivAnimal.setImageDrawable(getResources().getDrawable(R.drawable.ic_animal));
-                ivLamp.setImageDrawable(getResources().getDrawable(R.drawable.ic_lamp));
-                ivFood.setImageDrawable(getResources().getDrawable(R.drawable.ic_food_bold));
-                ivSocial.setImageDrawable(getResources().getDrawable(R.drawable.ic_building));
+                smileImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_smile_one));
+                animalImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_animal));
+                lampImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_lamp));
+                foodImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_food_bold));
+                socialImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_building));
 
-                ivSmile.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivAnimal.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivLamp.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivFood.setColorFilter(mContext.getResources().getColor(R.color.white));
-                ivSocial.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                emojiBackspaceImageView.setColorFilter(mContext.getResources().getColor(R.color.silver));
+                smileImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                animalImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                lampImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                foodImageView.setColorFilter(context.getResources().getColor(R.color.white));
+                socialImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                emojiBackspaceImageView.setColorFilter(context.getResources().getColor(R.color.silver));
             }
         });
 
-        ivSocial.setOnClickListener(new View.OnClickListener() {
+        socialImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 emojiArrayList = getResources().getStringArray(R.array.social);
                 fillEmojiAdapter = new FillEmojiAdapter(getApplicationContext(), emojiArrayList);
-                gvEmoji.setAdapter(fillEmojiAdapter);
+                emojiGridView.setAdapter(fillEmojiAdapter);
 
-                ivSmile.setImageDrawable(getResources().getDrawable(R.drawable.ic_smile_one));
-                ivAnimal.setImageDrawable(getResources().getDrawable(R.drawable.ic_animal));
-                ivLamp.setImageDrawable(getResources().getDrawable(R.drawable.ic_lamp));
-                ivFood.setImageDrawable(getResources().getDrawable(R.drawable.ic_food));
-                ivSocial.setImageDrawable(getResources().getDrawable(R.drawable.ic_building_bold));
+                smileImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_smile_one));
+                animalImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_animal));
+                lampImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_lamp));
+                foodImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_food));
+                socialImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_building_bold));
 
-                ivSmile.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivAnimal.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivLamp.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivFood.setColorFilter(mContext.getResources().getColor(R.color.silver));
-                ivSocial.setColorFilter(mContext.getResources().getColor(R.color.white));
-                emojiBackspaceImageView.setColorFilter(mContext.getResources().getColor(R.color.silver));
+                smileImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                animalImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                lampImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                foodImageView.setColorFilter(context.getResources().getColor(R.color.silver));
+                socialImageView.setColorFilter(context.getResources().getColor(R.color.white));
+                emojiBackspaceImageView.setColorFilter(context.getResources().getColor(R.color.silver));
             }
         });
 
-        gvEmoji.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        emojiGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mPredictionOn) {
-                    mComposing.append(emojiArrayList[position]);
-                    getCurrentInputConnection().setComposingText(mComposing, 1);
+                if (predictionOn) {
+                    composing.append(emojiArrayList[position]);
+                    getCurrentInputConnection().setComposingText(composing, 1);
                     updateShiftKeyState(getCurrentInputEditorInfo());
                     updateCandidates();
                 } else {
@@ -384,7 +366,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             }
         });
 
-        ivAbc.setOnClickListener(new View.OnClickListener() {
+        abcImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleEmoji();
@@ -402,13 +384,13 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         if (GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEYBOARDBITMAPBACK, null) != null) {
             byte[] decodedString = Base64.decode(GlobalClass.getPreferencesString(getApplicationContext(), GlobalClass.KEYBOARDBITMAPBACK, null), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            BitmapDrawable background = new BitmapDrawable(mContext.getResources(), decodedByte);
+            BitmapDrawable background = new BitmapDrawable(context.getResources(), decodedByte);
             linKeyboard.setBackground(background);
         } else {
             linKeyboard.setBackgroundResource(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BG_IMAGE, R.drawable.background_1));
         }
 
-        for (Keyboard.Key k : mQwertyKeyboard.getKeys()) {
+        for (Keyboard.Key k : qwertyKeyboard.getKeys()) {
             switch (k.codes[0]) {
                 case Keyboard.KEYCODE_SHIFT /*-978903*/:
                     k.icon = null;
@@ -424,14 +406,14 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                     break;
             }
         }
-        mInputView.setOnKeyboardActionListener(this);
-        setLatinKeyboard(mQwertyKeyboard);
-        mInputView.setPreviewEnabled(false);
+        inputView.setOnKeyboardActionListener(this);
+        setLatinKeyboard(qwertyKeyboard);
+        inputView.setPreviewEnabled(false);
         return view;
     }
 
     private void setLatinKeyboard(LatinKeyboard nextKeyboard) {
-        mInputView.setKeyboard(nextKeyboard);
+        inputView.setKeyboard(nextKeyboard);
     }
 
     /**
@@ -440,9 +422,9 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
      */
     @Override
     public View onCreateCandidatesView() {
-        mCandidateView = new CandidateView(this);
-        mCandidateView.setService(this);
-        return mCandidateView;
+        candidateView = new CandidateView(context);
+        candidateView.setService(this);
+        return candidateView;
     }
 
     /**
@@ -458,17 +440,17 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         // Reset our state.  We want to do this even if restarting, because
         // the underlying state of the text editor could have changed in any way.
-        mComposing.setLength(0);
+        composing.setLength(0);
         updateCandidates();
 
         if (!restarting) {
             // Clear shift states.
-            mMetaState = 0;
+            metaState = 0;
         }
 
-        mPredictionOn = false;
-        mCompletionOn = false;
-        mCompletions = null;
+        predictionOn = false;
+        completionOn = false;
+        completions = null;
 
         // We are now going to initialize our state based on the type of
         // text being edited.
@@ -477,13 +459,13 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             case InputType.TYPE_CLASS_DATETIME:
                 // Numbers and dates default to the symbols keyboard, with
                 // no extra features.
-                mCurKeyboard = mSymbolsKeyboard;
+                currentKeyboard = symbolsKeyboard;
                 break;
 
             case InputType.TYPE_CLASS_PHONE:
                 // Phones will also default to the symbols keyboard, though
                 // often you will want to have a dedicated phone keyboard.
-                mCurKeyboard = mSymbolsKeyboard;
+                currentKeyboard = symbolsKeyboard;
                 break;
 
             case InputType.TYPE_CLASS_TEXT:
@@ -491,8 +473,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 // normal alphabetic keyboard, and assume that we should
                 // be doing predictive text (showing candidates as the
                 // user types).
-                mCurKeyboard = mQwertyKeyboard;
-                mPredictionOn = false;
+                currentKeyboard = qwertyKeyboard;
+                predictionOn = false;
 
                 // We now look for a few special variations of text that will
                 // modify our behavior.
@@ -501,7 +483,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                         variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
                     // Do not display predictions / what the user is typing
                     // when they are entering a password.
-                    mPredictionOn = false;
+                    predictionOn = false;
                 }
 
                 if (variation == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
@@ -509,7 +491,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                         || variation == InputType.TYPE_TEXT_VARIATION_FILTER) {
                     // Our predictions are not useful for e-mail addresses
                     // or URIs.
-                    mPredictionOn = false;
+                    predictionOn = false;
                 }
 
                 if ((attribute.inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
@@ -518,8 +500,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                     // to supply their own.  We only show the editor's
                     // candidates when in fullscreen mode, otherwise relying
                     // own it displaying its own UI.
-                    mPredictionOn = false;
-                    mCompletionOn = isFullscreenMode();
+                    predictionOn = false;
+                    completionOn = isFullscreenMode();
                 }
 
                 // We also want to look at the current state of the editor
@@ -531,13 +513,13 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             default:
                 // For all unknown input types, default to the alphabetic
                 // keyboard with no special features.
-                mCurKeyboard = mQwertyKeyboard;
+                currentKeyboard = qwertyKeyboard;
                 updateShiftKeyState(attribute);
         }
 
         // Update the label on the enter key, depending on what the application
         // says it will do.
-        mCurKeyboard.setImeOptions(getResources(), attribute.imeOptions);
+        currentKeyboard.setImeOptions(getResources(), attribute.imeOptions);
     }
 
     /**
@@ -551,7 +533,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         GlobalClass.printLog("SoftKeyboard", "---------------onFinishInput---------------");
 
         // Clear current composing text and candidates.
-        mComposing.setLength(0);
+        composing.setLength(0);
         updateCandidates();
 
         // We only hide the candidates window when finishing input on
@@ -560,9 +542,9 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         // its window.
         setCandidatesViewShown(false);
 
-        mCurKeyboard = mQwertyKeyboard;
-        if (mInputView != null) {
-            mInputView.closing();
+        currentKeyboard = qwertyKeyboard;
+        if (inputView != null) {
+            inputView.closing();
         }
     }
 
@@ -570,38 +552,34 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     public void onStartInputView(EditorInfo attribute, boolean restarting) {
         super.onStartInputView(attribute, restarting);
         // Apply the selected keyboard to the input view.
-        setLatinKeyboard(mCurKeyboard);
-        mInputView.closing();
-        final InputMethodSubtype subtype = mInputMethodManager.getCurrentInputMethodSubtype();
-        mInputView.setSubtypeOnSpaceKey(subtype);
+        setLatinKeyboard(currentKeyboard);
+        inputView.closing();
+        final InputMethodSubtype subtype = inputMethodManager.getCurrentInputMethodSubtype();
+        inputView.setSubtypeOnSpaceKey(subtype);
         setInputView(onCreateInputView());
     }
 
     @Override
     public void onCurrentInputMethodSubtypeChanged(InputMethodSubtype subtype) {
-        if (mInputView != null)
-            mInputView.setSubtypeOnSpaceKey(subtype);
+        if (inputView != null)
+            inputView.setSubtypeOnSpaceKey(subtype);
     }
 
     /**
      * Deal with the editor reporting movement of its cursor.
      */
     @Override
-    public void onUpdateSelection(int oldSelStart, int oldSelEnd,
-                                  int newSelStart, int newSelEnd,
-                                  int candidatesStart, int candidatesEnd) {
-        super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
-                candidatesStart, candidatesEnd);
+    public void onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart, int newSelEnd, int candidatesStart, int candidatesEnd) {
+        super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 
         // If the current selection in the text view changes, we should
         // clear whatever candidate text we have.
-        if (mComposing.length() > 0 && (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)) {
-            mComposing.setLength(0);
+        if (composing.length() > 0 && (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)) {
+            composing.setLength(0);
             updateCandidates();
-            InputConnection ic = getCurrentInputConnection();
-            if (ic != null) {
-                ic.finishComposingText();
-            }
+            InputConnection inputConnection = getCurrentInputConnection();
+            if (inputConnection != null)
+                inputConnection.finishComposingText();
         }
     }
 
@@ -615,8 +593,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     public void onDisplayCompletions(CompletionInfo[] completions) {
         GlobalClass.printLog("SoftKeyboard", "---------------onDisplayCompletions---------------");
 
-        if (mCompletionOn) {
-            mCompletions = completions;
+        if (completionOn) {
+            this.completions = completions;
             if (completions == null) {
                 setSuggestions(null, false, false);
                 return;
@@ -636,14 +614,12 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
      * PROCESS_HARD_KEYS option.
      */
     private boolean translateKeyDown(int keyCode, KeyEvent event) {
-        mMetaState = MetaKeyKeyListener.handleKeyDown(mMetaState,
-                keyCode, event);
-        int c = event.getUnicodeChar(MetaKeyKeyListener.getMetaState(mMetaState));
-        mMetaState = MetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
-        InputConnection ic = getCurrentInputConnection();
-        if (c == 0 || ic == null) {
+        metaState = MetaKeyKeyListener.handleKeyDown(metaState, keyCode, event);
+        int c = event.getUnicodeChar(MetaKeyKeyListener.getMetaState(metaState));
+        metaState = MetaKeyKeyListener.adjustMetaAfterKeypress(metaState);
+        InputConnection inputConnection = getCurrentInputConnection();
+        if (c == 0 || inputConnection == null)
             return false;
-        }
 
         boolean dead = false;
         if ((c & KeyCharacterMap.COMBINING_ACCENT) != 0) {
@@ -651,12 +627,12 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             c = c & KeyCharacterMap.COMBINING_ACCENT_MASK;
         }
 
-        if (mComposing.length() > 0) {
-            char accent = mComposing.charAt(mComposing.length() - 1);
+        if (composing.length() > 0) {
+            char accent = composing.charAt(composing.length() - 1);
             int composed = KeyEvent.getDeadChar(accent, c);
             if (composed != 0) {
                 c = composed;
-                mComposing.setLength(mComposing.length() - 1);
+                composing.setLength(composing.length() - 1);
             }
         }
 
@@ -681,11 +657,9 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 // key for us, to dismiss the input method if it is shown.
                 // However, our keyboard could be showing a pop-up window
                 // that back should dismiss, so we first allow it to do that.
-                if (event.getRepeatCount() == 0 && mInputView != null) {
-                    if (mInputView.handleBack()) {
+                if (event.getRepeatCount() == 0 && inputView != null)
+                    if (inputView.handleBack())
                         return true;
-                    }
-                }
                 break;
 
             case KeyEvent.KEYCODE_DEL:
@@ -693,7 +667,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 // Special handling of the delete key: if we currently are
                 // composing text for the user, we want to modify that instead
                 // of let the application to the delete itself.
-                if (mComposing.length() > 0) {
+                if (composing.length() > 0) {
                     onKey(Keyboard.KEYCODE_DELETE, null);
                     return true;
                 }
@@ -708,8 +682,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 // text being entered with a hard keyboard, we need to process
                 // it and do the appropriate action.
                 if (PROCESS_HARD_KEYS) {
-                    if (keyCode == KeyEvent.KEYCODE_SPACE
-                            && (event.getMetaState() & KeyEvent.META_ALT_ON) != 0) {
+                    if (keyCode == KeyEvent.KEYCODE_SPACE && (event.getMetaState() & KeyEvent.META_ALT_ON) != 0) {
                         // A silly example: in our input method, Alt+Space
                         // is a shortcut for 'android' in lower case.
                         InputConnection ic = getCurrentInputConnection();
@@ -728,12 +701,10 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                             return true;
                         }
                     }
-                    if (mPredictionOn && translateKeyDown(keyCode, event)) {
+                    if (predictionOn && translateKeyDown(keyCode, event))
                         return true;
-                    }
                 }
         }
-
         return super.onKeyDown(keyCode, event);
     }
 
@@ -749,11 +720,9 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         // If we want to do transformations on text being entered with a hard
         // keyboard, we need to process the up events to update the meta key
         // state we are tracking.
-        if (PROCESS_HARD_KEYS) {
-            if (mPredictionOn) {
-                mMetaState = MetaKeyKeyListener.handleKeyUp(mMetaState, keyCode, event);
-            }
-        }
+        if (PROCESS_HARD_KEYS)
+            if (predictionOn)
+                metaState = MetaKeyKeyListener.handleKeyUp(metaState, keyCode, event);
 
         return super.onKeyUp(keyCode, event);
     }
@@ -764,9 +733,9 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private void commitTyped(InputConnection inputConnection) {
         GlobalClass.printLog("SoftKeyboard", "---------------commitTyped---------------");
 
-        if (mComposing.length() > 0) {
-            inputConnection.commitText(mComposing, mComposing.length());
-            mComposing.setLength(0);
+        if (composing.length() > 0) {
+            inputConnection.commitText(composing, composing.length());
+            composing.setLength(0);
             updateCandidates();
         }
     }
@@ -778,15 +747,13 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private void updateShiftKeyState(EditorInfo attr) {
         GlobalClass.printLog("SoftKeyboard", "---------------updateShiftKeyState---------------");
 
-        if (attr != null && mInputView != null && mQwertyKeyboard == mInputView.getKeyboard()) {// TODO: Check if mQwertyKeyboardShift condition not needed
+        if (attr != null && inputView != null && qwertyKeyboard == inputView.getKeyboard()) {       // TODO: Check if qwertyShiftedKeyboard condition not needed
             int caps = 0;
-            EditorInfo ei = getCurrentInputEditorInfo();
-            if (ei != null && ei.inputType != InputType.TYPE_NULL) {
+            EditorInfo editorInfo = getCurrentInputEditorInfo();
+            if (editorInfo != null && editorInfo.inputType != InputType.TYPE_NULL)
                 caps = getCurrentInputConnection().getCursorCapsMode(attr.inputType);
-            }
-            mInputView.setShifted(mCapsLock || caps != 0);
+            inputView.setShifted(capsLock || caps != 0);
         }
-
     }
 
     /**
@@ -829,47 +796,45 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         if (isWordSeparator(primaryCode)) {
             // Handle separator
-            if (mComposing.length() > 0) {
+            if (composing.length() > 0)
                 commitTyped(getCurrentInputConnection());
-            }
             sendKey(primaryCode);
             updateShiftKeyState(getCurrentInputEditorInfo());
-        } else if (primaryCode == Keyboard.KEYCODE_DELETE) {
+        } else if (primaryCode == Keyboard.KEYCODE_DELETE)
             handleBackspace();
-        } else if (primaryCode == Keyboard.KEYCODE_SHIFT) {
+        else if (primaryCode == Keyboard.KEYCODE_SHIFT)
             handleShift();
-        } else if (primaryCode == Keyboard.KEYCODE_CANCEL) {
+        else if (primaryCode == Keyboard.KEYCODE_CANCEL)
             handleClose();
-        } else if (primaryCode == LatinKeyboardView.KEYCODE_LANGUAGE_SWITCH) {
+        else if (primaryCode == LatinKeyboardView.KEYCODE_LANGUAGE_SWITCH)
             handleLanguageSwitch();
-        } else if (primaryCode == LatinKeyboardView.KEYCODE_OPTIONS) {
+        else if (primaryCode == LatinKeyboardView.KEYCODE_OPTIONS) {
             // Show a menu or something
-        } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE && mInputView != null) {
-            Keyboard current = mInputView.getKeyboard();
-            if (current == mSymbolsKeyboard || current == mSymbolsShiftedKeyboard) {
-                setLatinKeyboard(mQwertyKeyboard);
-            } else {
-                setLatinKeyboard(mSymbolsKeyboard);
-                mSymbolsKeyboard.setShifted(false);
+        } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE && inputView != null) {
+            Keyboard current = inputView.getKeyboard();
+            if (current == symbolsKeyboard || current == symbolsShiftedKeyboard)
+                setLatinKeyboard(qwertyKeyboard);
+            else {
+                setLatinKeyboard(symbolsKeyboard);
+                symbolsKeyboard.setShifted(false);
             }
-        } else if (primaryCode == LatinKeyboardView.KEYCODE_EMOJI) {
+        } else if (primaryCode == LatinKeyboardView.KEYCODE_EMOJI)
             handleEmoji();
-        } else {
+        else
             handleCharacter(primaryCode, keyCodes);
-        }
     }
 
     public void onText(CharSequence text) {
         GlobalClass.printLog("SoftKeyboard", "---------------onText---------------");
 
-        InputConnection ic = getCurrentInputConnection();
-        if (ic == null) return;
-        ic.beginBatchEdit();
-        if (mComposing.length() > 0) {
-            commitTyped(ic);
-        }
-        ic.commitText(text, 0);
-        ic.endBatchEdit();
+        InputConnection inputConnection = getCurrentInputConnection();
+        if (inputConnection == null)
+            return;
+        inputConnection.beginBatchEdit();
+        if (composing.length() > 0)
+            commitTyped(inputConnection);
+        inputConnection.commitText(text, 0);
+        inputConnection.endBatchEdit();
         updateShiftKeyState(getCurrentInputEditorInfo());
     }
 
@@ -881,96 +846,90 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private void updateCandidates() {
         GlobalClass.printLog("SoftKeyboard", "---------------updateCandidates---------------");
 
-        if (!mCompletionOn) {
-            if (mComposing.length() > 0) {
+        if (!completionOn) {
+            if (composing.length() > 0) {
                 ArrayList<String> list = new ArrayList<>();
-                //mScs.getSentenceSuggestions(new TextInfo[]{new TextInfo(mComposing.toString())}, 5);  TODO: Re-enable and make mScs not null (currently always null)
-                list.add(mComposing.toString());
+                //spellCheckerSession.getSentenceSuggestions(new TextInfo[]{new TextInfo(composing.toString())}, 5);  //TODO: Re-enable and make spellCheckerSession not null (currently always null)
+                list.add(composing.toString());
                 setSuggestions(list, true, true);
-            } else {
+            } else
                 setSuggestions(null, false, false);
-            }
         }
     }
 
     public void setSuggestions(List<String> suggestions, boolean completions, boolean typedWordValid) {
 
-        if (suggestions != null && suggestions.size() > 0) {
+        if (suggestions != null && suggestions.size() > 0)
             setCandidatesViewShown(true);
-        } else if (isExtractViewShown()) {
+        else if (isExtractViewShown())
             setCandidatesViewShown(true);
-
-        }
-        mSuggestions = suggestions;
-        if (mCandidateView != null) {
-            mCandidateView.setSuggestions(suggestions, completions, typedWordValid);
-        }
+        this.suggestions = suggestions;
+        if (candidateView != null)
+            candidateView.setSuggestions(suggestions, completions, typedWordValid);
     }
 
     private void handleBackspace() {
-        final int length = mComposing.length();
+        final int length = composing.length();
         if (length > 1) {
-            mComposing.delete(length - 1, length);
-            getCurrentInputConnection().setComposingText(mComposing, 1);
+            composing.delete(length - 1, length);
+            getCurrentInputConnection().setComposingText(composing, 1);
             updateCandidates();
         } else if (length > 0) {
-            mComposing.setLength(0);
+            composing.setLength(0);
             getCurrentInputConnection().commitText("", 0);
             updateCandidates();
-        } else {
+        } else
             keyDownUp(KeyEvent.KEYCODE_DEL);
-        }
         updateShiftKeyState(getCurrentInputEditorInfo());
     }
 
     private void handleShift() {
 
-        if (mInputView == null) {
+        if (inputView == null)
             return;
-        }
 
-        Keyboard currentKeyboard = mInputView.getKeyboard();
-        if (mQwertyKeyboard == currentKeyboard || mQwertyKeyboardShift == currentKeyboard) {
-            if (mCapsLock) {
-                setLatinKeyboard(mQwertyKeyboard);
-                mInputView.setShifted(false);
-                mCapsLock = false;
+        Keyboard currentKeyboard = inputView.getKeyboard();
+        if (qwertyKeyboard == currentKeyboard || qwertyShiftedKeyboard == currentKeyboard) {
+            if (capsLock) {
+                setLatinKeyboard(qwertyKeyboard);
+                inputView.setShifted(false);
+                capsLock = false;
             } else {
-                if (mQwertyKeyboard == currentKeyboard) {
+                if (qwertyKeyboard == currentKeyboard) {
                     checkToggleCapsLock();
-                    setLatinKeyboard(mQwertyKeyboardShift);
-                    mInputView.setShifted(true);
+                    setLatinKeyboard(qwertyShiftedKeyboard);
+                    inputView.setShifted(true);
                 } else {
                     checkToggleCapsLock();
-                    mInputView.setShifted(mCapsLock);
-                    if (!mInputView.isShifted())
-                        setLatinKeyboard(mQwertyKeyboard);
+                    inputView.setShifted(capsLock);
+                    if (!inputView.isShifted())
+                        setLatinKeyboard(qwertyKeyboard);
                 }
             }
-        } else if (currentKeyboard == mSymbolsKeyboard) {
-            mSymbolsKeyboard.setShifted(true);
-            setLatinKeyboard(mSymbolsShiftedKeyboard);
-            mSymbolsShiftedKeyboard.setShifted(true);
-        } else if (currentKeyboard == mSymbolsShiftedKeyboard) {
-            mSymbolsShiftedKeyboard.setShifted(false);
-            setLatinKeyboard(mSymbolsKeyboard);
-            mSymbolsKeyboard.setShifted(false);
+        } else if (currentKeyboard == symbolsKeyboard) {
+            symbolsKeyboard.setShifted(true);
+            setLatinKeyboard(symbolsShiftedKeyboard);
+            symbolsShiftedKeyboard.setShifted(true);
+        } else if (currentKeyboard == symbolsShiftedKeyboard) {
+            symbolsShiftedKeyboard.setShifted(false);
+            setLatinKeyboard(symbolsKeyboard);
+            symbolsKeyboard.setShifted(false);
         }
     }
 
     private void handleCharacter(int primaryCode, int[] keyCodes) {
         if (isInputViewShown()) {
-            if (mInputView.isShifted()) {
+            if (inputView.isShifted()) {
                 primaryCode = Character.toUpperCase(primaryCode);
-                if (!mCapsLock && mInputView.getKeyboard() != mSymbolsShiftedKeyboard) {
-                    setLatinKeyboard(mQwertyKeyboard);
-                    mInputView.setShifted(!mInputView.isShifted());
+                if (!capsLock && inputView.getKeyboard() != symbolsShiftedKeyboard) {
+                    setLatinKeyboard(qwertyKeyboard);
+                    inputView.setShifted(!inputView.isShifted());
                 }
             }
         }
-        if (mPredictionOn) {
-            mComposing.append((char) primaryCode);
-            getCurrentInputConnection().setComposingText(mComposing, 1);
+        if (predictionOn) {
+            composing.append((char) primaryCode);
+            getCurrentInputConnection().setComposingText(composing, 1);
             updateShiftKeyState(getCurrentInputEditorInfo());
             updateCandidates();
         } else {
@@ -982,32 +941,30 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private void handleClose() {
         commitTyped(getCurrentInputConnection());
         requestHideSelf(0);
-        mInputView.closing();
+        inputView.closing();
     }
 
     private IBinder getToken() {
 
         final Dialog dialog = getWindow();
-        if (dialog == null) {
+        if (dialog == null)
             return null;
-        }
         final Window window = dialog.getWindow();
-        if (window == null) {
+        if (window == null)
             return null;
-        }
         return window.getAttributes().token;
     }
 
     private void handleLanguageSwitch() {
-        mInputMethodManager.switchToNextInputMethod(getToken(), false /* onlyCurrentIme */);
+        inputMethodManager.switchToNextInputMethod(getToken(), false /* onlyCurrentIme */);
     }
 
     private void handleEmoji() {
-        if (mInputView.getVisibility() == View.VISIBLE) {
-            mInputView.setVisibility(View.GONE);
+        if (inputView.getVisibility() == View.VISIBLE) {
+            inputView.setVisibility(View.GONE);
             linEmoji.setVisibility(View.VISIBLE);
         } else {
-            mInputView.setVisibility(View.VISIBLE);
+            inputView.setVisibility(View.VISIBLE);
             linEmoji.setVisibility(View.GONE);
         }
     }
@@ -1016,19 +973,18 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         GlobalClass.printLog("SoftKeyboard", "---------------checkToggleCapsLock---------------");
 
         long now = System.currentTimeMillis();
-        if (mLastShiftTime + 800 > now) {
-            mCapsLock = !mCapsLock;
-            mLastShiftTime = 0;
+        if (lastShiftTime + 800 > now) {
+            capsLock = !capsLock;
+            lastShiftTime = 0;
 
-        } else if (!mInputView.isShifted()) {
-            mLastShiftTime = now;
-        }
+        } else if (!inputView.isShifted())
+            lastShiftTime = now;
     }
 
     private String getWordSeparators() {
         GlobalClass.printLog("SoftKeyboard", "---------------getWordSeparators---------------");
 
-        return mWordSeparators;
+        return wordSeparators;
     }
 
     public boolean isWordSeparator(int code) {
@@ -1047,19 +1003,16 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     public void pickSuggestionManually(int index) {
         GlobalClass.printLog("SoftKeyboard", "---------------pickSuggestionManually---------------");
 
-        if (mCompletionOn && mCompletions != null && index >= 0
-                && index < mCompletions.length) {
-            CompletionInfo ci = mCompletions[index];
+        if (completionOn && completions != null && index >= 0
+                && index < completions.length) {
+            CompletionInfo ci = completions[index];
             getCurrentInputConnection().commitCompletion(ci);
-            if (mCandidateView != null) {
-                mCandidateView.clear();
-            }
+            if (candidateView != null)
+                candidateView.clear();
             updateShiftKeyState(getCurrentInputEditorInfo());
-        } else if (mComposing.length() > 0) {
-
-            if (mPredictionOn && mSuggestions != null && index >= 0) {
-                mComposing.replace(0, mComposing.length(), mSuggestions.get(index));
-            }
+        } else if (composing.length() > 0) {
+            if (predictionOn && suggestions != null && index >= 0)
+                composing.replace(0, composing.length(), suggestions.get(index));
             commitTyped(getCurrentInputConnection());
 
         }
@@ -1069,9 +1022,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         GlobalClass.printLog("SoftKeyboard", "---------------swipeRight---------------");
 
         Log.d("SoftKeyboard", "Swipe right");
-        if (mCompletionOn) {
+        if (completionOn)
             pickDefaultCandidate();
-        }
     }
 
     public void swipeLeft() {
@@ -1105,16 +1057,16 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         // Disable preview key on Shift, Delete, Symbol, Language Switch, Space and Enter.
         if (primaryCode == -1 || primaryCode == -5 || primaryCode == -2 || primaryCode == -101 || primaryCode == 32 || primaryCode == 10)
-            mInputView.setPreviewEnabled(false);
+            inputView.setPreviewEnabled(false);
         else {
-            //mInputView.setPreviewEnabled(true); TODO: Fix Preview
+            //inputView.setPreviewEnabled(true); TODO: Fix Preview
         }
 
     }
 
     public void onRelease(int primaryCode) {
         GlobalClass.printLog("SoftKeyboard", "---------------onRelease---------------");
-        mInputView.setPreviewEnabled(false);
+        inputView.setPreviewEnabled(false);
     }
 
     /**
@@ -1133,24 +1085,21 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             final int len = result.getSuggestionsCount();
             sb.append('\n');
 
-            for (int j = 0; j < len; ++j) {
+            for (int j = 0; j < len; ++j)
                 sb.append(",").append(result.getSuggestionAt(j));
-            }
 
             sb.append(" (").append(len).append(")");
         }
         Log.d("SoftKeyboard", "SUGGESTIONS: " + sb.toString());
     }
 
-    private void dumpSuggestionsInfoInternal(
-            final List<String> sb, final SuggestionsInfo si, final int length, final int offset) {
+    private void dumpSuggestionsInfoInternal(final List<String> sb, final SuggestionsInfo suggestionsInfo, final int length, final int offset) {
         // Returned suggestions are contained in SuggestionsInfo
         GlobalClass.printLog("SoftKeyboard", "---------------dumpSuggestionsInfoInternal---------------");
 
-        final int len = si.getSuggestionsCount();
-        for (int j = 0; j < len; ++j) {
-            sb.add(si.getSuggestionAt(j));
-        }
+        final int len = suggestionsInfo.getSuggestionsCount();
+        for (int j = 0; j < len; ++j)
+            sb.add(suggestionsInfo.getSuggestionAt(j));
     }
 
     @Override
@@ -1159,12 +1108,9 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         Log.d("SoftKeyboard", "onGetSentenceSuggestions");
         final List<String> sb = new ArrayList<>();
-        for (final SentenceSuggestionsInfo ssi : results) {
-            for (int i = 0; i < ssi.getSuggestionsCount(); ++i) {
-                dumpSuggestionsInfoInternal(
-                        sb, ssi.getSuggestionsInfoAt(i), ssi.getOffsetAt(i), ssi.getLengthAt(i));
-            }
-        }
+        for (final SentenceSuggestionsInfo sentenceSuggestionsInfo : results)
+            for (int i = 0; i < sentenceSuggestionsInfo.getSuggestionsCount(); ++i)
+                dumpSuggestionsInfoInternal(sb, sentenceSuggestionsInfo.getSuggestionsInfoAt(i), sentenceSuggestionsInfo.getOffsetAt(i), sentenceSuggestionsInfo.getLengthAt(i));
         Log.d("SoftKeyboard", "SUGGESTIONS: " + sb.toString());
         setSuggestions(sb, true, true);
     }
@@ -1174,7 +1120,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
 
-            soundID = soundPool.load(this, GlobalClass.soundId, 1);
+            soundID = soundPool.load(context, GlobalClass.soundId, 1);
             soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
                 public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
@@ -1189,5 +1135,4 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL || ringerMode == AudioManager.RINGER_MODE_VIBRATE)
             vibrator.vibrate(duration);
     }
-
 }

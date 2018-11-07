@@ -117,7 +117,7 @@ public class LatinKeyboardView extends KeyboardView {
             }
             switch (key.codes[0]) {
                 case Keyboard.KEYCODE_SHIFT /*-978903*/:
-                    if (SoftKeyboard.mCapsLock) {
+                    if (SoftKeyboard.capsLock) {
                         capsLockDrawable.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
                         capsLockDrawable.setBounds(key.x + 40, key.y + 30, key.x + key.width - 40, key.y + key.height - 30);
                         capsLockDrawable.draw(canvas);

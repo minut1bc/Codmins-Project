@@ -26,10 +26,10 @@
         android:visibility="gone">
 
         <GridView
-            android:id="@+id/gvEmoji"
+            android:id="@+id/emojiGridView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/linCategory"
+            android:layout_above="@id/categoryLinearLayout"
             android:layout_gravity="center"
             android:layout_margin="3dp"
             android:gravity="center"
@@ -39,7 +39,7 @@
             android:verticalSpacing="8dp" />
 
         <LinearLayout
-            android:id="@+id/linCategory"
+            android:id="@+id/categoryLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_alignParentBottom="true"
@@ -47,7 +47,7 @@
             android:padding="3dp">
 
             <ImageView
-                android:id="@+id/ivAbc"
+                android:id="@+id/abcImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
@@ -57,7 +57,7 @@
                 android:tint="@color/silver" />
 
             <ImageView
-                android:id="@+id/ivSmile"
+                android:id="@+id/smileImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -67,7 +67,7 @@
                 android:src="@drawable/ic_smile_bold" />
 
             <ImageView
-                android:id="@+id/ivAnimal"
+                android:id="@+id/animalImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -78,7 +78,7 @@
                 android:tint="@color/silver" />
 
             <ImageView
-                android:id="@+id/ivLamp"
+                android:id="@+id/lampImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -89,7 +89,7 @@
                 android:tint="@color/silver" />
 
             <ImageView
-                android:id="@+id/ivFood"
+                android:id="@+id/foodImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -100,7 +100,7 @@
                 android:tint="@color/silver" />
 
             <ImageView
-                android:id="@+id/ivSocial"
+                android:id="@+id/socialImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
