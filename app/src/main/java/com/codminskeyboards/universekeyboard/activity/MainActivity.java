@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setAdMob() {
-        adView = findViewById(R.id.ads);
+        adView = findViewById(R.id.adView);
         adView.loadAd(new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
         adView.setAdListener(new AdListener() {
             @Override

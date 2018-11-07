@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/ivBack"
+        android:id="@+id/backImageView"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="@+id/premiumStoreBackgroundView" />
 
     <TextView
-        android:id="@+id/txtRestore"
+        android:id="@+id/restoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="16dp"
@@ -95,7 +95,7 @@
         app:layout_constraintTop_toTopOf="@+id/removeAdsImageView" />
 
     <TextView
-        android:id="@+id/remove_adds"
+        android:id="@+id/remove_ads"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -156,7 +156,7 @@
         app:layout_constraintTop_toBottomOf="@+id/texualColorBackgroundTextView" />
 
     <TextView
-        android:id="@+id/background"
+        android:id="@+id/backgrounds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -360,7 +360,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/background_13"
-        app:layout_constraintBottom_toTopOf="@+id/ads"
+        app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -421,7 +421,7 @@
         app:layout_constraintTop_toTopOf="@+id/soundsImageView" />
 
     <com.google.android.gms.ads.AdView
-        android:id="@+id/ads"
+        android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:adSize="BANNER"
