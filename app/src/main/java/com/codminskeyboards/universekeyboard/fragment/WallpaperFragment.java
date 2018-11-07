@@ -16,6 +16,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.codminskeyboards.universekeyboard.R;
+import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
 import com.codminskeyboards.universekeyboard.adapter.FillDefaultColorAdapter;
 import com.codminskeyboards.universekeyboard.adapter.FillWallpaperColorAdapter;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
@@ -36,13 +37,16 @@ public class WallpaperFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View wallpaperFragmentView = inflater.inflate(R.layout.wallpaper_fragment, container, false);
 
+        CreateKeyboardActivity createKeyboardActivity = (CreateKeyboardActivity) getActivity();
+
         GlobalClass globalClass = new GlobalClass(context);
 
         rvDefaultColor = wallpaperFragmentView.findViewById(R.id.rvDefaultColor);
         rvDefaultColor.setNestedScrollingEnabled(false);
         rvDefaultColor.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
-        backgroundImageView = getActivity().findViewById(R.id.backgroundImageView);
+        if (createKeyboardActivity != null)
+            backgroundImageView = createKeyboardActivity.findViewById(R.id.backgroundImageView);
         gvColor = wallpaperFragmentView.findViewById(R.id.gvColor);
 
         setColorGridView();
@@ -96,7 +100,6 @@ public class WallpaperFragment extends Fragment {
                 new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-
                         backgroundImageView.setImageResource(GlobalClass.colorsHorizontal[position]);
                         GlobalClass.selectcolor = position;
                         GlobalClass.selview = 1;
