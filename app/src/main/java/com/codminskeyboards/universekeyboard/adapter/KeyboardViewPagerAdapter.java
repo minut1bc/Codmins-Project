@@ -3,8 +3,6 @@ package com.codminskeyboards.universekeyboard.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -13,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.PagerAdapter;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,13 +70,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
         if (BuildConfig.VERSION_CODE >= 21)
             view.setClipToOutline(true);
 
-        if (keyboardArrayList.get(position).getBitmapback() != null) {
-            byte[] decodedString = Base64.decode(keyboardArrayList.get(position).getBitmapback(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            previewKeyboardBackgroundImageView.setImageBitmap(decodedByte);
-        } else {
-            previewKeyboardBackgroundImageView.setImageResource(keyboardArrayList.get(position).getKeyboardBgImage());
-        }
+        previewKeyboardBackgroundImageView.setImageResource(keyboardArrayList.get(position).getKeyboardBgImage());
 
         int fontColor = Color.parseColor(keyboardArrayList.get(position).getFontColor());
         shiftImageView.setColorFilter(fontColor);
@@ -162,7 +153,6 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 GlobalClass.selectwallpaper = keyboardArrayList.get(position).getSelectwallpaper();
                 GlobalClass.selectcolor = keyboardArrayList.get(position).getSelectcolor();
                 GlobalClass.selview = keyboardArrayList.get(position).getSelview();
-                GlobalClass.keyboardBitmapBack = keyboardArrayList.get(position).getBitmapback();
 
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, keyboardArrayList.get(position).getKeyboardColorCode());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, keyboardArrayList.get(position).getKeyboardBgImage());
@@ -177,7 +167,6 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, keyboardArrayList.get(position).getSelectwallpaper());
                 GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, keyboardArrayList.get(position).getSelectcolor());
                 GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, keyboardArrayList.get(position).getSelview());
-                GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, keyboardArrayList.get(position).getBitmapback());
 
                 Intent intent = new Intent(context, CreateKeyboardActivity.class);
                 intent.putExtra("isEdit", true);

@@ -46,7 +46,7 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
 
         if (convertView == null)
             convertView = inflater.inflate(R.layout.row_wallpaper_color_item, parent, false);
-        
+
         holder.ivColorItem = convertView.findViewById(R.id.ivColorItem);
         holder.flBg = convertView.findViewById(R.id.flBg);
         holder.ivLock = convertView.findViewById(R.id.ivLock);
@@ -64,16 +64,14 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent i = new Intent(context, PremiumStoreActivity.class);
-                        context.startActivity(i);
+                        Intent intent = new Intent(context, PremiumStoreActivity.class);
+                        context.startActivity(intent);
                     }
                 });
-            } else {
+            } else
                 holder.ivLock.setVisibility(View.GONE);
-            }
-        } else {
+        } else
             holder.ivLock.setVisibility(View.GONE);
-        }
 
         return convertView;
     }

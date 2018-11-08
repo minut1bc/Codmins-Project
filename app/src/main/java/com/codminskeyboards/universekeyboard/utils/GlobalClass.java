@@ -47,7 +47,6 @@ public class GlobalClass {
     public static final String SELECTWALLPAPER = "selectwallpaper";
     public static final String SELECTCOLOR = "selectcolor";
     public static final String SELECTVIEW = "selectview";
-    public static final String KEYBOARDBITMAPBACK = "keyboardbitmapback";
 
     // for In-app Purchase
 
@@ -84,7 +83,6 @@ public class GlobalClass {
     public static int selectfonts = 0;
     public static int selectfontcolor = 1;
     private static int countAds = 0;
-    public static String keyboardBitmapBack = null;
 
     public static String key_isWallPaperLock = "isWallPaperLock";
     public static String key_isFontLock = "isFontLock";

@@ -16,15 +16,6 @@ public class KeyboardData {
     private int selectcolor;
     private int selectwallpaper;
     private int selview;
-    private String bitmapback;
-
-    public String getBitmapback() {
-        return bitmapback;
-    }
-
-    public void setBitmapback(String bitmapback) {
-        this.bitmapback = bitmapback;
-    }
 
     public boolean isSelected() {
         return isSelected;
@@ -155,7 +146,6 @@ public class KeyboardData {
                 ", selectcolor=" + selectcolor +
                 ", selectwallpaper=" + selectwallpaper +
                 ", selview=" + selview +
-                ", bitmapback='" + bitmapback + '\'' +
                 '}';
     }
 }

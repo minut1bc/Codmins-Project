@@ -2,8 +2,6 @@ package com.codminskeyboards.universekeyboard.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -13,7 +11,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -218,19 +215,10 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             isEdit = true;
             editPosition = getIntent().getIntExtra("position", 0);
 
-            if (GlobalClass.getPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, null) != null) {
-                byte[] decodedString = Base64.decode(GlobalClass.getPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, null), Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                backgroundImageView.setImageBitmap(decodedByte);
-                GlobalClass.selview = 0;
-
-            } else {
-                backgroundImageView.setImageResource(GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, 0));
-                GlobalClass.selectwallpaper = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTWALLPAPER, 0);
-                GlobalClass.selectcolor = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTCOLOR, 0);
-                GlobalClass.selview = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTVIEW, 0);
-            }
-
+            backgroundImageView.setImageResource(GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, 0));
+            GlobalClass.selectwallpaper = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTWALLPAPER, 0);
+            GlobalClass.selectcolor = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTCOLOR, 0);
+            GlobalClass.selview = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTVIEW, 0);
             GlobalClass.tempKeyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
             GlobalClass.tempKeyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
             GlobalClass.tempKeyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
@@ -251,7 +239,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.selectcolor = 0;
             GlobalClass.selview = 0;
             GlobalClass.tempKeyboardColorCode = 0;
-            GlobalClass.keyboardBitmapBack = null;
             GlobalClass.tempFontColor = "#FFFFFF";
             GlobalClass.tempKeyColor = getResources().getColor(R.color.two);
             GlobalClass.tempKeyRadius = 34;                                       // ranges between (0, 9, 18, 25, 34)
@@ -291,7 +278,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 keyboardData.setSelectwallpaper(GlobalClass.selectwallpaper);
                 keyboardData.setSelectcolor(GlobalClass.selectcolor);
                 keyboardData.setSelview(GlobalClass.selview);
-                keyboardData.setBitmapback(GlobalClass.keyboardBitmapBack);
 
                 if (isEdit) {
                     boolean status = keyboardDataArrayList.get(editPosition).isSelected();

@@ -310,7 +310,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelectwallpaper());
                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelectcolor());
                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelview());
-                    GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBitmapback());
                 } else
                     applyImageView.setImageDrawable(getResources().getDrawable(R.drawable.btn_disable));
 
@@ -369,7 +368,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         GlobalClass.selectcolor = 0;
                         GlobalClass.selview = 0;
                         GlobalClass.tempKeyboardColorCode = 0;
-                        GlobalClass.keyboardBitmapBack = null;
                         GlobalClass.tempFontColor = "#FFFFFF";
                         GlobalClass.tempKeyColor = getResources().getColor(R.color.eight);
                         GlobalClass.tempKeyRadius = 34;
@@ -396,7 +394,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.selectwallpaper);
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.selectcolor);
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
-                        GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, GlobalClass.keyboardBitmapBack);
                     } else {
                         for (int i = 0; i < keyboardDataArrayList.size(); i++) {
                             if (i == viewPager.getCurrentItem()) {
@@ -420,7 +417,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelectwallpaper());
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelectcolor());
                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSelview());
-                        GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBitmapback());
                     }
                 } else
                     startActivity(new Intent(context, SetKeyboardActivity.class));
@@ -465,7 +461,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     GlobalClass.selectcolor = 0;
                                     GlobalClass.selview = 0;
                                     GlobalClass.tempKeyboardColorCode = 0;
-                                    GlobalClass.keyboardBitmapBack = null;
                                     GlobalClass.tempFontColor = "#FFFFFF";
                                     GlobalClass.tempKeyColor = getResources().getColor(R.color.eight);
                                     GlobalClass.tempKeyRadius = 18;
@@ -492,8 +487,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.selectwallpaper);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.selectcolor);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
-                                    GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, GlobalClass.keyboardBitmapBack);
-
                                 } else {
                                     if (keyboardDataArrayList.size() != 0) {
                                         keyboardDataArrayList.remove(viewPager.getCurrentItem());
@@ -518,7 +511,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         GlobalClass.selectcolor = 0;
                                         GlobalClass.selview = 0;
                                         GlobalClass.tempKeyboardColorCode = 0;
-                                        GlobalClass.keyboardBitmapBack = null;
                                         GlobalClass.tempFontColor = "#FFFFFF";
                                         GlobalClass.tempKeyColor = getResources().getColor(R.color.eight);
                                         GlobalClass.tempKeyRadius = 18;
@@ -545,7 +537,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.selectwallpaper);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.selectcolor);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
-                                        GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, GlobalClass.keyboardBitmapBack);
                                     }
                                 }
                                 circleIndicator.setViewPager(viewPager);
@@ -587,7 +578,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GlobalClass.selectwallpaper = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTWALLPAPER, 0);
         GlobalClass.selectcolor = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTCOLOR, 0);
         GlobalClass.selview = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTVIEW, 0);
-        GlobalClass.keyboardBitmapBack = GlobalClass.getPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, null);
 
         if (GlobalClass.selectbgcolor == 0)
             GlobalClass.selectbgcolor = 7;
@@ -608,7 +598,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.selectwallpaper);
         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.selectcolor);
         GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
-        GlobalClass.setPreferencesString(context, GlobalClass.KEYBOARDBITMAPBACK, GlobalClass.keyboardBitmapBack);
     }
 
     @Override
