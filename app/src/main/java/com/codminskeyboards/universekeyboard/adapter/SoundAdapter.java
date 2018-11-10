@@ -72,10 +72,8 @@ public class SoundAdapter extends BaseAdapter {
 
         if (position == 0)
             holder.muteImageView.setVisibility(View.VISIBLE);
-        else
-            holder.muteImageView.setVisibility(View.GONE);
 
-        if (position == GlobalClass.selectsounds)
+        if (position == GlobalClass.soundPosition)
             holder.circleOutlineImageView.setVisibility(View.VISIBLE);
         else
             holder.circleOutlineImageView.setVisibility(View.GONE);

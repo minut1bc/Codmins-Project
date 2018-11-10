@@ -30,9 +30,8 @@ public class GlobalClass {
     private static SharedPreferences preferences;
 
     public static final String KEYBOARD_BG_IMAGE = "keyboardBgImage";
-    public static final String KEYBOARD_COLOR_CODE = "keyboardColorCode";
 
-    public static final String KEY_BG_COLOR = "keyBgColor";
+    public static final String KEY_COLOR = "keyColor";
     public static final String KEY_RADIUS = "keyRadius";
     public static final String KEY_OPACITY = "keyOpacity";
     public static final String KEY_STROKE = "keyStroke";
@@ -41,11 +40,11 @@ public class GlobalClass {
     public static final String FONT_NAME = "fontName";
 
     public static final String SOUND_STATUS = "soundStatus";
-    public static final String SOUND_NAME = "soundName";
+    public static final String SOUND_ID = "soundId";
 
-    public static final String SELECTWALLPAPER = "backgroundPosition";
-    public static final String SELECTCOLOR = "colorPosition";
-    public static final String SELECTVIEW = "selectview";
+    public static final String BACKGROUND_POSITION = "backgroundPosition";
+    public static final String COLOR_POSITION = "colorPosition";
+    public static final String DRAWABLE_OR_COLOR = "drawableOrColor";
 
     // for In-app Purchase
 
@@ -71,16 +70,15 @@ public class GlobalClass {
     public static boolean soundStatus = false;
     public static int soundId = 0;
     public static int keyboardBackground = 0;
-    public static int tempKeyboardColorCode = 0;
     public static int keyColor = 0;
     public static int keyOpacity = 0;
     public static int keyStroke = 0;
     public static int keyRadius = 0;
     public static int colorPosition = 0;
     public static int backgroundPosition = 0;
-    public static int selectbgcolor = 7;
-    public static int selectsounds = 0;
-    public static int selectfonts = 0;
+    public static int keyColorPosition = 7;
+    public static int soundPosition = 0;
+    public static int fontPosition = 0;
     public static int fontColorPosition = 1;
     private static int countAds = 0;
 

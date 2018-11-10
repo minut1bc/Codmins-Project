@@ -43,7 +43,7 @@ public class LatinKeyboardView extends KeyboardView {
     public LatinKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-        int keyBgColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight));
+        int keyBgColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, getResources().getColor(R.color.eight));
 
         keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyBgColor, keyBgColor});
         keyPressedBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyBgColor, keyBgColor});

@@ -19,24 +19,24 @@
         android:id="@+id/seekBarVibration"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/vibrationValueTextView"
+        app:layout_constraintBottom_toTopOf="@id/vibrationTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/vibrationStrengthTextView" />
 
     <TextView
-        android:id="@+id/vibrationValueTextView"
+        android:id="@+id/vibrationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="0 ms"
-        app:layout_constraintBottom_toTopOf="@id/gvSoundEffect"
+        app:layout_constraintBottom_toTopOf="@id/soundGridView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarVibration" />
+        app:layout_constraintTop_toBottomOf="@id/seekBarVibration" />
 
     <GridView
-        android:id="@+id/gvSoundEffect"
+        android:id="@+id/soundGridView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:horizontalSpacing="5dp"
@@ -47,6 +47,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vibrationValueTextView" />
+        app:layout_constraintTop_toBottomOf="@id/vibrationTextView" />
 
 </android.support.constraint.ConstraintLayout>

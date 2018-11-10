@@ -209,29 +209,28 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             editPosition = getIntent().getIntExtra("position", 0);
 
             backgroundImageView.setImageResource(GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, 0));
-            GlobalClass.backgroundPosition = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTWALLPAPER, 0);
-            GlobalClass.colorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTCOLOR, 0);
-            GlobalClass.drawableOrColor = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTVIEW, 0);
+            GlobalClass.backgroundPosition = GlobalClass.getPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, 0);
+            GlobalClass.colorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.COLOR_POSITION, 0);
+            GlobalClass.drawableOrColor = GlobalClass.getPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, 0);
             GlobalClass.keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
             GlobalClass.keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
             GlobalClass.keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
             GlobalClass.fontName = GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "Abel_Regular.ttf");
             GlobalClass.soundStatus = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_STATUS, false);
-            GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_NAME, R.raw.balloon_snap);
-            GlobalClass.selectbgcolor = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, 7));
+            GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);
+            GlobalClass.keyColorPosition = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, 7));
             GlobalClass.fontColorPosition = getColorPos(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")));
-            GlobalClass.selectsounds = getSoundPos(GlobalClass.soundId);
+            GlobalClass.soundPosition = getSoundPos(GlobalClass.soundId);
 
             String remove = "fonts/";
             String fontName = removeWords(GlobalClass.fontName, remove);
-            GlobalClass.selectfonts = getFontPos(fontName);
+            GlobalClass.fontPosition = getFontPos(fontName);
 
         } else {        // Default keyboard values
             GlobalClass.backgroundPosition = 0;
             GlobalClass.keyboardBackground = R.drawable.background_1;
             GlobalClass.colorPosition = 0;
             GlobalClass.drawableOrColor = 0;
-            GlobalClass.tempKeyboardColorCode = 0;
             GlobalClass.fontColor = "#FFFFFF";
             GlobalClass.keyColor = getResources().getColor(R.color.two);
             GlobalClass.keyRadius = 34;                                       // ranges between (0, 9, 18, 25, 34)
@@ -240,10 +239,10 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.fontName = "";
             GlobalClass.soundStatus = false;
             GlobalClass.soundId = 0;
-            GlobalClass.selectbgcolor = 7;
+            GlobalClass.keyColorPosition = 7;
             GlobalClass.fontColorPosition = 1;
-            GlobalClass.selectsounds = 0;
-            GlobalClass.selectfonts = 0;
+            GlobalClass.soundPosition = 0;
+            GlobalClass.fontPosition = 0;
             backgroundImageView.setImageResource(GlobalClass.keyboardBackground);
         }
     }
@@ -259,7 +258,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             case R.id.applyTextView:
                 KeyboardData keyboardData = new KeyboardData();
                 keyboardData.setKeyboardBackground(GlobalClass.keyboardBackground);
-                keyboardData.setKeyboardColorCode(GlobalClass.tempKeyboardColorCode);
                 keyboardData.setKeyColor(GlobalClass.keyColor);
                 keyboardData.setKeyRadius(GlobalClass.keyRadius);
                 keyboardData.setKeyStroke(GlobalClass.keyStroke);

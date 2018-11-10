@@ -129,7 +129,6 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 GlobalClass.keyboardBackground = keyboardArrayList.get(position).getKeyboardBackground();
-                GlobalClass.tempKeyboardColorCode = keyboardArrayList.get(position).getKeyboardColorCode();
                 GlobalClass.keyColor = keyboardArrayList.get(position).getKeyColor();
                 GlobalClass.keyRadius = keyboardArrayList.get(position).getKeyRadius();
                 GlobalClass.keyStroke = keyboardArrayList.get(position).getKeyStroke();
@@ -142,19 +141,18 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 GlobalClass.colorPosition = keyboardArrayList.get(position).getColorPosition();
                 GlobalClass.drawableOrColor = keyboardArrayList.get(position).getDrawableOrColor();
 
-                GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, keyboardArrayList.get(position).getKeyboardColorCode());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, keyboardArrayList.get(position).getKeyboardBackground());
-                GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, keyboardArrayList.get(position).getKeyColor());
+                GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR, keyboardArrayList.get(position).getKeyColor());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, keyboardArrayList.get(position).getKeyRadius());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardArrayList.get(position).getKeyStroke());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardArrayList.get(position).getKeyOpacity());
                 GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, keyboardArrayList.get(position).getFontColor());
                 GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, keyboardArrayList.get(position).getFontName());
                 GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardArrayList.get(position).getSoundStatus());
-                GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, keyboardArrayList.get(position).getSoundId());
-                GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, keyboardArrayList.get(position).getBackgroundPosition());
-                GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, keyboardArrayList.get(position).getColorPosition());
-                GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, keyboardArrayList.get(position).getDrawableOrColor());
+                GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardArrayList.get(position).getSoundId());
+                GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, keyboardArrayList.get(position).getBackgroundPosition());
+                GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, keyboardArrayList.get(position).getColorPosition());
+                GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, keyboardArrayList.get(position).getDrawableOrColor());
 
                 Intent intent = new Intent(context, CreateKeyboardActivity.class);
                 intent.putExtra("isEdit", true);

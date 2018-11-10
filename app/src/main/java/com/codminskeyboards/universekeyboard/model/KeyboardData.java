@@ -3,7 +3,6 @@ package com.codminskeyboards.universekeyboard.model;
 public class KeyboardData {
 
     private int keyboardBackground;
-    private int keyboardColorCode;
     private int keyRadius;
     private int keyStroke;
     private int keyOpacity;
@@ -31,14 +30,6 @@ public class KeyboardData {
 
     public void setKeyboardBackground(int keyboardBackground) {
         this.keyboardBackground = keyboardBackground;
-    }
-
-    public int getKeyboardColorCode() {
-        return keyboardColorCode;
-    }
-
-    public void setKeyboardColorCode(int keyboardColorCode) {
-        this.keyboardColorCode = keyboardColorCode;
     }
 
     public int getKeyRadius() {

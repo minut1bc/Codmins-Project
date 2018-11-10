@@ -5,13 +5,13 @@
     android:gravity="center">
 
     <ImageView
-        android:id="@+id/cIvBg"
+        android:id="@+id/outlineImageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/circle_img" />
 
     <TextView
-        android:id="@+id/txtFontItem"
+        android:id="@+id/fontTextView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerInParent="true"

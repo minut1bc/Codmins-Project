@@ -48,14 +48,14 @@ public class FontAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.row_font_style_item, parent, false);
 
-        holder.txtFontItem = convertView.findViewById(R.id.txtFontItem);
-        holder.cIvBg = convertView.findViewById(R.id.cIvBg);
-        holder.ivLock = convertView.findViewById(R.id.lockImageView);
+        holder.fontTextView = convertView.findViewById(R.id.fontTextView);
+        holder.outlineImageView = convertView.findViewById(R.id.outlineImageView);
+        holder.lockImageView = convertView.findViewById(R.id.lockImageView);
 
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isFontLock, true)) {
             if (position > 33) {
-                holder.ivLock.setVisibility(View.VISIBLE);
-                holder.ivLock.setOnClickListener(new View.OnClickListener() {
+                holder.lockImageView.setVisibility(View.VISIBLE);
+                holder.lockImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(context, PremiumStoreActivity.class);
@@ -64,24 +64,24 @@ public class FontAdapter extends BaseAdapter {
 
                 });
             } else
-                holder.ivLock.setVisibility(View.GONE);
+                holder.lockImageView.setVisibility(View.GONE);
         } else
-            holder.ivLock.setVisibility(View.GONE);
+            holder.lockImageView.setVisibility(View.GONE);
 
-        if (position == GlobalClass.selectfonts)
-            holder.cIvBg.setVisibility(View.VISIBLE);
+        if (position == GlobalClass.fontPosition)
+            holder.outlineImageView.setVisibility(View.VISIBLE);
         else
-            holder.cIvBg.setVisibility(View.GONE);
+            holder.outlineImageView.setVisibility(View.GONE);
 
         Typeface font = Typeface.createFromAsset(context.getAssets(), "fonts/" + fontArray[position]);
-        holder.txtFontItem.setTypeface(font);
+        holder.fontTextView.setTypeface(font);
 
         return convertView;
     }
 
     private static class ViewHolder {
-        TextView txtFontItem;
-        ImageView cIvBg;
-        ImageView ivLock;
+        TextView fontTextView;
+        ImageView outlineImageView;
+        ImageView lockImageView;
     }
 }

@@ -182,14 +182,14 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         vibrationStrength = GlobalClass.getPreferencesInt(context, GlobalClass.vibrationStrength, 0);
 
-        GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_NAME, R.raw.balloon_snap);
+        GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);
 
         emojiArrayList = getResources().getStringArray(R.array.smile);
         fillEmojiAdapter = new FillEmojiAdapter(context, emojiArrayList);
         emojiGridView.setAdapter(fillEmojiAdapter);
 
         int fontColor = Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF"));
-        int keyBgColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight));
+        int keyBgColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, getResources().getColor(R.color.eight));
 
         smileImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
         animalImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);

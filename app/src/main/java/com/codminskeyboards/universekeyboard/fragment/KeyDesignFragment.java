@@ -362,7 +362,7 @@ public class KeyDesignFragment extends Fragment {
         keyColorRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                GlobalClass.selectbgcolor = position;
+                GlobalClass.keyColorPosition = position;
                 GlobalClass.keyColor = context.getResources().getColor(GlobalClass.colorsArray[position]);
                 if (createKeyboardActivity != null)
                     createKeyboardActivity.redrawKeyboard();

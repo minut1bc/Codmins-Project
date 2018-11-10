@@ -29,13 +29,13 @@ public class SoundFragment extends Fragment {
 
     Context context;
 
-    SoundAdapter fillSoundEffectAdapter;
-    GridView gvSoundEffect;
+    SoundAdapter soundAdapter;
+    GridView soundGridView;
     ArrayList<NewSoundData> newSoundDataArrayList = new ArrayList<>();
     SeekBar seekBarVibration;
     String vibrationStrengthText;
-    int initialVibrationValue;
-    TextView vibrationValueTextView;
+    int vibrationValue;
+    TextView vibrationTextView;
     SoundPool soundPool;
     private Vibrator vibrator;
     private AudioManager audioManager;
@@ -47,14 +47,15 @@ public class SoundFragment extends Fragment {
 
         GlobalClass globalClass = new GlobalClass(context);
 
-        gvSoundEffect = soundFragmentView.findViewById(R.id.gvSoundEffect);
+        soundGridView = soundFragmentView.findViewById(R.id.soundGridView);
         seekBarVibration = soundFragmentView.findViewById(R.id.seekBarVibration);
-        vibrationValueTextView = soundFragmentView.findViewById(R.id.vibrationValueTextView);
+        vibrationTextView = soundFragmentView.findViewById(R.id.vibrationTextView);
 
         audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
-        performVibration();
+        setSeekBarVibration();
+
         getSoundFromDatabase();
 
         return soundFragmentView;
@@ -65,7 +66,7 @@ public class SoundFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        fillSoundEffectAdapter = new SoundAdapter(activity, newSoundDataArrayList);
+        soundAdapter = new SoundAdapter(activity, newSoundDataArrayList);
         context = activity;
     }
 
@@ -76,17 +77,14 @@ public class SoundFragment extends Fragment {
     }
 
     private void getSoundFromDatabase() {
-        int[] freeSoundArray = GlobalClass.soundsArray;
-        for (int aFreeSoundArray : freeSoundArray) {
+        for (int aFreeSoundArray : GlobalClass.soundsArray)
             newSoundDataArrayList.add(new NewSoundData(aFreeSoundArray, false));
-        }
 
-        //--------- fill sound data-------
-        gvSoundEffect.setAdapter(fillSoundEffectAdapter);
+        soundGridView.setAdapter(soundAdapter);
 
-        gvSoundEffect.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        soundGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                GlobalClass.selectsounds = position;
+                GlobalClass.soundPosition = position;
                 GlobalClass.soundId = newSoundDataArrayList.get(position).getResourceId();
                 if (position != 0) {
                     performKeySound();
@@ -94,29 +92,28 @@ public class SoundFragment extends Fragment {
                 } else {
                     GlobalClass.soundStatus = false;
                 }
-                fillSoundEffectAdapter.notifyDataSetChanged();
+                soundAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
             }
         });
     }
 
-    void performVibration() {
-        initialVibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.vibrationStrength, 0);
+    void setSeekBarVibration() {
+        vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.vibrationStrength, 0);
 
-        seekBarVibration.setProgress(initialVibrationValue);
-        vibrationStrengthText = String.valueOf(initialVibrationValue) + " ms";
-        vibrationValueTextView.setText(vibrationStrengthText);
+        seekBarVibration.setProgress(vibrationValue);
+        vibrationStrengthText = String.valueOf(vibrationValue) + " ms";
+        vibrationTextView.setText(vibrationStrengthText);
 
         seekBarVibration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 vibrationStrengthText = String.valueOf(progress) + " ms";
-                vibrationValueTextView.setText(vibrationStrengthText);
+                vibrationTextView.setText(vibrationStrengthText);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override

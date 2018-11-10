@@ -116,7 +116,7 @@ public class FontFragment extends Fragment {
 
         fontGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                GlobalClass.selectfonts = position;
+                GlobalClass.fontPosition = position;
 
                 if (createKeyboardActivity != null)
                     if (fontArray[position] != null) {

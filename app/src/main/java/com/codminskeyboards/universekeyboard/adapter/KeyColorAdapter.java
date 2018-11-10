@@ -36,7 +36,7 @@ public class KeyColorAdapter extends RecyclerView.Adapter<KeyColorAdapter.ViewHo
     public void onBindViewHolder(@NonNull final KeyColorAdapter.ViewHolder holder, int position) {
         holder.colorImageView.setImageResource(colorFreeArray[position]);
 
-        if (position == GlobalClass.selectbgcolor)
+        if (position == GlobalClass.keyColorPosition)
             holder.circleOutlineImageView.setVisibility(View.VISIBLE);
         else
             holder.circleOutlineImageView.setVisibility(View.GONE);
