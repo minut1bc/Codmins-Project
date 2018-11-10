@@ -13,21 +13,21 @@ import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
-public class FillWallpaperColorAdapter extends BaseAdapter {
+public class WallpaperAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
     private Context context;
-    private int[] colorWallpaperArrayList;
+    private int[] wallpaperArray;
 
-    public FillWallpaperColorAdapter(Context context, int[] colorWallpaperArrayList) {
+    public WallpaperAdapter(Context context, int[] wallpaperArray) {
         super();
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.colorWallpaperArrayList = colorWallpaperArrayList;
+        this.wallpaperArray = wallpaperArray;
     }
 
     @Override
     public int getCount() {
-        return colorWallpaperArrayList.length;
+        return wallpaperArray.length;
     }
 
     @Override
@@ -51,9 +51,9 @@ public class FillWallpaperColorAdapter extends BaseAdapter {
         holder.flBg = convertView.findViewById(R.id.flBg);
         holder.ivLock = convertView.findViewById(R.id.ivLock);
 
-        holder.ivColorItem.setImageResource(colorWallpaperArrayList[position]);
+        holder.ivColorItem.setImageResource(wallpaperArray[position]);
 
-        if (position == GlobalClass.selectwallpaper && GlobalClass.selview == 0)
+        if (position == GlobalClass.wallpaperPosition && GlobalClass.drawableOrColor == 0)
             holder.flBg.setVisibility(View.VISIBLE);
         else
             holder.flBg.setVisibility(View.GONE);

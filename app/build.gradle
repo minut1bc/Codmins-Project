@@ -66,12 +66,12 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
     // Google Play Service
-    implementation 'com.google.android.gms:play-services-ads:17.1.0'
+    implementation 'com.google.android.gms:play-services-ads:15.0.1'
     implementation 'com.google.android.gms:play-services-drive:16.0.0'
 
     // Firebase
-    implementation 'com.google.firebase:firebase-core:16.0.5'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.6'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
 
     // Rating App
     implementation 'com.kila.apprater_dialog.lars:apprater-dialog:1.0.5'

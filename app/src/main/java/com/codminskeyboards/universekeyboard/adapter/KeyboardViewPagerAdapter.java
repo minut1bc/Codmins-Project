@@ -140,7 +140,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
 
-                GlobalClass.tempKeyboardBgImage = keyboardArrayList.get(position).getKeyboardBgImage();
+                GlobalClass.background = keyboardArrayList.get(position).getKeyboardBgImage();
                 GlobalClass.tempKeyboardColorCode = keyboardArrayList.get(position).getKeyboardColorCode();
                 GlobalClass.tempKeyColor = keyboardArrayList.get(position).getKeyBgColor();
                 GlobalClass.tempKeyRadius = keyboardArrayList.get(position).getKeyRadius();
@@ -150,9 +150,9 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 GlobalClass.tempFontName = keyboardArrayList.get(position).getFontName();
                 GlobalClass.soundStatus = keyboardArrayList.get(position).getSoundStatus();
                 GlobalClass.soundId = keyboardArrayList.get(position).getSoundName();
-                GlobalClass.selectwallpaper = keyboardArrayList.get(position).getSelectwallpaper();
-                GlobalClass.selectcolor = keyboardArrayList.get(position).getSelectcolor();
-                GlobalClass.selview = keyboardArrayList.get(position).getSelview();
+                GlobalClass.wallpaperPosition = keyboardArrayList.get(position).getSelectwallpaper();
+                GlobalClass.colorPosition = keyboardArrayList.get(position).getSelectcolor();
+                GlobalClass.drawableOrColor = keyboardArrayList.get(position).getSelview();
 
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, keyboardArrayList.get(position).getKeyboardColorCode());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, keyboardArrayList.get(position).getKeyboardBgImage());

@@ -357,7 +357,7 @@ public class KeyDesignFragment extends Fragment {
     }
 
     void getColorFromDatabase() {
-        int[] colorWallpaperArrayList = GlobalClass.colorsHorizontal;
+        int[] colorWallpaperArrayList = GlobalClass.colorsArray;
 
         FillKeyBgAdapter fillKeyBgAdapter = new FillKeyBgAdapter(context, colorWallpaperArrayList, createKeyboardActivity);
         rvDefaultColorKeyDesign.setAdapter(fillKeyBgAdapter);

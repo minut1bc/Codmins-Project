@@ -143,9 +143,9 @@ public class KeyboardData {
                 ", isSelected=" + isSelected +
                 ", soundStatus='" + soundStatus + '\'' +
                 ", soundName=" + soundName +
-                ", selectcolor=" + selectcolor +
-                ", selectwallpaper=" + selectwallpaper +
-                ", selview=" + selview +
+                ", colorPosition=" + selectcolor +
+                ", wallpaperPosition=" + selectwallpaper +
+                ", drawableOrColor=" + selview +
                 '}';
     }
 }

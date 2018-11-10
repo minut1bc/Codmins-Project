@@ -155,8 +155,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     }
 
     private int getColorPos(int colorCode) {
-        for (int i = 0; i < GlobalClass.colorsHorizontal.length; i++) {
-            if (getResources().getColor(GlobalClass.colorsHorizontal[i]) == colorCode) {
+        for (int i = 0; i < GlobalClass.colorsArray.length; i++) {
+            if (getResources().getColor(GlobalClass.colorsArray[i]) == colorCode) {
                 return i;
             }
         }
@@ -164,8 +164,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     }
 
     private int getSoundPos(int soundCode) {
-        for (int i = 0; i < GlobalClass.lessonClips.length; i++) {
-            if (GlobalClass.lessonClips[i] == soundCode) {
+        for (int i = 0; i < GlobalClass.soundsArray.length; i++) {
+            if (GlobalClass.soundsArray[i] == soundCode) {
                 return i;
             }
         }
@@ -216,9 +216,9 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             editPosition = getIntent().getIntExtra("position", 0);
 
             backgroundImageView.setImageResource(GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, 0));
-            GlobalClass.selectwallpaper = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTWALLPAPER, 0);
-            GlobalClass.selectcolor = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTCOLOR, 0);
-            GlobalClass.selview = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTVIEW, 0);
+            GlobalClass.wallpaperPosition = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTWALLPAPER, 0);
+            GlobalClass.colorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTCOLOR, 0);
+            GlobalClass.drawableOrColor = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTVIEW, 0);
             GlobalClass.tempKeyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
             GlobalClass.tempKeyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
             GlobalClass.tempKeyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
@@ -234,10 +234,10 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.selectfonts = getFontPos(fontName);
 
         } else {        // Default keyboard values
-            GlobalClass.selectwallpaper = 0;
-            GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
-            GlobalClass.selectcolor = 0;
-            GlobalClass.selview = 0;
+            GlobalClass.wallpaperPosition = 0;
+            GlobalClass.background = R.drawable.background_1;
+            GlobalClass.colorPosition = 0;
+            GlobalClass.drawableOrColor = 0;
             GlobalClass.tempKeyboardColorCode = 0;
             GlobalClass.tempFontColor = "#FFFFFF";
             GlobalClass.tempKeyColor = getResources().getColor(R.color.two);
@@ -251,7 +251,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.selectfontcolor = 1;
             GlobalClass.selectsounds = 0;
             GlobalClass.selectfonts = 0;
-            backgroundImageView.setImageResource(GlobalClass.tempKeyboardBgImage);
+            backgroundImageView.setImageResource(GlobalClass.background);
         }
     }
 
@@ -265,7 +265,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
             case R.id.applyTextView:
                 KeyboardData keyboardData = new KeyboardData();
-                keyboardData.setKeyboardBgImage(GlobalClass.tempKeyboardBgImage);
+                keyboardData.setKeyboardBgImage(GlobalClass.background);
                 keyboardData.setKeyboardColorCode(GlobalClass.tempKeyboardColorCode);
                 keyboardData.setKeyBgColor(GlobalClass.tempKeyColor);
                 keyboardData.setKeyRadius(GlobalClass.tempKeyRadius);
@@ -275,9 +275,9 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 keyboardData.setFontName(GlobalClass.tempFontName);
                 keyboardData.setSoundStatus(GlobalClass.soundStatus);
                 keyboardData.setSoundName(GlobalClass.soundId);
-                keyboardData.setSelectwallpaper(GlobalClass.selectwallpaper);
-                keyboardData.setSelectcolor(GlobalClass.selectcolor);
-                keyboardData.setSelview(GlobalClass.selview);
+                keyboardData.setSelectwallpaper(GlobalClass.wallpaperPosition);
+                keyboardData.setSelectcolor(GlobalClass.colorPosition);
+                keyboardData.setSelview(GlobalClass.drawableOrColor);
 
                 if (isEdit) {
                     boolean status = keyboardDataArrayList.get(editPosition).isSelected();

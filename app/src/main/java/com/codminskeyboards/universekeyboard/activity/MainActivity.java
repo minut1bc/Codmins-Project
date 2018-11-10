@@ -363,10 +363,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         setDefaultValue();
 
-                        GlobalClass.selectwallpaper = 0;
-                        GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
-                        GlobalClass.selectcolor = 0;
-                        GlobalClass.selview = 0;
+                        GlobalClass.wallpaperPosition = 0;
+                        GlobalClass.background = R.drawable.background_1;
+                        GlobalClass.colorPosition = 0;
+                        GlobalClass.drawableOrColor = 0;
                         GlobalClass.tempKeyboardColorCode = 0;
                         GlobalClass.tempFontColor = "#FFFFFF";
                         GlobalClass.tempKeyColor = getResources().getColor(R.color.eight);
@@ -382,7 +382,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         GlobalClass.selectfonts = 0;
 
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
-                        GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.tempKeyboardBgImage);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.background);
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, GlobalClass.tempKeyColor);
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, GlobalClass.tempKeyRadius);
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.tempKeyStroke);
@@ -391,9 +391,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, GlobalClass.tempFontName);
                         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, GlobalClass.soundId);
-                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.selectwallpaper);
-                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.selectcolor);
-                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.wallpaperPosition);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.colorPosition);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.drawableOrColor);
                     } else {
                         for (int i = 0; i < keyboardDataArrayList.size(); i++) {
                             if (i == viewPager.getCurrentItem()) {
@@ -456,10 +456,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         addKeyboardImageView.setVisibility(View.GONE);
                                     }
 
-                                    GlobalClass.selectwallpaper = 0;
-                                    GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
-                                    GlobalClass.selectcolor = 0;
-                                    GlobalClass.selview = 0;
+                                    GlobalClass.wallpaperPosition = 0;
+                                    GlobalClass.background = R.drawable.background_1;
+                                    GlobalClass.colorPosition = 0;
+                                    GlobalClass.drawableOrColor = 0;
                                     GlobalClass.tempKeyboardColorCode = 0;
                                     GlobalClass.tempFontColor = "#FFFFFF";
                                     GlobalClass.tempKeyColor = getResources().getColor(R.color.eight);
@@ -475,7 +475,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     GlobalClass.selectfonts = 0;
 
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.tempKeyboardBgImage);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.background);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, GlobalClass.tempKeyColor);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, GlobalClass.tempKeyRadius);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.tempKeyStroke);
@@ -484,9 +484,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, GlobalClass.tempFontName);
                                     GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, GlobalClass.soundId);
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.selectwallpaper);
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.selectcolor);
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.wallpaperPosition);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.colorPosition);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.drawableOrColor);
                                 } else {
                                     if (keyboardDataArrayList.size() != 0) {
                                         keyboardDataArrayList.remove(viewPager.getCurrentItem());
@@ -506,10 +506,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         linKeyboardData.setVisibility(View.GONE);
                                         addKeyboardImageView.setVisibility(View.GONE);
 
-                                        GlobalClass.selectwallpaper = 0;
-                                        GlobalClass.tempKeyboardBgImage = R.drawable.background_1;
-                                        GlobalClass.selectcolor = 0;
-                                        GlobalClass.selview = 0;
+                                        GlobalClass.wallpaperPosition = 0;
+                                        GlobalClass.background = R.drawable.background_1;
+                                        GlobalClass.colorPosition = 0;
+                                        GlobalClass.drawableOrColor = 0;
                                         GlobalClass.tempKeyboardColorCode = 0;
                                         GlobalClass.tempFontColor = "#FFFFFF";
                                         GlobalClass.tempKeyColor = getResources().getColor(R.color.eight);
@@ -525,7 +525,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         GlobalClass.selectfonts = 0;
 
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.tempKeyboardBgImage);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.background);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, GlobalClass.tempKeyColor);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, GlobalClass.tempKeyRadius);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.tempKeyStroke);
@@ -534,9 +534,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, GlobalClass.tempFontName);
                                         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, GlobalClass.soundId);
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.selectwallpaper);
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.selectcolor);
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.wallpaperPosition);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.colorPosition);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.drawableOrColor);
                                     }
                                 }
                                 circleIndicator.setViewPager(viewPager);
@@ -566,7 +566,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void setDefaultValue() {
         GlobalClass.tempKeyboardColorCode = GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, R.color.one);
-        GlobalClass.tempKeyboardBgImage = GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, R.drawable.background_1);
+        GlobalClass.background = GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, R.drawable.background_1);
         GlobalClass.tempKeyColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_BG_COLOR, getResources().getColor(R.color.eight));
         GlobalClass.tempKeyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
         GlobalClass.tempKeyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
@@ -575,9 +575,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GlobalClass.tempFontName = GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "");
         GlobalClass.soundStatus = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_STATUS, false);
         GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_NAME, R.raw.balloon_snap);
-        GlobalClass.selectwallpaper = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTWALLPAPER, 0);
-        GlobalClass.selectcolor = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTCOLOR, 0);
-        GlobalClass.selview = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTVIEW, 0);
+        GlobalClass.wallpaperPosition = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTWALLPAPER, 0);
+        GlobalClass.colorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTCOLOR, 0);
+        GlobalClass.drawableOrColor = GlobalClass.getPreferencesInt(context, GlobalClass.SELECTVIEW, 0);
 
         if (GlobalClass.selectbgcolor == 0)
             GlobalClass.selectbgcolor = 7;
@@ -586,7 +586,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             GlobalClass.selectfontcolor = 1;
 
         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_COLOR_CODE, GlobalClass.tempKeyboardColorCode);
-        GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.tempKeyboardBgImage);
+        GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, GlobalClass.background);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_BG_COLOR, GlobalClass.tempKeyColor);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, GlobalClass.tempKeyRadius);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.tempKeyStroke);
@@ -595,9 +595,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GlobalClass.setPreferencesString(context, GlobalClass.FONT_NAME, GlobalClass.tempFontName);
         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_NAME, GlobalClass.soundId);
-        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.selectwallpaper);
-        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.selectcolor);
-        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.selview);
+        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTWALLPAPER, GlobalClass.wallpaperPosition);
+        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTCOLOR, GlobalClass.colorPosition);
+        GlobalClass.setPreferencesInt(context, GlobalClass.SELECTVIEW, GlobalClass.drawableOrColor);
     }
 
     @Override

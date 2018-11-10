@@ -76,7 +76,7 @@ public class SoundFragment extends Fragment {
     }
 
     private void getSoundFromDatabase() {
-        int[] freeSoundArray = GlobalClass.lessonClips;
+        int[] freeSoundArray = GlobalClass.soundsArray;
         for (int aFreeSoundArray : freeSoundArray) {
             newSoundDataArrayList.add(new NewSoundData(aFreeSoundArray, false));
         }

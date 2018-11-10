@@ -142,7 +142,7 @@ public class FontFragment extends Fragment {
     }
 
     private void getColorFromDatabase() {
-        int[] colorWallpaperArrayList = GlobalClass.colorsHorizontal;
+        int[] colorWallpaperArrayList = GlobalClass.colorsArray;
 
         FillFontColorAdapter fillFontColorAdapter = new FillFontColorAdapter(context, colorWallpaperArrayList, createKeyboardActivity);
         rvDefaultColorFontStyle.setAdapter(fillFontColorAdapter);

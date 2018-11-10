@@ -28,7 +28,6 @@ public class GlobalClass {
 
     private static SharedPreferences.Editor editor;
     private static SharedPreferences preferences;
-    public static int tempKeyOpacity = 0;
 
     public static final String KEYBOARD_BG_IMAGE = "keyboardBgImage";
     public static final String KEYBOARD_COLOR_CODE = "keyboardColorCode";
@@ -44,8 +43,8 @@ public class GlobalClass {
     public static final String SOUND_STATUS = "soundStatus";
     public static final String SOUND_NAME = "soundName";
 
-    public static final String SELECTWALLPAPER = "selectwallpaper";
-    public static final String SELECTCOLOR = "selectcolor";
+    public static final String SELECTWALLPAPER = "wallpaperPosition";
+    public static final String SELECTCOLOR = "colorPosition";
     public static final String SELECTVIEW = "selectview";
 
     // for In-app Purchase
@@ -58,7 +57,7 @@ public class GlobalClass {
     public static final int RC_REQUEST_FONTS = 505;
     public static final int RC_REQUEST_SOUNDS = 506;
 
-    public static int selview = 0;
+    public static int drawableOrColor = 0;
 
     public static String REMOVE_AD = "universekeyboard.inapp.removead";
     public static String UNLOCK_TEXUAL_COLOR_BG = "universekeyboard.inapp.texualcolorbg";
@@ -71,13 +70,14 @@ public class GlobalClass {
     public static String tempFontName = null;
     public static boolean soundStatus = false;
     public static int soundId = 0;
-    public static int tempKeyboardBgImage = 0;
+    public static int background = 0;
     public static int tempKeyboardColorCode = 0;
     public static int tempKeyColor = 0;
+    public static int tempKeyOpacity = 0;
     public static int tempKeyStroke = 0;
     public static int tempKeyRadius = 0;
-    public static int selectcolor = 0;
-    public static int selectwallpaper = 0;
+    public static int colorPosition = 0;
+    public static int wallpaperPosition = 0;
     public static int selectbgcolor = 7;
     public static int selectsounds = 0;
     public static int selectfonts = 0;
@@ -218,7 +218,7 @@ public class GlobalClass {
         return output;
     }
 
-    public static int[] thumbArray = {
+    public static int[] wallpaperArray = {
             R.drawable.background_1,
             R.drawable.background_2,
             R.drawable.background_3,
@@ -254,7 +254,7 @@ public class GlobalClass {
             R.drawable.background_33,
     };
 
-    public static int[] thArray = {
+    public static int[] wallpaperPreviewArray = {
             R.drawable.tc_1,
             R.drawable.tc_2,
             R.drawable.tc_3,
@@ -290,7 +290,7 @@ public class GlobalClass {
             R.drawable.tc_33,
     };
 
-    public static int[] lessonClips = {
+    public static int[] soundsArray = {
             R.raw.balloon_snap,
             R.raw.bike_gear_shift,
             R.raw.close_cigarette_lighter,
@@ -323,7 +323,7 @@ public class GlobalClass {
             R.raw.typewriter_key,
     };
 
-    public static int[] colorsHorizontal = {
+    public static int[] colorsArray = {
             R.color.one,
             R.color.two,
             R.color.three,

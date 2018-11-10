@@ -15,29 +15,28 @@ import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class FillDefaultColorAdapter extends RecyclerView.Adapter<FillDefaultColorAdapter.ViewHolder> {
+public class BackgroundColorAdapter extends RecyclerView.Adapter<BackgroundColorAdapter.ColorViewHolder> {
     private Context context;
-    private int[] colorArrayList;
+    private int[] colorArray;
 
-    public FillDefaultColorAdapter(Context context, int[] colorArrayList) {
+    public BackgroundColorAdapter(Context context, int[] colorArray) {
         super();
         this.context = context;
-        this.colorArrayList = colorArrayList;
+        this.colorArray = colorArray;
     }
 
     @NonNull
     @Override
-    public FillDefaultColorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_keyborad_bg_color_item, viewGroup, false);
-        return new ViewHolder(v);
+    public ColorViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(context).inflate(R.layout.row_keyborad_bg_color_item, viewGroup, false);
+        return new ColorViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final FillDefaultColorAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ColorViewHolder holder, final int position) {
+        holder.ivColorItem.setImageResource(colorArray[position]);
 
-        holder.ivColorItem.setImageResource(colorArrayList[position]);
-
-        if (position == GlobalClass.selectcolor && GlobalClass.selview == 1)
+        if (position == GlobalClass.colorPosition && GlobalClass.drawableOrColor == 1)
             holder.flBg.setVisibility(View.VISIBLE);
         else
             holder.flBg.setVisibility(View.GONE);
@@ -48,33 +47,31 @@ public class FillDefaultColorAdapter extends RecyclerView.Adapter<FillDefaultCol
                 holder.ivLock.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent i = new Intent(context, PremiumStoreActivity.class);
-                        context.startActivity(i);
+                        Intent intent = new Intent(context, PremiumStoreActivity.class);
+                        context.startActivity(intent);
                     }
                 });
-            } else {
+            } else
                 holder.ivLock.setVisibility(View.GONE);
-            }
-        } else {
+        } else
             holder.ivLock.setVisibility(View.GONE);
-        }
     }
 
     @Override
     public int getItemCount() {
-        return colorArrayList.length;
+        return colorArray.length;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ColorViewHolder extends RecyclerView.ViewHolder {
         CircleImageView ivColorItem;
         FrameLayout flBg;
         CircleImageView ivLock;
 
-        ViewHolder(final View itemView) {
-            super(itemView);
-            ivColorItem = itemView.findViewById(R.id.ivColorItem);
-            ivLock = itemView.findViewById(R.id.ivLock);
-            flBg = itemView.findViewById(R.id.flBg);
+        ColorViewHolder(View view) {
+            super(view);
+            ivColorItem = view.findViewById(R.id.ivColorItem);
+            ivLock = view.findViewById(R.id.ivLock);
+            flBg = view.findViewById(R.id.flBg);
         }
     }
 }
