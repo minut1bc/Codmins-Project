@@ -2,20 +2,20 @@ package com.codminskeyboards.universekeyboard.model;
 
 public class KeyboardData {
 
-    private int keyboardBgImage;
+    private int keyboardBackground;
     private int keyboardColorCode;
     private int keyRadius;
     private int keyStroke;
     private int keyOpacity;
-    private int keyBgColor;
+    private int keyColor;
     private String fontColor;
     private String fontName;
     private boolean isSelected;
     private boolean soundStatus;
-    private int soundName;
-    private int selectcolor;
-    private int selectwallpaper;
-    private int selview;
+    private int soundId;
+    private int colorPosition;
+    private int backgroundPosition;
+    private int drawableOrColor;
 
     public boolean isSelected() {
         return isSelected;
@@ -25,12 +25,12 @@ public class KeyboardData {
         isSelected = selected;
     }
 
-    public int getKeyboardBgImage() {
-        return keyboardBgImage;
+    public int getKeyboardBackground() {
+        return keyboardBackground;
     }
 
-    public void setKeyboardBgImage(int keyboardBgImage) {
-        this.keyboardBgImage = keyboardBgImage;
+    public void setKeyboardBackground(int keyboardBackground) {
+        this.keyboardBackground = keyboardBackground;
     }
 
     public int getKeyboardColorCode() {
@@ -65,12 +65,12 @@ public class KeyboardData {
         this.keyOpacity = keyOpacity;
     }
 
-    public int getKeyBgColor() {
-        return keyBgColor;
+    public int getKeyColor() {
+        return keyColor;
     }
 
-    public void setKeyBgColor(int keyBgColor) {
-        this.keyBgColor = keyBgColor;
+    public void setKeyColor(int keyColor) {
+        this.keyColor = keyColor;
     }
 
     public String getFontColor() {
@@ -97,55 +97,35 @@ public class KeyboardData {
         this.soundStatus = soundStatus;
     }
 
-    public int getSoundName() {
-        return soundName;
+    public int getSoundId() {
+        return soundId;
     }
 
-    public void setSoundName(int soundName) {
-        this.soundName = soundName;
+    public void setSoundId(int soundId) {
+        this.soundId = soundId;
     }
 
-    public int getSelectcolor() {
-        return selectcolor;
+    public int getColorPosition() {
+        return colorPosition;
     }
 
-    public void setSelectcolor(int selectcolor) {
-        this.selectcolor = selectcolor;
+    public void setColorPosition(int colorPosition) {
+        this.colorPosition = colorPosition;
     }
 
-    public int getSelectwallpaper() {
-        return selectwallpaper;
+    public int getBackgroundPosition() {
+        return backgroundPosition;
     }
 
-    public void setSelectwallpaper(int selectwallpaper) {
-        this.selectwallpaper = selectwallpaper;
+    public void setBackgroundPosition(int backgroundPosition) {
+        this.backgroundPosition = backgroundPosition;
     }
 
-    public int getSelview() {
-        return selview;
+    public int getDrawableOrColor() {
+        return drawableOrColor;
     }
 
-    public void setSelview(int selview) {
-        this.selview = selview;
-    }
-
-    @Override
-    public String toString() {
-        return "KeyboardData{" +
-                ", keyboardBgImage=" + keyboardBgImage +
-                ", keyboardColorCode=" + keyboardColorCode +
-                ", keyRadius='" + keyRadius + '\'' +
-                ", keyStroke='" + keyStroke + '\'' +
-                ", keyOpacity='" + keyOpacity + '\'' +
-                ", keyBgColor=" + keyBgColor +
-                ", fontColor='" + fontColor + '\'' +
-                ", fontName='" + fontName + '\'' +
-                ", isSelected=" + isSelected +
-                ", soundStatus='" + soundStatus + '\'' +
-                ", soundName=" + soundName +
-                ", colorPosition=" + selectcolor +
-                ", wallpaperPosition=" + selectwallpaper +
-                ", drawableOrColor=" + selview +
-                '}';
+    public void setDrawableOrColor(int drawableOrColor) {
+        this.drawableOrColor = drawableOrColor;
     }
 }

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.codminskeyboards.universekeyboard.R;
@@ -17,14 +16,12 @@ import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class FillSoundEffectAdapter extends BaseAdapter {
+public class SoundAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
     private Context context;
     private ArrayList<NewSoundData> soundEffectArrayList;
 
-    public FillSoundEffectAdapter(Activity context, ArrayList<NewSoundData> soundEffectArrayList) {
+    public SoundAdapter(Activity context, ArrayList<NewSoundData> soundEffectArrayList) {
         super();
         this.context = context;
         this.soundEffectArrayList = soundEffectArrayList;
@@ -53,55 +50,44 @@ public class FillSoundEffectAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.row_sound_effect_color_item, parent, false);
 
-        holder.ivSoundEffectItem = convertView.findViewById(R.id.ivSoundEffectItem);
-        holder.ivSoundEffectItem1 = convertView.findViewById(R.id.ivSoundEffectItem1);
-        holder.flBg = convertView.findViewById(R.id.flBg);
-        holder.ivLock = convertView.findViewById(R.id.ivLock);
+        holder.soundImageView = convertView.findViewById(R.id.soundImageView);
+        holder.muteImageView = convertView.findViewById(R.id.muteImageView);
+        holder.circleOutlineImageView = convertView.findViewById(R.id.outlineImageView);
+        holder.lockImageView = convertView.findViewById(R.id.lockImageView);
 
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isSoundLock, true)) {
             if (position > 20) {
-                holder.ivLock.setVisibility(View.VISIBLE);
-                holder.ivLock.setOnClickListener(new View.OnClickListener() {
+                holder.lockImageView.setVisibility(View.VISIBLE);
+                holder.lockImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(context, PremiumStoreActivity.class);
                         context.startActivity(intent);
                     }
                 });
-            } else {
-                holder.ivLock.setVisibility(View.GONE);
-            }
+            } else
+                holder.lockImageView.setVisibility(View.GONE);
+        } else
+            holder.lockImageView.setVisibility(View.GONE);
 
-        } else {
-            holder.ivLock.setVisibility(View.GONE);
-        }
+        if (position == 0)
+            holder.muteImageView.setVisibility(View.VISIBLE);
+        else
+            holder.muteImageView.setVisibility(View.GONE);
 
-        if (position == 0) {
-            holder.ivSoundEffectItem1.setVisibility(View.VISIBLE);
-        } else {
-            holder.ivSoundEffectItem1.setVisibility(View.GONE);
-        }
-
-        if (position == GlobalClass.selectsounds) {
-            holder.flBg.setVisibility(View.VISIBLE);
-        } else {
-            holder.flBg.setVisibility(View.GONE);
-        }
-        if (soundEffectArrayList.get(position).isSelected()) {
-            holder.ivSoundEffectItem.setBorderColor(context.getResources().getColor(R.color.orange));
-            holder.ivSoundEffectItem.setBorderWidth(1);
-        } else {
-            holder.ivSoundEffectItem.setBorderWidth(0);
-        }
+        if (position == GlobalClass.selectsounds)
+            holder.circleOutlineImageView.setVisibility(View.VISIBLE);
+        else
+            holder.circleOutlineImageView.setVisibility(View.GONE);
 
         return convertView;
     }
 
     private static class ViewHolder {
-        CircleImageView ivSoundEffectItem;
-        CircleImageView ivSoundEffectItem1;
-        FrameLayout flBg;
-        ImageView ivLock;
+        ImageView soundImageView;
+        ImageView muteImageView;
+        ImageView circleOutlineImageView;
+        ImageView lockImageView;
     }
 
 }

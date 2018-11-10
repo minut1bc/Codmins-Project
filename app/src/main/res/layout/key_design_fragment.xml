@@ -86,7 +86,7 @@
         app:layout_constraintBottom_toTopOf="@id/ivStrokeOne"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radiusOne" />
+        app:layout_constraintTop_toBottomOf="@id/radiusOne" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivStrokeOne"
@@ -160,7 +160,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/btn_100precents"
-        app:layout_constraintBottom_toBottomOf="@id/rvDefaultColorKeyDesign"
+        app:layout_constraintBottom_toBottomOf="@id/keyColorRecyclerView"
         app:layout_constraintEnd_toStartOf="@id/ivOpacitySeventyFive"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/opacityTextView" />
@@ -170,7 +170,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/btn_75precents"
-        app:layout_constraintBottom_toTopOf="@id/rvDefaultColorKeyDesign"
+        app:layout_constraintBottom_toTopOf="@id/keyColorRecyclerView"
         app:layout_constraintEnd_toStartOf="@id/ivOpacityFifty"
         app:layout_constraintStart_toEndOf="@id/ivOpacityHundred"
         app:layout_constraintTop_toBottomOf="@id/opacityTextView" />
@@ -180,7 +180,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/btn_50precents"
-        app:layout_constraintBottom_toTopOf="@id/rvDefaultColorKeyDesign"
+        app:layout_constraintBottom_toTopOf="@id/keyColorRecyclerView"
         app:layout_constraintEnd_toStartOf="@id/ivOpacityTwentyFive"
         app:layout_constraintStart_toEndOf="@id/ivOpacitySeventyFive"
         app:layout_constraintTop_toBottomOf="@id/opacityTextView" />
@@ -190,7 +190,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/btn_25precents"
-        app:layout_constraintBottom_toTopOf="@id/rvDefaultColorKeyDesign"
+        app:layout_constraintBottom_toTopOf="@id/keyColorRecyclerView"
         app:layout_constraintEnd_toStartOf="@id/ivOpacityZero"
         app:layout_constraintStart_toEndOf="@id/ivOpacityFifty"
         app:layout_constraintTop_toBottomOf="@id/opacityTextView" />
@@ -200,13 +200,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/btn_0precents"
-        app:layout_constraintBottom_toTopOf="@id/rvDefaultColorKeyDesign"
+        app:layout_constraintBottom_toTopOf="@id/keyColorRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivOpacityTwentyFive"
         app:layout_constraintTop_toBottomOf="@id/opacityTextView" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvDefaultColorKeyDesign"
+        android:id="@+id/keyColorRecyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/light_gray"

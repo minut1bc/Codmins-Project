@@ -13,21 +13,23 @@ import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
-public class WallpaperAdapter extends BaseAdapter {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class BackgroundAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
     private Context context;
-    private int[] wallpaperArray;
+    private int[] backgroundArray;
 
-    public WallpaperAdapter(Context context, int[] wallpaperArray) {
+    public BackgroundAdapter(Context context, int[] backgroundArray) {
         super();
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.wallpaperArray = wallpaperArray;
+        this.backgroundArray = backgroundArray;
     }
 
     @Override
     public int getCount() {
-        return wallpaperArray.length;
+        return backgroundArray.length;
     }
 
     @Override
@@ -45,23 +47,23 @@ public class WallpaperAdapter extends BaseAdapter {
         ViewHolder holder = new ViewHolder();
 
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.row_wallpaper_color_item, parent, false);
+            convertView = inflater.inflate(R.layout.row_background_item, parent, false);
 
-        holder.ivColorItem = convertView.findViewById(R.id.ivColorItem);
-        holder.flBg = convertView.findViewById(R.id.flBg);
-        holder.ivLock = convertView.findViewById(R.id.ivLock);
+        holder.backgroundItemImageView = convertView.findViewById(R.id.backgroundItemImageView);
+        holder.outlineImageView = convertView.findViewById(R.id.outlineImageView);
+        holder.lockImageView = convertView.findViewById(R.id.lockImageView);
 
-        holder.ivColorItem.setImageResource(wallpaperArray[position]);
+        holder.backgroundItemImageView.setImageResource(backgroundArray[position]);
 
-        if (position == GlobalClass.wallpaperPosition && GlobalClass.drawableOrColor == 0)
-            holder.flBg.setVisibility(View.VISIBLE);
+        if (position == GlobalClass.backgroundPosition && GlobalClass.drawableOrColor == 0)
+            holder.outlineImageView.setVisibility(View.VISIBLE);
         else
-            holder.flBg.setVisibility(View.GONE);
+            holder.outlineImageView.setVisibility(View.GONE);
 
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isWallPaperLock, true)) {
             if (position > 22) {
-                holder.ivLock.setVisibility(View.VISIBLE);
-                holder.ivLock.setOnClickListener(new View.OnClickListener() {
+                holder.lockImageView.setVisibility(View.VISIBLE);
+                holder.lockImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(context, PremiumStoreActivity.class);
@@ -69,16 +71,16 @@ public class WallpaperAdapter extends BaseAdapter {
                     }
                 });
             } else
-                holder.ivLock.setVisibility(View.GONE);
+                holder.lockImageView.setVisibility(View.GONE);
         } else
-            holder.ivLock.setVisibility(View.GONE);
+            holder.lockImageView.setVisibility(View.GONE);
 
         return convertView;
     }
 
     private static class ViewHolder {
-        ImageView ivColorItem;
-        FrameLayout flBg;
-        ImageView ivLock;
+        CircleImageView backgroundItemImageView;
+        FrameLayout outlineImageView;
+        ImageView lockImageView;
     }
 }

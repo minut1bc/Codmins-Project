@@ -1,6 +1,5 @@
 package com.codminskeyboards.universekeyboard.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -17,12 +16,13 @@ import android.widget.GridView;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
-import com.codminskeyboards.universekeyboard.adapter.FillFontColorAdapter;
-import com.codminskeyboards.universekeyboard.adapter.FillFontStyleAdapter;
+import com.codminskeyboards.universekeyboard.adapter.FontAdapter;
+import com.codminskeyboards.universekeyboard.adapter.FontColorAdapter;
 import com.codminskeyboards.universekeyboard.database.DatabaseHelper;
 import com.codminskeyboards.universekeyboard.model.FontsPaid;
 import com.codminskeyboards.universekeyboard.utils.AsyncDownload;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
+import com.codminskeyboards.universekeyboard.utils.RecyclerItemClickListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,25 +31,25 @@ public class FontFragment extends Fragment {
 
     Context context;
 
-    GridView gvFont;
-    FillFontStyleAdapter fillFontStyleAdapter;
+    GridView fontGridView;
+    FontAdapter fontAdapter;
     String[] fontArray = new String[0];
 
     CreateKeyboardActivity createKeyboardActivity;
 
-    private RecyclerView rvDefaultColorFontStyle;
+    FontColorAdapter fontColorAdapter;
+
+    private RecyclerView fontColorRecyclerView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fontFragmentView = inflater.inflate(R.layout.font_fragment, container, false);
 
-        GlobalClass globalClass = new GlobalClass(context);
-
-        gvFont = fontFragmentView.findViewById(R.id.gvFont);
-        rvDefaultColorFontStyle = fontFragmentView.findViewById(R.id.rvDefaultColorFontStyle);
-        rvDefaultColorFontStyle.setNestedScrollingEnabled(false);
-        rvDefaultColorFontStyle.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        fontGridView = fontFragmentView.findViewById(R.id.fontGridView);
+        fontColorRecyclerView = fontFragmentView.findViewById(R.id.fontColorRecyclerView);
+        fontColorRecyclerView.setNestedScrollingEnabled(false);
+        fontColorRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
         try {
             fontArray = context.getAssets().list("fonts");
@@ -58,17 +58,16 @@ public class FontFragment extends Fragment {
         }
 
         getFontFromDatabase();
-        getColorFromDatabase();
+        setFontColorRecyclerView();
 
         return fontFragmentView;
     }
 
-    @SuppressWarnings("deprecation")  // TODO: Check if it's okay
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        createKeyboardActivity = (CreateKeyboardActivity) activity;
-        context = activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        createKeyboardActivity = (CreateKeyboardActivity) context;
+        this.context = context;
     }
 
     @Override
@@ -92,7 +91,6 @@ public class FontFragment extends Fragment {
                 fontsPaid.setFont_url(dataCursor.getString(dataCursor.getColumnIndex(DatabaseHelper.KEY_FONT_URL)));
                 fontsPaid.setPaid(dataCursor.getString(dataCursor.getColumnIndex(DatabaseHelper.KEY_FONT_IS_PAID)));
                 fontsPaidArrayList.add(fontsPaid);
-
             } while (dataCursor.moveToNext());
         }
 
@@ -100,51 +98,56 @@ public class FontFragment extends Fragment {
             AsyncDownload asyncDownload = new AsyncDownload(createKeyboardActivity, fontsPaidArrayList.get(i));
             asyncDownload.execute();
         }
-        setFontStyleGridView(fontsPaidArrayList);
+
+        setFontGridView(fontsPaidArrayList);
     }
 
-    private void setFontStyleGridView(final ArrayList<FontsPaid> fontStyleArrayList) {
-        fillFontStyleAdapter = new FillFontStyleAdapter(context, fontArray);
-        gvFont.setAdapter(fillFontStyleAdapter);
+    private void setFontGridView(final ArrayList<FontsPaid> fontsArray) {
+        fontAdapter = new FontAdapter(context, fontArray);
+        fontGridView.setAdapter(fontAdapter);
 
-        if (GlobalClass.tempFontName != null && !GlobalClass.tempFontName.isEmpty()) {
-            for (int i = 0; i < fontStyleArrayList.size(); i++) {
-                if (GlobalClass.tempFontName.equals(fontStyleArrayList.get(i).getTitle())) {
-                    fontStyleArrayList.get(i).setSelected(true);
-                } else {
-                    fontStyleArrayList.get(i).setSelected(false);
-                }
+        if (GlobalClass.fontName != null)
+            for (int i = 0; i < fontsArray.size(); i++) {
+                if (GlobalClass.fontName.equals(fontsArray.get(i).getTitle()))
+                    fontsArray.get(i).setSelected(true);
+                else
+                    fontsArray.get(i).setSelected(false);
             }
-        }
 
-        gvFont.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        fontGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 GlobalClass.selectfonts = position;
 
-                if (createKeyboardActivity != null) {
+                if (createKeyboardActivity != null)
                     if (fontArray[position] != null) {
-                        GlobalClass.tempFontName = "fonts/" + fontArray[position];
+                        GlobalClass.fontName = "fonts/" + fontArray[position];
                         createKeyboardActivity.redrawKeyboard();
                     }
-                }
 
-                for (int i = 0; i < fontStyleArrayList.size(); i++) {
-                    if (i == position) {
-                        fontStyleArrayList.get(i).setSelected(true);
-                    } else {
-                        fontStyleArrayList.get(i).setSelected(false);
-                    }
+                for (int i = 0; i < fontsArray.size(); i++) {
+                    if (i == position)
+                        fontsArray.get(i).setSelected(true);
+                    else
+                        fontsArray.get(i).setSelected(false);
                 }
-                fillFontStyleAdapter.notifyDataSetChanged();
+                fontAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
             }
         });
     }
 
-    private void getColorFromDatabase() {
-        int[] colorWallpaperArrayList = GlobalClass.colorsArray;
-
-        FillFontColorAdapter fillFontColorAdapter = new FillFontColorAdapter(context, colorWallpaperArrayList, createKeyboardActivity);
-        rvDefaultColorFontStyle.setAdapter(fillFontColorAdapter);
+    private void setFontColorRecyclerView() {
+        fontColorAdapter = new FontColorAdapter(context, GlobalClass.colorsArray);
+        fontColorRecyclerView.setAdapter(fontColorAdapter);
+        fontColorRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                GlobalClass.fontColorPosition = position;
+                GlobalClass.fontColor = context.getResources().getString(GlobalClass.colorsArray[position]);
+                createKeyboardActivity.redrawKeyboard();
+                fontColorAdapter.notifyDataSetChanged();
+                GlobalClass.checkStartAd();
+            }
+        }));
     }
 }

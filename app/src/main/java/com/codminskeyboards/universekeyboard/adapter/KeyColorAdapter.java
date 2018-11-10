@@ -15,31 +15,31 @@ import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class BackgroundColorAdapter extends RecyclerView.Adapter<BackgroundColorAdapter.ColorViewHolder> {
+public class KeyColorAdapter extends RecyclerView.Adapter<KeyColorAdapter.ViewHolder> {
     private Context context;
-    private int[] colorArray;
+    private int[] colorFreeArray;
 
-    public BackgroundColorAdapter(Context context, int[] colorArray) {
+    public KeyColorAdapter(Context context, int[] colorFreeArray) {
         super();
         this.context = context;
-        this.colorArray = colorArray;
+        this.colorFreeArray = colorFreeArray;
     }
 
     @NonNull
     @Override
-    public ColorViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_keyborad_bg_color_item, viewGroup, false);
-        return new ColorViewHolder(view);
+    public KeyColorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_fill_color_item, viewGroup, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ColorViewHolder holder, final int position) {
-        holder.colorImageView.setImageResource(colorArray[position]);
+    public void onBindViewHolder(@NonNull final KeyColorAdapter.ViewHolder holder, int position) {
+        holder.colorImageView.setImageResource(colorFreeArray[position]);
 
-        if (position == GlobalClass.colorPosition && GlobalClass.drawableOrColor == 1)
-            holder.outlineImageView.setVisibility(View.VISIBLE);
+        if (position == GlobalClass.selectbgcolor)
+            holder.circleOutlineImageView.setVisibility(View.VISIBLE);
         else
-            holder.outlineImageView.setVisibility(View.GONE);
+            holder.circleOutlineImageView.setVisibility(View.GONE);
 
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isColorLock, true)) {
             if (position > 26) {
@@ -59,19 +59,19 @@ public class BackgroundColorAdapter extends RecyclerView.Adapter<BackgroundColor
 
     @Override
     public int getItemCount() {
-        return colorArray.length;
+        return colorFreeArray.length;
     }
 
-    class ColorViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         CircleImageView colorImageView;
-        ImageView outlineImageView;
+        ImageView circleOutlineImageView;
         ImageView lockImageView;
 
-        ColorViewHolder(View view) {
-            super(view);
-            colorImageView = view.findViewById(R.id.colorImageView);
-            lockImageView = view.findViewById(R.id.lockImageView);
-            outlineImageView = view.findViewById(R.id.outlineImageView);
+        ViewHolder(final View itemView) {
+            super(itemView);
+            colorImageView = itemView.findViewById(R.id.colorImageView);
+            circleOutlineImageView = itemView.findViewById(R.id.outlineImageView);
+            lockImageView = itemView.findViewById(R.id.lockImageView);
         }
     }
 }

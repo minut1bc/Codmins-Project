@@ -1,6 +1,5 @@
 package com.codminskeyboards.universekeyboard.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,8 +13,9 @@ import android.view.ViewGroup;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
-import com.codminskeyboards.universekeyboard.adapter.FillKeyBgAdapter;
+import com.codminskeyboards.universekeyboard.adapter.KeyColorAdapter;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
+import com.codminskeyboards.universekeyboard.utils.RecyclerItemClickListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -23,7 +23,8 @@ public class KeyDesignFragment extends Fragment {
 
     Context context;
 
-    RecyclerView rvDefaultColorKeyDesign;
+    RecyclerView keyColorRecyclerView;
+    KeyColorAdapter keyColorAdapter;
 
     CircleImageView radiusOne;
     CircleImageView radiusTwo;
@@ -42,7 +43,8 @@ public class KeyDesignFragment extends Fragment {
     CircleImageView ivStrokeFive;
 
     CreateKeyboardActivity createKeyboardActivity;
-    MyOnClickListener onClickListener = new MyOnClickListener() {
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
@@ -53,7 +55,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeFour.setBorderWidth(0);
                     ivStrokeFive.setBorderWidth(0);
                     ivStrokeOne.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyStroke = 1;
+                    GlobalClass.keyStroke = 1;
                     setRadius();
                     break;
 
@@ -64,7 +66,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeFive.setBorderWidth(0);
                     ivStrokeFour.setBorderWidth(0);
                     ivStrokeTwo.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyStroke = 2;
+                    GlobalClass.keyStroke = 2;
                     setRadius();
                     break;
 
@@ -75,7 +77,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeFour.setBorderWidth(0);
                     ivStrokeFive.setBorderWidth(0);
                     ivStrokeThree.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyStroke = 3;
+                    GlobalClass.keyStroke = 3;
                     setRadius();
                     break;
 
@@ -86,7 +88,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeFour.setBorderWidth(5);
                     ivStrokeFive.setBorderWidth(0);
                     ivStrokeFour.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyStroke = 4;
+                    GlobalClass.keyStroke = 4;
                     setRadius();
                     break;
 
@@ -97,7 +99,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeFour.setBorderWidth(0);
                     ivStrokeFive.setBorderWidth(5);
                     ivStrokeFive.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyStroke = 5;
+                    GlobalClass.keyStroke = 5;
                     setRadius();
                     break;
 
@@ -108,7 +110,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityTwentyFive.setBorderWidth(0);
                     ivOpacityZero.setBorderWidth(0);
                     ivOpacityHundred.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyOpacity = 255;
+                    GlobalClass.keyOpacity = 255;
                     setRadius();
                     break;
 
@@ -119,7 +121,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityTwentyFive.setBorderWidth(0);
                     ivOpacityZero.setBorderWidth(0);
                     ivOpacitySeventyFive.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyOpacity = 192;
+                    GlobalClass.keyOpacity = 192;
                     setRadius();
                     break;
 
@@ -130,7 +132,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityTwentyFive.setBorderWidth(0);
                     ivOpacityZero.setBorderWidth(0);
                     ivOpacityFifty.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyOpacity = 128;
+                    GlobalClass.keyOpacity = 128;
                     setRadius();
                     break;
 
@@ -141,7 +143,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityTwentyFive.setBorderWidth(5);
                     ivOpacityZero.setBorderWidth(0);
                     ivOpacityTwentyFive.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyOpacity = 64;
+                    GlobalClass.keyOpacity = 64;
                     setRadius();
                     break;
 
@@ -152,7 +154,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityTwentyFive.setBorderWidth(0);
                     ivOpacityZero.setBorderWidth(5);
                     ivOpacityZero.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyOpacity = 0;
+                    GlobalClass.keyOpacity = 0;
                     setRadius();
                     break;
 
@@ -163,7 +165,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusFour.setBorderWidth(0);
                     radiusFive.setBorderWidth(0);
                     radiusOne.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyRadius = 0;
+                    GlobalClass.keyRadius = 0;
                     setRadius();
                     break;
 
@@ -174,7 +176,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusFour.setBorderWidth(0);
                     radiusFive.setBorderWidth(0);
                     radiusTwo.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyRadius = 9;
+                    GlobalClass.keyRadius = 9;
                     setRadius();
                     break;
 
@@ -185,7 +187,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusFour.setBorderWidth(0);
                     radiusFive.setBorderWidth(0);
                     radiusThree.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyRadius = 18;
+                    GlobalClass.keyRadius = 18;
                     setRadius();
                     break;
 
@@ -196,7 +198,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusFour.setBorderWidth(5);
                     radiusFive.setBorderWidth(0);
                     radiusFour.setBorderColor(getResources().getColor(R.color.pink));
-                    GlobalClass.tempKeyRadius = 25;
+                    GlobalClass.keyRadius = 25;
                     setRadius();
                     break;
 
@@ -208,7 +210,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusFive.setBorderWidth(5);
                     radiusFive.setBorderColor(getResources().getColor(R.color.pink));
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, 11);
-                    GlobalClass.tempKeyRadius = 34;
+                    GlobalClass.keyRadius = 34;
                     setRadius();
                     break;
             }
@@ -220,9 +222,9 @@ public class KeyDesignFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View keyDesignView = inflater.inflate(R.layout.key_design_fragment, container, false);
 
-        rvDefaultColorKeyDesign = keyDesignView.findViewById(R.id.rvDefaultColorKeyDesign);
-        rvDefaultColorKeyDesign.setNestedScrollingEnabled(false);
-        rvDefaultColorKeyDesign.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        keyColorRecyclerView = keyDesignView.findViewById(R.id.keyColorRecyclerView);
+        keyColorRecyclerView.setNestedScrollingEnabled(false);
+        keyColorRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
         radiusOne = keyDesignView.findViewById(R.id.radiusOne);
         radiusTwo = keyDesignView.findViewById(R.id.radiusTwo);
@@ -267,12 +269,11 @@ public class KeyDesignFragment extends Fragment {
         return keyDesignView;
     }
 
-    @SuppressWarnings("deprecation")  // TODO: Check if it's okay
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        createKeyboardActivity = (CreateKeyboardActivity) activity;
-        context = activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        createKeyboardActivity = (CreateKeyboardActivity) context;
+        this.context = context;
     }
 
     @Override
@@ -283,7 +284,7 @@ public class KeyDesignFragment extends Fragment {
     }
 
     public void setRadius() {
-        switch (GlobalClass.tempKeyRadius) {
+        switch (GlobalClass.keyRadius) {
             case 0:
                 radiusOne.setBorderWidth(5);
                 radiusOne.setBorderColor(getResources().getColor(R.color.pink));
@@ -306,7 +307,7 @@ public class KeyDesignFragment extends Fragment {
                 break;
         }
 
-        switch (GlobalClass.tempKeyStroke) {
+        switch (GlobalClass.keyStroke) {
             case 1:
                 ivStrokeOne.setBorderWidth(5);
                 ivStrokeOne.setBorderColor(getResources().getColor(R.color.pink));
@@ -329,8 +330,7 @@ public class KeyDesignFragment extends Fragment {
                 break;
         }
 
-
-        switch (GlobalClass.tempKeyOpacity) {
+        switch (GlobalClass.keyOpacity) {
             case 255:
                 ivOpacityHundred.setBorderWidth(5);
                 ivOpacityHundred.setBorderColor(getResources().getColor(R.color.pink));
@@ -357,21 +357,19 @@ public class KeyDesignFragment extends Fragment {
     }
 
     void getColorFromDatabase() {
-        int[] colorWallpaperArrayList = GlobalClass.colorsArray;
-
-        FillKeyBgAdapter fillKeyBgAdapter = new FillKeyBgAdapter(context, colorWallpaperArrayList, createKeyboardActivity);
-        rvDefaultColorKeyDesign.setAdapter(fillKeyBgAdapter);
-        rvDefaultColorKeyDesign.setOnClickListener(new View.OnClickListener() {
+        keyColorAdapter = new KeyColorAdapter(context, GlobalClass.colorsArray);
+        keyColorRecyclerView.setAdapter(keyColorAdapter);
+        keyColorRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                setRadius();
+            public void onItemClick(View view, int position) {
+                GlobalClass.selectbgcolor = position;
+                GlobalClass.keyColor = context.getResources().getColor(GlobalClass.colorsArray[position]);
+                if (createKeyboardActivity != null)
+                    createKeyboardActivity.redrawKeyboard();
+
+                keyColorAdapter.notifyDataSetChanged();
+                GlobalClass.checkStartAd();
             }
-        });
-    }
-
-    public class MyOnClickListener implements View.OnClickListener {
-
-        public void onClick(View v) {
-        }
+        }));
     }
 }

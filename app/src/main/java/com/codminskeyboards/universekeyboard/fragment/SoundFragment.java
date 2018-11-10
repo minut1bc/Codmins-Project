@@ -19,7 +19,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.codminskeyboards.universekeyboard.R;
-import com.codminskeyboards.universekeyboard.adapter.FillSoundEffectAdapter;
+import com.codminskeyboards.universekeyboard.adapter.SoundAdapter;
 import com.codminskeyboards.universekeyboard.model.NewSoundData;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
@@ -29,7 +29,7 @@ public class SoundFragment extends Fragment {
 
     Context context;
 
-    FillSoundEffectAdapter fillSoundEffectAdapter;
+    SoundAdapter fillSoundEffectAdapter;
     GridView gvSoundEffect;
     ArrayList<NewSoundData> newSoundDataArrayList = new ArrayList<>();
     SeekBar seekBarVibration;
@@ -65,7 +65,7 @@ public class SoundFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        fillSoundEffectAdapter = new FillSoundEffectAdapter(activity, newSoundDataArrayList);
+        fillSoundEffectAdapter = new SoundAdapter(activity, newSoundDataArrayList);
         context = activity;
     }
 

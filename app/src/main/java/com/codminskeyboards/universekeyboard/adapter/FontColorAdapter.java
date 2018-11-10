@@ -15,28 +15,28 @@ import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class BackgroundColorAdapter extends RecyclerView.Adapter<BackgroundColorAdapter.ColorViewHolder> {
+public class FontColorAdapter extends RecyclerView.Adapter<FontColorAdapter.ColorViewHolder> {
     private Context context;
-    private int[] colorArray;
+    private int[] colorFreeArray;
 
-    public BackgroundColorAdapter(Context context, int[] colorArray) {
+    public FontColorAdapter(Context context, int[] colorFreeArray) {
         super();
         this.context = context;
-        this.colorArray = colorArray;
+        this.colorFreeArray = colorFreeArray;
     }
 
     @NonNull
     @Override
     public ColorViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_keyborad_bg_color_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_fill_color_iteme, viewGroup, false);
         return new ColorViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ColorViewHolder holder, final int position) {
-        holder.colorImageView.setImageResource(colorArray[position]);
+    public void onBindViewHolder(@NonNull final ColorViewHolder holder, int position) {
+        holder.colorImageView.setImageResource(colorFreeArray[position]);
 
-        if (position == GlobalClass.colorPosition && GlobalClass.drawableOrColor == 1)
+        if (position == GlobalClass.fontColorPosition)
             holder.outlineImageView.setVisibility(View.VISIBLE);
         else
             holder.outlineImageView.setVisibility(View.GONE);
@@ -59,7 +59,7 @@ public class BackgroundColorAdapter extends RecyclerView.Adapter<BackgroundColor
 
     @Override
     public int getItemCount() {
-        return colorArray.length;
+        return colorFreeArray.length;
     }
 
     class ColorViewHolder extends RecyclerView.ViewHolder {
@@ -67,11 +67,11 @@ public class BackgroundColorAdapter extends RecyclerView.Adapter<BackgroundColor
         ImageView outlineImageView;
         ImageView lockImageView;
 
-        ColorViewHolder(View view) {
-            super(view);
-            colorImageView = view.findViewById(R.id.colorImageView);
-            lockImageView = view.findViewById(R.id.lockImageView);
-            outlineImageView = view.findViewById(R.id.outlineImageView);
+        ColorViewHolder(final View itemView) {
+            super(itemView);
+            colorImageView = itemView.findViewById(R.id.colorImageView);
+            outlineImageView = itemView.findViewById(R.id.outlineImageView);
+            lockImageView = itemView.findViewById(R.id.lockImageView);
         }
     }
 }

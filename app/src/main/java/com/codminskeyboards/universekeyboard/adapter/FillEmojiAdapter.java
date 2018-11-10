@@ -44,15 +44,15 @@ public class FillEmojiAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.row_emoji_item, parent, false);
 
-        viewHolder.txtEmoji = convertView.findViewById(R.id.txtEmoji);
+        viewHolder.emojiTextView = convertView.findViewById(R.id.emojiTextView);
 
         if (emojiArrayList[position] != null && !emojiArrayList[position].isEmpty())
-            viewHolder.txtEmoji.setText(emojiArrayList[position]);
+            viewHolder.emojiTextView.setText(emojiArrayList[position]);
 
         return convertView;
     }
 
     private static class ViewHolder {
-        TextView txtEmoji;
+        TextView emojiTextView;
     }
 }

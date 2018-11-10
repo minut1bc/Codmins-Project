@@ -5,20 +5,20 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/flBg"
+        android:id="@+id/outlineImageView"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:background="@drawable/circle_image" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivColorItem"
+        android:id="@+id/backgroundItemImageView"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:padding="4dp"
         android:visibility="visible" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivLock"
+    <ImageView
+        android:id="@+id/lockImageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/ic_lock"

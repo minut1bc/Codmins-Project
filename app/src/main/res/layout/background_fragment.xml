@@ -9,13 +9,13 @@
         android:id="@+id/backgroundColorRecyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/wallpaperGridView"
+        app:layout_constraintBottom_toTopOf="@id/backgroundGridView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <GridView
-        android:id="@+id/wallpaperGridView"
+        android:id="@+id/backgroundGridView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <GridView
-        android:id="@+id/gvFont"
+        android:id="@+id/fontGridView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:columnWidth="60dp"
@@ -15,13 +15,13 @@
         android:numColumns="5"
         android:scrollbars="none"
         android:verticalSpacing="8dp"
-        app:layout_constraintBottom_toTopOf="@id/rvDefaultColorFontStyle"
+        app:layout_constraintBottom_toTopOf="@id/fontColorRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvDefaultColorFontStyle"
+        android:id="@+id/fontColorRecyclerView"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:background="@color/light_gray"
@@ -30,6 +30,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gvFont" />
+        app:layout_constraintTop_toBottomOf="@id/fontGridView" />
 
 </android.support.constraint.ConstraintLayout>

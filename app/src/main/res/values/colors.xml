@@ -61,12 +61,12 @@
     <color name="thirtyTwo">#81B89D</color>
     <color name="thirtyThree">#7EBFAA</color>
     <color name="thirtyFour">#D5958C</color>
-    <color name="thirtySix">#469594</color>
-    <color name="thirtySeven">#954E53</color>
-    <color name="thirtyEight">#958A84</color>
-    <color name="thirtyNine">#ECBC84</color>
-    <color name="forty">#8294DE</color>
-    <color name="fortyOne">#68875D</color>
+    <color name="thirtyFive">#469594</color>
+    <color name="thirtySix">#954E53</color>
+    <color name="thirtySeven">#958A84</color>
+    <color name="thirtyEight">#ECBC84</color>
+    <color name="thirtyNine">#8294DE</color>
+    <color name="forty">#68875D</color>
 
     /// Colors by teo
     <color name="ct_pink1">#FF2D55</color>

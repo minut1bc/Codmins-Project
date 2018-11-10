@@ -16,37 +16,37 @@ import android.widget.ImageView;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
+import com.codminskeyboards.universekeyboard.adapter.BackgroundAdapter;
 import com.codminskeyboards.universekeyboard.adapter.BackgroundColorAdapter;
-import com.codminskeyboards.universekeyboard.adapter.WallpaperAdapter;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 import com.codminskeyboards.universekeyboard.utils.RecyclerItemClickListener;
 
-public class WallpaperFragment extends Fragment {
+public class BackgroundFragment extends Fragment {
 
-    WallpaperAdapter wallpaperAdapter;
+    BackgroundAdapter backgroundAdapter;
     BackgroundColorAdapter backgroundColorAdapter;
 
     RecyclerView backgroundColorRecyclerView;
     ImageView backgroundImageView;
-    GridView wallpaperGridView;
+    GridView backgroundGridView;
     Context context;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View wallpaperFragmentView = inflater.inflate(R.layout.wallpaper_fragment, container, false);
+        View backgroundFragmentView = inflater.inflate(R.layout.background_fragment, container, false);
 
-        backgroundColorRecyclerView = wallpaperFragmentView.findViewById(R.id.backgroundColorRecyclerView);
+        backgroundColorRecyclerView = backgroundFragmentView.findViewById(R.id.backgroundColorRecyclerView);
         backgroundColorRecyclerView.setNestedScrollingEnabled(false);
         backgroundColorRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
         backgroundImageView = ((CreateKeyboardActivity) context).findViewById(R.id.backgroundImageView);
-        wallpaperGridView = wallpaperFragmentView.findViewById(R.id.wallpaperGridView);
+        backgroundGridView = backgroundFragmentView.findViewById(R.id.backgroundGridView);
 
-        setWallpaperGridView();
+        setBackgroundGridView();
         setColorRecyclerView();
 
-        return wallpaperFragmentView;
+        return backgroundFragmentView;
     }
 
     @Override
@@ -61,17 +61,17 @@ public class WallpaperFragment extends Fragment {
         context = null;
     }
 
-    private void setWallpaperGridView() {
-        wallpaperAdapter = new WallpaperAdapter(context, GlobalClass.wallpaperPreviewArray);
-        wallpaperGridView.setAdapter(wallpaperAdapter);
+    private void setBackgroundGridView() {
+        backgroundAdapter = new BackgroundAdapter(context, GlobalClass.backgroundPreviewArray);
+        backgroundGridView.setAdapter(backgroundAdapter);
 
-        wallpaperGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        backgroundGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, final int position, long id) {
-                backgroundImageView.setImageResource(GlobalClass.wallpaperArray[position]);
-                GlobalClass.wallpaperPosition = position;
+                backgroundImageView.setImageResource(GlobalClass.backgroundArray[position]);
+                GlobalClass.backgroundPosition = position;
                 GlobalClass.drawableOrColor = 0;
-                GlobalClass.background = GlobalClass.wallpaperArray[position];
-                wallpaperAdapter.notifyDataSetChanged();
+                GlobalClass.keyboardBackground = GlobalClass.backgroundArray[position];
+                backgroundAdapter.notifyDataSetChanged();
                 backgroundColorAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
             }
@@ -89,9 +89,9 @@ public class WallpaperFragment extends Fragment {
                         backgroundImageView.setImageResource(GlobalClass.colorsArray[position]);
                         GlobalClass.colorPosition = position;
                         GlobalClass.drawableOrColor = 1;
-                        GlobalClass.background = GlobalClass.colorsArray[position];
+                        GlobalClass.keyboardBackground = GlobalClass.colorsArray[position];
                         backgroundColorAdapter.notifyDataSetChanged();
-                        wallpaperAdapter.notifyDataSetChanged();
+                        backgroundAdapter.notifyDataSetChanged();
                         GlobalClass.checkStartAd();
                     }
                 })

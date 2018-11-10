@@ -43,7 +43,7 @@ public class GlobalClass {
     public static final String SOUND_STATUS = "soundStatus";
     public static final String SOUND_NAME = "soundName";
 
-    public static final String SELECTWALLPAPER = "wallpaperPosition";
+    public static final String SELECTWALLPAPER = "backgroundPosition";
     public static final String SELECTCOLOR = "colorPosition";
     public static final String SELECTVIEW = "selectview";
 
@@ -66,22 +66,22 @@ public class GlobalClass {
     public static String UNLOCK_FONTS = "universekeyboard.inapp.fonts";
     public static String UNLOCK_SOUNDS = "universekeyboard.inapp.sounds";
 
-    public static String tempFontColor = null;
-    public static String tempFontName = null;
+    public static String fontColor = null;
+    public static String fontName = null;
     public static boolean soundStatus = false;
     public static int soundId = 0;
-    public static int background = 0;
+    public static int keyboardBackground = 0;
     public static int tempKeyboardColorCode = 0;
-    public static int tempKeyColor = 0;
-    public static int tempKeyOpacity = 0;
-    public static int tempKeyStroke = 0;
-    public static int tempKeyRadius = 0;
+    public static int keyColor = 0;
+    public static int keyOpacity = 0;
+    public static int keyStroke = 0;
+    public static int keyRadius = 0;
     public static int colorPosition = 0;
-    public static int wallpaperPosition = 0;
+    public static int backgroundPosition = 0;
     public static int selectbgcolor = 7;
     public static int selectsounds = 0;
     public static int selectfonts = 0;
-    public static int selectfontcolor = 1;
+    public static int fontColorPosition = 1;
     private static int countAds = 0;
 
     public static String key_isWallPaperLock = "isWallPaperLock";
@@ -152,29 +152,150 @@ public class GlobalClass {
         editor.commit();
     }
 
-    public static ArrayList<KeyboardData> getPreferencesArrayList(Context context) {
-
-        Gson gson = new Gson();
-        String json = preferences.getString("keyboardArrayList", "");
-        Type type = new TypeToken<ArrayList<KeyboardData>>() {
-        }.getType();
-
-        ArrayList<KeyboardData> keyboardDataArrayList = gson.fromJson(json, type);
-
-        return keyboardDataArrayList;
-    }
-
-    public static boolean KeyboardIsEnabled(Context context) {
-        return ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE)).getEnabledInputMethodList().toString().contains(context.getPackageName());
-    }
-
-    public static boolean KeyboardIsSet(Context context) {
-        try {
-            return new ComponentName(context.getApplicationContext(), SoftKeyboard.class).equals(ComponentName.unflattenFromString(Settings.Secure.getString(context.getApplicationContext().getContentResolver(), "default_input_method")));
-        } catch (Exception e) {
-            return false;
-        }
-    }
+    public static int[] backgroundArray = {
+            R.drawable.background_1,
+            R.drawable.background_2,
+            R.drawable.background_3,
+            R.drawable.background_4,
+            R.drawable.background_5,
+            R.drawable.background_6,
+            R.drawable.background_7,
+            R.drawable.background_8,
+            R.drawable.background_9,
+            R.drawable.background_10,
+            R.drawable.background_11,
+            R.drawable.background_12,
+            R.drawable.background_13,
+            R.drawable.background_14,
+            R.drawable.background_15,
+            R.drawable.background_16,
+            R.drawable.background_17,
+            R.drawable.background_18,
+            R.drawable.background_19,
+            R.drawable.background_20,
+            R.drawable.background_21,
+            R.drawable.background_22,
+            R.drawable.background_23,
+            R.drawable.background_24,
+            R.drawable.background_25,
+            R.drawable.background_26,
+            R.drawable.background_27,
+            R.drawable.background_28,
+            R.drawable.background_29,
+            R.drawable.background_30,
+            R.drawable.background_31,
+            R.drawable.background_32,
+            R.drawable.background_33,
+    };
+    public static int[] backgroundPreviewArray = {
+            R.drawable.tc_1,
+            R.drawable.tc_2,
+            R.drawable.tc_3,
+            R.drawable.tc_4,
+            R.drawable.tc_5,
+            R.drawable.tc_6,
+            R.drawable.tc_7,
+            R.drawable.tc_8,
+            R.drawable.tc_9,
+            R.drawable.tc_10,
+            R.drawable.tc_11,
+            R.drawable.tc_12,
+            R.drawable.tc_13,
+            R.drawable.tc_14,
+            R.drawable.tc_15,
+            R.drawable.tc_16,
+            R.drawable.tc_17,
+            R.drawable.tc_18,
+            R.drawable.tc_19,
+            R.drawable.tc_20,
+            R.drawable.tc_21,
+            R.drawable.tc_22,
+            R.drawable.tc_23,
+            R.drawable.tc_24,
+            R.drawable.tc_25,
+            R.drawable.tc_26,
+            R.drawable.tc_27,
+            R.drawable.tc_28,
+            R.drawable.tc_29,
+            R.drawable.tc_30,
+            R.drawable.tc_31,
+            R.drawable.tc_32,
+            R.drawable.tc_33,
+    };
+    public static int[] colorsArray = {
+            R.color.one,
+            R.color.two,
+            R.color.three,
+            R.color.four,
+            R.color.five,
+            R.color.six,
+            R.color.seven,
+            R.color.eight,
+            R.color.nine,
+            R.color.ten,
+            R.color.eleven,
+            R.color.twelve,
+            R.color.thirteen,
+            R.color.fourteen,
+            R.color.fifteen,
+            R.color.sixteen,
+            R.color.seventeen,
+            R.color.eighteen,
+            R.color.nineteen,
+            R.color.twenty,
+            R.color.twentyOne,
+            R.color.twentyTwo,
+            R.color.twentyThree,
+            R.color.twentyFour,
+            R.color.twentyFive,
+            R.color.twentySix,
+            R.color.twentySeven,
+            R.color.twentyEight,
+            R.color.twentyNine,
+            R.color.thirty,
+            R.color.thirtyOne,
+            R.color.thirtyTwo,
+            R.color.thirtyThree,
+            R.color.thirtyFour,
+            R.color.thirtyFive,
+            R.color.thirtySix,
+            R.color.thirtySeven,
+            R.color.thirtyEight,
+            R.color.thirtyNine,
+            R.color.forty,
+    };
+    public static int[] soundsArray = {
+            R.raw.balloon_snap,
+            R.raw.bike_gear_shift,
+            R.raw.close_cigarette_lighter,
+            R.raw.double_down_click,
+            R.raw.double_switch,
+            R.raw.fast_camera_shutter,
+            R.raw.glovebox_open,
+            R.raw.heavy_switch_click,
+            R.raw.heavy_switch_spring,
+            R.raw.keydesign,
+            R.raw.latch_lock,
+            R.raw.latch_snap,
+            R.raw.latch_spring,
+            R.raw.lever_spring,
+            R.raw.loose_click,
+            R.raw.medium_camera_shutter,
+            R.raw.metal_off_switch,
+            R.raw.mouse_click,
+            R.raw.pull_grenade_pin,
+            R.raw.pull_switch,
+            R.raw.ratchet,
+            R.raw.rotary_switch,
+            R.raw.seatbelt,
+            R.raw.slide_click,
+            R.raw.switch_breaker,
+            R.raw.switch_flick,
+            R.raw.thunk_switch,
+            R.raw.tight_click,
+            R.raw.toggle_switch,
+            R.raw.typewriter_key,
+    };
 
     public static void printLog(String tag, String strMessage) {
         // Log.e("----------------- ----:" + tag, "-----" + strMessage);
@@ -218,153 +339,33 @@ public class GlobalClass {
         return output;
     }
 
-    public static int[] wallpaperArray = {
-            R.drawable.background_1,
-            R.drawable.background_2,
-            R.drawable.background_3,
-            R.drawable.background_4,
-            R.drawable.background_5,
-            R.drawable.background_6,
-            R.drawable.background_7,
-            R.drawable.background_8,
-            R.drawable.background_9,
-            R.drawable.background_10,
-            R.drawable.background_11,
-            R.drawable.background_12,
-            R.drawable.background_13,
-            R.drawable.background_14,
-            R.drawable.background_15,
-            R.drawable.background_16,
-            R.drawable.background_17,
-            R.drawable.background_18,
-            R.drawable.background_19,
-            R.drawable.background_20,
-            R.drawable.background_21,
-            R.drawable.background_22,
-            R.drawable.background_23,
-            R.drawable.background_24,
-            R.drawable.background_25,
-            R.drawable.background_26,
-            R.drawable.background_27,
-            R.drawable.background_28,
-            R.drawable.background_29,
-            R.drawable.background_30,
-            R.drawable.background_31,
-            R.drawable.background_32,
-            R.drawable.background_33,
-    };
+    public static ArrayList<KeyboardData> getPreferencesArrayList(Context context) {
 
-    public static int[] wallpaperPreviewArray = {
-            R.drawable.tc_1,
-            R.drawable.tc_2,
-            R.drawable.tc_3,
-            R.drawable.tc_4,
-            R.drawable.tc_5,
-            R.drawable.tc_6,
-            R.drawable.tc_7,
-            R.drawable.tc_8,
-            R.drawable.tc_9,
-            R.drawable.tc_10,
-            R.drawable.tc_11,
-            R.drawable.tc_12,
-            R.drawable.tc_13,
-            R.drawable.tc_14,
-            R.drawable.tc_15,
-            R.drawable.tc_16,
-            R.drawable.tc_17,
-            R.drawable.tc_18,
-            R.drawable.tc_19,
-            R.drawable.tc_20,
-            R.drawable.tc_21,
-            R.drawable.tc_22,
-            R.drawable.tc_23,
-            R.drawable.tc_24,
-            R.drawable.tc_25,
-            R.drawable.tc_26,
-            R.drawable.tc_27,
-            R.drawable.tc_28,
-            R.drawable.tc_29,
-            R.drawable.tc_30,
-            R.drawable.tc_31,
-            R.drawable.tc_32,
-            R.drawable.tc_33,
-    };
+        Gson gson = new Gson();
+        String json = preferences.getString("keyboardArrayList", "");
+        Type type = new TypeToken<ArrayList<KeyboardData>>() {
+        }.getType();
 
-    public static int[] soundsArray = {
-            R.raw.balloon_snap,
-            R.raw.bike_gear_shift,
-            R.raw.close_cigarette_lighter,
-            R.raw.double_down_click,
-            R.raw.double_switch,
-            R.raw.fast_camera_shutter,
-            R.raw.glovebox_open,
-            R.raw.heavy_switch_click,
-            R.raw.heavy_switch_spring,
-            R.raw.keydesign,
-            R.raw.latch_lock,
-            R.raw.latch_snap,
-            R.raw.latch_spring,
-            R.raw.lever_spring,
-            R.raw.loose_click,
-            R.raw.medium_camera_shutter,
-            R.raw.metal_off_switch,
-            R.raw.mouse_click,
-            R.raw.pull_grenade_pin,
-            R.raw.pull_switch,
-            R.raw.ratchet,
-            R.raw.rotary_switch,
-            R.raw.seatbelt,
-            R.raw.slide_click,
-            R.raw.switch_breaker,
-            R.raw.switch_flick,
-            R.raw.thunk_switch,
-            R.raw.tight_click,
-            R.raw.toggle_switch,
-            R.raw.typewriter_key,
-    };
+        ArrayList<KeyboardData> keyboardDataArrayList = gson.fromJson(json, type);
 
-    public static int[] colorsArray = {
-            R.color.one,
-            R.color.two,
-            R.color.three,
-            R.color.four,
-            R.color.five,
-            R.color.six,
-            R.color.seven,
-            R.color.eight,
-            R.color.nine,
-            R.color.ten,
-            R.color.eleven,
-            R.color.twelve,
-            R.color.thirteen,
-            R.color.fourteen,
-            R.color.fifteen,
-            R.color.sixteen,
-            R.color.seventeen,
-            R.color.eighteen,
-            R.color.nineteen,
-            R.color.twenty,
-            R.color.twentyOne,
-            R.color.twentyTwo,
-            R.color.twentyThree,
-            R.color.twentyFour,
-            R.color.twentyFive,
-            R.color.twentySix,
-            R.color.twentySeven,
-            R.color.twentyEight,
-            R.color.twentyNine,
-            R.color.thirty,
-            R.color.thirtyOne,
-            R.color.thirtyTwo,
-            R.color.thirtyThree,
-            R.color.thirtyFour,
-            R.color.thirtySix,
-            R.color.thirtySeven,
-            R.color.thirtyEight,
-            R.color.thirtyNine,
-            R.color.forty,
-            R.color.fortyOne,
-    };
+        return keyboardDataArrayList;
+    }
+
+    public static boolean KeyboardIsEnabled(Context context) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null)
+            return inputMethodManager.getEnabledInputMethodList().toString().contains(context.getPackageName());
+        return false;
+    }
+
+    public static boolean KeyboardIsSet(Context context) {
+        try {
+            return new ComponentName(context.getApplicationContext(), SoftKeyboard.class)
+                    .equals(ComponentName.unflattenFromString(Settings.Secure.getString(context.getApplicationContext().getContentResolver(), "default_input_method")));
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 }
 

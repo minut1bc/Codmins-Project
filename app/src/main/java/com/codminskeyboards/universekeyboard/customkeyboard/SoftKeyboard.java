@@ -230,7 +230,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                     ((TextView) child).setTextColor(fontColor);
                     if (!GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "").isEmpty()) {
                         try {
-                            ((TextView) child).setTypeface(Typeface.createFromAsset(getAssets(), GlobalClass.tempFontName));
+                            ((TextView) child).setTypeface(Typeface.createFromAsset(getAssets(), GlobalClass.fontName));
                         } catch (Exception ignored) {
                         }
                     }

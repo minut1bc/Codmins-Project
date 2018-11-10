@@ -14,15 +14,12 @@ import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class FillFontStyleAdapter extends BaseAdapter {
+public class FontAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
-    Context context;
+    private Context context;
     private String[] fontArray;
 
-
-    public FillFontStyleAdapter(Context context, String[] fontArray) {
+    public FontAdapter(Context context, String[] fontArray) {
         super();
         this.context = context;
         this.fontArray = fontArray;
@@ -53,7 +50,7 @@ public class FillFontStyleAdapter extends BaseAdapter {
 
         holder.txtFontItem = convertView.findViewById(R.id.txtFontItem);
         holder.cIvBg = convertView.findViewById(R.id.cIvBg);
-        holder.ivLock = convertView.findViewById(R.id.ivLock);
+        holder.ivLock = convertView.findViewById(R.id.lockImageView);
 
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isFontLock, true)) {
             if (position > 33) {
@@ -66,27 +63,25 @@ public class FillFontStyleAdapter extends BaseAdapter {
                     }
 
                 });
-            } else {
+            } else
                 holder.ivLock.setVisibility(View.GONE);
-            }
-        } else {
+        } else
             holder.ivLock.setVisibility(View.GONE);
-        }
 
-        if (position == GlobalClass.selectfonts) {
+        if (position == GlobalClass.selectfonts)
             holder.cIvBg.setVisibility(View.VISIBLE);
-        } else {
+        else
             holder.cIvBg.setVisibility(View.GONE);
-        }
-        Typeface cfont = Typeface.createFromAsset(context.getAssets(), "fonts/" + fontArray[position]);
-        holder.txtFontItem.setTypeface(cfont);
+
+        Typeface font = Typeface.createFromAsset(context.getAssets(), "fonts/" + fontArray[position]);
+        holder.txtFontItem.setTypeface(font);
 
         return convertView;
     }
 
     private static class ViewHolder {
         TextView txtFontItem;
-        CircleImageView cIvBg;
+        ImageView cIvBg;
         ImageView ivLock;
     }
 }

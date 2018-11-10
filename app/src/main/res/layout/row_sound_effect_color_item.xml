@@ -4,30 +4,30 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/flBg"
+    <ImageView
+        android:id="@+id/outlineImageView"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:background="@drawable/circle_image_padding" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivSoundEffectItem"
+    <ImageView
+        android:id="@+id/soundImageView"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:padding="5dp"
         android:src="@drawable/btn_sound"
         android:visibility="visible" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivSoundEffectItem1"
+    <ImageView
+        android:id="@+id/muteImageView"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:padding="5dp"
         android:src="@drawable/btn_mute"
         android:visibility="gone" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivLock"
+    <ImageView
+        android:id="@+id/lockImageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/ic_lock"
