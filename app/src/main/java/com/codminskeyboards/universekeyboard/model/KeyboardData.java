@@ -8,7 +8,7 @@ public class KeyboardData {
     private int keyOpacity;
     private int keyColor;
     private String fontColor;
-    private String fontName;
+    private int fontId;
     private boolean isSelected;
     private boolean soundStatus;
     private int soundId;
@@ -72,12 +72,12 @@ public class KeyboardData {
         this.fontColor = fontColor;
     }
 
-    public String getFontName() {
-        return fontName;
+    public int getFontId() {
+        return fontId;
     }
 
-    public void setFontName(String fontName) {
-        this.fontName = fontName;
+    public void setFontId(int fontId) {
+        this.fontId = fontId;
     }
 
     public boolean getSoundStatus() {

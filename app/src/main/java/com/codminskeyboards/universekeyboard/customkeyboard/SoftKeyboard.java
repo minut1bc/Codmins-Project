@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
@@ -14,6 +13,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.IBinder;
 import android.os.Vibrator;
+import android.support.v4.content.res.ResourcesCompat;
 import android.text.InputType;
 import android.text.method.MetaKeyKeyListener;
 import android.util.Log;
@@ -228,12 +228,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
                 if (child instanceof TextView) {
                     ((TextView) child).setTextColor(fontColor);
-                    if (!GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "").isEmpty()) {
-                        try {
-                            ((TextView) child).setTypeface(Typeface.createFromAsset(getAssets(), GlobalClass.fontName));
-                        } catch (Exception ignored) {
-                        }
-                    }
+                    ((TextView) child).setTypeface(ResourcesCompat.getFont(context, GlobalClass.fontId));
                 }
             }
         }
@@ -377,7 +372,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             }
         });
 
-        linKeyboard.setBackgroundResource(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BG_IMAGE, R.drawable.background_1));
+        linKeyboard.setBackgroundResource(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BACKGROUND, R.drawable.background_1));
 
         for (Keyboard.Key k : qwertyKeyboard.getKeys()) {
             switch (k.codes[0]) {

@@ -29,7 +29,7 @@ public class GlobalClass {
     private static SharedPreferences.Editor editor;
     private static SharedPreferences preferences;
 
-    public static final String KEYBOARD_BG_IMAGE = "keyboardBgImage";
+    public static final String KEYBOARD_BACKGROUND = "keyboardBackground";
 
     public static final String KEY_COLOR = "keyColor";
     public static final String KEY_RADIUS = "keyRadius";
@@ -37,7 +37,7 @@ public class GlobalClass {
     public static final String KEY_STROKE = "keyStroke";
 
     public static final String FONT_COLOR = "fontColor";
-    public static final String FONT_NAME = "fontName";
+    public static final String FONT_NAME = "fontId";
 
     public static final String SOUND_STATUS = "soundStatus";
     public static final String SOUND_ID = "soundId";
@@ -66,7 +66,7 @@ public class GlobalClass {
     public static String UNLOCK_SOUNDS = "universekeyboard.inapp.sounds";
 
     public static String fontColor = null;
-    public static String fontName = null;
+    public static int fontId = R.font.abel_regular;
     public static boolean soundStatus = false;
     public static int soundId = 0;
     public static int keyboardBackground = 0;
@@ -108,7 +108,6 @@ public class GlobalClass {
             if (interstitialAd.isLoaded())
                 interstitialAd.show();
         }
-
     }
 
     public GlobalClass(Context context) {
@@ -185,6 +184,7 @@ public class GlobalClass {
             R.drawable.background_32,
             R.drawable.background_33,
     };
+
     public static int[] backgroundPreviewArray = {
             R.drawable.tc_1,
             R.drawable.tc_2,
@@ -220,6 +220,7 @@ public class GlobalClass {
             R.drawable.tc_32,
             R.drawable.tc_33,
     };
+
     public static int[] colorsArray = {
             R.color.one,
             R.color.two,
@@ -262,6 +263,55 @@ public class GlobalClass {
             R.color.thirtyNine,
             R.color.forty,
     };
+
+    public static int[] fontsArray = {
+            R.font.abel_regular,
+            R.font.abraham_lincoln,
+            R.font.american_typewriter_bold_android,
+            R.font.angelina,
+            R.font.bitter_regular,
+            R.font.blackout_midnight,
+            R.font.blanch_caps,
+            R.font.blanch_caps_inline,
+            R.font.bushcraft_distress,
+            R.font.cabinsketch_bold,
+            R.font.capsuula,
+            R.font.chezvous_regular,
+            R.font.comic_zine_ot,
+            R.font.curely_free_typeface,
+            R.font.doppialinea,
+            R.font.droidiga,
+            R.font.droidsans,
+            R.font.edo,
+            R.font.fff_tusj_bold,
+            R.font.font_pack_sketchnote_square,
+            R.font.ftanchoryard_regular,
+            R.font.gooddog_cool,
+            R.font.gothic,
+            R.font.gothic_bold,
+            R.font.gothicb,
+            R.font.gothicbi,
+            R.font.gothicci,
+            R.font.grutchshaded,
+            R.font.handygeorge_2,
+            R.font.intro_inline,
+            R.font.langdon,
+            R.font.linden_hill,
+            R.font.lora_bold,
+            R.font.love_of_love_by_oubyc,
+            R.font.matesc_regular,
+            R.font.monday_medium,
+            R.font.newscycle_regular,
+            R.font.oldstyle_1,
+            R.font.orbitron_black,
+            R.font.radley_regular,
+            R.font.ribbon_v2_2011,
+            R.font.sevillana_regular,
+            R.font.sketchetik_light,
+            R.font.sofia_regular,
+            R.font.trend_hm_slab_five,
+    };
+
     public static int[] soundsArray = {
             R.raw.balloon_snap,
             R.raw.bike_gear_shift,

@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -22,7 +22,6 @@ import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class CreateKeyboardActivity extends AppCompatActivity implements View.OnClickListener {
@@ -30,7 +29,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     public InterstitialAd interstitialAd;
     private ImageView homeImageView;
 
-    String[] fontArray = new String[0];
     private TextView titleTextView;
     private Context context;
     private ConstraintLayout keysLayout;
@@ -137,10 +135,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
 
                 if (child instanceof TextView) {
                     ((TextView) child).setTextColor(fontColor);
-                    try {
-                        ((TextView) child).setTypeface(Typeface.createFromAsset(getAssets(), GlobalClass.fontName));
-                    } catch (Exception ignored) {
-                    }
+                    ((TextView) child).setTypeface(ResourcesCompat.getFont(context, GlobalClass.fontId));
                 }
 
                 if (child instanceof ImageView)
@@ -168,9 +163,9 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         return 0;
     }
 
-    private int getFontPos(String fontCode) {
-        for (int i = 0; i < fontArray.length; i++)
-            if (fontArray[i].equals(fontCode))
+    private int getFontPos(int fontId) {
+        for (int i = 0; i < GlobalClass.fontsArray.length; i++)
+            if (GlobalClass.fontsArray[i] == fontId)
                 return i;
         return 0;
     }
@@ -198,33 +193,24 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         if (GlobalClass.getPreferencesArrayList(context) != null)
             keyboardDataArrayList = GlobalClass.getPreferencesArrayList(context);
 
-        try {
-            fontArray = getAssets().list("fonts");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         if (getIntent().getBooleanExtra("isEdit", false)) {
             isEdit = true;
             editPosition = getIntent().getIntExtra("position", 0);
 
-            backgroundImageView.setImageResource(GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BG_IMAGE, 0));
+            backgroundImageView.setImageResource(GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, 0));
             GlobalClass.backgroundPosition = GlobalClass.getPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, 0);
             GlobalClass.colorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.COLOR_POSITION, 0);
             GlobalClass.drawableOrColor = GlobalClass.getPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, 0);
             GlobalClass.keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
             GlobalClass.keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
             GlobalClass.keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
-            GlobalClass.fontName = GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "Abel_Regular.ttf");
+            GlobalClass.fontId = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_NAME, R.font.abel_regular);
             GlobalClass.soundStatus = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_STATUS, false);
             GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);
             GlobalClass.keyColorPosition = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, 7));
             GlobalClass.fontColorPosition = getColorPos(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")));
             GlobalClass.soundPosition = getSoundPos(GlobalClass.soundId);
-
-            String remove = "fonts/";
-            String fontName = removeWords(GlobalClass.fontName, remove);
-            GlobalClass.fontPosition = getFontPos(fontName);
+            GlobalClass.fontPosition = getFontPos(GlobalClass.fontId);
 
         } else {        // Default keyboard values
             GlobalClass.backgroundPosition = 0;
@@ -236,7 +222,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.keyRadius = 34;                                       // ranges between (0, 9, 18, 25, 34)
             GlobalClass.keyStroke = 1;                                        // ranges between (1, 2, 3, 4, 5)
             GlobalClass.keyOpacity = 64;                                      // ranges between (0, 64, 128, 192, 255)
-            GlobalClass.fontName = "";
+            GlobalClass.fontId = R.font.abel_regular;
             GlobalClass.soundStatus = false;
             GlobalClass.soundId = 0;
             GlobalClass.keyColorPosition = 7;
@@ -263,7 +249,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
                 keyboardData.setKeyStroke(GlobalClass.keyStroke);
                 keyboardData.setKeyOpacity(GlobalClass.keyOpacity);
                 keyboardData.setFontColor(GlobalClass.fontColor);
-                keyboardData.setFontName(GlobalClass.fontName);
+                keyboardData.setFontId(GlobalClass.fontId);
                 keyboardData.setSoundStatus(GlobalClass.soundStatus);
                 keyboardData.setSoundId(GlobalClass.soundId);
                 keyboardData.setBackgroundPosition(GlobalClass.backgroundPosition);

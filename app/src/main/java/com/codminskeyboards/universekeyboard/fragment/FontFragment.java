@@ -24,7 +24,6 @@ import com.codminskeyboards.universekeyboard.utils.AsyncDownload;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 import com.codminskeyboards.universekeyboard.utils.RecyclerItemClickListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class FontFragment extends Fragment {
@@ -33,7 +32,7 @@ public class FontFragment extends Fragment {
 
     GridView fontGridView;
     FontAdapter fontAdapter;
-    String[] fontArray = new String[0];
+    // String[] fontArray = new String[0];
 
     CreateKeyboardActivity createKeyboardActivity;
 
@@ -50,12 +49,6 @@ public class FontFragment extends Fragment {
         fontColorRecyclerView = fontFragmentView.findViewById(R.id.fontColorRecyclerView);
         fontColorRecyclerView.setNestedScrollingEnabled(false);
         fontColorRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-
-        try {
-            fontArray = context.getAssets().list("fonts");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         getFontFromDatabase();
         setFontColorRecyclerView();
@@ -103,26 +96,22 @@ public class FontFragment extends Fragment {
     }
 
     private void setFontGridView(final ArrayList<FontsPaid> fontsArray) {
-        fontAdapter = new FontAdapter(context, fontArray);
+        fontAdapter = new FontAdapter(context, GlobalClass.fontsArray);
         fontGridView.setAdapter(fontAdapter);
 
-        if (GlobalClass.fontName != null)
-            for (int i = 0; i < fontsArray.size(); i++) {
-                if (GlobalClass.fontName.equals(fontsArray.get(i).getTitle()))
-                    fontsArray.get(i).setSelected(true);
-                else
-                    fontsArray.get(i).setSelected(false);
-            }
+//        for (int i = 0; i < fontsArray.size(); i++) {
+//            if (GlobalClass.fontId.equals(fontsArray.get(i).getTitle()))
+//                fontsArray.get(i).setSelected(true);
+//            else
+//                fontsArray.get(i).setSelected(false);
+//        }
 
         fontGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 GlobalClass.fontPosition = position;
 
-                if (createKeyboardActivity != null)
-                    if (fontArray[position] != null) {
-                        GlobalClass.fontName = "fonts/" + fontArray[position];
-                        createKeyboardActivity.redrawKeyboard();
-                    }
+                GlobalClass.fontId = GlobalClass.fontsArray[position];
+                createKeyboardActivity.redrawKeyboard();
 
                 for (int i = 0; i < fontsArray.size(); i++) {
                     if (i == position)
@@ -130,6 +119,7 @@ public class FontFragment extends Fragment {
                     else
                         fontsArray.get(i).setSelected(false);
                 }
+
                 fontAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
             }

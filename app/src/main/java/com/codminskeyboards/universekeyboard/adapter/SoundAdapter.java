@@ -1,6 +1,5 @@
 package com.codminskeyboards.universekeyboard.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -21,7 +20,7 @@ public class SoundAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<NewSoundData> soundEffectArrayList;
 
-    public SoundAdapter(Activity context, ArrayList<NewSoundData> soundEffectArrayList) {
+    public SoundAdapter(Context context, ArrayList<NewSoundData> soundEffectArrayList) {
         super();
         this.context = context;
         this.soundEffectArrayList = soundEffectArrayList;

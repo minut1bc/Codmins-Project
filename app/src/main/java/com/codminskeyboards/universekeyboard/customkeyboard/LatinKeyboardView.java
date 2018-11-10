@@ -11,6 +11,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.inputmethodservice.KeyboardView;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -73,7 +74,7 @@ public class LatinKeyboardView extends KeyboardView {
         int keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
         float keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
         int keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
-        String fontName = GlobalClass.getPreferencesString(context, GlobalClass.FONT_NAME, "");
+        int fontId = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_NAME, R.font.abel_regular);
         int tint = 0x77000000;
 
         for (Key key : keys) {
@@ -163,8 +164,8 @@ public class LatinKeyboardView extends KeyboardView {
                         paint.setColor(fontColor);
                         Typeface font = Typeface.DEFAULT;
 
-                        if (!fontName.isEmpty())
-                            font = Typeface.createFromAsset(context.getAssets(), fontName);
+                        if (fontId != 0)
+                            font = ResourcesCompat.getFont(context, fontId);
                         paint.setTypeface(font);
 
                         canvas.drawText(keyLabel, key.x + (key.width / 2), (float) (key.y + (key.height / 1.8) + getResources().getDimension(R.dimen.text_top_margin)), paint);

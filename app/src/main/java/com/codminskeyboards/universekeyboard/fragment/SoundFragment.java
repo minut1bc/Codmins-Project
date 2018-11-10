@@ -1,6 +1,5 @@
 package com.codminskeyboards.universekeyboard.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -61,13 +60,10 @@ public class SoundFragment extends Fragment {
         return soundFragmentView;
     }
 
-    @SuppressWarnings("deprecation")  // TODO: Check if it's okay
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        soundAdapter = new SoundAdapter(activity, newSoundDataArrayList);
-        context = activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -77,6 +73,7 @@ public class SoundFragment extends Fragment {
     }
 
     private void getSoundFromDatabase() {
+        soundAdapter = new SoundAdapter(context, newSoundDataArrayList);
         for (int aFreeSoundArray : GlobalClass.soundsArray)
             newSoundDataArrayList.add(new NewSoundData(aFreeSoundArray, false));
 

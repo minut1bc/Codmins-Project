@@ -2,7 +2,7 @@ package com.codminskeyboards.universekeyboard.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +17,18 @@ import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 public class FontAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
     private Context context;
-    private String[] fontArray;
+    private int[] fontsArray;
 
-    public FontAdapter(Context context, String[] fontArray) {
+    public FontAdapter(Context context, int[] fontsArray) {
         super();
         this.context = context;
-        this.fontArray = fontArray;
+        this.fontsArray = fontsArray;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return fontArray.length;
+        return fontsArray.length;
     }
 
     @Override
@@ -73,8 +73,7 @@ public class FontAdapter extends BaseAdapter {
         else
             holder.outlineImageView.setVisibility(View.GONE);
 
-        Typeface font = Typeface.createFromAsset(context.getAssets(), "fonts/" + fontArray[position]);
-        holder.fontTextView.setTypeface(font);
+        holder.fontTextView.setTypeface(ResourcesCompat.getFont(context, fontsArray[position]));
 
         return convertView;
     }
