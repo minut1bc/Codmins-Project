@@ -2,10 +2,11 @@ package com.codminskeyboards.universekeyboard.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.codminskeyboards.universekeyboard.R;
@@ -15,8 +16,7 @@ import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
 import java.util.ArrayList;
 
-public class SoundAdapter extends BaseAdapter {
-    private final LayoutInflater inflater;
+public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHolder> {
     private Context context;
     private ArrayList<NewSoundData> soundEffectArrayList;
 
@@ -24,36 +24,17 @@ public class SoundAdapter extends BaseAdapter {
         super();
         this.context = context;
         this.soundEffectArrayList = soundEffectArrayList;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    @NonNull
+    @Override
+    public SoundViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(context).inflate(R.layout.row_sound_item, viewGroup, false);
+        return new SoundViewHolder(view);
     }
 
     @Override
-    public int getCount() {
-        return soundEffectArrayList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = new ViewHolder();
-
-        if (convertView == null)
-            convertView = inflater.inflate(R.layout.row_sound_item, parent, false);
-
-        holder.soundImageView = convertView.findViewById(R.id.soundImageView);
-        holder.muteImageView = convertView.findViewById(R.id.muteImageView);
-        holder.circleOutlineImageView = convertView.findViewById(R.id.outlineImageView);
-        holder.lockImageView = convertView.findViewById(R.id.lockImageView);
-
+    public void onBindViewHolder(@NonNull SoundViewHolder holder, int position) {
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isSoundLock, true)) {
             if (position > 20) {
                 holder.lockImageView.setVisibility(View.VISIBLE);
@@ -73,18 +54,28 @@ public class SoundAdapter extends BaseAdapter {
             holder.muteImageView.setVisibility(View.VISIBLE);
 
         if (position == GlobalClass.soundPosition)
-            holder.circleOutlineImageView.setVisibility(View.VISIBLE);
+            holder.outlineImageView.setVisibility(View.VISIBLE);
         else
-            holder.circleOutlineImageView.setVisibility(View.GONE);
-
-        return convertView;
+            holder.outlineImageView.setVisibility(View.GONE);
     }
 
-    private static class ViewHolder {
+    @Override
+    public int getItemCount() {
+        return soundEffectArrayList.size();
+    }
+
+    class SoundViewHolder extends RecyclerView.ViewHolder {
         ImageView soundImageView;
         ImageView muteImageView;
-        ImageView circleOutlineImageView;
+        ImageView outlineImageView;
         ImageView lockImageView;
-    }
 
+        SoundViewHolder(View view) {
+            super(view);
+            soundImageView = view.findViewById(R.id.soundImageView);
+            muteImageView = view.findViewById(R.id.muteImageView);
+            outlineImageView = view.findViewById(R.id.outlineImageView);
+            lockImageView = view.findViewById(R.id.lockImageView);
+        }
+    }
 }

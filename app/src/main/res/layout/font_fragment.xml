@@ -5,16 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <GridView
-        android:id="@+id/fontGridView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fontRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:columnWidth="60dp"
-        android:horizontalSpacing="5dp"
-        android:listSelector="@android:color/transparent"
-        android:numColumns="5"
-        android:scrollbars="none"
-        android:verticalSpacing="8dp"
         app:layout_constraintBottom_toTopOf="@id/fontColorRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +24,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fontGridView" />
+        app:layout_constraintTop_toBottomOf="@id/fontRecyclerView" />
 
 </android.support.constraint.ConstraintLayout>

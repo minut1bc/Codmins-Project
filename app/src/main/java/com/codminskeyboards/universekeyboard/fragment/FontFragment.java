@@ -6,13 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
@@ -30,27 +29,31 @@ public class FontFragment extends Fragment {
 
     Context context;
 
-    GridView fontGridView;
+    RecyclerView fontRecyclerView;
+    RecyclerView fontColorRecyclerView;
+
     FontAdapter fontAdapter;
-    // String[] fontArray = new String[0];
+    FontColorAdapter fontColorAdapter;
 
     CreateKeyboardActivity createKeyboardActivity;
 
-    FontColorAdapter fontColorAdapter;
-
-    private RecyclerView fontColorRecyclerView;
+    // String[] fontArray = new String[0];
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fontFragmentView = inflater.inflate(R.layout.font_fragment, container, false);
 
-        fontGridView = fontFragmentView.findViewById(R.id.fontGridView);
+        fontRecyclerView = fontFragmentView.findViewById(R.id.fontRecyclerView);
+        fontRecyclerView.setHasFixedSize(true);
+        fontRecyclerView.setLayoutManager(new GridLayoutManager(context, GlobalClass.calculateNoOfColumns(context)));
+
         fontColorRecyclerView = fontFragmentView.findViewById(R.id.fontColorRecyclerView);
-        fontColorRecyclerView.setNestedScrollingEnabled(false);
+        fontColorRecyclerView.setHasFixedSize(true);
         fontColorRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
         getFontFromDatabase();
+
         setFontColorRecyclerView();
 
         return fontFragmentView;
@@ -92,12 +95,12 @@ public class FontFragment extends Fragment {
             asyncDownload.execute();
         }
 
-        setFontGridView(fontsPaidArrayList);
+        setFontRecyclerView(fontsPaidArrayList);
     }
 
-    private void setFontGridView(final ArrayList<FontsPaid> fontsArray) {
+    private void setFontRecyclerView(final ArrayList<FontsPaid> fontsArray) {
         fontAdapter = new FontAdapter(context, GlobalClass.fontsArray);
-        fontGridView.setAdapter(fontAdapter);
+        fontRecyclerView.setAdapter(fontAdapter);
 
 //        for (int i = 0; i < fontsArray.size(); i++) {
 //            if (GlobalClass.fontId.equals(fontsArray.get(i).getTitle()))
@@ -106,8 +109,9 @@ public class FontFragment extends Fragment {
 //                fontsArray.get(i).setSelected(false);
 //        }
 
-        fontGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+        fontRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
                 GlobalClass.fontPosition = position;
 
                 GlobalClass.fontId = GlobalClass.fontsArray[position];
@@ -123,7 +127,7 @@ public class FontFragment extends Fragment {
                 fontAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
             }
-        });
+        }));
     }
 
     private void setFontColorRecyclerView() {

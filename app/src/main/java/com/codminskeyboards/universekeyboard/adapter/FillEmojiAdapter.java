@@ -11,12 +11,10 @@ import com.codminskeyboards.universekeyboard.R;
 
 public class FillEmojiAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
-    Context context;
     private String[] emojiArrayList;
 
     public FillEmojiAdapter(Context context, String[] emojiArrayList) {
         super();
-        this.context = context;
         this.emojiArrayList = emojiArrayList;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }

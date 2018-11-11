@@ -30,13 +30,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="0 ms"
-        app:layout_constraintBottom_toTopOf="@id/soundGridView"
+        app:layout_constraintBottom_toTopOf="@id/soundRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/seekBarVibration" />
 
-    <GridView
-        android:id="@+id/soundGridView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/soundRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:horizontalSpacing="5dp"

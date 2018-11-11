@@ -2,11 +2,12 @@ package com.codminskeyboards.universekeyboard.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,8 +15,7 @@ import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
-public class FontAdapter extends BaseAdapter {
-    private final LayoutInflater inflater;
+public class FontAdapter extends RecyclerView.Adapter<FontAdapter.FontViewHolder> {
     private Context context;
     private int[] fontsArray;
 
@@ -23,34 +23,22 @@ public class FontAdapter extends BaseAdapter {
         super();
         this.context = context;
         this.fontsArray = fontsArray;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    @NonNull
+    @Override
+    public FontViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(context).inflate(R.layout.row_font_item, viewGroup, false);
+        return new FontViewHolder(view);
     }
 
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return fontsArray.length;
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = new ViewHolder();
-
-        if (convertView == null)
-            convertView = inflater.inflate(R.layout.row_font_item, parent, false);
-
-        holder.fontTextView = convertView.findViewById(R.id.fontTextView);
-        holder.outlineImageView = convertView.findViewById(R.id.outlineImageView);
-        holder.lockImageView = convertView.findViewById(R.id.lockImageView);
+    public void onBindViewHolder(@NonNull FontViewHolder holder, int position) {
 
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isFontLock, true)) {
             if (position > 33) {
@@ -74,13 +62,18 @@ public class FontAdapter extends BaseAdapter {
             holder.outlineImageView.setVisibility(View.GONE);
 
         holder.fontTextView.setTypeface(ResourcesCompat.getFont(context, fontsArray[position]));
-
-        return convertView;
     }
 
-    private static class ViewHolder {
+    class FontViewHolder extends RecyclerView.ViewHolder {
         TextView fontTextView;
         ImageView outlineImageView;
         ImageView lockImageView;
+
+        FontViewHolder(View view) {
+            super(view);
+            fontTextView = view.findViewById(R.id.fontTextView);
+            outlineImageView = view.findViewById(R.id.outlineImageView);
+            lockImageView = view.findViewById(R.id.lockImageView);
+        }
     }
 }

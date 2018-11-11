@@ -47,6 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean doubleBackToExitPressedOnce = false;
     boolean isThemeSlotPurchased = false;
     private String TAG = "Grid View Activity";
+    private AdView adView;
+    private ImageView addKeyboardImageView;
+    private ImageView createKeyboardImageView;
+    private ImageView applyImageView;
+    private int requestCode;
+
     // Called when consumption is complete
     IabHelper.OnConsumeFinishedListener consumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
@@ -70,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             GlobalClass.printLog(TAG, "End consumption flow.");
         }
     };
+
     // Listener that's called when we finish querying the items and subscriptions we own
     IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
         public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
@@ -104,10 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             GlobalClass.printLog(TAG, "Initial inventory query finished; enabling main UI.");
         }
     };
-    private ImageView addKeyboardImageView;
-    private ImageView createKeyboardImageView;
-    private ImageView applyImageView;
-    private int requestCode;
+
     // Callback for when a purchase is finished
     IabHelper.OnIabPurchaseFinishedListener purchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
@@ -138,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
-
     // Verifies the developer payload of a purchase.
     boolean verifyDeveloperPayload(Purchase purchase) {
         String payload = purchase.getDeveloperPayload();
@@ -168,8 +171,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return true;
     }
-
-    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,16 +233,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         interstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_full_screen));
         interstitialAd.loadAd(new AdRequest.Builder().build());
 
-        addKeyboardImageView = findViewById(R.id.addKeyboardImageView);
         viewPager = findViewById(R.id.viewPager);
         viewPager.setPageMarginDrawable(R.drawable.drawable_bg);
 
-        ImageView deleteImageView = findViewById(R.id.deleteImageView);
-        createKeyboardImageView = findViewById(R.id.createKeyboardImageView);
-        keyboardDataLayout = findViewById(R.id.keyboardDataLayout);
-        applyImageView = findViewById(R.id.applyImageView);
         TextView premiumTextView = findViewById(R.id.premiumTextView);
         TextView moreTextView = findViewById(R.id.moreTextView);
+        keyboardDataLayout = findViewById(R.id.keyboardDataLayout);
+        applyImageView = findViewById(R.id.applyImageView);
+        circleIndicator = findViewById(R.id.circleIndicator);
+        ImageView deleteImageView = findViewById(R.id.deleteImageView);
+        createKeyboardImageView = findViewById(R.id.createKeyboardImageView);
+        addKeyboardImageView = findViewById(R.id.addKeyboardImageView);
 
         iabHelper = new IabHelper(context, GlobalClass.base64EncodedPublicKey);
 
@@ -256,17 +258,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 // Have we been disposed of in the meantime? If so, quit.
-                if (iabHelper == null) return;
+                if (iabHelper == null)
+                    return;
                 iabHelper.queryInventoryAsync(mGotInventoryListener);
             }
         });
-
-        addKeyboardImageView.setOnClickListener(this);
-        deleteImageView.setOnClickListener(this);
-        createKeyboardImageView.setOnClickListener(this);
-        applyImageView.setOnClickListener(this);
-        moreTextView.setOnClickListener(this);
-        premiumTextView.setOnClickListener(this);
 
         keyboardDataArrayList = GlobalClass.getPreferencesArrayList(context);
 
@@ -286,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
 
                 keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(context, keyboardDataArrayList);
-                circleIndicator = findViewById(R.id.circleIndicator);
+
                 viewPager.setAdapter(keyboardViewPagerAdapter);
                 circleIndicator.setViewPager(viewPager);
                 createKeyboardImageView.setVisibility(View.GONE);
@@ -341,18 +337,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        premiumTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, PremiumStoreActivity.class));
+            }
+        });
+
+        moreTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://play.google.com/store/apps/developer?id=Codmins+Keyboards");
+                startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            }
+        });
+
+        applyImageView.setOnClickListener(this);
+
+        deleteImageView.setOnClickListener(this);
+
+        createKeyboardImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addKeyboardImageView.performClick();
+            }
+        });
+
+        addKeyboardImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDefaultValue();
+
+                Intent intent = new Intent(context, CreateKeyboardActivity.class);
+                intent.putExtra("isEdit", false);
+                startActivity(intent);
+
+                GlobalClass.checkStartAd();
+
+                finish();
+            }
+        });
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.moreTextView:
-                Uri uri = Uri.parse("https://play.google.com/store/apps/developer?id=Codmins+Keyboards");
-                startActivity(new Intent(Intent.ACTION_VIEW, uri));
-                break;
-            case R.id.premiumTextView:
-                startActivity(new Intent(context, PremiumStoreActivity.class));
-                break;
             case R.id.applyImageView:
                 if (GlobalClass.isKeyboardEnabled(context) && GlobalClass.isKeyboardSet(context)) {
                     if (keyboardDataArrayList.get(viewPager.getCurrentItem()).isSelected()) {
@@ -417,6 +447,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 GlobalClass.setPreferencesArrayList(context, keyboardDataArrayList);
                 break;
+
             case R.id.deleteImageView:
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setMessage("Do you want to delete your custom keyboard ?")
@@ -535,21 +566,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 AlertDialog alert = builder.create();
                 alert.show();
                 break;
-
-            case R.id.addKeyboardImageView:
-                setDefaultValue();
-
-                Intent intent = new Intent(context, CreateKeyboardActivity.class);
-                intent.putExtra("isEdit", false);
-                startActivity(intent);
-
-                GlobalClass.checkStartAd();
-
-                finish();
-                break;
-
-            case R.id.createKeyboardImageView:
-                addKeyboardImageView.performClick();
         }
     }
 

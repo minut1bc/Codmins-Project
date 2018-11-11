@@ -8,11 +8,11 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -20,6 +20,7 @@ import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.adapter.SoundAdapter;
 import com.codminskeyboards.universekeyboard.model.NewSoundData;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
+import com.codminskeyboards.universekeyboard.utils.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class SoundFragment extends Fragment {
     Context context;
 
     SoundAdapter soundAdapter;
-    GridView soundGridView;
+    RecyclerView soundRecyclerView;
     ArrayList<NewSoundData> newSoundDataArrayList = new ArrayList<>();
     SeekBar seekBarVibration;
     String vibrationStrengthText;
@@ -45,7 +46,7 @@ public class SoundFragment extends Fragment {
 
         GlobalClass globalClass = new GlobalClass(context);
 
-        soundGridView = soundFragmentView.findViewById(R.id.soundGridView);
+        soundRecyclerView = soundFragmentView.findViewById(R.id.soundRecyclerView);
         seekBarVibration = soundFragmentView.findViewById(R.id.seekBarVibration);
         vibrationTextView = soundFragmentView.findViewById(R.id.vibrationTextView);
 
@@ -76,10 +77,13 @@ public class SoundFragment extends Fragment {
         for (int aFreeSoundArray : GlobalClass.soundsArray)
             newSoundDataArrayList.add(new NewSoundData(aFreeSoundArray, false));
 
-        soundGridView.setAdapter(soundAdapter);
+        soundRecyclerView.setHasFixedSize(true);
+        soundRecyclerView.setLayoutManager(new GridLayoutManager(context, GlobalClass.calculateNoOfColumns(context)));
+        soundRecyclerView.setAdapter(soundAdapter);
 
-        soundGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+        soundRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
                 GlobalClass.soundPosition = position;
                 GlobalClass.soundId = newSoundDataArrayList.get(position).getResourceId();
                 if (position != 0) {
@@ -90,7 +94,7 @@ public class SoundFragment extends Fragment {
                 soundAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
             }
-        });
+        }));
     }
 
     void setSeekBarVibration() {

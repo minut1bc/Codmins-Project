@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.view.inputmethod.InputMethodManager;
 
 import com.codminskeyboards.universekeyboard.R;
@@ -157,6 +158,12 @@ public class GlobalClass {
 
     public static void printLog(String tag, String strMessage) {
         // Log.e("----------------- ----:" + tag, "-----" + strMessage);
+    }
+
+    public static int calculateNoOfColumns(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        return (int) dpWidth / 60;      // TODO: maybe change hardcoded 60 to value dependent on given view
     }
 
     public static int[] backgroundArray = {

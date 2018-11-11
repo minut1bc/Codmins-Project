@@ -223,7 +223,7 @@ public class KeyDesignFragment extends Fragment {
         View keyDesignView = inflater.inflate(R.layout.key_design_fragment, container, false);
 
         keyColorRecyclerView = keyDesignView.findViewById(R.id.keyColorRecyclerView);
-        keyColorRecyclerView.setNestedScrollingEnabled(false);
+        keyColorRecyclerView.setHasFixedSize(true);
         keyColorRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
         radiusOne = keyDesignView.findViewById(R.id.radiusOne);

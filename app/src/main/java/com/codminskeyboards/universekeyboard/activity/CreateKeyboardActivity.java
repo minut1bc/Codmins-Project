@@ -24,7 +24,7 @@ import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.ArrayList;
 
-public class CreateKeyboardActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreateKeyboardActivity extends AppCompatActivity {
 
     public InterstitialAd interstitialAd;
     private ImageView homeImageView;
@@ -187,8 +187,45 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
         keysLayout = findViewById(R.id.keysLayout);
         ImageView backgroundImageView = findViewById(R.id.backgroundImageView);
 
-        homeImageView.setOnClickListener(this);
-        applyTextView.setOnClickListener(this);
+        homeImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, MainActivity.class));
+                startAds();
+            }
+        });
+
+        applyTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KeyboardData keyboardData = new KeyboardData();
+                keyboardData.setKeyboardBackground(GlobalClass.keyboardBackground);
+                keyboardData.setKeyColor(GlobalClass.keyColor);
+                keyboardData.setKeyRadius(GlobalClass.keyRadius);
+                keyboardData.setKeyStroke(GlobalClass.keyStroke);
+                keyboardData.setKeyOpacity(GlobalClass.keyOpacity);
+                keyboardData.setFontColor(GlobalClass.fontColor);
+                keyboardData.setFontId(GlobalClass.fontId);
+                keyboardData.setSoundStatus(GlobalClass.soundStatus);
+                keyboardData.setSoundId(GlobalClass.soundId);
+                keyboardData.setBackgroundPosition(GlobalClass.backgroundPosition);
+                keyboardData.setColorPosition(GlobalClass.colorPosition);
+                keyboardData.setDrawableOrColor(GlobalClass.drawableOrColor);
+
+                if (isEdit) {
+                    boolean status = keyboardDataArrayList.get(editPosition).isSelected();
+                    keyboardDataArrayList.remove(editPosition);
+                    keyboardData.setSelected(status);
+                    keyboardDataArrayList.add(editPosition, keyboardData);
+                } else
+                    keyboardDataArrayList.add(0, keyboardData);
+
+                GlobalClass.setPreferencesArrayList(context, keyboardDataArrayList);
+                finish();
+                startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startAds();
+            }
+        });
 
         if (GlobalClass.getPreferencesArrayList(context) != null)
             keyboardDataArrayList = GlobalClass.getPreferencesArrayList(context);
@@ -230,45 +267,6 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.soundPosition = 0;
             GlobalClass.fontPosition = 0;
             backgroundImageView.setImageResource(GlobalClass.keyboardBackground);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.homeImageView:
-                startActivity(new Intent(context, MainActivity.class));
-                startAds();
-                break;
-
-            case R.id.applyTextView:
-                KeyboardData keyboardData = new KeyboardData();
-                keyboardData.setKeyboardBackground(GlobalClass.keyboardBackground);
-                keyboardData.setKeyColor(GlobalClass.keyColor);
-                keyboardData.setKeyRadius(GlobalClass.keyRadius);
-                keyboardData.setKeyStroke(GlobalClass.keyStroke);
-                keyboardData.setKeyOpacity(GlobalClass.keyOpacity);
-                keyboardData.setFontColor(GlobalClass.fontColor);
-                keyboardData.setFontId(GlobalClass.fontId);
-                keyboardData.setSoundStatus(GlobalClass.soundStatus);
-                keyboardData.setSoundId(GlobalClass.soundId);
-                keyboardData.setBackgroundPosition(GlobalClass.backgroundPosition);
-                keyboardData.setColorPosition(GlobalClass.colorPosition);
-                keyboardData.setDrawableOrColor(GlobalClass.drawableOrColor);
-
-                if (isEdit) {
-                    boolean status = keyboardDataArrayList.get(editPosition).isSelected();
-                    keyboardDataArrayList.remove(editPosition);
-                    keyboardData.setSelected(status);
-                    keyboardDataArrayList.add(editPosition, keyboardData);
-                } else {
-                    keyboardDataArrayList.add(0, keyboardData);
-                }
-                GlobalClass.setPreferencesArrayList(context, keyboardDataArrayList);
-                finish();
-                startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                startAds();
-                break;
         }
     }
 
