@@ -354,7 +354,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(context, PremiumStoreActivity.class));
                 break;
             case R.id.applyImageView:
-                if (GlobalClass.KeyboardIsEnabled(context) && GlobalClass.KeyboardIsSet(context)) {
+                if (GlobalClass.isKeyboardEnabled(context) && GlobalClass.isKeyboardSet(context)) {
                     if (keyboardDataArrayList.get(viewPager.getCurrentItem()).isSelected()) {
                         keyboardDataArrayList.get(viewPager.getCurrentItem()).setSelected(false);
                         applyImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.btn_disable));

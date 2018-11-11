@@ -116,7 +116,8 @@ public class SoundFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 int progress = seekBar.getProgress();
-                vibrator.vibrate(progress);
+                if (progress > 0)
+                    vibrator.vibrate(progress);
                 GlobalClass.setPreferencesInt(context, GlobalClass.vibrationStrength, progress);
             }
         });

@@ -24,8 +24,8 @@ public class SplashActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    
-                    if (GlobalClass.KeyboardIsEnabled(SplashActivity.this) && GlobalClass.KeyboardIsSet(SplashActivity.this)) {
+
+                    if (GlobalClass.isKeyboardEnabled(SplashActivity.this) && GlobalClass.isKeyboardSet(SplashActivity.this)) {
                         startActivity(new Intent(SplashActivity.this, MainActivity.class));
                         finish();
                     } else {

@@ -114,7 +114,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 if (child instanceof TextView) {
                     ((TextView) child).setTextColor(fontColor);
                     ((TextView) child).setTextSize(10);
-                    ((TextView) child).setTypeface(ResourcesCompat.getFont(context, GlobalClass.getPreferencesInt(context, GlobalClass.FONT_NAME, R.font.abel_regular)));
+                    ((TextView) child).setTypeface(ResourcesCompat.getFont(context, keyboardArrayList.get(position).getFontId()));
                 }
             }
         }

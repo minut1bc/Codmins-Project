@@ -36,8 +36,8 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
 
         inputMethodChangedReceiver = new InputMethodChangedReceiver();
 
-        isKeyboardEnabled = GlobalClass.KeyboardIsEnabled(context);
-        isKeyboardSet = GlobalClass.KeyboardIsSet(context);
+        isKeyboardEnabled = GlobalClass.isKeyboardEnabled(context);
+        isKeyboardSet = GlobalClass.isKeyboardSet(context);
 
         enableKeyboardButton.setEnabled(!isKeyboardEnabled);
 
@@ -82,7 +82,7 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
     public void onWindowFocusChanged(boolean hasFocus) {
         boolean z = false;
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.buttonanimation);
-        isKeyboardEnabled = GlobalClass.KeyboardIsEnabled(context);
+        isKeyboardEnabled = GlobalClass.isKeyboardEnabled(context);
 
         if (isKeyboardEnabled) {
             try {
@@ -93,7 +93,7 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
             }
         }
 
-        isKeyboardSet = GlobalClass.KeyboardIsSet(context);
+        isKeyboardSet = GlobalClass.isKeyboardSet(context);
         if (!isKeyboardEnabled) {
             if (!isKeyboardEnabled)
                 z = true;

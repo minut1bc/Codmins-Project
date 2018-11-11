@@ -3,14 +3,6 @@ package com.codminskeyboards.universekeyboard.utils;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.net.ConnectivityManager;
 import android.provider.Settings;
 import android.view.inputmethod.InputMethodManager;
 
@@ -138,6 +130,33 @@ public class GlobalClass {
         String json = gson.toJson(keyboardDataArrayList);
         editor.putString("keyboardArrayList", json);
         editor.commit();
+    }
+
+    public static ArrayList<KeyboardData> getPreferencesArrayList(Context context) {
+        Gson gson = new Gson();
+        String json = preferences.getString("keyboardArrayList", "");
+        Type type = new TypeToken<ArrayList<KeyboardData>>() {
+        }.getType();
+
+        ArrayList<KeyboardData> keyboardDataArrayList = gson.fromJson(json, type);
+
+        return keyboardDataArrayList;
+    }
+
+    public static boolean isKeyboardEnabled(Context context) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null)
+            return inputMethodManager.getEnabledInputMethodList().toString().contains(context.getPackageName());
+        return false;
+    }
+
+    public static boolean isKeyboardSet(Context context) {
+        return new ComponentName(context, SoftKeyboard.class)
+                .equals(ComponentName.unflattenFromString(Settings.Secure.getString(context.getContentResolver(), "default_input_method")));
+    }
+
+    public static void printLog(String tag, String strMessage) {
+        // Log.e("----------------- ----:" + tag, "-----" + strMessage);
     }
 
     public static int[] backgroundArray = {
@@ -335,76 +354,6 @@ public class GlobalClass {
             R.raw.toggle_switch,
             R.raw.typewriter_key,
     };
-
-    public static void printLog(String tag, String strMessage) {
-        // Log.e("----------------- ----:" + tag, "-----" + strMessage);
-    }
-
-    public static boolean isInternetOn(Context context) {
-        ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        assert connec != null;
-        if (connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
-            return true;
-        } else if (
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED) {
-            return false;
-        }
-        return false;
-    }
-
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
-                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-        final float roundPx = 50;
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-
-        return output;
-    }
-
-    public static ArrayList<KeyboardData> getPreferencesArrayList(Context context) {
-
-        Gson gson = new Gson();
-        String json = preferences.getString("keyboardArrayList", "");
-        Type type = new TypeToken<ArrayList<KeyboardData>>() {
-        }.getType();
-
-        ArrayList<KeyboardData> keyboardDataArrayList = gson.fromJson(json, type);
-
-        return keyboardDataArrayList;
-    }
-
-    public static boolean KeyboardIsEnabled(Context context) {
-        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (inputMethodManager != null)
-            return inputMethodManager.getEnabledInputMethodList().toString().contains(context.getPackageName());
-        return false;
-    }
-
-    public static boolean KeyboardIsSet(Context context) {
-        try {
-            return new ComponentName(context.getApplicationContext(), SoftKeyboard.class)
-                    .equals(ComponentName.unflattenFromString(Settings.Secure.getString(context.getApplicationContext().getContentResolver(), "default_input_method")));
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
 }
 
