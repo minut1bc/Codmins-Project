@@ -133,7 +133,7 @@ public class FontFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 GlobalClass.fontColorPosition = position;
-                GlobalClass.fontColor = context.getResources().getString(GlobalClass.colorsArray[position]);
+                GlobalClass.fontColor = context.getResources().getColor(GlobalClass.colorsArray[position]);
                 createKeyboardActivity.redrawKeyboard();
                 fontColorAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();

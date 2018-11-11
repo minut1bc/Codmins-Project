@@ -3,7 +3,6 @@ package com.codminskeyboards.universekeyboard.customkeyboard;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.inputmethodservice.InputMethodService;
@@ -188,7 +187,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         fillEmojiAdapter = new FillEmojiAdapter(context, emojiArrayList);
         emojiGridView.setAdapter(fillEmojiAdapter);
 
-        int fontColor = Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF"));
+        int fontColor = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.two);
         int keyBgColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, getResources().getColor(R.color.eight));
 
         smileImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);

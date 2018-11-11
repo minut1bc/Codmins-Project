@@ -70,7 +70,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
 
         backgroundImageView.setImageResource(keyboardArrayList.get(position).getKeyboardBackground());
 
-        int fontColor = Color.parseColor(keyboardArrayList.get(position).getFontColor());
+        int fontColor = keyboardArrayList.get(position).getFontColor();
         shiftImageView.setColorFilter(fontColor);
         enterImageView.setColorFilter(fontColor);
         backspaceImageView.setColorFilter(fontColor);
@@ -142,7 +142,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, keyboardArrayList.get(position).getKeyRadius());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardArrayList.get(position).getKeyStroke());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardArrayList.get(position).getKeyOpacity());
-                GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, keyboardArrayList.get(position).getFontColor());
+                GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, keyboardArrayList.get(position).getFontColor());
                 GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, keyboardArrayList.get(position).getFontId());
                 GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardArrayList.get(position).getSoundStatus());
                 GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardArrayList.get(position).getSoundId());

@@ -103,7 +103,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
     }
 
     public void redrawKeyboard() {
-        int fontColor = Color.parseColor(GlobalClass.fontColor);
+        int fontColor = GlobalClass.fontColor;
         GradientDrawable keyBackground;
         for (int i = 0; i < keysLayout.getChildCount(); i++) {
             View child = keysLayout.getChildAt(i);
@@ -207,8 +207,8 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.fontId = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_NAME, R.font.abel_regular);
             GlobalClass.soundStatus = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_STATUS, false);
             GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);
-            GlobalClass.keyColorPosition = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, 7));
-            GlobalClass.fontColorPosition = getColorPos(android.graphics.Color.parseColor(GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF")));
+            GlobalClass.keyColorPosition = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, 1));
+            GlobalClass.fontColorPosition = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.two));
             GlobalClass.soundPosition = getSoundPos(GlobalClass.soundId);
             GlobalClass.fontPosition = getFontPos(GlobalClass.fontId);
 
@@ -217,7 +217,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.keyboardBackground = R.drawable.background_1;
             GlobalClass.colorPosition = 0;
             GlobalClass.drawableOrColor = 0;
-            GlobalClass.fontColor = "#FFFFFF";
+            GlobalClass.fontColor = getResources().getColor(R.color.two);
             GlobalClass.keyColor = getResources().getColor(R.color.two);
             GlobalClass.keyRadius = 34;                                       // ranges between (0, 9, 18, 25, 34)
             GlobalClass.keyStroke = 1;                                        // ranges between (1, 2, 3, 4, 5)
@@ -225,7 +225,7 @@ public class CreateKeyboardActivity extends AppCompatActivity implements View.On
             GlobalClass.fontId = R.font.abel_regular;
             GlobalClass.soundStatus = false;
             GlobalClass.soundId = 0;
-            GlobalClass.keyColorPosition = 7;
+            GlobalClass.keyColorPosition = 1;
             GlobalClass.fontColorPosition = 1;
             GlobalClass.soundPosition = 0;
             GlobalClass.fontPosition = 0;

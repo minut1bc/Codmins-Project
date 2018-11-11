@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, keyboardDataArrayList.get(i).getKeyRadius());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardDataArrayList.get(i).getKeyStroke());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardDataArrayList.get(i).getKeyOpacity());
-                        GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, keyboardDataArrayList.get(i).getFontColor());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, keyboardDataArrayList.get(i).getFontColor());
                         GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, keyboardDataArrayList.get(i).getFontId());
                         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(i).getSoundStatus());
                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardDataArrayList.get(i).getSoundId());
@@ -301,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyRadius());
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyStroke());
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyOpacity());
-                    GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontColor());
+                    GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontColor());
                     GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontId());
                     GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundStatus());
                     GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundId());
@@ -365,15 +365,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         GlobalClass.keyboardBackground = R.drawable.background_1;
                         GlobalClass.colorPosition = 0;
                         GlobalClass.drawableOrColor = 0;
-                        GlobalClass.fontColor = "#FFFFFF";
-                        GlobalClass.keyColor = getResources().getColor(R.color.eight);
+                        GlobalClass.fontColor = getResources().getColor(R.color.two);
+                        GlobalClass.keyColor = getResources().getColor(R.color.two);
                         GlobalClass.keyRadius = 34;
                         GlobalClass.keyStroke = 1;
                         GlobalClass.keyOpacity = 64;
                         GlobalClass.fontId = R.font.abel_regular;
                         GlobalClass.soundStatus = false;
                         GlobalClass.soundId = 0;
-                        GlobalClass.keyColorPosition = 7;
+                        GlobalClass.keyColorPosition = 1;
                         GlobalClass.fontColorPosition = 1;
                         GlobalClass.soundPosition = 0;
                         GlobalClass.fontPosition = 0;
@@ -383,7 +383,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, GlobalClass.keyRadius);
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.keyStroke);
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, GlobalClass.keyOpacity);
-                        GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, GlobalClass.fontColor);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, GlobalClass.fontColor);
                         GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, GlobalClass.fontId);
                         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, GlobalClass.soundId);
@@ -404,7 +404,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyRadius());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyStroke());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyOpacity());
-                        GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontColor());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontColor());
                         GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontId());
                         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundStatus());
                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundId());
@@ -453,7 +453,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     GlobalClass.keyboardBackground = R.drawable.background_1;
                                     GlobalClass.colorPosition = 0;
                                     GlobalClass.drawableOrColor = 0;
-                                    GlobalClass.fontColor = "#FFFFFF";
+                                    GlobalClass.fontColor = getResources().getColor(R.color.two);
                                     GlobalClass.keyColor = getResources().getColor(R.color.eight);
                                     GlobalClass.keyRadius = 18;
                                     GlobalClass.keyStroke = 2;
@@ -461,7 +461,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     GlobalClass.fontId = R.font.abel_regular;
                                     GlobalClass.soundStatus = false;
                                     GlobalClass.soundId = 0;
-                                    GlobalClass.keyColorPosition = 7;
+                                    GlobalClass.keyColorPosition = 1;
                                     GlobalClass.fontColorPosition = 1;
                                     GlobalClass.soundPosition = 0;
                                     GlobalClass.fontPosition = 0;
@@ -471,7 +471,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, GlobalClass.keyRadius);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.keyStroke);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, GlobalClass.keyOpacity);
-                                    GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, GlobalClass.fontColor);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, GlobalClass.fontColor);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, GlobalClass.fontId);
                                     GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, GlobalClass.soundId);
@@ -501,7 +501,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         GlobalClass.keyboardBackground = R.drawable.background_1;
                                         GlobalClass.colorPosition = 0;
                                         GlobalClass.drawableOrColor = 0;
-                                        GlobalClass.fontColor = "#FFFFFF";
+                                        GlobalClass.fontColor = getResources().getColor(R.color.two);
                                         GlobalClass.keyColor = getResources().getColor(R.color.eight);
                                         GlobalClass.keyRadius = 18;
                                         GlobalClass.keyStroke = 2;
@@ -509,7 +509,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         GlobalClass.fontId = R.font.abel_regular;
                                         GlobalClass.soundStatus = false;
                                         GlobalClass.soundId = 0;
-                                        GlobalClass.keyColorPosition = 7;
+                                        GlobalClass.keyColorPosition = 1;
                                         GlobalClass.fontColorPosition = 1;
                                         GlobalClass.soundPosition = 0;
                                         GlobalClass.fontPosition = 0;
@@ -519,7 +519,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, GlobalClass.keyRadius);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.keyStroke);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, GlobalClass.keyOpacity);
-                                        GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, GlobalClass.fontColor);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, GlobalClass.fontColor);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, GlobalClass.fontId);
                                         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, GlobalClass.soundId);
@@ -559,7 +559,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GlobalClass.keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
         GlobalClass.keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
         GlobalClass.keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
-        GlobalClass.fontColor = GlobalClass.getPreferencesString(context, GlobalClass.FONT_COLOR, "#FFFFFF");
+        GlobalClass.fontColor = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.two);
         GlobalClass.fontId = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_NAME, R.font.abel_regular);
         GlobalClass.soundStatus = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_STATUS, false);
         GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);
@@ -567,18 +567,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GlobalClass.colorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.COLOR_POSITION, 0);
         GlobalClass.drawableOrColor = GlobalClass.getPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, 0);
 
-        if (GlobalClass.keyColorPosition == 0)
-            GlobalClass.keyColorPosition = 7;
-
-        if (GlobalClass.fontColorPosition == 0)
-            GlobalClass.fontColorPosition = 1;
-
         GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, GlobalClass.keyboardBackground);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR, GlobalClass.keyColor);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, GlobalClass.keyRadius);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.keyStroke);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, GlobalClass.keyOpacity);
-        GlobalClass.setPreferencesString(context, GlobalClass.FONT_COLOR, GlobalClass.fontColor);
+        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, GlobalClass.fontColor);
         GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, GlobalClass.fontId);
         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, GlobalClass.soundId);

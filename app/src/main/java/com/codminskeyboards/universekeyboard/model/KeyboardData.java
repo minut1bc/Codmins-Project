@@ -7,7 +7,7 @@ public class KeyboardData {
     private int keyStroke;
     private int keyOpacity;
     private int keyColor;
-    private String fontColor;
+    private int fontColor;
     private int fontId;
     private boolean isSelected;
     private boolean soundStatus;
@@ -64,11 +64,11 @@ public class KeyboardData {
         this.keyColor = keyColor;
     }
 
-    public String getFontColor() {
+    public int getFontColor() {
         return fontColor;
     }
 
-    public void setFontColor(String fontColor) {
+    public void setFontColor(int fontColor) {
         this.fontColor = fontColor;
     }
 

@@ -65,7 +65,7 @@ public class GlobalClass {
     public static String UNLOCK_FONTS = "universekeyboard.inapp.fonts";
     public static String UNLOCK_SOUNDS = "universekeyboard.inapp.sounds";
 
-    public static String fontColor = null;
+    public static int fontColor = 0;
     public static int fontId = R.font.abel_regular;
     public static boolean soundStatus = false;
     public static int soundId = 0;
@@ -76,7 +76,7 @@ public class GlobalClass {
     public static int keyRadius = 0;
     public static int colorPosition = 0;
     public static int backgroundPosition = 0;
-    public static int keyColorPosition = 7;
+    public static int keyColorPosition = 1;
     public static int soundPosition = 0;
     public static int fontPosition = 0;
     public static int fontColorPosition = 1;
@@ -115,18 +115,9 @@ public class GlobalClass {
         editor = preferences.edit();
     }
 
-    public static void setPreferencesString(Context context, String key, String value) {
-        editor.putString(key, value);
-        editor.commit();
-    }
-
     public static void setPreferencesInt(Context context, String key, int value) {
         editor.putInt(key, value);
         editor.commit();
-    }
-
-    public static String getPreferencesString(Context context, String key, String defValue) {
-        return preferences.getString(key, defValue);
     }
 
     public static int getPreferencesInt(Context context, String key, int defValue) {
