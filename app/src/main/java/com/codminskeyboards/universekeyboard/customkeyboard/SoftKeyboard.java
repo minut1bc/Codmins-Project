@@ -102,7 +102,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     SoundPool soundPool;
 
     int ringerMode;
-    int soundID;
 
     /**
      * Main initialization of the input method component.  Be sure to call
@@ -178,31 +177,26 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.VIBRATION_VALUE, 0);
 
-        GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);
-
         emojiArrayList = getResources().getStringArray(R.array.smile);
         fillEmojiAdapter = new FillEmojiAdapter(context, emojiArrayList);
         emojiGridView.setAdapter(fillEmojiAdapter);
 
-        int fontColor = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.two);
-        int keyBgColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, getResources().getColor(R.color.eight));
-
-        smileImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
-        animalImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
-        lampImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
-        foodImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
-        socialImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
-        emojiBackspaceImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+        smileImageView.setColorFilter(GlobalClass.fontColor, PorterDuff.Mode.SRC_ATOP);
+        animalImageView.setColorFilter(GlobalClass.fontColor, PorterDuff.Mode.SRC_ATOP);
+        lampImageView.setColorFilter(GlobalClass.fontColor, PorterDuff.Mode.SRC_ATOP);
+        foodImageView.setColorFilter(GlobalClass.fontColor, PorterDuff.Mode.SRC_ATOP);
+        socialImageView.setColorFilter(GlobalClass.fontColor, PorterDuff.Mode.SRC_ATOP);
+        emojiBackspaceImageView.setColorFilter(GlobalClass.fontColor, PorterDuff.Mode.SRC_ATOP);
 
         for (int i = 0; i < emojiConstraintLayout.getChildCount(); i++) {
             final View child = emojiConstraintLayout.getChildAt(i);
             if (child instanceof ImageView) {
-                GradientDrawable keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyBgColor, keyBgColor});
+                GradientDrawable keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{GlobalClass.keyColor, GlobalClass.keyColor});
                 keyBackground.setBounds(child.getLeft() + 5, child.getTop() + 5, child.getRight() - 5, child.getBottom() - 5);
-                keyBackground.setCornerRadius(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18));
-                keyBackground.setAlpha(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255));
+                keyBackground.setCornerRadius(GlobalClass.keyRadius);
+                keyBackground.setAlpha(GlobalClass.keyOpacity);
 
-                switch (GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2)) {
+                switch (GlobalClass.keyStroke) {
                     case 1:
                         keyBackground.setStroke(0, getResources().getColor(R.color.colorPrimary));
                         break;
@@ -342,9 +336,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                     getCurrentInputConnection().setComposingText(composing, 1);
                     updateShiftKeyState(getCurrentInputEditorInfo());
                     updateCandidates();
-                } else {
+                } else
                     getCurrentInputConnection().commitText(emojiArrayList[position], 1);
-                }
             }
         });
 
@@ -1095,7 +1088,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
 
-            soundID = soundPool.load(context, GlobalClass.soundId, 1);
+            final int soundID = soundPool.load(context, GlobalClass.soundId, 1);
             soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
                 public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {

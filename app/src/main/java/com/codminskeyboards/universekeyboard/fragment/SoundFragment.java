@@ -33,7 +33,6 @@ public class SoundFragment extends Fragment {
     ArrayList<NewSoundData> newSoundDataArrayList = new ArrayList<>();
     SeekBar seekBarVibration;
     String vibrationStrengthText;
-    int vibrationValue;
     TextView vibrationTextView;
     SoundPool soundPool;
     private Vibrator vibrator;
@@ -98,10 +97,8 @@ public class SoundFragment extends Fragment {
     }
 
     void setSeekBarVibration() {
-        vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.VIBRATION_VALUE, 0);
-
-        seekBarVibration.setProgress(vibrationValue);
-        vibrationStrengthText = String.valueOf(vibrationValue) + " ms";
+        seekBarVibration.setProgress(GlobalClass.vibrationValue);
+        vibrationStrengthText = String.valueOf(GlobalClass.vibrationValue) + " ms";
         vibrationTextView.setText(vibrationStrengthText);
 
         seekBarVibration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -120,13 +117,12 @@ public class SoundFragment extends Fragment {
                 int progress = seekBar.getProgress();
                 if (progress > 0)
                     vibrator.vibrate(progress);
-                GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, progress);
+                GlobalClass.vibrationValue = progress;
             }
         });
     }
 
     private void performKeySound() {
-
         int ringerMode = audioManager.getRingerMode();
 
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {

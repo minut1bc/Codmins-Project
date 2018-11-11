@@ -133,6 +133,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 GlobalClass.fontId = keyboardArrayList.get(position).getFontId();
                 GlobalClass.soundStatus = keyboardArrayList.get(position).getSoundStatus();
                 GlobalClass.soundId = keyboardArrayList.get(position).getSoundId();
+                GlobalClass.vibrationValue = keyboardArrayList.get(position).getVibrationValue();
                 GlobalClass.backgroundPosition = keyboardArrayList.get(position).getBackgroundPosition();
                 GlobalClass.colorPosition = keyboardArrayList.get(position).getColorPosition();
                 GlobalClass.drawableOrColor = keyboardArrayList.get(position).getDrawableOrColor();
@@ -146,6 +147,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, keyboardArrayList.get(position).getFontId());
                 GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardArrayList.get(position).getSoundStatus());
                 GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardArrayList.get(position).getSoundId());
+                GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, keyboardArrayList.get(position).getVibrationValue());
                 GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, keyboardArrayList.get(position).getBackgroundPosition());
                 GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, keyboardArrayList.get(position).getColorPosition());
                 GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, keyboardArrayList.get(position).getDrawableOrColor());

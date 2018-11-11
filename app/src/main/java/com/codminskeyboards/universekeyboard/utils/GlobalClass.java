@@ -23,15 +23,12 @@ public class GlobalClass {
     private static SharedPreferences preferences;
 
     public static final String KEYBOARD_BACKGROUND = "keyboardBackground";
-
     public static final String KEY_COLOR = "keyColor";
     public static final String KEY_RADIUS = "keyRadius";
     public static final String KEY_OPACITY = "keyOpacity";
     public static final String KEY_STROKE = "keyStroke";
-
     public static final String FONT_COLOR = "fontColor";
     public static final String FONT_NAME = "fontId";
-
     public static final String SOUND_STATUS = "soundStatus";
     public static final String SOUND_ID = "soundId";
 
@@ -63,7 +60,7 @@ public class GlobalClass {
     public static int fontId = R.font.abel_regular;
     public static boolean soundStatus = false;
     public static int soundId = 0;
-    public static int keyboardBackground = 0;
+    public static int keyboardBackground = R.drawable.background_1;
     public static int keyColor = 0;
     public static int keyOpacity = 0;
     public static int keyStroke = 0;
@@ -74,6 +71,7 @@ public class GlobalClass {
     public static int soundPosition = 0;
     public static int fontPosition = 0;
     public static int fontColorPosition = 1;
+    public static int vibrationValue = 0;
     private static int countAds = 0;
 
     public static String key_isWallPaperLock = "isWallPaperLock";
@@ -110,7 +108,7 @@ public class GlobalClass {
 
     public static void setPreferencesInt(Context context, String key, int value) {
         editor.putInt(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static int getPreferencesInt(Context context, String key, int defValue) {
@@ -119,7 +117,7 @@ public class GlobalClass {
 
     public static void setPreferencesBool(Context context, String key, boolean value) {
         editor.putBoolean(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static boolean getPreferencesBool(Context context, String key, boolean defValue) {
@@ -130,7 +128,7 @@ public class GlobalClass {
         Gson gson = new Gson();
         String json = gson.toJson(keyboardDataArrayList);
         editor.putString("keyboardArrayList", json);
-        editor.commit();
+        editor.apply();
     }
 
     public static ArrayList<KeyboardData> getPreferencesArrayList(Context context) {

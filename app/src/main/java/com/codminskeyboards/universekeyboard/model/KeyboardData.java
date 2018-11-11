@@ -12,6 +12,7 @@ public class KeyboardData {
     private boolean isSelected;
     private boolean soundStatus;
     private int soundId;
+    private int vibrationValue;
     private int colorPosition;
     private int backgroundPosition;
     private int drawableOrColor;
@@ -94,6 +95,14 @@ public class KeyboardData {
 
     public void setSoundId(int soundId) {
         this.soundId = soundId;
+    }
+
+    public int getVibrationValue() {
+        return vibrationValue;
+    }
+
+    public void setVibrationValue(int vibrationValue) {
+        this.vibrationValue = vibrationValue;
     }
 
     public int getColorPosition() {

@@ -279,6 +279,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, keyboardDataArrayList.get(i).getFontId());
                         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(i).getSoundStatus());
                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardDataArrayList.get(i).getSoundId());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, keyboardDataArrayList.get(i).getVibrationValue());
                     }
 
                 keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(context, keyboardDataArrayList);
@@ -301,6 +302,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontId());
                     GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundStatus());
                     GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundId());
+                    GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getVibrationValue());
                     GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBackgroundPosition());
                     GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getColorPosition());
                     GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getDrawableOrColor());
@@ -417,6 +419,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, GlobalClass.fontId);
                         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, GlobalClass.soundId);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, GlobalClass.vibrationValue);
                         GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, GlobalClass.backgroundPosition);
                         GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, GlobalClass.colorPosition);
                         GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, GlobalClass.drawableOrColor);
@@ -438,6 +441,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontId());
                         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundStatus());
                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundId());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getVibrationValue());
                         GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBackgroundPosition());
                         GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getColorPosition());
                         GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getDrawableOrColor());
@@ -506,6 +510,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, GlobalClass.fontId);
                                     GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, GlobalClass.soundId);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, GlobalClass.vibrationValue);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, GlobalClass.backgroundPosition);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, GlobalClass.colorPosition);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, GlobalClass.drawableOrColor);
@@ -554,6 +559,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, GlobalClass.fontId);
                                         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, GlobalClass.soundId);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, GlobalClass.vibrationValue);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, GlobalClass.backgroundPosition);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, GlobalClass.colorPosition);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, GlobalClass.drawableOrColor);
@@ -579,6 +585,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GlobalClass.fontId = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_NAME, R.font.abel_regular);
         GlobalClass.soundStatus = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_STATUS, false);
         GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);
+        GlobalClass.vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.VIBRATION_VALUE, 0);
         GlobalClass.backgroundPosition = GlobalClass.getPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, 0);
         GlobalClass.colorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.COLOR_POSITION, 0);
         GlobalClass.drawableOrColor = GlobalClass.getPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, 0);
@@ -592,6 +599,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, GlobalClass.fontId);
         GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
         GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, GlobalClass.soundId);
+        GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, GlobalClass.vibrationValue);
         GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, GlobalClass.backgroundPosition);
         GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, GlobalClass.colorPosition);
         GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, GlobalClass.drawableOrColor);

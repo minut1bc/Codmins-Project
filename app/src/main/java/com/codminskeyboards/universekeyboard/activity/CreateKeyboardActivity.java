@@ -208,6 +208,7 @@ public class CreateKeyboardActivity extends AppCompatActivity {
                 keyboardData.setFontId(GlobalClass.fontId);
                 keyboardData.setSoundStatus(GlobalClass.soundStatus);
                 keyboardData.setSoundId(GlobalClass.soundId);
+                keyboardData.setVibrationValue(GlobalClass.vibrationValue);
                 keyboardData.setBackgroundPosition(GlobalClass.backgroundPosition);
                 keyboardData.setColorPosition(GlobalClass.colorPosition);
                 keyboardData.setDrawableOrColor(GlobalClass.drawableOrColor);
@@ -244,6 +245,7 @@ public class CreateKeyboardActivity extends AppCompatActivity {
             GlobalClass.fontId = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_NAME, R.font.abel_regular);
             GlobalClass.soundStatus = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_STATUS, false);
             GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);
+            GlobalClass.vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.VIBRATION_VALUE, 0);
             GlobalClass.keyColorPosition = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, 1));
             GlobalClass.fontColorPosition = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.two));
             GlobalClass.soundPosition = getSoundPos(GlobalClass.soundId);
@@ -262,6 +264,7 @@ public class CreateKeyboardActivity extends AppCompatActivity {
             GlobalClass.fontId = R.font.abel_regular;
             GlobalClass.soundStatus = false;
             GlobalClass.soundId = 0;
+            GlobalClass.vibrationValue = 0;
             GlobalClass.keyColorPosition = 1;
             GlobalClass.fontColorPosition = 1;
             GlobalClass.soundPosition = 0;
