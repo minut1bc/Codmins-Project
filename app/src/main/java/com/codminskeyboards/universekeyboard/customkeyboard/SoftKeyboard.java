@@ -12,7 +12,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.IBinder;
 import android.os.Vibrator;
-import android.support.v4.content.res.ResourcesCompat;
+import android.support.constraint.ConstraintLayout;
 import android.text.InputType;
 import android.text.method.MetaKeyKeyListener;
 import android.util.Log;
@@ -33,8 +33,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.adapter.FillEmojiAdapter;
@@ -84,7 +82,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private String wordSeparators;
     private SpellCheckerSession spellCheckerSession;
 
-    private RelativeLayout linEmoji;
+    private ConstraintLayout emojiConstraintLayout;
     private ImageView emojiBackspaceImageView;
     private List<String> suggestions;
     private FillEmojiAdapter fillEmojiAdapter;
@@ -97,7 +95,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private AudioManager audioManager;
     private Vibrator vibrator;
 
-    private int vibrationStrength;
+    private int vibrationValue;
     private ImageView socialImageView;
     private String[] emojiArrayList;
 
@@ -168,7 +166,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         inputView = view.findViewById(R.id.keyboard);
         LinearLayout linKeyboard = view.findViewById(R.id.linKeyboard);
-        linEmoji = view.findViewById(R.id.linEmoji);
+        emojiConstraintLayout = view.findViewById(R.id.emojiConstraintLayout);
         emojiBackspaceImageView = view.findViewById(R.id.emojiBackspaceImageView);
         emojiGridView = view.findViewById(R.id.emojiGridView);
         ImageView abcImageView = view.findViewById(R.id.abcImageView);
@@ -177,9 +175,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         lampImageView = view.findViewById(R.id.lampImageView);
         foodImageView = view.findViewById(R.id.foodImageView);
         socialImageView = view.findViewById(R.id.socialImageView);
-        LinearLayout categoryLinearLayout = view.findViewById(R.id.categoryLinearLayout);
 
-        vibrationStrength = GlobalClass.getPreferencesInt(context, GlobalClass.vibrationStrength, 0);
+        vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.VIBRATION_VALUE, 0);
 
         GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);
 
@@ -197,9 +194,9 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         socialImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
         emojiBackspaceImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
 
-        for (int i = 0; i < categoryLinearLayout.getChildCount(); i++) {
-            final View child = categoryLinearLayout.getChildAt(i);
-            if (child instanceof ImageView || child instanceof TextView) {
+        for (int i = 0; i < emojiConstraintLayout.getChildCount(); i++) {
+            final View child = emojiConstraintLayout.getChildAt(i);
+            if (child instanceof ImageView) {
                 GradientDrawable keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyBgColor, keyBgColor});
                 keyBackground.setBounds(child.getLeft() + 5, child.getTop() + 5, child.getRight() - 5, child.getBottom() - 5);
                 keyBackground.setCornerRadius(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18));
@@ -224,11 +221,6 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
                 }
 
                 child.setBackground(keyBackground);
-
-                if (child instanceof TextView) {
-                    ((TextView) child).setTextColor(fontColor);
-                    ((TextView) child).setTypeface(ResourcesCompat.getFont(context, GlobalClass.fontId));
-                }
             }
         }
 
@@ -945,10 +937,10 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     private void handleEmoji() {
         if (inputView.getVisibility() == View.VISIBLE) {
             inputView.setVisibility(View.GONE);
-            linEmoji.setVisibility(View.VISIBLE);
+            emojiConstraintLayout.setVisibility(View.VISIBLE);
         } else {
             inputView.setVisibility(View.VISIBLE);
-            linEmoji.setVisibility(View.GONE);
+            emojiConstraintLayout.setVisibility(View.GONE);
         }
     }
 
@@ -1035,8 +1027,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         if (GlobalClass.getPreferencesBool(getApplicationContext(), GlobalClass.SOUND_STATUS, false))
             performKeySound();
 
-        if (vibrationStrength != 0)
-            performKeyVibration(vibrationStrength);
+        if (vibrationValue != 0)
+            performKeyVibration(vibrationValue);
 
         // Disable preview key on Shift, Delete, Symbol, Language Switch, Space and Enter.
         if (primaryCode == -1 || primaryCode == -5 || primaryCode == -2 || primaryCode == -101 || primaryCode == 32 || primaryCode == 10)

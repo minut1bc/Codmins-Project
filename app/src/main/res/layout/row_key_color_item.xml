@@ -8,7 +8,7 @@
         android:id="@+id/outlineImageView"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:background="@drawable/circle_imagee" />
+        android:background="@drawable/circle_key_color_image" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/colorImageView"
@@ -22,7 +22,6 @@
         android:id="@+id/lockImageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_centerInParent="true"
         android:background="@drawable/ic_lock"
         android:visibility="gone" />
 

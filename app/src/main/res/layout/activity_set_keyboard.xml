@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setupLogoImageView" />
+        app:layout_constraintTop_toBottomOf="@id/setupLogoImageView" />
 
     <Button
         android:id="@+id/enableKeyboardButton"
@@ -47,7 +47,7 @@
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enableKeyboardTextView" />
+        app:layout_constraintTop_toBottomOf="@id/enableKeyboardTextView" />
 
     <TextView
         android:id="@+id/switchKeyboardTextView"
@@ -59,7 +59,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enableKeyboardButton" />
+        app:layout_constraintTop_toBottomOf="@id/enableKeyboardButton" />
 
     <Button
         android:id="@+id/switchKeyboardButton"
@@ -78,6 +78,6 @@
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchKeyboardTextView" />
+        app:layout_constraintTop_toBottomOf="@id/switchKeyboardTextView" />
 
 </android.support.constraint.ConstraintLayout>

@@ -26,10 +26,10 @@
         android:text="@string/app_name"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/homeImageView"
-        app:layout_constraintEnd_toStartOf="@+id/applyTextView"
-        app:layout_constraintStart_toEndOf="@+id/homeImageView"
-        app:layout_constraintTop_toTopOf="@+id/homeImageView" />
+        app:layout_constraintBottom_toBottomOf="@id/homeImageView"
+        app:layout_constraintEnd_toStartOf="@id/applyTextView"
+        app:layout_constraintStart_toEndOf="@id/homeImageView"
+        app:layout_constraintTop_toTopOf="@id/homeImageView" />
 
     <TextView
         android:id="@+id/applyTextView"
@@ -40,10 +40,10 @@
         android:text="@string/apply"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/homeImageView"
+        app:layout_constraintBottom_toBottomOf="@id/homeImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/titleTextView"
-        app:layout_constraintTop_toTopOf="@+id/homeImageView" />
+        app:layout_constraintTop_toTopOf="@id/homeImageView" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
@@ -53,7 +53,7 @@
         app:layout_constraintBottom_toTopOf="@id/fragmentViewPager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeImageView" />
+        app:layout_constraintTop_toBottomOf="@id/homeImageView" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/fragmentViewPager"

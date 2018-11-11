@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linKeyboard"
     android:layout_width="match_parent"
     android:layout_height="@dimen/keyboardHeight"
@@ -17,111 +18,129 @@
         android:keyPreviewLayout="@layout/preview"
         android:popupLayout="@layout/keyboard_popup_layout" />
 
-    <RelativeLayout
-        android:id="@+id/linEmoji"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/emojiConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/keyboardHeight"
         android:background="#60000000"
-        android:orientation="vertical"
         android:visibility="gone">
 
         <GridView
             android:id="@+id/emojiGridView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/categoryLinearLayout"
-            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_margin="3dp"
-            android:gravity="center"
             android:horizontalSpacing="5dp"
             android:numColumns="10"
             android:scrollbars="none"
-            android:verticalSpacing="8dp" />
+            android:verticalSpacing="8dp"
+            app:layout_constraintBottom_toTopOf="@id/categoryBackgroundView"
+            app:layout_constraintEnd_toEndOf="@id/emojiConstraintLayout"
+            app:layout_constraintStart_toStartOf="@id/emojiConstraintLayout"
+            app:layout_constraintTop_toTopOf="@id/emojiConstraintLayout" />
 
-        <LinearLayout
-            android:id="@+id/categoryLinearLayout"
-            android:layout_width="match_parent"
+        <View
+            android:id="@+id/categoryBackgroundView"
+            android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_alignParentBottom="true"
             android:background="#80000000"
-            android:padding="3dp">
+            android:padding="3dp"
+            app:layout_constraintBottom_toBottomOf="@id/emojiConstraintLayout"
+            app:layout_constraintEnd_toEndOf="@id/emojiConstraintLayout"
+            app:layout_constraintStart_toStartOf="@id/emojiConstraintLayout"
+            app:layout_constraintTop_toBottomOf="@id/emojiGridView" />
 
-            <ImageView
-                android:id="@+id/abcImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:contentDescription="TODO"
-                android:src="@drawable/ic_text_message"
-                android:tint="@color/silver" />
+        <ImageView
+            android:id="@+id/abcImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="3dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_text_message"
+            android:tint="@color/silver"
+            app:layout_constraintBottom_toBottomOf="@id/categoryBackgroundView"
+            app:layout_constraintEnd_toStartOf="@id/smileImageView"
+            app:layout_constraintStart_toStartOf="@id/categoryBackgroundView"
+            app:layout_constraintTop_toTopOf="@id/categoryBackgroundView" />
 
-            <ImageView
-                android:id="@+id/smileImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:contentDescription="TODO"
-                android:src="@drawable/ic_smile_bold" />
+        <ImageView
+            android:id="@+id/smileImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="3dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_smile_bold"
+            app:layout_constraintBottom_toBottomOf="@id/categoryBackgroundView"
+            app:layout_constraintEnd_toStartOf="@id/animalImageView"
+            app:layout_constraintStart_toEndOf="@id/abcImageView"
+            app:layout_constraintTop_toTopOf="@id/categoryBackgroundView" />
 
-            <ImageView
-                android:id="@+id/animalImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:contentDescription="TODO"
-                android:src="@drawable/ic_animal"
-                android:tint="@color/silver" />
+        <ImageView
+            android:id="@+id/animalImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="3dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_animal"
+            android:tint="@color/silver"
+            app:layout_constraintBottom_toBottomOf="@id/categoryBackgroundView"
+            app:layout_constraintEnd_toStartOf="@id/lampImageView"
+            app:layout_constraintStart_toEndOf="@id/smileImageView"
+            app:layout_constraintTop_toTopOf="@id/categoryBackgroundView" />
 
-            <ImageView
-                android:id="@+id/lampImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:contentDescription="TODO"
-                android:src="@drawable/ic_lamp"
-                android:tint="@color/silver" />
+        <ImageView
+            android:id="@+id/lampImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="3dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_lamp"
+            android:tint="@color/silver"
+            app:layout_constraintBottom_toBottomOf="@id/categoryBackgroundView"
+            app:layout_constraintEnd_toStartOf="@id/foodImageView"
+            app:layout_constraintStart_toEndOf="@id/animalImageView"
+            app:layout_constraintTop_toTopOf="@id/categoryBackgroundView" />
 
-            <ImageView
-                android:id="@+id/foodImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:contentDescription="TODO"
-                android:src="@drawable/ic_food"
-                android:tint="@color/silver" />
+        <ImageView
+            android:id="@+id/foodImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="3dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_food"
+            android:tint="@color/silver"
+            app:layout_constraintBottom_toBottomOf="@id/categoryBackgroundView"
+            app:layout_constraintEnd_toStartOf="@id/socialImageView"
+            app:layout_constraintStart_toEndOf="@id/lampImageView"
+            app:layout_constraintTop_toTopOf="@id/categoryBackgroundView" />
 
-            <ImageView
-                android:id="@+id/socialImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:contentDescription="TODO"
-                android:src="@drawable/ic_building"
-                android:tint="@color/silver" />
+        <ImageView
+            android:id="@+id/socialImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="3dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_building"
+            android:tint="@color/silver"
+            app:layout_constraintBottom_toBottomOf="@id/categoryBackgroundView"
+            app:layout_constraintEnd_toStartOf="@id/emojiBackspaceImageView"
+            app:layout_constraintStart_toEndOf="@id/foodImageView"
+            app:layout_constraintTop_toTopOf="@id/categoryBackgroundView" />
 
-            <ImageView
-                android:id="@+id/emojiBackspaceImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:contentDescription="TODO"
-                android:src="@drawable/ic_backspace"
-                android:tint="@color/silver" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/emojiBackspaceImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="3dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_backspace"
+            android:tint="@color/silver"
+            app:layout_constraintBottom_toBottomOf="@id/categoryBackgroundView"
+            app:layout_constraintEnd_toEndOf="@id/categoryBackgroundView"
+            app:layout_constraintStart_toEndOf="@id/socialImageView"
+            app:layout_constraintTop_toTopOf="@id/categoryBackgroundView" />
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

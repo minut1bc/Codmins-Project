@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private KeyboardViewPagerAdapter keyboardViewPagerAdapter;
     ArrayList<KeyboardData> keyboardDataArrayList = new ArrayList<>();
     CircleIndicator circleIndicator;
-    private LinearLayout linKeyboardData;
+    private ConstraintLayout keyboardDataLayout;
     boolean doubleBackToExitPressedOnce = false;
     boolean isThemeSlotPurchased = false;
     private String TAG = "Grid View Activity";
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ImageView deleteImageView = findViewById(R.id.deleteImageView);
         createKeyboardImageView = findViewById(R.id.createKeyboardImageView);
-        linKeyboardData = findViewById(R.id.linKeyboardData);
+        keyboardDataLayout = findViewById(R.id.keyboardDataLayout);
         applyImageView = findViewById(R.id.applyImageView);
         TextView premiumTextView = findViewById(R.id.premiumTextView);
         TextView moreTextView = findViewById(R.id.moreTextView);
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 viewPager.setAdapter(keyboardViewPagerAdapter);
                 circleIndicator.setViewPager(viewPager);
                 createKeyboardImageView.setVisibility(View.GONE);
-                linKeyboardData.setVisibility(View.VISIBLE);
+                keyboardDataLayout.setVisibility(View.VISIBLE);
                 addKeyboardImageView.setVisibility(View.VISIBLE);
 
                 if (keyboardDataArrayList.size() == 1) {
@@ -313,13 +313,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             } else {
                 createKeyboardImageView.setVisibility(View.VISIBLE);
-                linKeyboardData.setVisibility(View.GONE);
+                keyboardDataLayout.setVisibility(View.GONE);
                 addKeyboardImageView.setVisibility(View.GONE);
             }
         } else {
             keyboardDataArrayList = new ArrayList<>();
             createKeyboardImageView.setVisibility(View.VISIBLE);
-            linKeyboardData.setVisibility(View.GONE);
+            keyboardDataLayout.setVisibility(View.GONE);
             addKeyboardImageView.setVisibility(View.GONE);
         }
 
@@ -441,11 +441,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     //setDefaultValue();
                                     if (keyboardDataArrayList.size() != 0) {
                                         createKeyboardImageView.setVisibility(View.GONE);
-                                        linKeyboardData.setVisibility(View.VISIBLE);
+                                        keyboardDataLayout.setVisibility(View.VISIBLE);
                                         addKeyboardImageView.setVisibility(View.VISIBLE);
                                     } else {
                                         createKeyboardImageView.setVisibility(View.VISIBLE);
-                                        linKeyboardData.setVisibility(View.GONE);
+                                        keyboardDataLayout.setVisibility(View.GONE);
                                         addKeyboardImageView.setVisibility(View.GONE);
                                     }
 
@@ -490,11 +490,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     //setDefaultValue();
                                     if (keyboardDataArrayList.size() != 0) {
                                         createKeyboardImageView.setVisibility(View.GONE);
-                                        linKeyboardData.setVisibility(View.VISIBLE);
+                                        keyboardDataLayout.setVisibility(View.VISIBLE);
                                         addKeyboardImageView.setVisibility(View.VISIBLE);
                                     } else {
                                         createKeyboardImageView.setVisibility(View.VISIBLE);
-                                        linKeyboardData.setVisibility(View.GONE);
+                                        keyboardDataLayout.setVisibility(View.GONE);
                                         addKeyboardImageView.setVisibility(View.GONE);
 
                                         GlobalClass.backgroundPosition = 0;

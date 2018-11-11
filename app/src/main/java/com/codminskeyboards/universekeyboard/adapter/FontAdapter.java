@@ -46,7 +46,7 @@ public class FontAdapter extends BaseAdapter {
         ViewHolder holder = new ViewHolder();
 
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.row_font_style_item, parent, false);
+            convertView = inflater.inflate(R.layout.row_font_item, parent, false);
 
         holder.fontTextView = convertView.findViewById(R.id.fontTextView);
         holder.outlineImageView = convertView.findViewById(R.id.outlineImageView);

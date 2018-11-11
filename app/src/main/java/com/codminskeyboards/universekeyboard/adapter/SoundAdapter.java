@@ -47,7 +47,7 @@ public class SoundAdapter extends BaseAdapter {
         ViewHolder holder = new ViewHolder();
 
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.row_sound_effect_color_item, parent, false);
+            convertView = inflater.inflate(R.layout.row_sound_item, parent, false);
 
         holder.soundImageView = convertView.findViewById(R.id.soundImageView);
         holder.muteImageView = convertView.findViewById(R.id.muteImageView);

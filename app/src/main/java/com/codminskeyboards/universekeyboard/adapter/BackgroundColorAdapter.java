@@ -28,7 +28,7 @@ public class BackgroundColorAdapter extends RecyclerView.Adapter<BackgroundColor
     @NonNull
     @Override
     public ColorViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_keyborad_bg_color_item, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.row_background_color_item, viewGroup, false);
         return new ColorViewHolder(view);
     }
 

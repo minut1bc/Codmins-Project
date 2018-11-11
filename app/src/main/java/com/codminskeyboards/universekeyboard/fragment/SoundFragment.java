@@ -8,7 +8,6 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,9 +85,8 @@ public class SoundFragment extends Fragment {
                 if (position != 0) {
                     performKeySound();
                     GlobalClass.soundStatus = true;
-                } else {
+                } else
                     GlobalClass.soundStatus = false;
-                }
                 soundAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
             }
@@ -96,7 +94,7 @@ public class SoundFragment extends Fragment {
     }
 
     void setSeekBarVibration() {
-        vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.vibrationStrength, 0);
+        vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.VIBRATION_VALUE, 0);
 
         seekBarVibration.setProgress(vibrationValue);
         vibrationStrengthText = String.valueOf(vibrationValue) + " ms";
@@ -118,7 +116,7 @@ public class SoundFragment extends Fragment {
                 int progress = seekBar.getProgress();
                 if (progress > 0)
                     vibrator.vibrate(progress);
-                GlobalClass.setPreferencesInt(context, GlobalClass.vibrationStrength, progress);
+                GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, progress);
             }
         });
     }
@@ -134,7 +132,6 @@ public class SoundFragment extends Fragment {
 
                 // audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
                 final int soundId = soundPool.load(context, GlobalClass.soundId, 1);
-                Log.e("baaa", String.valueOf(GlobalClass.soundId));
                 soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                     @Override
                     public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {

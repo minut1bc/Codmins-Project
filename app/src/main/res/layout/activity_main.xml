@@ -1,165 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_activity_background"
-    android:fitsSystemWindows="false"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:id="@+id/main_keyboard_activity"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true">
-
-        <TextView
-            android:id="@+id/premiumTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/go_now_enable"
-            android:fontFamily="@font/gothic"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="Premium"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/moreTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/go_now_enable"
-            android:fontFamily="@font/gothic"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="More"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-    </RelativeLayout>
+    android:background="@drawable/main_activity_background">
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/premiumTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main_keyboard_activity"
-        android:layout_margin="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/go_now_enable"
+        android:fontFamily="@font/gothic"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="Premium"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/moreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/go_now_enable"
+        android:fontFamily="@font/gothic"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="More"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="35dp"
         android:fontFamily="@font/gothic_bold"
-        android:gravity="center"
         android:text="@string/app_name"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        tools:text="Universe Keyboard" />
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/premiumTextView" />
 
-    <LinearLayout
-        android:id="@+id/adContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" />
-
-    <FrameLayout
+    <ImageView
+        android:id="@+id/createKeyboardImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_add_button"
+        android:visibility="gone"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/createKeyboardImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:contentDescription="TODO"
-            android:src="@drawable/ic_add_button"
-            android:visibility="gone" />
-
-        <LinearLayout
-            android:id="@+id/linKeyboardData"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:background="@drawable/art_round"
-            android:orientation="vertical"
-            android:padding="5dp">
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_gravity="center" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom"
-                android:layout_marginTop="5dp">
-
-                <ImageView
-                    android:id="@+id/applyImageView"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/btn_apply" />
-
-                <me.relex.circleindicator.CircleIndicator
-                    android:id="@+id/circleIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
-                    app:ci_drawable="@drawable/selected_radius"
-                    app:ci_drawable_unselected="@drawable/unselected_radius" />
-
-                <ImageView
-                    android:id="@+id/deleteImageView"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/btn_delete" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-    </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/keyboardDataLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:layout_margin="5dp"
+        android:background="@drawable/art_round"
+        android:padding="5dp"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_marginBottom="5dp"
+            ads:layout_constraintBottom_toTopOf="@id/applyImageView"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/addKeyboardImageView"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_margin="10dp"
+            android:id="@+id/applyImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:contentDescription="TODO"
-            android:src="@drawable/ic_add_button"
-            android:visibility="gone" />
+            android:src="@drawable/btn_apply"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toBottomOf="@id/viewPager" />
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_home_footer" />
-    </LinearLayout>
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/circleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            ads:ci_drawable="@drawable/selected_radius"
+            ads:ci_drawable_unselected="@drawable/unselected_radius"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintEnd_toStartOf="@id/deleteImageView"
+            ads:layout_constraintStart_toEndOf="@id/applyImageView"
+            ads:layout_constraintTop_toBottomOf="@id/viewPager" />
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/deleteImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/btn_delete"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintTop_toBottomOf="@id/viewPager" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/addKeyboardImageView"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_add_button"
+        android:visibility="gone"
+        ads:layout_constraintBottom_toTopOf="@id/adView"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_home_footer"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
 
 

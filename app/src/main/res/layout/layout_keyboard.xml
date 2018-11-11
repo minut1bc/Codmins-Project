@@ -40,7 +40,7 @@
             android:text="@string/q"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toTopOf="@id/borderViewLeft"
-            app:layout_constraintEnd_toStartOf="@+id/keyW"
+            app:layout_constraintEnd_toStartOf="@id/keyW"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,8 +56,8 @@
             android:text="@string/w"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
-            app:layout_constraintEnd_toStartOf="@+id/keyE"
-            app:layout_constraintStart_toEndOf="@+id/keyQ"
+            app:layout_constraintEnd_toStartOf="@id/keyE"
+            app:layout_constraintStart_toEndOf="@id/keyQ"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -72,8 +72,8 @@
             android:text="@string/e"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
-            app:layout_constraintEnd_toStartOf="@+id/keyR"
-            app:layout_constraintStart_toEndOf="@+id/keyW"
+            app:layout_constraintEnd_toStartOf="@id/keyR"
+            app:layout_constraintStart_toEndOf="@id/keyW"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -88,8 +88,8 @@
             android:text="@string/r"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
-            app:layout_constraintEnd_toStartOf="@+id/keyT"
-            app:layout_constraintStart_toEndOf="@+id/keyE"
+            app:layout_constraintEnd_toStartOf="@id/keyT"
+            app:layout_constraintStart_toEndOf="@id/keyE"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -104,8 +104,8 @@
             android:text="@string/t"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
-            app:layout_constraintEnd_toStartOf="@+id/keyY"
-            app:layout_constraintStart_toEndOf="@+id/keyR"
+            app:layout_constraintEnd_toStartOf="@id/keyY"
+            app:layout_constraintStart_toEndOf="@id/keyR"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -120,8 +120,8 @@
             android:text="@string/y"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
-            app:layout_constraintEnd_toStartOf="@+id/keyU"
-            app:layout_constraintStart_toEndOf="@+id/keyT"
+            app:layout_constraintEnd_toStartOf="@id/keyU"
+            app:layout_constraintStart_toEndOf="@id/keyT"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -136,8 +136,8 @@
             android:text="@string/u"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
-            app:layout_constraintEnd_toStartOf="@+id/keyI"
-            app:layout_constraintStart_toEndOf="@+id/keyY"
+            app:layout_constraintEnd_toStartOf="@id/keyI"
+            app:layout_constraintStart_toEndOf="@id/keyY"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -152,8 +152,8 @@
             android:text="@string/i"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
-            app:layout_constraintEnd_toStartOf="@+id/keyO"
-            app:layout_constraintStart_toEndOf="@+id/keyU"
+            app:layout_constraintEnd_toStartOf="@id/keyO"
+            app:layout_constraintStart_toEndOf="@id/keyU"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -168,8 +168,8 @@
             android:text="@string/o"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
-            app:layout_constraintEnd_toStartOf="@+id/keyP"
-            app:layout_constraintStart_toEndOf="@+id/keyI"
+            app:layout_constraintEnd_toStartOf="@id/keyP"
+            app:layout_constraintStart_toEndOf="@id/keyI"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -185,7 +185,7 @@
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/keyQ"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/keyO"
+            app:layout_constraintStart_toEndOf="@id/keyO"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -194,9 +194,9 @@
             android:layout_height="0dp"
             android:layout_margin="1dp"
             app:layout_constraintBottom_toTopOf="@id/shiftImageView"
-            app:layout_constraintEnd_toStartOf="@+id/keyA"
+            app:layout_constraintEnd_toStartOf="@id/keyA"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/keyQ" />
+            app:layout_constraintTop_toBottomOf="@id/keyQ" />
 
         <TextView
             android:id="@+id/keyA"
@@ -210,9 +210,9 @@
             android:text="@string/a"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
-            app:layout_constraintEnd_toStartOf="@+id/keyS"
-            app:layout_constraintStart_toEndOf="@+id/borderViewLeft"
-            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+            app:layout_constraintEnd_toStartOf="@id/keyS"
+            app:layout_constraintStart_toEndOf="@id/borderViewLeft"
+            app:layout_constraintTop_toTopOf="@id/borderViewLeft" />
 
         <TextView
             android:id="@+id/keyS"
@@ -226,9 +226,9 @@
             android:text="@string/s"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
-            app:layout_constraintEnd_toStartOf="@+id/keyD"
-            app:layout_constraintStart_toEndOf="@+id/keyA"
-            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+            app:layout_constraintEnd_toStartOf="@id/keyD"
+            app:layout_constraintStart_toEndOf="@id/keyA"
+            app:layout_constraintTop_toTopOf="@id/borderViewLeft" />
 
         <TextView
             android:id="@+id/keyD"
@@ -242,9 +242,9 @@
             android:text="@string/d"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
-            app:layout_constraintEnd_toStartOf="@+id/keyF"
-            app:layout_constraintStart_toEndOf="@+id/keyS"
-            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+            app:layout_constraintEnd_toStartOf="@id/keyF"
+            app:layout_constraintStart_toEndOf="@id/keyS"
+            app:layout_constraintTop_toTopOf="@id/borderViewLeft" />
 
         <TextView
             android:id="@+id/keyF"
@@ -258,9 +258,9 @@
             android:text="@string/f"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
-            app:layout_constraintEnd_toStartOf="@+id/keyG"
-            app:layout_constraintStart_toEndOf="@+id/keyD"
-            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+            app:layout_constraintEnd_toStartOf="@id/keyG"
+            app:layout_constraintStart_toEndOf="@id/keyD"
+            app:layout_constraintTop_toTopOf="@id/borderViewLeft" />
 
         <TextView
             android:id="@+id/keyG"
@@ -274,9 +274,9 @@
             android:text="@string/g"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
-            app:layout_constraintEnd_toStartOf="@+id/keyH"
-            app:layout_constraintStart_toEndOf="@+id/keyF"
-            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+            app:layout_constraintEnd_toStartOf="@id/keyH"
+            app:layout_constraintStart_toEndOf="@id/keyF"
+            app:layout_constraintTop_toTopOf="@id/borderViewLeft" />
 
         <TextView
             android:id="@+id/keyH"
@@ -290,9 +290,9 @@
             android:text="@string/h"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
-            app:layout_constraintEnd_toStartOf="@+id/keyJ"
-            app:layout_constraintStart_toEndOf="@+id/keyG"
-            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+            app:layout_constraintEnd_toStartOf="@id/keyJ"
+            app:layout_constraintStart_toEndOf="@id/keyG"
+            app:layout_constraintTop_toTopOf="@id/borderViewLeft" />
 
         <TextView
             android:id="@+id/keyJ"
@@ -306,9 +306,9 @@
             android:text="@string/j"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
-            app:layout_constraintEnd_toStartOf="@+id/keyK"
-            app:layout_constraintStart_toEndOf="@+id/keyH"
-            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+            app:layout_constraintEnd_toStartOf="@id/keyK"
+            app:layout_constraintStart_toEndOf="@id/keyH"
+            app:layout_constraintTop_toTopOf="@id/borderViewLeft" />
 
         <TextView
             android:id="@+id/keyK"
@@ -322,9 +322,9 @@
             android:text="@string/k"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
-            app:layout_constraintEnd_toStartOf="@+id/keyL"
-            app:layout_constraintStart_toEndOf="@+id/keyJ"
-            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+            app:layout_constraintEnd_toStartOf="@id/keyL"
+            app:layout_constraintStart_toEndOf="@id/keyJ"
+            app:layout_constraintTop_toTopOf="@id/borderViewLeft" />
 
         <TextView
             android:id="@+id/keyL"
@@ -338,9 +338,9 @@
             android:text="@string/l"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
-            app:layout_constraintEnd_toStartOf="@+id/borderViewRight"
-            app:layout_constraintStart_toEndOf="@+id/keyK"
-            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+            app:layout_constraintEnd_toStartOf="@id/borderViewRight"
+            app:layout_constraintStart_toEndOf="@id/keyK"
+            app:layout_constraintTop_toTopOf="@id/borderViewLeft" />
 
         <View
             android:id="@+id/borderViewRight"
@@ -350,8 +350,8 @@
             android:layout_marginRight="1dp"
             app:layout_constraintBottom_toBottomOf="@id/borderViewLeft"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/keyL"
-            app:layout_constraintTop_toTopOf="@+id/borderViewLeft" />
+            app:layout_constraintStart_toEndOf="@id/keyL"
+            app:layout_constraintTop_toTopOf="@id/borderViewLeft" />
 
         <ImageView
             android:id="@+id/shiftImageView"
@@ -366,7 +366,7 @@
             app:layout_constraintEnd_toStartOf="@+id/keyZ"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/borderViewLeft" />
+            app:layout_constraintTop_toBottomOf="@id/borderViewLeft" />
 
         <TextView
             android:id="@+id/keyZ"
@@ -380,9 +380,9 @@
             android:text="@string/z"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
-            app:layout_constraintEnd_toStartOf="@+id/keyX"
-            app:layout_constraintStart_toEndOf="@+id/shiftImageView"
-            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
+            app:layout_constraintEnd_toStartOf="@id/keyX"
+            app:layout_constraintStart_toEndOf="@id/shiftImageView"
+            app:layout_constraintTop_toTopOf="@id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyX"
@@ -396,9 +396,9 @@
             android:text="@string/x"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
-            app:layout_constraintEnd_toStartOf="@+id/keyC"
-            app:layout_constraintStart_toEndOf="@+id/keyZ"
-            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
+            app:layout_constraintEnd_toStartOf="@id/keyC"
+            app:layout_constraintStart_toEndOf="@id/keyZ"
+            app:layout_constraintTop_toTopOf="@id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyC"
@@ -412,9 +412,9 @@
             android:text="@string/c"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
-            app:layout_constraintEnd_toStartOf="@+id/keyV"
-            app:layout_constraintStart_toEndOf="@+id/keyX"
-            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
+            app:layout_constraintEnd_toStartOf="@id/keyV"
+            app:layout_constraintStart_toEndOf="@id/keyX"
+            app:layout_constraintTop_toTopOf="@id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyV"
@@ -428,9 +428,9 @@
             android:text="@string/v"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
-            app:layout_constraintEnd_toStartOf="@+id/keyB"
-            app:layout_constraintStart_toEndOf="@+id/keyC"
-            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
+            app:layout_constraintEnd_toStartOf="@id/keyB"
+            app:layout_constraintStart_toEndOf="@id/keyC"
+            app:layout_constraintTop_toTopOf="@id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyB"
@@ -444,9 +444,9 @@
             android:text="@string/b"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
-            app:layout_constraintEnd_toStartOf="@+id/keyN"
-            app:layout_constraintStart_toEndOf="@+id/keyV"
-            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
+            app:layout_constraintEnd_toStartOf="@id/keyN"
+            app:layout_constraintStart_toEndOf="@id/keyV"
+            app:layout_constraintTop_toTopOf="@id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyN"
@@ -460,9 +460,9 @@
             android:text="@string/n"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
-            app:layout_constraintEnd_toStartOf="@+id/keyM"
-            app:layout_constraintStart_toEndOf="@+id/keyB"
-            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
+            app:layout_constraintEnd_toStartOf="@id/keyM"
+            app:layout_constraintStart_toEndOf="@id/keyB"
+            app:layout_constraintTop_toTopOf="@id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyM"
@@ -477,8 +477,8 @@
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
             app:layout_constraintEnd_toStartOf="@id/emojiBackspaceImageView"
-            app:layout_constraintStart_toEndOf="@+id/keyN"
-            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
+            app:layout_constraintStart_toEndOf="@id/keyN"
+            app:layout_constraintTop_toTopOf="@id/shiftImageView" />
 
         <ImageView
             android:id="@+id/emojiBackspaceImageView"
@@ -492,8 +492,8 @@
             android:src="@drawable/ic_backspace"
             app:layout_constraintBottom_toBottomOf="@id/shiftImageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/keyM"
-            app:layout_constraintTop_toTopOf="@+id/shiftImageView" />
+            app:layout_constraintStart_toEndOf="@id/keyM"
+            app:layout_constraintTop_toTopOf="@id/shiftImageView" />
 
         <TextView
             android:id="@+id/keySymbols"
@@ -510,7 +510,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/keyComma"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/shiftImageView" />
+            app:layout_constraintTop_toBottomOf="@id/shiftImageView" />
 
         <TextView
             android:id="@+id/keyComma"
@@ -525,8 +525,8 @@
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/emojiImageView"
-            app:layout_constraintStart_toEndOf="@+id/keySymbols"
-            app:layout_constraintTop_toTopOf="@+id/keySymbols" />
+            app:layout_constraintStart_toEndOf="@id/keySymbols"
+            app:layout_constraintTop_toTopOf="@id/keySymbols" />
 
         <ImageView
             android:id="@+id/emojiImageView"
@@ -554,8 +554,8 @@
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/keyDot"
-            app:layout_constraintStart_toEndOf="@+id/emojiImageView"
-            app:layout_constraintTop_toTopOf="@+id/keySymbols" />
+            app:layout_constraintStart_toEndOf="@id/emojiImageView"
+            app:layout_constraintTop_toTopOf="@id/keySymbols" />
 
         <TextView
             android:id="@+id/keyDot"
@@ -571,7 +571,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/enterImageView"
             app:layout_constraintStart_toEndOf="@+id/spaceImageView"
-            app:layout_constraintTop_toTopOf="@+id/keySymbols" />
+            app:layout_constraintTop_toTopOf="@id/keySymbols" />
 
         <ImageView
             android:id="@+id/enterImageView"
@@ -585,8 +585,8 @@
             android:src="@drawable/ic_enter_new"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/keyDot"
-            app:layout_constraintTop_toTopOf="@+id/keySymbols" />
+            app:layout_constraintStart_toEndOf="@id/keyDot"
+            app:layout_constraintTop_toTopOf="@id/keySymbols" />
 
     </android.support.constraint.ConstraintLayout>
 

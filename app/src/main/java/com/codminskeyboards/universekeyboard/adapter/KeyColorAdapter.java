@@ -28,7 +28,7 @@ public class KeyColorAdapter extends RecyclerView.Adapter<KeyColorAdapter.ViewHo
     @NonNull
     @Override
     public KeyColorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_fill_color_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_key_color_item, viewGroup, false);
         return new ViewHolder(view);
     }
 

@@ -28,7 +28,7 @@ public class FontColorAdapter extends RecyclerView.Adapter<FontColorAdapter.Colo
     @NonNull
     @Override
     public ColorViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_fill_color_iteme, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_font_color_item, viewGroup, false);
         return new ColorViewHolder(view);
     }
 
