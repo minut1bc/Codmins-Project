@@ -18,12 +18,8 @@ import android.widget.Toast;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.adapter.KeyboardViewPagerAdapter;
-import com.codminskeyboards.universekeyboard.billing.IabHelper;
-import com.codminskeyboards.universekeyboard.billing.IabResult;
-import com.codminskeyboards.universekeyboard.billing.Inventory;
-import com.codminskeyboards.universekeyboard.billing.Purchase;
-import com.codminskeyboards.universekeyboard.model.KeyboardData;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
+import com.codminskeyboards.universekeyboard.utils.KeyboardData;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -37,7 +33,7 @@ import me.relex.circleindicator.CircleIndicator;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    IabHelper iabHelper;
+    //    IabHelper iabHelper;
     private Context context;
     private ViewPager viewPager;
     private KeyboardViewPagerAdapter keyboardViewPagerAdapter;
@@ -54,123 +50,123 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int requestCode;
 
     // Called when consumption is complete
-    IabHelper.OnConsumeFinishedListener consumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
-        public void onConsumeFinished(Purchase purchase, IabResult result) {
-            GlobalClass.printLog(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
-
-            // if we were disposed of in the meantime, quit.
-            if (iabHelper == null) return;
+//    IabHelper.OnConsumeFinishedListener consumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
+//        public void onConsumeFinished(Purchase purchase, IabResult result) {
+//            GlobalClass.printLog(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
+//
+//          if we were disposed of in the meantime, quit.
+//          if (iabHelper == null) return;
 
             // We know this is the "gas" sku because it's the only one we consume,
             // so we don't check which sku was consumed. If you have more than one
             // sku, you probably should check...
-            if (result.isSuccess()) {
+//            if (result.isSuccess()) {
                 // successfully consumed, so we apply the effects of the item in our
                 // game world's logic, which in our case means filling the gas tank a bit
-                GlobalClass.printLog(TAG, "Consumption successful. Provisioning.");
-            } else {
-                complain("Error while consuming: " + result);
-            }
-//            updateUi();
-
-            GlobalClass.printLog(TAG, "End consumption flow.");
-        }
-    };
+//                GlobalClass.printLog(TAG, "Consumption successful. Provisioning.");
+//            } else {
+//                complain("Error while consuming: " + result);
+//            }
+////            updateUi();
+//
+//            GlobalClass.printLog(TAG, "End consumption flow.");
+//        }
+//    };
 
     // Listener that's called when we finish querying the items and subscriptions we own
-    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-            GlobalClass.printLog(TAG, "Query inventory finished.");
-
-            // Have we been disposed of in the meantime? If so, quit.
-            if (iabHelper == null) return;
-
-            // Is it a failure?
-            if (result.isFailure()) {
-                complain("Failed to query inventory: " + result);
-                return;
-            }
-
-            GlobalClass.printLog(TAG, "Query inventory was successful.");
-
-            /*
-             * Check for items we own. Notice that for each purchase, we check
-             * the developer payload to see if it's correct! See
-             * verifyDeveloperPayload().
-             */
-
-            // Do we have the Purchase for 50 Graphs?
-            Purchase getThemeSlotPurchase = inventory.getPurchase(GlobalClass.UNLOCK_THEMES_SLOTES);
-            isThemeSlotPurchased = (getThemeSlotPurchase != null && verifyDeveloperPayload(getThemeSlotPurchase));
-            GlobalClass.printLog(TAG, "User " + (isThemeSlotPurchased ? "HAS" : "DOES NOT HAVE") + " Purchase 50 graphs.");
-
-            GlobalClass.printLog("getFiftyGraphs====================", "" + getThemeSlotPurchase);
-            if (getThemeSlotPurchase != null && verifyDeveloperPayload(getThemeSlotPurchase)) {
-                iabHelper.consumeAsync(getThemeSlotPurchase, consumeFinishedListener);
-            }
-            GlobalClass.printLog(TAG, "Initial inventory query finished; enabling main UI.");
-        }
-    };
-
-    // Callback for when a purchase is finished
-    IabHelper.OnIabPurchaseFinishedListener purchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
-        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-
-            GlobalClass.printLog(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
-
-            // if we were disposed of in the meantime, quit.
-            if (iabHelper == null) return;
-
-            if (result.isSuccess()) {
-                updateData();
-            }
-
-            if (result.isFailure()) {
-                complain("Error purchasing: " + result);
-                return;
-            }
-
-            if (!verifyDeveloperPayload(purchase)) {
-                complain("Error purchasing. Authenticity verification failed.");
-                return;
-            }
-
-            updateData();
-            GlobalClass.printLog(TAG, "purchase Data- - - " + purchase);
-            iabHelper.consumeAsync(purchase, consumeFinishedListener);
-
-        }
-    };
-
-    // Verifies the developer payload of a purchase.
-    boolean verifyDeveloperPayload(Purchase purchase) {
-        String payload = purchase.getDeveloperPayload();
-
-        /*
-         * TODO: verify that the developer payload of the purchase is correct. It will be
-         * the same one that you sent when initiating the purchase.
-         *
-         * WARNING: Locally generating a random string when starting a purchase and
-         * verifying it here might seem like a good approach, but this will fail in the
-         * case where the user purchases an item on one device and then uses your app on
-         * a different device, because on the other device you will not have access to the
-         * random string you originally generated.
-         *
-         * So a good developer payload has these characteristics:
-         *
-         * 1. If two different users purchase an item, the payload is different between them,
-         *    so that one user's purchase can't be replayed to another user.
-         *
-         * 2. The payload must be such that you can verify it even when the app wasn't the
-         *    one who initiated the purchase flow (so that items purchased by the user on
-         *    one device work on other devices owned by the user).
-         *
-         * Using your own server to store and verify developer payloads across app
-         * installations is recommended.
-         */
-
-        return true;
-    }
+//    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+//        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+//            GlobalClass.printLog(TAG, "Query inventory finished.");
+//
+//            // Have we been disposed of in the meantime? If so, quit.
+//            if (iabHelper == null) return;
+//
+//            // Is it a failure?
+//            if (result.isFailure()) {
+//                complain("Failed to query inventory: " + result);
+//                return;
+//            }
+//
+//            GlobalClass.printLog(TAG, "Query inventory was successful.");
+//
+//            /*
+//             * Check for items we own. Notice that for each purchase, we check
+//             * the developer payload to see if it's correct! See
+//             * verifyDeveloperPayload().
+//             */
+//
+//            // Do we have the Purchase for 50 Graphs?
+//            Purchase getThemeSlotPurchase = inventory.getPurchase(GlobalClass.UNLOCK_THEMES_SLOTES);
+//            isThemeSlotPurchased = (getThemeSlotPurchase != null && verifyDeveloperPayload(getThemeSlotPurchase));
+//            GlobalClass.printLog(TAG, "User " + (isThemeSlotPurchased ? "HAS" : "DOES NOT HAVE") + " Purchase 50 graphs.");
+//
+//            GlobalClass.printLog("getFiftyGraphs====================", "" + getThemeSlotPurchase);
+//            if (getThemeSlotPurchase != null && verifyDeveloperPayload(getThemeSlotPurchase)) {
+//                iabHelper.consumeAsync(getThemeSlotPurchase, consumeFinishedListener);
+//            }
+//            GlobalClass.printLog(TAG, "Initial inventory query finished; enabling main UI.");
+//        }
+//    };
+//
+//    // Callback for when a purchase is finished
+//    IabHelper.OnIabPurchaseFinishedListener purchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
+//        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
+//
+//            GlobalClass.printLog(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
+//
+//            // if we were disposed of in the meantime, quit.
+//            if (iabHelper == null) return;
+//
+//            if (result.isSuccess()) {
+//                updateData();
+//            }
+//
+//            if (result.isFailure()) {
+//                complain("Error purchasing: " + result);
+//                return;
+//            }
+//
+//            if (!verifyDeveloperPayload(purchase)) {
+//                complain("Error purchasing. Authenticity verification failed.");
+//                return;
+//            }
+//
+//            updateData();
+//            GlobalClass.printLog(TAG, "purchase Data- - - " + purchase);
+//            iabHelper.consumeAsync(purchase, consumeFinishedListener);
+//
+//        }
+//    };
+//
+//    // Verifies the developer payload of a purchase.
+//    boolean verifyDeveloperPayload(Purchase purchase) {
+//        String payload = purchase.getDeveloperPayload();
+//
+//        /*
+//         * TODO: verify that the developer payload of the purchase is correct. It will be
+//         * the same one that you sent when initiating the purchase.
+//         *
+//         * WARNING: Locally generating a random string when starting a purchase and
+//         * verifying it here might seem like a good approach, but this will fail in the
+//         * case where the user purchases an item on one device and then uses your app on
+//         * a different device, because on the other device you will not have access to the
+//         * random string you originally generated.
+//         *
+//         * So a good developer payload has these characteristics:
+//         *
+//         * 1. If two different users purchase an item, the payload is different between them,
+//         *    so that one user's purchase can't be replayed to another user.
+//         *
+//         * 2. The payload must be such that you can verify it even when the app wasn't the
+//         *    one who initiated the purchase flow (so that items purchased by the user on
+//         *    one device work on other devices owned by the user).
+//         *
+//         * Using your own server to store and verify developer payloads across app
+//         * installations is recommended.
+//         */
+//
+//        return true;
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -245,24 +241,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createKeyboardImageView = findViewById(R.id.createKeyboardImageView);
         addKeyboardImageView = findViewById(R.id.addKeyboardImageView);
 
-        iabHelper = new IabHelper(context, GlobalClass.base64EncodedPublicKey);
-
-        // enable debug logging (for a production application, you should set this to false).
-        iabHelper.enableDebugLogging(true);
-        iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-            public void onIabSetupFinished(IabResult result) {
-                if (!result.isSuccess()) {
-                    // Oh noes, there was a problem.
-                    complain("Problem setting up in-app billing: " + result);
-                    return;
-                }
-
-                // Have we been disposed of in the meantime? If so, quit.
-                if (iabHelper == null)
-                    return;
-                iabHelper.queryInventoryAsync(mGotInventoryListener);
-            }
-        });
+//        iabHelper = new IabHelper(context, GlobalClass.base64EncodedPublicKey);
+//
+//        // enable debug logging (for a production application, you should set this to false).
+//        iabHelper.enableDebugLogging(true);
+//        iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+//            public void onIabSetupFinished(IabResult result) {
+//                if (!result.isSuccess()) {
+//                    // Oh noes, there was a problem.
+//                    complain("Problem setting up in-app billing: " + result);
+//                    return;
+//                }
+//
+//                // Have we been disposed of in the meantime? If so, quit.
+//                if (iabHelper == null)
+//                    return;
+//                iabHelper.queryInventoryAsync(mGotInventoryListener);
+//            }
+//        });
 
         keyboardDataArrayList = GlobalClass.getPreferencesArrayList(context);
 

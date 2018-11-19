@@ -11,19 +11,16 @@ import android.widget.ImageView;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
-import com.codminskeyboards.universekeyboard.model.NewSoundData;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
-
-import java.util.ArrayList;
 
 public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHolder> {
     private Context context;
-    private ArrayList<NewSoundData> soundEffectArrayList;
+//    private ArrayList<NewSoundData> soundEffectArrayList;
 
-    public SoundAdapter(Context context, ArrayList<NewSoundData> soundEffectArrayList) {
+    public SoundAdapter(Context context /*,ArrayList<NewSoundData> soundEffectArrayList*/) {
         super();
         this.context = context;
-        this.soundEffectArrayList = soundEffectArrayList;
+//        this.soundEffectArrayList = soundEffectArrayList;
     }
 
     @NonNull
@@ -61,7 +58,7 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
 
     @Override
     public int getItemCount() {
-        return soundEffectArrayList.size();
+        return GlobalClass.soundsArray.length;
     }
 
     class SoundViewHolder extends RecyclerView.ViewHolder {

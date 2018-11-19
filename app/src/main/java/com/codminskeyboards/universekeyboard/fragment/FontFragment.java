@@ -1,7 +1,6 @@
 package com.codminskeyboards.universekeyboard.fragment;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,13 +16,8 @@ import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
 import com.codminskeyboards.universekeyboard.adapter.FontAdapter;
 import com.codminskeyboards.universekeyboard.adapter.FontColorAdapter;
-import com.codminskeyboards.universekeyboard.database.DatabaseHelper;
-import com.codminskeyboards.universekeyboard.model.FontsPaid;
-import com.codminskeyboards.universekeyboard.utils.AsyncDownload;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 import com.codminskeyboards.universekeyboard.utils.RecyclerItemClickListener;
-
-import java.util.ArrayList;
 
 public class FontFragment extends Fragment {
 
@@ -74,31 +68,32 @@ public class FontFragment extends Fragment {
     }
 
     private void getFontFromDatabase() {
-        ArrayList<FontsPaid> fontsPaidArrayList = new ArrayList<>();
-        DatabaseHelper dbHelper = new DatabaseHelper(context);
-        Cursor dataCursor = dbHelper.getDataOfTable(DatabaseHelper.TABLE_FONT);
+//        ArrayList<FontsPaid> fontsPaidArrayList = new ArrayList<>();
+//
+//        DatabaseHelper dbHelper = new DatabaseHelper(context);
+//        Cursor dataCursor = dbHelper.getDataOfTable(DatabaseHelper.TABLE_FONT);
+//
+//        if (dataCursor != null && dataCursor.getCount() > 0) {
+//            dataCursor.moveToFirst();
+//            do {
+//                FontsPaid fontsPaid = new FontsPaid();
+//                fontsPaid.setId(dataCursor.getString(dataCursor.getColumnIndex(DatabaseHelper.KEY_FONT_ID)));
+//                fontsPaid.setTitle(dataCursor.getString(dataCursor.getColumnIndex(DatabaseHelper.KEY_FONT_TITLE)));
+//                fontsPaid.setFont_url(dataCursor.getString(dataCursor.getColumnIndex(DatabaseHelper.KEY_FONT_URL)));
+//                fontsPaid.setPaid(dataCursor.getString(dataCursor.getColumnIndex(DatabaseHelper.KEY_FONT_IS_PAID)));
+//                fontsPaidArrayList.add(fontsPaid);
+//            } while (dataCursor.moveToNext());
+//        }
+//
+//        for (int i = 0; i < fontsPaidArrayList.size(); i++) {
+//            AsyncDownload asyncDownload = new AsyncDownload(createKeyboardActivity, fontsPaidArrayList.get(i));
+//            asyncDownload.execute();
+//        }
 
-        if (dataCursor != null && dataCursor.getCount() > 0) {
-            dataCursor.moveToFirst();
-            do {
-                FontsPaid fontsPaid = new FontsPaid();
-                fontsPaid.setId(dataCursor.getString(dataCursor.getColumnIndex(DatabaseHelper.KEY_FONT_ID)));
-                fontsPaid.setTitle(dataCursor.getString(dataCursor.getColumnIndex(DatabaseHelper.KEY_FONT_TITLE)));
-                fontsPaid.setFont_url(dataCursor.getString(dataCursor.getColumnIndex(DatabaseHelper.KEY_FONT_URL)));
-                fontsPaid.setPaid(dataCursor.getString(dataCursor.getColumnIndex(DatabaseHelper.KEY_FONT_IS_PAID)));
-                fontsPaidArrayList.add(fontsPaid);
-            } while (dataCursor.moveToNext());
-        }
-
-        for (int i = 0; i < fontsPaidArrayList.size(); i++) {
-            AsyncDownload asyncDownload = new AsyncDownload(createKeyboardActivity, fontsPaidArrayList.get(i));
-            asyncDownload.execute();
-        }
-
-        setFontRecyclerView(fontsPaidArrayList);
+        setFontRecyclerView(/*fontsPaidArrayList*/);
     }
 
-    private void setFontRecyclerView(final ArrayList<FontsPaid> fontsArray) {
+    private void setFontRecyclerView(/*final ArrayList<FontsPaid> fontsArray*/) {
         fontAdapter = new FontAdapter(context, GlobalClass.fontsArray);
         fontRecyclerView.setAdapter(fontAdapter);
 
@@ -117,12 +112,12 @@ public class FontFragment extends Fragment {
                 GlobalClass.fontId = GlobalClass.fontsArray[position];
                 createKeyboardActivity.redrawKeyboard();
 
-                for (int i = 0; i < fontsArray.size(); i++) {
-                    if (i == position)
-                        fontsArray.get(i).setSelected(true);
-                    else
-                        fontsArray.get(i).setSelected(false);
-                }
+//                for (int i = 0; i < fontsArray.size(); i++) {
+//                    if (i == position)
+//                        fontsArray.get(i).setSelected(true);
+//                    else
+//                        fontsArray.get(i).setSelected(false);
+//                }
 
                 fontAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();

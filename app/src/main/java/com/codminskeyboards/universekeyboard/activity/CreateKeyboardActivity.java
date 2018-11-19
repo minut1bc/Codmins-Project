@@ -17,8 +17,8 @@ import android.widget.TextView;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.adapter.MyFragmentPagerAdapter;
-import com.codminskeyboards.universekeyboard.model.KeyboardData;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
+import com.codminskeyboards.universekeyboard.utils.KeyboardData;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 

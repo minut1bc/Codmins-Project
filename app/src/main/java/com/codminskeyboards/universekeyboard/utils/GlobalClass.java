@@ -9,7 +9,6 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.customkeyboard.SoftKeyboard;
-import com.codminskeyboards.universekeyboard.model.KeyboardData;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

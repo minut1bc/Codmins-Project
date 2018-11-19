@@ -19,8 +19,8 @@ import android.widget.TextView;
 import com.codminskeyboards.universekeyboard.BuildConfig;
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
-import com.codminskeyboards.universekeyboard.model.KeyboardData;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
+import com.codminskeyboards.universekeyboard.utils.KeyboardData;
 
 import java.util.ArrayList;
 

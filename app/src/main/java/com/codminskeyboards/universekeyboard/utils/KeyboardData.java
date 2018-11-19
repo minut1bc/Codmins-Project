@@ -1,4 +1,4 @@
-package com.codminskeyboards.universekeyboard.model;
+package com.codminskeyboards.universekeyboard.utils;
 
 public class KeyboardData {
 

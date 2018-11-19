@@ -14,10 +14,6 @@ import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.codminskeyboards.universekeyboard.R;
-import com.codminskeyboards.universekeyboard.billing.IabHelper;
-import com.codminskeyboards.universekeyboard.billing.IabResult;
-import com.codminskeyboards.universekeyboard.billing.Inventory;
-import com.codminskeyboards.universekeyboard.billing.Purchase;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -27,13 +23,11 @@ import com.google.android.gms.ads.InterstitialAd;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class PremiumStoreActivity extends AppCompatActivity implements View.OnClickListener {
 
     public InterstitialAd interstitialAd;
-    IabHelper iabHelper;
+    // IabHelper iabHelper;
     String currentPlan;
     String payload = "";
     static final String SKU_GET_ADDS = "universekeyboard.inapp.removead";
@@ -44,27 +38,27 @@ public class PremiumStoreActivity extends AppCompatActivity implements View.OnCl
     static final String SKU_GET_COLORS = "universekeyboard.inapp.colors";
     static final String SKU_GET_FONTS = "universekeyboard.inapp.fonts";
     static final String SKU_GET_SOUNDS = "universekeyboard.inapp.sounds";
-    IabHelper.OnConsumeFinishedListener consumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
-        public void onConsumeFinished(Purchase purchase, IabResult result) {
-            GlobalClass.printLog(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
-
-            // if we were disposed of in the meantime, quit.
-            if (iabHelper == null) return;
-
-            // We know this is the "gas" sku because it's the only one we consume,
-            // so we don't check which sku was consumed. If you have more than one
-            // sku, you probably should check...
-            if (result.isSuccess()) {
-                // successfully consumed, so we apply the effects of the item in our
-                // game world's logic, which in our case means filling the gas tank a bit
-                GlobalClass.printLog(TAG, "Consumption successful. Provisioning.");
-            } else {
-                complain("Error while consuming: " + result);
-            }
-            //updateUi();
-            GlobalClass.printLog(TAG, "End consumption flow.");
-        }
-    };
+//    IabHelper.OnConsumeFinishedListener consumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
+//        public void onConsumeFinished(Purchase purchase, IabResult result) {
+//            GlobalClass.printLog(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
+//
+//            // if we were disposed of in the meantime, quit.
+//            // if (iabHelper == null) return;
+//
+//            // We know this is the "gas" sku because it's the only one we consume,
+//            // so we don't check which sku was consumed. If you have more than one
+//            // sku, you probably should check...
+//            if (result.isSuccess()) {
+//                // successfully consumed, so we apply the effects of the item in our
+//                // game world's logic, which in our case means filling the gas tank a bit
+//                GlobalClass.printLog(TAG, "Consumption successful. Provisioning.");
+//            } else {
+//                complain("Error while consuming: " + result);
+//            }
+//            //updateUi();
+//            GlobalClass.printLog(TAG, "End consumption flow.");
+//        }
+//    };
 
     static final int RC_REQUEST1 = 501;
     static final int RC_REQUEST2 = 502;
@@ -79,119 +73,121 @@ public class PremiumStoreActivity extends AppCompatActivity implements View.OnCl
     boolean iscolors = false;
     boolean isfonts = false;
     boolean issounds = false;
-    public IabHelper.OnIabPurchaseFinishedListener purchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
-        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-            GlobalClass.printLog(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
-
-            // if we were disposed of in the meantime, quit.
-            if (iabHelper == null) return;
-
-            if (result.isFailure()) {
-                complain("Error purchasing: " + result);
-                return;
-            }
-
-            if (!verifyDeveloperPayload(purchase)) {
-                complain("Error purchasing. Authenticity verification failed.");
-                return;
-            }
-
-            GlobalClass.printLog(TAG, currentPlan + "Purchase successful.");
-
-            //updateUserPlan();
-            //updateUi();
-
-            iabHelper.consumeAsync(purchase, consumeFinishedListener);
-
-            switch (purchase.getSku()) {
-                case "universekeyboard.inapp.removead":
-                    GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isAdLock, false);
-                    break;
-                case "universekeyboard.inapp.texualcolorbg":
-                    GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isWallPaperLock, false);
-                    break;
-                case "universekeyboard.inapp.theamslotes":
-                    GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isThemeLock, false);
-                    break;
-                case "universekeyboard.inapp.colors":
-                    GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isColorLock, false);
-                    break;
-                case "universekeyboard.inapp.fonts":
-                    GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isFontLock, false);
-                    break;
-                case "universekeyboard.inapp.sounds":
-                    GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isSoundLock, false);
-                    break;
-            }
-
-        }
-    };
-
-    List<String> arrSKUs = Arrays.asList(SKU_GET_ADDS, SKU_GET_BACKGROUND, SKU_GET_COLORS, SKU_GET_SOUNDS, SKU_GET_FONTS, SKU_GET_THEME);
-    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-            GlobalClass.printLog(TAG, "Query inventory finished.");
-
-            // Have we been disposed of in the meantime? If so, quit.
-            if (iabHelper == null)
-                return;
-
-            // Is it a failure?
-            if (result.isFailure()) {
-                complain("Failed to query inventory: " + result);
-                return;
-            }
-
-            GlobalClass.printLog(TAG, "Query inventory was successful.");
-
-            Purchase getAddPurchase = inventory.getPurchase(SKU_GET_ADDS);
-            isremoove_adds = (getAddPurchase != null && verifyDeveloperPayload(getAddPurchase));
-            GlobalClass.printLog(TAG, "User " + (isremoove_adds ? "HAS" : "DOES NOT HAVE") + " Purchase Yearly Subsription.");
-            GlobalClass.printLog("getYearPurchase====================", "" + getAddPurchase);
-            if (getAddPurchase != null && verifyDeveloperPayload(getAddPurchase)) {
-                iabHelper.consumeAsync(getAddPurchase, consumeFinishedListener);
-            }
-
-            Purchase getBackgroundPurchase = inventory.getPurchase(SKU_GET_BACKGROUND);
-            isbackground = (getBackgroundPurchase != null && verifyDeveloperPayload(getBackgroundPurchase));
-            GlobalClass.printLog(TAG, "User " + (isbackground ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
-            GlobalClass.printLog("getBackgroundPurchase====================", "" + getBackgroundPurchase);
-            if (getBackgroundPurchase != null && verifyDeveloperPayload(getBackgroundPurchase)) {
-                iabHelper.consumeAsync(getBackgroundPurchase, consumeFinishedListener);
-            }
-            Purchase getthemePurchase = inventory.getPurchase(SKU_GET_THEME);
-            istheme_slot = (getthemePurchase != null && verifyDeveloperPayload(getthemePurchase));
-            GlobalClass.printLog(TAG, "User " + (istheme_slot ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
-            GlobalClass.printLog("getthemePurchase====================", "" + getthemePurchase);
-            if (getthemePurchase != null && verifyDeveloperPayload(getthemePurchase)) {
-                iabHelper.consumeAsync(getthemePurchase, consumeFinishedListener);
-            }
-            Purchase getColorPurchase = inventory.getPurchase(SKU_GET_COLORS);
-            iscolors = (getColorPurchase != null && verifyDeveloperPayload(getColorPurchase));
-            GlobalClass.printLog(TAG, "User " + (iscolors ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
-            GlobalClass.printLog("getColorPurchase====================", "" + getColorPurchase);
-            if (getColorPurchase != null && verifyDeveloperPayload(getColorPurchase)) {
-                iabHelper.consumeAsync(getColorPurchase, consumeFinishedListener);
-            }
-            Purchase getFontPurchase = inventory.getPurchase(SKU_GET_FONTS);
-            isfonts = (getFontPurchase != null && verifyDeveloperPayload(getFontPurchase));
-            GlobalClass.printLog(TAG, "User " + (isfonts ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
-            GlobalClass.printLog("getFontPurchase====================", "" + getFontPurchase);
-            if (getFontPurchase != null && verifyDeveloperPayload(getFontPurchase)) {
-                iabHelper.consumeAsync(getFontPurchase, consumeFinishedListener);
-            }
-            Purchase getSoundPurchase = inventory.getPurchase(SKU_GET_FONTS);
-            issounds = (getSoundPurchase != null && verifyDeveloperPayload(getSoundPurchase));
-            GlobalClass.printLog(TAG, "User " + (issounds ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
-            GlobalClass.printLog("getSoundPurchase====================", "" + getSoundPurchase);
-            if (getSoundPurchase != null && verifyDeveloperPayload(getSoundPurchase)) {
-                iabHelper.consumeAsync(getSoundPurchase, consumeFinishedListener);
-            }
-
-
-            GlobalClass.printLog(TAG, "Initial inventory query finished; enabling main UI.");
-        }
-    };
+    //    public IabHelper.OnIabPurchaseFinishedListener purchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
+//        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
+//            GlobalClass.printLog(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
+//
+//            if we were disposed of in the meantime, quit.
+//            if (iabHelper == null) return;
+//
+//            if (result.isFailure()) {
+//                complain("Error purchasing: " + result);
+//                return;
+//            }
+//
+//            if (!verifyDeveloperPayload(purchase)) {
+//                complain("Error purchasing. Authenticity verification failed.");
+//                return;
+//            }
+//
+//            GlobalClass.printLog(TAG,currentPlan +"Purchase successful.");
+//
+//    updateUserPlan();
+//    updateUi();
+//
+//     iabHelper.consumeAsync(purchase, consumeFinishedListener);
+//
+//            switch(purchase.getSku())
+//
+//    {
+//        case "universekeyboard.inapp.removead":
+//            GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isAdLock, false);
+//            break;
+//        case "universekeyboard.inapp.texualcolorbg":
+//            GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isWallPaperLock, false);
+//            break;
+//        case "universekeyboard.inapp.theamslotes":
+//            GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isThemeLock, false);
+//            break;
+//        case "universekeyboard.inapp.colors":
+//            GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isColorLock, false);
+//            break;
+//        case "universekeyboard.inapp.fonts":
+//            GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isFontLock, false);
+//            break;
+//        case "universekeyboard.inapp.sounds":
+//            GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isSoundLock, false);
+//            break;
+//    }
+//
+//}
+//    };
+//
+//        List<String> arrSKUs = Arrays.asList(SKU_GET_ADDS, SKU_GET_BACKGROUND, SKU_GET_COLORS, SKU_GET_SOUNDS, SKU_GET_FONTS, SKU_GET_THEME);
+//    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+//        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+//            GlobalClass.printLog(TAG, "Query inventory finished.");
+//
+//            // Have we been disposed of in the meantime? If so, quit.
+//            if (iabHelper == null)
+//                return;
+//
+//            // Is it a failure?
+//            if (result.isFailure()) {
+//                complain("Failed to query inventory: " + result);
+//                return;
+//            }
+//
+//            GlobalClass.printLog(TAG, "Query inventory was successful.");
+//
+//            Purchase getAddPurchase = inventory.getPurchase(SKU_GET_ADDS);
+//            isremoove_adds = (getAddPurchase != null && verifyDeveloperPayload(getAddPurchase));
+//            GlobalClass.printLog(TAG, "User " + (isremoove_adds ? "HAS" : "DOES NOT HAVE") + " Purchase Yearly Subsription.");
+//            GlobalClass.printLog("getYearPurchase====================", "" + getAddPurchase);
+//            if (getAddPurchase != null && verifyDeveloperPayload(getAddPurchase)) {
+//                iabHelper.consumeAsync(getAddPurchase, consumeFinishedListener);
+//            }
+//
+//            Purchase getBackgroundPurchase = inventory.getPurchase(SKU_GET_BACKGROUND);
+//            isbackground = (getBackgroundPurchase != null && verifyDeveloperPayload(getBackgroundPurchase));
+//            GlobalClass.printLog(TAG, "User " + (isbackground ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
+//            GlobalClass.printLog("getBackgroundPurchase====================", "" + getBackgroundPurchase);
+//            if (getBackgroundPurchase != null && verifyDeveloperPayload(getBackgroundPurchase)) {
+//                iabHelper.consumeAsync(getBackgroundPurchase, consumeFinishedListener);
+//            }
+//            Purchase getthemePurchase = inventory.getPurchase(SKU_GET_THEME);
+//            istheme_slot = (getthemePurchase != null && verifyDeveloperPayload(getthemePurchase));
+//            GlobalClass.printLog(TAG, "User " + (istheme_slot ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
+//            GlobalClass.printLog("getthemePurchase====================", "" + getthemePurchase);
+//            if (getthemePurchase != null && verifyDeveloperPayload(getthemePurchase)) {
+//                iabHelper.consumeAsync(getthemePurchase, consumeFinishedListener);
+//            }
+//            Purchase getColorPurchase = inventory.getPurchase(SKU_GET_COLORS);
+//            iscolors = (getColorPurchase != null && verifyDeveloperPayload(getColorPurchase));
+//            GlobalClass.printLog(TAG, "User " + (iscolors ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
+//            GlobalClass.printLog("getColorPurchase====================", "" + getColorPurchase);
+//            if (getColorPurchase != null && verifyDeveloperPayload(getColorPurchase)) {
+//                iabHelper.consumeAsync(getColorPurchase, consumeFinishedListener);
+//            }
+//            Purchase getFontPurchase = inventory.getPurchase(SKU_GET_FONTS);
+//            isfonts = (getFontPurchase != null && verifyDeveloperPayload(getFontPurchase));
+//            GlobalClass.printLog(TAG, "User " + (isfonts ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
+//            GlobalClass.printLog("getFontPurchase====================", "" + getFontPurchase);
+//            if (getFontPurchase != null && verifyDeveloperPayload(getFontPurchase)) {
+//                iabHelper.consumeAsync(getFontPurchase, consumeFinishedListener);
+//            }
+//            Purchase getSoundPurchase = inventory.getPurchase(SKU_GET_FONTS);
+//            issounds = (getSoundPurchase != null && verifyDeveloperPayload(getSoundPurchase));
+//            GlobalClass.printLog(TAG, "User " + (issounds ? "HAS" : "DOES NOT HAVE") + " Purchase Monthly Subscription.");
+//            GlobalClass.printLog("getSoundPurchase====================", "" + getSoundPurchase);
+//            if (getSoundPurchase != null && verifyDeveloperPayload(getSoundPurchase)) {
+//                iabHelper.consumeAsync(getSoundPurchase, consumeFinishedListener);
+//            }
+//
+//
+//            GlobalClass.printLog(TAG, "Initial inventory query finished; enabling main UI.");
+//        }
+//    };
     private AdView adView;
 
     @Override
@@ -219,27 +215,27 @@ public class PremiumStoreActivity extends AppCompatActivity implements View.OnCl
         interstitialAd.loadAd(new AdRequest.Builder().build());
 
 
-        iabHelper = new IabHelper(PremiumStoreActivity.this, base64EncodedPublicKey);
-        iabHelper.enableDebugLogging(true);
-        iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-            public void onIabSetupFinished(IabResult result) {
-                GlobalClass.printLog(TAG, "Setup finished.");
-
-                if (!result.isSuccess()) {
-                    // Oh noes, there was a problem.
-                    complain("Problem setting up in-app billing: " + result);
-                    return;
-                }
-
-                // Have we been disposed of in the meantime? If so, quit.
-                if (iabHelper == null)
-                    return;
-
-                // IAB is fully set up. Now, let's get an inventory of stuff we own.
-                GlobalClass.printLog(TAG, "Setup successful. Querying inventory.");
-                iabHelper.queryInventoryAsync(mGotInventoryListener);
-            }
-        });
+//        iabHelper = new IabHelper(PremiumStoreActivity.this, base64EncodedPublicKey);
+//        iabHelper.enableDebugLogging(true);
+//        iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+//            public void onIabSetupFinished(IabResult result) {
+//                GlobalClass.printLog(TAG, "Setup finished.");
+//
+//                if (!result.isSuccess()) {
+//                    // Oh noes, there was a problem.
+//                    complain("Problem setting up in-app billing: " + result);
+//                    return;
+//                }
+//
+//                // Have we been disposed of in the meantime? If so, quit.
+//                if (iabHelper == null)
+//                    return;
+//
+//                // IAB is fully set up. Now, let's get an inventory of stuff we own.
+//                GlobalClass.printLog(TAG, "Setup successful. Querying inventory.");
+//                iabHelper.queryInventoryAsync(mGotInventoryListener);
+//            }
+//        });
 
         ServiceConnection serviceConnection = new ServiceConnection() {
             @Override
@@ -261,90 +257,90 @@ public class PremiumStoreActivity extends AppCompatActivity implements View.OnCl
         if (GlobalClass.getPreferencesBool(getApplicationContext(), GlobalClass.key_isColorLock, true))
             setAdMob();
 
-        remove_ads.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    if (iabHelper != null) {
-                        iabHelper.flagEndAsync();
-                        iabHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_ADDS, RC_REQUEST1, purchaseFinishedListener, payload);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        backgrounds.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    if (iabHelper != null) {
-                        iabHelper.flagEndAsync();
-                        iabHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_BACKGROUND, RC_REQUEST2, purchaseFinishedListener, payload);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-        });
-
-        theme_slot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    if (iabHelper != null) {
-                        iabHelper.flagEndAsync();
-                        iabHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_THEME, RC_REQUEST3, purchaseFinishedListener, payload);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        colors.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    if (iabHelper != null) {
-                        iabHelper.flagEndAsync();
-                        iabHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_COLORS, RC_REQUEST4, purchaseFinishedListener, payload);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        fonts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    if (iabHelper != null) {
-                        iabHelper.flagEndAsync();
-                        iabHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_FONTS, RC_REQUEST5, purchaseFinishedListener, payload);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        sounds.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    if (iabHelper != null) {
-                        iabHelper.flagEndAsync();
-                        iabHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_SOUNDS, RC_REQUEST6, purchaseFinishedListener, payload);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        remove_ads.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                    if (iabHelper != null) {
+//                        iabHelper.flagEndAsync();
+//                        iabHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_ADDS, RC_REQUEST1, purchaseFinishedListener, payload);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//
+//        backgrounds.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                    if (iabHelper != null) {
+//                        iabHelper.flagEndAsync();
+//                        iabHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_BACKGROUND, RC_REQUEST2, purchaseFinishedListener, payload);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//        });
+//
+//        theme_slot.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                    if (iabHelper != null) {
+//                        iabHelper.flagEndAsync();
+//                        iabHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_THEME, RC_REQUEST3, purchaseFinishedListener, payload);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//
+//        colors.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                    if (iabHelper != null) {
+//                        iabHelper.flagEndAsync();
+//                        iabHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_COLORS, RC_REQUEST4, purchaseFinishedListener, payload);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//
+//        fonts.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                    if (iabHelper != null) {
+//                        iabHelper.flagEndAsync();
+//                        iabHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_FONTS, RC_REQUEST5, purchaseFinishedListener, payload);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//
+//        sounds.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                    if (iabHelper != null) {
+//                        iabHelper.flagEndAsync();
+//                        iabHelper.launchPurchaseFlow(PremiumStoreActivity.this, SKU_GET_SOUNDS, RC_REQUEST6, purchaseFinishedListener, payload);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
         restoreTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -530,8 +526,8 @@ public class PremiumStoreActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
-    boolean verifyDeveloperPayload(Purchase purchase) {
-        String payload = purchase.getDeveloperPayload();
+//    boolean verifyDeveloperPayload(Purchase purchase) {
+//        String payload = purchase.getDeveloperPayload();
 
         /*
          * TODO: verify that the developer payload of the purchase is correct. It will be
@@ -555,9 +551,9 @@ public class PremiumStoreActivity extends AppCompatActivity implements View.OnCl
          * Using your own server to store and verify developer payloads across app
          * installations is recommended.
          */
-
-        return true;
-    }
+//
+//        return true;
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -608,16 +604,16 @@ public class PremiumStoreActivity extends AppCompatActivity implements View.OnCl
 //
 //
 //      Global.showToast(getApplicationContext(), "=====requestCode=====" +requestCode + "\n=====resultCode=====" + resultCode + "\n=====data=====" + data);
-
-        if (iabHelper != null && !iabHelper.handleActivityResult(requestCode, resultCode, data)) {
-            GlobalClass.printLog("on Activity", " this is on activity result --- with data finsh ");
-
-            // Global.showToast(getApplicationContext(), "=====requestCode11=====" +requestCode + "\n=====resultCode11=====" + resultCode + "\n=====data11=====" + data);
-            // not handled, so handle it ourselves (here's where you'd perform any handling of activity results not related to in-app billing...
-
-            super.onActivityResult(requestCode, resultCode, data);
-        } else
-            GlobalClass.printLog(TAG, "onActivityResult handled by IABUtil.");
+//
+//        if (iabHelper != null && !iabHelper.handleActivityResult(requestCode, resultCode, data)) {
+//            GlobalClass.printLog("on Activity", " this is on activity result --- with data finsh ");
+//
+//            // Global.showToast(getApplicationContext(), "=====requestCode11=====" +requestCode + "\n=====resultCode11=====" + resultCode + "\n=====data11=====" + data);
+//            // not handled, so handle it ourselves (here's where you'd perform any handling of activity results not related to in-app billing...
+//
+//            super.onActivityResult(requestCode, resultCode, data);
+//        } else
+//            GlobalClass.printLog(TAG, "onActivityResult handled by IABUtil.");
     }
 
     void complain(String message) {
@@ -629,15 +625,15 @@ public class PremiumStoreActivity extends AppCompatActivity implements View.OnCl
     public void onDestroy() {
         super.onDestroy();
 
-        GlobalClass.printLog(TAG, "Destroying helper.");
-        if (iabHelper != null) {
-            try {
-                iabHelper.dispose();
-            } catch (IllegalArgumentException ex) {
-                ex.printStackTrace();
-            }
-            iabHelper = null;
-        }
+//        GlobalClass.printLog(TAG, "Destroying helper.");
+//        if (iabHelper != null) {
+//            try {
+//                iabHelper.dispose();
+//            } catch (IllegalArgumentException ex) {
+//                ex.printStackTrace();
+//            }
+//            iabHelper = null;
+//        }
     }
 
     @Override

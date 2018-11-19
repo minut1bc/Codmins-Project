@@ -57,11 +57,6 @@
 
         <activity android:name=".customkeyboard.ImePreferences" />
 
-        <service
-            android:name="com.codminskeyboards.universekeyboard.utils.MyDownloadService"
-            android:enabled="true"
-            android:exported="true" />
-
         <meta-data
             android:name="com.google.android.gms.ads.ca-app-pub-2002759323605741~1307687673"
             android:value="ca-app-pub-2002759323605741~1307687673" />

@@ -18,11 +18,8 @@ import android.widget.TextView;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.adapter.SoundAdapter;
-import com.codminskeyboards.universekeyboard.model.NewSoundData;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 import com.codminskeyboards.universekeyboard.utils.RecyclerItemClickListener;
-
-import java.util.ArrayList;
 
 public class SoundFragment extends Fragment {
 
@@ -30,7 +27,7 @@ public class SoundFragment extends Fragment {
 
     SoundAdapter soundAdapter;
     RecyclerView soundRecyclerView;
-    ArrayList<NewSoundData> newSoundDataArrayList = new ArrayList<>();
+    //    ArrayList<NewSoundData> newSoundDataArrayList = new ArrayList<>();
     SeekBar seekBarVibration;
     String vibrationStrengthText;
     TextView vibrationTextView;
@@ -72,9 +69,9 @@ public class SoundFragment extends Fragment {
     }
 
     private void getSoundFromDatabase() {
-        soundAdapter = new SoundAdapter(context, newSoundDataArrayList);
+        soundAdapter = new SoundAdapter(context /*, newSoundDataArrayList*/);
         for (int aFreeSoundArray : GlobalClass.soundsArray)
-            newSoundDataArrayList.add(new NewSoundData(aFreeSoundArray, false));
+//            newSoundDataArrayList.add(new NewSoundData(aFreeSoundArray, false));
 
         soundRecyclerView.setHasFixedSize(true);
         soundRecyclerView.setLayoutManager(new GridLayoutManager(context, GlobalClass.calculateNoOfColumns(context)));
@@ -84,7 +81,7 @@ public class SoundFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 GlobalClass.soundPosition = position;
-                GlobalClass.soundId = newSoundDataArrayList.get(position).getResourceId();
+                GlobalClass.soundId = GlobalClass.soundsArray[position];
                 if (position != 0) {
                     performKeySound();
                     GlobalClass.soundStatus = true;
