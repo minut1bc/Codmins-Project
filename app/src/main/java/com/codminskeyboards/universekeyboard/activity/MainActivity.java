@@ -188,6 +188,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContent();
 
+        GlobalClass.setResourcesArrays();
+
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isAdLock, true))
             setAdMob();
     }
@@ -390,11 +392,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         setDefaultValue();
 
                         GlobalClass.backgroundPosition = 0;
-                        GlobalClass.keyboardBackground = R.drawable.background_1;
+                        GlobalClass.keyboardBackground = R.drawable.background_01;
                         GlobalClass.colorPosition = 0;
                         GlobalClass.drawableOrColor = 0;
-                        GlobalClass.fontColor = getResources().getColor(R.color.two);
-                        GlobalClass.keyColor = getResources().getColor(R.color.two);
+                        GlobalClass.fontColor = getResources().getColor(R.color.color_02);
+                        GlobalClass.keyColor = getResources().getColor(R.color.color_02);
                         GlobalClass.keyRadius = 34;
                         GlobalClass.keyStroke = 1;
                         GlobalClass.keyOpacity = 64;
@@ -481,11 +483,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     }
 
                                     GlobalClass.backgroundPosition = 0;
-                                    GlobalClass.keyboardBackground = R.drawable.background_1;
+                                    GlobalClass.keyboardBackground = R.drawable.background_01;
                                     GlobalClass.colorPosition = 0;
                                     GlobalClass.drawableOrColor = 0;
-                                    GlobalClass.fontColor = getResources().getColor(R.color.two);
-                                    GlobalClass.keyColor = getResources().getColor(R.color.eight);
+                                    GlobalClass.fontColor = getResources().getColor(R.color.color_02);
+                                    GlobalClass.keyColor = getResources().getColor(R.color.color_08);
                                     GlobalClass.keyRadius = 18;
                                     GlobalClass.keyStroke = 2;
                                     GlobalClass.keyOpacity = 255;
@@ -530,11 +532,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         addKeyboardImageView.setVisibility(View.GONE);
 
                                         GlobalClass.backgroundPosition = 0;
-                                        GlobalClass.keyboardBackground = R.drawable.background_1;
+                                        GlobalClass.keyboardBackground = R.drawable.background_01;
                                         GlobalClass.colorPosition = 0;
                                         GlobalClass.drawableOrColor = 0;
-                                        GlobalClass.fontColor = getResources().getColor(R.color.two);
-                                        GlobalClass.keyColor = getResources().getColor(R.color.eight);
+                                        GlobalClass.fontColor = getResources().getColor(R.color.color_02);
+                                        GlobalClass.keyColor = getResources().getColor(R.color.color_08);
                                         GlobalClass.keyRadius = 18;
                                         GlobalClass.keyStroke = 2;
                                         GlobalClass.keyOpacity = 255;
@@ -572,12 +574,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void setDefaultValue() {
-        GlobalClass.keyboardBackground = GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, R.drawable.background_1);
-        GlobalClass.keyColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, getResources().getColor(R.color.eight));
+        GlobalClass.keyboardBackground = GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, R.drawable.background_01);
+        GlobalClass.keyColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, getResources().getColor(R.color.color_08));
         GlobalClass.keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
         GlobalClass.keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
         GlobalClass.keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
-        GlobalClass.fontColor = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.two);
+        GlobalClass.fontColor = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.color_02);
         GlobalClass.fontId = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_NAME, R.font.abel_regular);
         GlobalClass.soundStatus = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_STATUS, false);
         GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);

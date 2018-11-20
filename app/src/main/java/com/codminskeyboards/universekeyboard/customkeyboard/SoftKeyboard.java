@@ -356,7 +356,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             }
         });
 
-        linKeyboard.setBackgroundResource(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BACKGROUND, R.drawable.background_1));
+        linKeyboard.setBackgroundResource(GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.KEYBOARD_BACKGROUND, R.drawable.background_01));
 
         for (Keyboard.Key k : qwertyKeyboard.getKeys()) {
             switch (k.codes[0]) {

@@ -44,7 +44,7 @@ public class LatinKeyboardView extends KeyboardView {
     public LatinKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-        int keyColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, getResources().getColor(R.color.eight));
+        int keyColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, getResources().getColor(R.color.color_08));
 
         keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyColor, keyColor});
         keyPressedBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyColor, keyColor});
@@ -70,7 +70,7 @@ public class LatinKeyboardView extends KeyboardView {
         List<Key> keys;
         keys = getKeyboard().getKeys();
 
-        int fontColor = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.two);
+        int fontColor = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.color_02);
         int keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
         int keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
         int keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);

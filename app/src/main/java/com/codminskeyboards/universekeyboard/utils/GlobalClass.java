@@ -13,6 +13,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -59,7 +60,7 @@ public class GlobalClass {
     public static int fontId = R.font.abel_regular;
     public static boolean soundStatus = false;
     public static int soundId = 0;
-    public static int keyboardBackground = R.drawable.background_1;
+    public static int keyboardBackground = R.drawable.background_01;
     public static int keyColor = 0;
     public static int keyOpacity = 0;
     public static int keyStroke = 0;
@@ -162,202 +163,269 @@ public class GlobalClass {
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         return (int) dpWidth / 60;      // TODO: maybe change hardcoded 60 to value dependent on given view
     }
-
     public static int[] backgroundArray = {
-            R.drawable.background_1,
-            R.drawable.background_2,
-            R.drawable.background_3,
-            R.drawable.background_4,
-            R.drawable.background_5,
-            R.drawable.background_6,
-            R.drawable.background_7,
-            R.drawable.background_8,
-            R.drawable.background_9,
-            R.drawable.background_10,
-            R.drawable.background_11,
-            R.drawable.background_12,
-            R.drawable.background_13,
-            R.drawable.background_14,
-            R.drawable.background_15,
-            R.drawable.background_16,
-            R.drawable.background_17,
-            R.drawable.background_18,
-            R.drawable.background_19,
-            R.drawable.background_20,
-            R.drawable.background_21,
-            R.drawable.background_22,
-            R.drawable.background_23,
-            R.drawable.background_24,
-            R.drawable.background_25,
-            R.drawable.background_26,
-            R.drawable.background_27,
-            R.drawable.background_28,
-            R.drawable.background_29,
-            R.drawable.background_30,
-            R.drawable.background_31,
-            R.drawable.background_32,
-            R.drawable.background_33,
+//            R.drawable.background_01,
+//            R.drawable.background_02,
+//            R.drawable.background_03,
+//            R.drawable.background_04,
+//            R.drawable.background_05,
+//            R.drawable.background_06,
+//            R.drawable.background_07,
+//            R.drawable.background_08,
+//            R.drawable.background_09,
+//            R.drawable.background_10,
+//            R.drawable.background_11,
+//            R.drawable.background_12,
+//            R.drawable.background_13,
+//            R.drawable.background_14,
+//            R.drawable.background_15,
+//            R.drawable.background_16,
+//            R.drawable.background_17,
+//            R.drawable.background_18,
+//            R.drawable.background_19,
+//            R.drawable.background_20,
+//            R.drawable.background_21,
+//            R.drawable.background_22,
+//            R.drawable.background_23,
+//            R.drawable.background_24,
+//            R.drawable.background_25,
+//            R.drawable.background_26,
+//            R.drawable.background_27,
+//            R.drawable.background_28,
+//            R.drawable.background_29,
+//            R.drawable.background_30,
+//            R.drawable.background_31,
+//            R.drawable.background_32,
+//            R.drawable.background_33,
     };
-
     public static int[] backgroundPreviewArray = {
-            R.drawable.tc_1,
-            R.drawable.tc_2,
-            R.drawable.tc_3,
-            R.drawable.tc_4,
-            R.drawable.tc_5,
-            R.drawable.tc_6,
-            R.drawable.tc_7,
-            R.drawable.tc_8,
-            R.drawable.tc_9,
-            R.drawable.tc_10,
-            R.drawable.tc_11,
-            R.drawable.tc_12,
-            R.drawable.tc_13,
-            R.drawable.tc_14,
-            R.drawable.tc_15,
-            R.drawable.tc_16,
-            R.drawable.tc_17,
-            R.drawable.tc_18,
-            R.drawable.tc_19,
-            R.drawable.tc_20,
-            R.drawable.tc_21,
-            R.drawable.tc_22,
-            R.drawable.tc_23,
-            R.drawable.tc_24,
-            R.drawable.tc_25,
-            R.drawable.tc_26,
-            R.drawable.tc_27,
-            R.drawable.tc_28,
-            R.drawable.tc_29,
-            R.drawable.tc_30,
-            R.drawable.tc_31,
-            R.drawable.tc_32,
-            R.drawable.tc_33,
+//            R.drawable.background_preview_01,
+//            R.drawable.background_preview_02,
+//            R.drawable.background_preview_03,
+//            R.drawable.background_preview_04,
+//            R.drawable.background_preview_05,
+//            R.drawable.background_preview_06,
+//            R.drawable.background_preview_07,
+//            R.drawable.background_preview_08,
+//            R.drawable.background_preview_09,
+//            R.drawable.background_preview_10,
+//            R.drawable.background_preview_11,
+//            R.drawable.background_preview_12,
+//            R.drawable.background_preview_13,
+//            R.drawable.background_preview_14,
+//            R.drawable.background_preview_15,
+//            R.drawable.background_preview_16,
+//            R.drawable.background_preview_17,
+//            R.drawable.background_preview_18,
+//            R.drawable.background_preview_19,
+//            R.drawable.background_preview_20,
+//            R.drawable.background_preview_21,
+//            R.drawable.background_preview_22,
+//            R.drawable.background_preview_23,
+//            R.drawable.background_preview_24,
+//            R.drawable.background_preview_25,
+//            R.drawable.background_preview_26,
+//            R.drawable.background_preview_27,
+//            R.drawable.background_preview_28,
+//            R.drawable.background_preview_29,
+//            R.drawable.background_preview_30,
+//            R.drawable.background_preview_31,
+//            R.drawable.background_preview_32,
+//            R.drawable.background_preview_33,
     };
-
     public static int[] colorsArray = {
-            R.color.one,
-            R.color.two,
-            R.color.three,
-            R.color.four,
-            R.color.five,
-            R.color.six,
-            R.color.seven,
-            R.color.eight,
-            R.color.nine,
-            R.color.ten,
-            R.color.eleven,
-            R.color.twelve,
-            R.color.thirteen,
-            R.color.fourteen,
-            R.color.fifteen,
-            R.color.sixteen,
-            R.color.seventeen,
-            R.color.eighteen,
-            R.color.nineteen,
-            R.color.twenty,
-            R.color.twentyOne,
-            R.color.twentyTwo,
-            R.color.twentyThree,
-            R.color.twentyFour,
-            R.color.twentyFive,
-            R.color.twentySix,
-            R.color.twentySeven,
-            R.color.twentyEight,
-            R.color.twentyNine,
-            R.color.thirty,
-            R.color.thirtyOne,
-            R.color.thirtyTwo,
-            R.color.thirtyThree,
-            R.color.thirtyFour,
-            R.color.thirtyFive,
-            R.color.thirtySix,
-            R.color.thirtySeven,
-            R.color.thirtyEight,
-            R.color.thirtyNine,
-            R.color.forty,
+//            R.color.color_1,
+//            R.color.color_2,
+//            R.color.color_03,
+//            R.color.color_04,
+//            R.color.color_05,
+//            R.color.color_06,
+//            R.color.color_07,
+//            R.color.color_08,
+//            R.color.color_09,
+//            R.color.color_10,
+//            R.color.color_11,
+//            R.color.color_12,
+//            R.color.color_13,
+//            R.color.color_14,
+//            R.color.color_15,
+//            R.color.color_16,
+//            R.color.color_17,
+//            R.color.color_18,
+//            R.color.color_19,
+//            R.color.color_20,
+//            R.color.color_21,
+//            R.color.color_22,
+//            R.color.color_23,
+//            R.color.color_24,
+//            R.color.color_25,
+//            R.color.color_26,
+//            R.color.color_27,
+//            R.color.color_28,
+//            R.color.color_29,
+//            R.color.color_30,
+//            R.color.color_31,
+//            R.color.color_32,
+//            R.color.color_33,
+//            R.color.color_34,
+//            R.color.color_35,
+//            R.color.color_36,
+//            R.color.color_37,
+//            R.color.color_38,
+//            R.color.color_39,
+//            R.color.color_40,
     };
-
     public static int[] fontsArray = {
-            R.font.abel_regular,
-            R.font.abraham_lincoln,
-            R.font.american_typewriter_bold_android,
-            R.font.angelina,
-            R.font.bitter_regular,
-            R.font.blackout_midnight,
-            R.font.blanch_caps,
-            R.font.blanch_caps_inline,
-            R.font.bushcraft_distress,
-            R.font.cabinsketch_bold,
-            R.font.capsuula,
-            R.font.chezvous_regular,
-            R.font.comic_zine_ot,
-            R.font.curely_free_typeface,
-            R.font.doppialinea,
-            R.font.droidiga,
-            R.font.droidsans,
-            R.font.edo,
-            R.font.fff_tusj_bold,
-            R.font.font_pack_sketchnote_square,
-            R.font.ftanchoryard_regular,
-            R.font.gooddog_cool,
-            R.font.gothic,
-            R.font.gothic_bold,
-            R.font.gothicb,
-            R.font.gothicbi,
-            R.font.gothicci,
-            R.font.grutchshaded,
-            R.font.handygeorge_2,
-            R.font.intro_inline,
-            R.font.langdon,
-            R.font.linden_hill,
-            R.font.lora_bold,
-            R.font.love_of_love_by_oubyc,
-            R.font.matesc_regular,
-            R.font.monday_medium,
-            R.font.newscycle_regular,
-            R.font.oldstyle_1,
-            R.font.orbitron_black,
-            R.font.radley_regular,
-            R.font.ribbon_v2_2011,
-            R.font.sevillana_regular,
-            R.font.sketchetik_light,
-            R.font.sofia_regular,
-            R.font.trend_hm_slab_five,
+//            R.font.abel_regular,
+//            R.font.abraham_lincoln,
+//            R.font.american_typewriter_bold_android,
+//            R.font.angelina,
+//            R.font.bitter_regular,
+//            R.font.blackout_midnight,
+//            R.font.blanch_caps,
+//            R.font.blanch_caps_inline,
+//            R.font.bushcraft_distress,
+//            R.font.cabinsketch_bold,
+//            R.font.capsuula,
+//            R.font.chezvous_regular,
+//            R.font.comic_zine_ot,
+//            R.font.curely_free_typeface,
+//            R.font.doppialinea,
+//            R.font.droidiga,
+//            R.font.droidsans,
+//            R.font.edo,
+//            R.font.fff_tusj_bold,
+//            R.font.font_pack_sketchnote_square,
+//            R.font.ftanchoryard_regular,
+//            R.font.gooddog_cool,
+//            R.font.gothic,
+//            R.font.gothic_bold,
+//            R.font.gothicb,
+//            R.font.gothicbi,
+//            R.font.gothicci,
+//            R.font.grutchshaded,
+//            R.font.handygeorge_2,
+//            R.font.intro_inline,
+//            R.font.langdon,
+//            R.font.linden_hill,
+//            R.font.lora_bold,
+//            R.font.love_of_love_by_oubyc,
+//            R.font.matesc_regular,
+//            R.font.monday_medium,
+//            R.font.newscycle_regular,
+//            R.font.oldstyle_1,
+//            R.font.orbitron_black,
+//            R.font.radley_regular,
+//            R.font.ribbon_v2_2011,
+//            R.font.sevillana_regular,
+//            R.font.sketchetik_light,
+//            R.font.sofia_regular,
+//            R.font.trend_hm_slab_five,
+    };
+    public static int[] soundsArray = {
+//            R.raw.balloon_snap,
+//            R.raw.bike_gear_shift,
+//            R.raw.close_cigarette_lighter,
+//            R.raw.double_down_click,
+//            R.raw.double_switch,
+//            R.raw.fast_camera_shutter,
+//            R.raw.glovebox_open,
+//            R.raw.heavy_switch_click,
+//            R.raw.heavy_switch_spring,
+//            R.raw.keydesign,
+//            R.raw.latch_lock,
+//            R.raw.latch_snap,
+//            R.raw.latch_spring,
+//            R.raw.lever_spring,
+//            R.raw.loose_click,
+//            R.raw.medium_camera_shutter,
+//            R.raw.metal_off_switch,
+//            R.raw.mouse_click,
+//            R.raw.pull_grenade_pin,
+//            R.raw.pull_switch,
+//            R.raw.ratchet,
+//            R.raw.rotary_switch,
+//            R.raw.seatbelt,
+//            R.raw.slide_click,
+//            R.raw.switch_breaker,
+//            R.raw.switch_flick,
+//            R.raw.thunk_switch,
+//            R.raw.tight_click,
+//            R.raw.toggle_switch,
+//            R.raw.typewriter_key,
     };
 
-    public static int[] soundsArray = {
-            R.raw.balloon_snap,
-            R.raw.bike_gear_shift,
-            R.raw.close_cigarette_lighter,
-            R.raw.double_down_click,
-            R.raw.double_switch,
-            R.raw.fast_camera_shutter,
-            R.raw.glovebox_open,
-            R.raw.heavy_switch_click,
-            R.raw.heavy_switch_spring,
-            R.raw.keydesign,
-            R.raw.latch_lock,
-            R.raw.latch_snap,
-            R.raw.latch_spring,
-            R.raw.lever_spring,
-            R.raw.loose_click,
-            R.raw.medium_camera_shutter,
-            R.raw.metal_off_switch,
-            R.raw.mouse_click,
-            R.raw.pull_grenade_pin,
-            R.raw.pull_switch,
-            R.raw.ratchet,
-            R.raw.rotary_switch,
-            R.raw.seatbelt,
-            R.raw.slide_click,
-            R.raw.switch_breaker,
-            R.raw.switch_flick,
-            R.raw.thunk_switch,
-            R.raw.tight_click,
-            R.raw.toggle_switch,
-            R.raw.typewriter_key,
-    };
+    public static void setResourcesArrays() {
+        Field[] fields = R.drawable.class.getFields();
+        backgroundArray = new int[fields.length];
+        backgroundPreviewArray = new int[fields.length];
+        int j = 0;
+        int k = 0;
+        for (int i = 0; i < fields.length; i++) {
+            if (fields[i].getName().matches("background_[0-9]([0-9])?")) {
+                try {
+                    backgroundArray[j] = fields[i].getInt(fields[i]);
+                    j++;
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (fields[i].getName().matches("background_preview_[0-9]([0-9])?")) {
+                try {
+                    backgroundPreviewArray[k] = fields[i].getInt(fields[i]);
+                    k++;
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        int[] tempArray = new int[j];
+        System.arraycopy(backgroundArray, 0, tempArray, 0, j);
+        backgroundArray = tempArray.clone();
+
+        tempArray = new int[k];
+        System.arraycopy(backgroundPreviewArray, 0, tempArray, 0, k);
+        backgroundPreviewArray = tempArray.clone();
+
+        j = 0;
+        fields = R.color.class.getFields();
+        colorsArray = new int[fields.length];
+        for (int i = 0; i < fields.length; i++) {
+            if (fields[i].getName().matches("color_[0-9][0-9]?"))
+                try {
+                    colorsArray[j] = fields[i].getInt(fields[i]);
+                    j++;
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+        }
+
+        tempArray = new int[j];
+        System.arraycopy(colorsArray, 0, tempArray, 0, j);
+        colorsArray = tempArray.clone();
+
+        fields = R.font.class.getFields();
+        fontsArray = new int[fields.length];
+        for (int i = 0; i < fields.length; i++) {
+            try {
+                fontsArray[i] = fields[i].getInt(fields[i]);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        fields = R.raw.class.getFields();
+        soundsArray = new int[fields.length];
+        for (int i = 0; i < soundsArray.length; i++) {
+            try {
+                soundsArray[i] = fields[i].getInt(fields[i]);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
 
