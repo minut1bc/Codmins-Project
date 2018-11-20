@@ -11,7 +11,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/preview_keyboard_background_image_view"
         android:scaleType="fitXY"
-        android:src="@drawable/background_1"
+        android:src="@drawable/background_01"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

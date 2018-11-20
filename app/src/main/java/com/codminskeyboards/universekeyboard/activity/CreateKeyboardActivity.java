@@ -247,17 +247,17 @@ public class CreateKeyboardActivity extends AppCompatActivity {
             GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);
             GlobalClass.vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.VIBRATION_VALUE, 0);
             GlobalClass.keyColorPosition = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, 1));
-            GlobalClass.fontColorPosition = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.two));
+            GlobalClass.fontColorPosition = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.color_02));
             GlobalClass.soundPosition = getSoundPos(GlobalClass.soundId);
             GlobalClass.fontPosition = getFontPos(GlobalClass.fontId);
 
         } else {        // Default keyboard values
             GlobalClass.backgroundPosition = 0;
-            GlobalClass.keyboardBackground = R.drawable.background_1;
+            GlobalClass.keyboardBackground = R.drawable.background_01;
             GlobalClass.colorPosition = 0;
             GlobalClass.drawableOrColor = 0;
-            GlobalClass.fontColor = getResources().getColor(R.color.two);
-            GlobalClass.keyColor = getResources().getColor(R.color.two);
+            GlobalClass.fontColor = getResources().getColor(R.color.color_02);
+            GlobalClass.keyColor = getResources().getColor(R.color.color_02);
             GlobalClass.keyRadius = 34;                                       // ranges between (0, 9, 18, 25, 34)
             GlobalClass.keyStroke = 1;                                        // ranges between (1, 2, 3, 4, 5)
             GlobalClass.keyOpacity = 64;                                      // ranges between (0, 64, 128, 192, 255)
