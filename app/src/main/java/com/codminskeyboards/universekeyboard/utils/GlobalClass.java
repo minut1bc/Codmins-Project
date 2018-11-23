@@ -3,7 +3,9 @@ package com.codminskeyboards.universekeyboard.utils;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.provider.Settings;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.DisplayMetrics;
 import android.view.inputmethod.InputMethodManager;
 
@@ -22,20 +24,18 @@ public class GlobalClass {
     private static SharedPreferences.Editor editor;
     private static SharedPreferences preferences;
 
-    public static final String KEYBOARD_BACKGROUND = "keyboardBackground";
-    public static final String KEY_COLOR = "keyColor";
-    public static final String KEY_RADIUS = "keyRadius";
-    public static final String KEY_OPACITY = "keyOpacity";
-    public static final String KEY_STROKE = "keyStroke";
-    public static final String FONT_COLOR = "fontColor";
-    public static final String FONT_NAME = "fontId";
-    public static final String SOUND_STATUS = "soundStatus";
-    public static final String SOUND_ID = "soundId";
-
+    public static final String BACKGROUND_IS_DRAWABLE = "backgroundIsDrawable";
     public static final String BACKGROUND_POSITION = "backgroundPosition";
-    public static final String COLOR_POSITION = "colorPosition";
-    public static final String DRAWABLE_OR_COLOR = "drawableOrColor";
+    public static final String BACKGROUND_COLOR_POSITION = "backgroundColorPosition";
+    public static final String KEY_RADIUS = "keyRadius";
+    public static final String KEY_STROKE = "keyStroke";
+    public static final String KEY_OPACITY = "keyOpacity";
+    public static final String KEY_COLOR_POSITION = "keyColorPosition";
+    public static final String FONT_POSITION = "fontPosition";
+    public static final String FONT_COLOR_POSITION = "fontColorPosition";
     public static final String VIBRATION_VALUE = "vibrationValue";
+    public static final String SOUND_POSITION = "soundPosition";
+    public static final String SOUND_ON = "soundOn";
 
     // for In-app Purchase
 
@@ -47,7 +47,6 @@ public class GlobalClass {
     public static final int RC_REQUEST_FONTS = 505;
     public static final int RC_REQUEST_SOUNDS = 506;
 
-    public static int drawableOrColor = 0;
 
     public static String REMOVE_AD = "universekeyboard.inapp.removead";
     public static String UNLOCK_TEXUAL_COLOR_BG = "universekeyboard.inapp.texualcolorbg";
@@ -56,30 +55,35 @@ public class GlobalClass {
     public static String UNLOCK_FONTS = "universekeyboard.inapp.fonts";
     public static String UNLOCK_SOUNDS = "universekeyboard.inapp.sounds";
 
-    public static int fontColor = 0;
-    public static int fontId = R.font.abel_regular;
-    public static boolean soundStatus = false;
-    public static int soundId = 0;
-    public static int keyboardBackground = R.drawable.background_01;
-    public static int keyColor = 0;
-    public static int keyOpacity = 0;
-    public static int keyStroke = 0;
-    public static int keyRadius = 0;
-    public static int colorPosition = 0;
+    public static boolean backgroundIsDrawable = true;
     public static int backgroundPosition = 0;
+    public static int backgroundColorPosition = 0;
+    public static int keyRadius = 0;
+    public static int keyStroke = 0;
+    public static int keyOpacity = 0;
     public static int keyColorPosition = 1;
-    public static int soundPosition = 0;
     public static int fontPosition = 0;
     public static int fontColorPosition = 1;
     public static int vibrationValue = 0;
+    public static int soundPosition = 0;
+    public static boolean soundOn = false;
+
     private static int countAds = 0;
 
-    public static String key_isWallPaperLock = "isWallPaperLock";
+    public static int[] backgroundArray;
+    public static int[] backgroundPreviewArray;
+    public static int[] colorsArray;
+    public static Typeface[] fontsArray;
+    public static int[] soundsArray;
+
+    public static ArrayList<KeyboardData> keyboardDataArray = new ArrayList<>();
+    public static KeyboardData[] testKeyboardDataArray;
+
+    public static String key_isBackgroundLock = "isBackgroundLock";
     public static String key_isFontLock = "isFontLock";
     public static String key_isColorLock = "isColorLock";
     public static String key_isAdLock = "isAdLock";
     public static String key_isSoundLock = "isSoundLock";
-    public static String key_isThemeLock = "isThemeLock";
 
     public static String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqgyXolVCkrSdFsdembldwrpGHmXPSvvA7mdegRUzufvziVIS9JtVnGS20EbmFTKcPLzyfwoXPSNbwvmKHJg7RnoiqcrQ4QbtkhsHmMO7paA+akHFTPQGLHN6TW5invO33A3VBu/hxMTj9jHr9jr0tGJWj5cWITc2BkUfHcD8SFkSUca/ruQRJg3DTWMqMRqSnTeGccQJBRx+sCU8MxYlp3BwwOyvEdmeCFsnhPLHRmk3MXv/JgVr3oEQylakq3PkNvDVXbO5GHRYR8bKD2YXVZ+56FsCxT4t3sQXCQQ84zp1tKN/nFm9pDAlXqEf9T1MQFZVriBzI8XsZCraLoVrVwIDAQAB";
 
@@ -163,7 +167,80 @@ public class GlobalClass {
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         return (int) dpWidth / 60;      // TODO: maybe change hardcoded 60 to value dependent on given view
     }
-    public static int[] backgroundArray = {
+
+    public static void setResourcesArrays(Context context) {
+        Field[] fields = R.drawable.class.getFields();
+        backgroundArray = new int[fields.length];
+        backgroundPreviewArray = new int[fields.length];
+        int j = 0;
+        int k = 0;
+        for (Field field : fields) {
+            if (field.getName().matches("background_[0-9]([0-9])?")) {
+                try {
+                    backgroundArray[j] = field.getInt(field);
+                    j++;
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (field.getName().matches("background_preview_[0-9]([0-9])?")) {
+                try {
+                    backgroundPreviewArray[k] = field.getInt(field);
+                    k++;
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        int[] tempArray = new int[j];
+        System.arraycopy(backgroundArray, 0, tempArray, 0, j);
+        backgroundArray = tempArray.clone();
+
+        tempArray = new int[k];
+        System.arraycopy(backgroundPreviewArray, 0, tempArray, 0, k);
+        backgroundPreviewArray = tempArray.clone();
+
+        j = 0;
+        fields = R.color.class.getFields();
+        colorsArray = new int[fields.length];
+        for (Field field : fields) {
+            if (field.getName().matches("color_[0-9][0-9]?"))
+                try {
+                    colorsArray[j] = field.getInt(field);
+                    j++;
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+        }
+
+        tempArray = new int[j];
+        System.arraycopy(colorsArray, 0, tempArray, 0, j);
+        colorsArray = tempArray.clone();
+
+        fields = R.font.class.getFields();
+        fontsArray = new Typeface[fields.length];
+        for (int i = 0; i < fields.length; i++) {
+            try {
+                fontsArray[i] = ResourcesCompat.getFont(context, fields[i].getInt(fields[i]));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        fields = R.raw.class.getFields();
+        soundsArray = new int[fields.length];
+        for (int i = 0; i < soundsArray.length; i++) {
+            try {
+                soundsArray[i] = fields[i].getInt(fields[i]);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+//    public static int[] backgroundArray = {
 //            R.drawable.background_01,
 //            R.drawable.background_02,
 //            R.drawable.background_03,
@@ -197,8 +274,9 @@ public class GlobalClass {
 //            R.drawable.background_31,
 //            R.drawable.background_32,
 //            R.drawable.background_33,
-    };
-    public static int[] backgroundPreviewArray = {
+//    };
+//
+//    public static int[] backgroundPreviewArray = {
 //            R.drawable.background_preview_01,
 //            R.drawable.background_preview_02,
 //            R.drawable.background_preview_03,
@@ -232,8 +310,9 @@ public class GlobalClass {
 //            R.drawable.background_preview_31,
 //            R.drawable.background_preview_32,
 //            R.drawable.background_preview_33,
-    };
-    public static int[] colorsArray = {
+//    };
+//
+//    public static int[] colorsArray = {
 //            R.color.color_1,
 //            R.color.color_2,
 //            R.color.color_03,
@@ -274,8 +353,9 @@ public class GlobalClass {
 //            R.color.color_38,
 //            R.color.color_39,
 //            R.color.color_40,
-    };
-    public static int[] fontsArray = {
+//    };
+//
+//    public static int[] fontsArray = {
 //            R.font.abel_regular,
 //            R.font.abraham_lincoln,
 //            R.font.american_typewriter_bold_android,
@@ -321,8 +401,9 @@ public class GlobalClass {
 //            R.font.sketchetik_light,
 //            R.font.sofia_regular,
 //            R.font.trend_hm_slab_five,
-    };
-    public static int[] soundsArray = {
+//    };
+//
+//    public static int[] soundsArray = {
 //            R.raw.balloon_snap,
 //            R.raw.bike_gear_shift,
 //            R.raw.close_cigarette_lighter,
@@ -353,79 +434,7 @@ public class GlobalClass {
 //            R.raw.tight_click,
 //            R.raw.toggle_switch,
 //            R.raw.typewriter_key,
-    };
-
-    public static void setResourcesArrays() {
-        Field[] fields = R.drawable.class.getFields();
-        backgroundArray = new int[fields.length];
-        backgroundPreviewArray = new int[fields.length];
-        int j = 0;
-        int k = 0;
-        for (int i = 0; i < fields.length; i++) {
-            if (fields[i].getName().matches("background_[0-9]([0-9])?")) {
-                try {
-                    backgroundArray[j] = fields[i].getInt(fields[i]);
-                    j++;
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (fields[i].getName().matches("background_preview_[0-9]([0-9])?")) {
-                try {
-                    backgroundPreviewArray[k] = fields[i].getInt(fields[i]);
-                    k++;
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        int[] tempArray = new int[j];
-        System.arraycopy(backgroundArray, 0, tempArray, 0, j);
-        backgroundArray = tempArray.clone();
-
-        tempArray = new int[k];
-        System.arraycopy(backgroundPreviewArray, 0, tempArray, 0, k);
-        backgroundPreviewArray = tempArray.clone();
-
-        j = 0;
-        fields = R.color.class.getFields();
-        colorsArray = new int[fields.length];
-        for (int i = 0; i < fields.length; i++) {
-            if (fields[i].getName().matches("color_[0-9][0-9]?"))
-                try {
-                    colorsArray[j] = fields[i].getInt(fields[i]);
-                    j++;
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-        }
-
-        tempArray = new int[j];
-        System.arraycopy(colorsArray, 0, tempArray, 0, j);
-        colorsArray = tempArray.clone();
-
-        fields = R.font.class.getFields();
-        fontsArray = new int[fields.length];
-        for (int i = 0; i < fields.length; i++) {
-            try {
-                fontsArray[i] = fields[i].getInt(fields[i]);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-
-        fields = R.raw.class.getFields();
-        soundsArray = new int[fields.length];
-        for (int i = 0; i < soundsArray.length; i++) {
-            try {
-                soundsArray[i] = fields[i].getInt(fields[i]);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    };
 
 }
 

@@ -8,7 +8,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,7 +27,6 @@ public class CreateKeyboardActivity extends AppCompatActivity {
 
     public InterstitialAd interstitialAd;
     private ImageView homeImageView;
-
     private TextView titleTextView;
     private Context context;
     private ConstraintLayout keysLayout;
@@ -46,9 +44,108 @@ public class CreateKeyboardActivity extends AppCompatActivity {
 
         setContent();
 
-        redrawKeyboard();
-
         setViewPager();
+
+        redrawKeyboard();
+    }
+
+    private void setContent() {
+        interstitialAd = new InterstitialAd(context);
+        interstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_full_screen));
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+
+        GlobalClass globalClass = new GlobalClass(context, interstitialAd);
+
+        homeImageView = findViewById(R.id.homeImageView);
+        TextView applyTextView = findViewById(R.id.applyTextView);
+        titleTextView = findViewById(R.id.titleTextView);
+        keysLayout = findViewById(R.id.keysLayout);
+        ImageView backgroundImageView = findViewById(R.id.backgroundImageView);
+
+        homeImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, MainActivity.class));
+                startAds();
+            }
+        });
+
+        applyTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KeyboardData keyboardData = new KeyboardData();
+                keyboardData.setBackgroundIsDrawable(GlobalClass.backgroundIsDrawable);
+                keyboardData.setBackgroundPosition(GlobalClass.backgroundPosition);
+                keyboardData.setBackgroundColorPosition(GlobalClass.backgroundColorPosition);
+                keyboardData.setKeyRadius(GlobalClass.keyRadius);
+                keyboardData.setKeyStroke(GlobalClass.keyStroke);
+                keyboardData.setKeyOpacity(GlobalClass.keyOpacity);
+                keyboardData.setKeyColorPosition(GlobalClass.keyColorPosition);
+                keyboardData.setFontPosition(GlobalClass.fontPosition);
+                keyboardData.setFontColorPosition(GlobalClass.fontColorPosition);
+                keyboardData.setVibrationValue(GlobalClass.vibrationValue);
+                keyboardData.setSoundPosition(GlobalClass.soundPosition);
+                keyboardData.setSoundOn(GlobalClass.soundOn);
+
+                if (isEdit) {
+                    boolean status = keyboardDataArrayList.get(editPosition).isSelected();
+                    keyboardDataArrayList.remove(editPosition);
+                    keyboardData.setSelected(status);
+                    keyboardDataArrayList.add(editPosition, keyboardData);
+                } else {
+                    keyboardDataArrayList.add(0, keyboardData);
+                }
+
+                GlobalClass.setPreferencesArrayList(context, keyboardDataArrayList);
+                finish();
+                startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startAds();
+            }
+        });
+
+        if (GlobalClass.getPreferencesArrayList(context) != null) {
+            keyboardDataArrayList = GlobalClass.getPreferencesArrayList(context);
+        }
+
+        if (getIntent().getBooleanExtra("isEdit", false)) {
+            isEdit = true;
+            editPosition = getIntent().getIntExtra("position", 0);
+
+            GlobalClass.backgroundIsDrawable = GlobalClass.getPreferencesBool(context, GlobalClass.BACKGROUND_IS_DRAWABLE, true);
+            GlobalClass.backgroundPosition = GlobalClass.getPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, 0);
+            GlobalClass.backgroundColorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.BACKGROUND_COLOR_POSITION, 0);
+            GlobalClass.keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 34);
+            GlobalClass.keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 1);
+            GlobalClass.keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 64);
+            GlobalClass.keyColorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, 1);
+            GlobalClass.fontPosition = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_POSITION, 0);
+            GlobalClass.fontColorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR_POSITION, 1);
+            GlobalClass.vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.VIBRATION_VALUE, 0);
+            GlobalClass.soundPosition = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_POSITION, 0);
+            GlobalClass.soundOn = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_ON, false);
+
+            if (GlobalClass.backgroundIsDrawable) {
+                backgroundImageView.setImageResource(GlobalClass.backgroundArray[GlobalClass.backgroundPosition]);
+            } else {
+                backgroundImageView.setImageResource(GlobalClass.colorsArray[GlobalClass.backgroundColorPosition]);
+            }
+
+        } else {        // Default keyboard values
+            GlobalClass.backgroundIsDrawable = true;
+            GlobalClass.backgroundPosition = 0;
+            GlobalClass.backgroundColorPosition = 0;
+            GlobalClass.keyRadius = 34;                                       // ranges between (0, 9, 18, 25, 34)
+            GlobalClass.keyStroke = 1;                                        // ranges between (1, 2, 3, 4, 5)
+            GlobalClass.keyOpacity = 64;                                      // ranges between (0, 64, 128, 192, 255)
+            GlobalClass.keyColorPosition = 1;
+            GlobalClass.fontPosition = 0;
+            GlobalClass.fontColorPosition = 1;
+            GlobalClass.vibrationValue = 0;
+            GlobalClass.soundPosition = 0;
+            GlobalClass.soundOn = false;
+
+            backgroundImageView.setImageResource(GlobalClass.backgroundArray[0]);       //TODO: Check if you can remove it
+        }
     }
 
     private void setViewPager() {
@@ -103,12 +200,14 @@ public class CreateKeyboardActivity extends AppCompatActivity {
     }
 
     public void redrawKeyboard() {
-        int fontColor = GlobalClass.fontColor;
+        int fontColor = getResources().getColor(GlobalClass.colorsArray[GlobalClass.fontColorPosition]);
+        int keyColor = getResources().getColor(GlobalClass.colorsArray[GlobalClass.keyColorPosition]);
         GradientDrawable keyBackground;
         for (int i = 0; i < keysLayout.getChildCount(); i++) {
             View child = keysLayout.getChildAt(i);
             if (child instanceof ImageView || child instanceof TextView) {
-                keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{GlobalClass.keyColor, GlobalClass.keyColor});
+                keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
+                        new int[]{keyColor, keyColor});
                 keyBackground.setBounds(child.getLeft() + 5, child.getTop() + 5, child.getRight() - 5, child.getBottom() - 5);
                 keyBackground.setCornerRadius(GlobalClass.keyRadius);
                 keyBackground.setAlpha(GlobalClass.keyOpacity);
@@ -135,11 +234,12 @@ public class CreateKeyboardActivity extends AppCompatActivity {
 
                 if (child instanceof TextView) {
                     ((TextView) child).setTextColor(fontColor);
-                    ((TextView) child).setTypeface(ResourcesCompat.getFont(context, GlobalClass.fontId));
+                    ((TextView) child).setTypeface(GlobalClass.fontsArray[GlobalClass.fontPosition]);
                 }
 
-                if (child instanceof ImageView)
-                    ((ImageView) child).setColorFilter((fontColor), PorterDuff.Mode.SRC_ATOP);
+                if (child instanceof ImageView) {
+                    ((ImageView) child).setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
+                }
             }
         }
     }
@@ -147,130 +247,6 @@ public class CreateKeyboardActivity extends AppCompatActivity {
     public void startAds() {
         if (interstitialAd.isLoaded())
             interstitialAd.show();
-    }
-
-    private int getColorPos(int colorCode) {
-        for (int i = 0; i < GlobalClass.colorsArray.length; i++)
-            if (getResources().getColor(GlobalClass.colorsArray[i]) == colorCode)
-                return i;
-        return -1;
-    }
-
-    private int getSoundPos(int soundCode) {
-        for (int i = 0; i < GlobalClass.soundsArray.length; i++)
-            if (GlobalClass.soundsArray[i] == soundCode)
-                return i;
-        return 0;
-    }
-
-    private int getFontPos(int fontId) {
-        for (int i = 0; i < GlobalClass.fontsArray.length; i++)
-            if (GlobalClass.fontsArray[i] == fontId)
-                return i;
-        return 0;
-    }
-
-    public static String removeWords(String word, String remove) {
-        return word.replace(remove, "");
-    }
-
-    private void setContent() {
-        interstitialAd = new InterstitialAd(context);
-        interstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_full_screen));
-        interstitialAd.loadAd(new AdRequest.Builder().build());
-
-        GlobalClass globalClass = new GlobalClass(context, interstitialAd);
-
-        homeImageView = findViewById(R.id.homeImageView);
-        TextView applyTextView = findViewById(R.id.applyTextView);
-        titleTextView = findViewById(R.id.titleTextView);
-        keysLayout = findViewById(R.id.keysLayout);
-        ImageView backgroundImageView = findViewById(R.id.backgroundImageView);
-
-        homeImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, MainActivity.class));
-                startAds();
-            }
-        });
-
-        applyTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                KeyboardData keyboardData = new KeyboardData();
-                keyboardData.setKeyboardBackground(GlobalClass.keyboardBackground);
-                keyboardData.setKeyColor(GlobalClass.keyColor);
-                keyboardData.setKeyRadius(GlobalClass.keyRadius);
-                keyboardData.setKeyStroke(GlobalClass.keyStroke);
-                keyboardData.setKeyOpacity(GlobalClass.keyOpacity);
-                keyboardData.setFontColor(GlobalClass.fontColor);
-                keyboardData.setFontId(GlobalClass.fontId);
-                keyboardData.setSoundStatus(GlobalClass.soundStatus);
-                keyboardData.setSoundId(GlobalClass.soundId);
-                keyboardData.setVibrationValue(GlobalClass.vibrationValue);
-                keyboardData.setBackgroundPosition(GlobalClass.backgroundPosition);
-                keyboardData.setColorPosition(GlobalClass.colorPosition);
-                keyboardData.setDrawableOrColor(GlobalClass.drawableOrColor);
-
-                if (isEdit) {
-                    boolean status = keyboardDataArrayList.get(editPosition).isSelected();
-                    keyboardDataArrayList.remove(editPosition);
-                    keyboardData.setSelected(status);
-                    keyboardDataArrayList.add(editPosition, keyboardData);
-                } else
-                    keyboardDataArrayList.add(0, keyboardData);
-
-                GlobalClass.setPreferencesArrayList(context, keyboardDataArrayList);
-                finish();
-                startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                startAds();
-            }
-        });
-
-        if (GlobalClass.getPreferencesArrayList(context) != null)
-            keyboardDataArrayList = GlobalClass.getPreferencesArrayList(context);
-
-        if (getIntent().getBooleanExtra("isEdit", false)) {
-            isEdit = true;
-            editPosition = getIntent().getIntExtra("position", 0);
-
-            backgroundImageView.setImageResource(GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, 0));
-            GlobalClass.backgroundPosition = GlobalClass.getPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, 0);
-            GlobalClass.colorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.COLOR_POSITION, 0);
-            GlobalClass.drawableOrColor = GlobalClass.getPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, 0);
-            GlobalClass.keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
-            GlobalClass.keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
-            GlobalClass.keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
-            GlobalClass.fontId = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_NAME, R.font.abel_regular);
-            GlobalClass.soundStatus = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_STATUS, false);
-            GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);
-            GlobalClass.vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.VIBRATION_VALUE, 0);
-            GlobalClass.keyColorPosition = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, 1));
-            GlobalClass.fontColorPosition = getColorPos(GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.color_02));
-            GlobalClass.soundPosition = getSoundPos(GlobalClass.soundId);
-            GlobalClass.fontPosition = getFontPos(GlobalClass.fontId);
-
-        } else {        // Default keyboard values
-            GlobalClass.backgroundPosition = 0;
-            GlobalClass.keyboardBackground = R.drawable.background_01;
-            GlobalClass.colorPosition = 0;
-            GlobalClass.drawableOrColor = 0;
-            GlobalClass.fontColor = getResources().getColor(R.color.color_02);
-            GlobalClass.keyColor = getResources().getColor(R.color.color_02);
-            GlobalClass.keyRadius = 34;                                       // ranges between (0, 9, 18, 25, 34)
-            GlobalClass.keyStroke = 1;                                        // ranges between (1, 2, 3, 4, 5)
-            GlobalClass.keyOpacity = 64;                                      // ranges between (0, 64, 128, 192, 255)
-            GlobalClass.fontId = R.font.abel_regular;
-            GlobalClass.soundStatus = false;
-            GlobalClass.soundId = 0;
-            GlobalClass.vibrationValue = 0;
-            GlobalClass.keyColorPosition = 1;
-            GlobalClass.fontColorPosition = 1;
-            GlobalClass.soundPosition = 0;
-            GlobalClass.fontPosition = 0;
-            backgroundImageView.setImageResource(GlobalClass.keyboardBackground);
-        }
     }
 
     @Override

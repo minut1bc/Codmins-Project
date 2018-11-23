@@ -51,9 +51,8 @@ public class BackgroundFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         backgroundImageView.setImageResource(GlobalClass.colorsArray[position]);
-                        GlobalClass.colorPosition = position;
-                        GlobalClass.drawableOrColor = 1;
-                        GlobalClass.keyboardBackground = GlobalClass.colorsArray[position];
+                        GlobalClass.backgroundColorPosition = position;
+                        GlobalClass.backgroundIsDrawable = false;
                         backgroundColorAdapter.notifyDataSetChanged();
                         backgroundAdapter.notifyDataSetChanged();
                         GlobalClass.checkStartAd();
@@ -70,8 +69,7 @@ public class BackgroundFragment extends Fragment {
             public void onItemClick(View view, int position) {
                 backgroundImageView.setImageResource(GlobalClass.backgroundArray[position]);
                 GlobalClass.backgroundPosition = position;
-                GlobalClass.drawableOrColor = 0;
-                GlobalClass.keyboardBackground = GlobalClass.backgroundArray[position];
+                GlobalClass.backgroundIsDrawable = true;
                 backgroundAdapter.notifyDataSetChanged();
                 backgroundColorAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();

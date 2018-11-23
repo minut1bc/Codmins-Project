@@ -36,12 +36,12 @@ public class BackgroundAdapter extends RecyclerView.Adapter<BackgroundAdapter.Ba
     public void onBindViewHolder(@NonNull BackgroundViewHolder holder, int position) {
         holder.backgroundItemImageView.setImageResource(backgroundArray[position]);
 
-        if (position == GlobalClass.backgroundPosition && GlobalClass.drawableOrColor == 0)
+        if (position == GlobalClass.backgroundPosition && GlobalClass.backgroundIsDrawable)
             holder.outlineImageView.setVisibility(View.VISIBLE);
         else
             holder.outlineImageView.setVisibility(View.GONE);
 
-        if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isWallPaperLock, true)) {
+        if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isBackgroundLock, true)) {
             if (position > 22) {
                 holder.lockImageView.setVisibility(View.VISIBLE);
                 holder.lockImageView.setOnClickListener(new View.OnClickListener() {

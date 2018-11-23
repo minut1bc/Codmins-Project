@@ -57,12 +57,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //          if we were disposed of in the meantime, quit.
 //          if (iabHelper == null) return;
 
-            // We know this is the "gas" sku because it's the only one we consume,
-            // so we don't check which sku was consumed. If you have more than one
-            // sku, you probably should check...
+    // We know this is the "gas" sku because it's the only one we consume,
+    // so we don't check which sku was consumed. If you have more than one
+    // sku, you probably should check...
 //            if (result.isSuccess()) {
-                // successfully consumed, so we apply the effects of the item in our
-                // game world's logic, which in our case means filling the gas tank a bit
+    // successfully consumed, so we apply the effects of the item in our
+    // game world's logic, which in our case means filling the gas tank a bit
 //                GlobalClass.printLog(TAG, "Consumption successful. Provisioning.");
 //            } else {
 //                complain("Error while consuming: " + result);
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContent();
 
-        GlobalClass.setResourcesArrays();
+        GlobalClass.setResourcesArrays(context);
 
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isAdLock, true))
             setAdMob();
@@ -268,16 +268,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (keyboardDataArrayList.size() != 0) {
                 for (int i = 0; i < keyboardDataArrayList.size(); i++)
                     if (keyboardDataArrayList.get(i).isSelected()) {
-                        GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, keyboardDataArrayList.get(i).getKeyboardBackground());
-                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR, keyboardDataArrayList.get(i).getKeyColor());
+                        GlobalClass.setPreferencesBool(context, GlobalClass.BACKGROUND_IS_DRAWABLE, keyboardDataArrayList.get(i).getBackgroundIsDrawable());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, keyboardDataArrayList.get(i).getBackgroundPosition());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_COLOR_POSITION, keyboardDataArrayList.get(i).getBackgroundColorPosition());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, keyboardDataArrayList.get(i).getKeyRadius());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardDataArrayList.get(i).getKeyStroke());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardDataArrayList.get(i).getKeyOpacity());
-                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, keyboardDataArrayList.get(i).getFontColor());
-                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, keyboardDataArrayList.get(i).getFontId());
-                        GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(i).getSoundStatus());
-                        GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardDataArrayList.get(i).getSoundId());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, keyboardDataArrayList.get(i).getKeyColorPosition());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_POSITION, keyboardDataArrayList.get(i).getFontPosition());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR_POSITION, keyboardDataArrayList.get(i).getFontColorPosition());
                         GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, keyboardDataArrayList.get(i).getVibrationValue());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_POSITION, keyboardDataArrayList.get(i).getSoundPosition());
+                        GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_ON, keyboardDataArrayList.get(i).getSoundOn());
                     }
 
                 keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(context, keyboardDataArrayList);
@@ -291,19 +293,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (keyboardDataArrayList.size() == 1) {
                     keyboardDataArrayList.get(0).setSelected(true);
                     applyImageView.setImageDrawable(getResources().getDrawable(R.drawable.btn_apply));
-                    GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyboardBackground());
-                    GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyColor());
+
+                    GlobalClass.setPreferencesBool(context, GlobalClass.BACKGROUND_IS_DRAWABLE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBackgroundIsDrawable());
+                    GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBackgroundPosition());
+                    GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_COLOR_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBackgroundColorPosition());
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyRadius());
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyStroke());
                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyOpacity());
-                    GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontColor());
-                    GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontId());
-                    GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundStatus());
-                    GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundId());
+                    GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyColorPosition());
+                    GlobalClass.setPreferencesInt(context, GlobalClass.FONT_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontPosition());
+                    GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontColorPosition());
                     GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getVibrationValue());
-                    GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBackgroundPosition());
-                    GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getColorPosition());
-                    GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getDrawableOrColor());
+                    GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundPosition());
+                    GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_ON, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundOn());
                 } else
                     applyImageView.setImageDrawable(getResources().getDrawable(R.drawable.btn_disable));
 
@@ -391,36 +393,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         setDefaultValue();
 
+                        GlobalClass.backgroundIsDrawable = true;
                         GlobalClass.backgroundPosition = 0;
-                        GlobalClass.keyboardBackground = R.drawable.background_01;
-                        GlobalClass.colorPosition = 0;
-                        GlobalClass.drawableOrColor = 0;
-                        GlobalClass.fontColor = getResources().getColor(R.color.color_02);
-                        GlobalClass.keyColor = getResources().getColor(R.color.color_02);
+                        GlobalClass.backgroundColorPosition = 0;
                         GlobalClass.keyRadius = 34;
                         GlobalClass.keyStroke = 1;
                         GlobalClass.keyOpacity = 64;
-                        GlobalClass.fontId = R.font.abel_regular;
-                        GlobalClass.soundStatus = false;
-                        GlobalClass.soundId = 0;
                         GlobalClass.keyColorPosition = 1;
-                        GlobalClass.fontColorPosition = 1;
-                        GlobalClass.soundPosition = 0;
                         GlobalClass.fontPosition = 0;
+                        GlobalClass.fontColorPosition = 1;
+                        GlobalClass.vibrationValue = 0;
+                        GlobalClass.soundPosition = 0;
+                        GlobalClass.soundOn = false;
 
-                        GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, GlobalClass.keyboardBackground);
-                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR, GlobalClass.keyColor);
+                        GlobalClass.setPreferencesBool(context, GlobalClass.BACKGROUND_IS_DRAWABLE, GlobalClass.backgroundIsDrawable);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, GlobalClass.backgroundPosition);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_COLOR_POSITION, GlobalClass.backgroundColorPosition);
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, GlobalClass.keyRadius);
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.keyStroke);
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, GlobalClass.keyOpacity);
-                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, GlobalClass.fontColor);
-                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, GlobalClass.fontId);
-                        GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
-                        GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, GlobalClass.soundId);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, GlobalClass.keyColorPosition);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_POSITION, GlobalClass.fontPosition);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR_POSITION, GlobalClass.fontColorPosition);
                         GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, GlobalClass.vibrationValue);
-                        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, GlobalClass.backgroundPosition);
-                        GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, GlobalClass.colorPosition);
-                        GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, GlobalClass.drawableOrColor);
+                        GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_POSITION, GlobalClass.soundPosition);
+                        GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_ON, GlobalClass.soundOn);
                     } else {
                         for (int i = 0; i < keyboardDataArrayList.size(); i++) {
                             if (i == viewPager.getCurrentItem())
@@ -430,19 +427,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         applyImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.btn_apply));
 
-                        GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyboardBackground());
-                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyColor());
+                        GlobalClass.setPreferencesBool(context, GlobalClass.BACKGROUND_IS_DRAWABLE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBackgroundIsDrawable());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBackgroundPosition());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_COLOR_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBackgroundColorPosition());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyRadius());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyStroke());
                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyOpacity());
-                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontColor());
-                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontId());
-                        GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundStatus());
-                        GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundId());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getKeyColorPosition());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontPosition());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getFontColorPosition());
                         GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, keyboardDataArrayList.get(viewPager.getCurrentItem()).getVibrationValue());
-                        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getBackgroundPosition());
-                        GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getColorPosition());
-                        GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, keyboardDataArrayList.get(viewPager.getCurrentItem()).getDrawableOrColor());
+                        GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_POSITION, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundPosition());
+                        GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_ON, keyboardDataArrayList.get(viewPager.getCurrentItem()).getSoundOn());
                     }
                 } else
                     startActivity(new Intent(context, SetKeyboardActivity.class));
@@ -482,36 +478,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         addKeyboardImageView.setVisibility(View.GONE);
                                     }
 
+                                    GlobalClass.backgroundIsDrawable = true;
                                     GlobalClass.backgroundPosition = 0;
-                                    GlobalClass.keyboardBackground = R.drawable.background_01;
-                                    GlobalClass.colorPosition = 0;
-                                    GlobalClass.drawableOrColor = 0;
-                                    GlobalClass.fontColor = getResources().getColor(R.color.color_02);
-                                    GlobalClass.keyColor = getResources().getColor(R.color.color_08);
-                                    GlobalClass.keyRadius = 18;
-                                    GlobalClass.keyStroke = 2;
-                                    GlobalClass.keyOpacity = 255;
-                                    GlobalClass.fontId = R.font.abel_regular;
-                                    GlobalClass.soundStatus = false;
-                                    GlobalClass.soundId = 0;
+                                    GlobalClass.backgroundColorPosition = 0;
+                                    GlobalClass.keyRadius = 34;
+                                    GlobalClass.keyStroke = 1;
+                                    GlobalClass.keyOpacity = 64;
                                     GlobalClass.keyColorPosition = 1;
-                                    GlobalClass.fontColorPosition = 1;
-                                    GlobalClass.soundPosition = 0;
                                     GlobalClass.fontPosition = 0;
+                                    GlobalClass.fontColorPosition = 1;
+                                    GlobalClass.vibrationValue = 0;
+                                    GlobalClass.soundPosition = 0;
+                                    GlobalClass.soundOn = false;
 
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, GlobalClass.keyboardBackground);
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR, GlobalClass.keyColor);
+                                    GlobalClass.setPreferencesBool(context, GlobalClass.BACKGROUND_IS_DRAWABLE, GlobalClass.backgroundIsDrawable);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, GlobalClass.backgroundPosition);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_COLOR_POSITION, GlobalClass.backgroundColorPosition);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, GlobalClass.keyRadius);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.keyStroke);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, GlobalClass.keyOpacity);
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, GlobalClass.fontColor);
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, GlobalClass.fontId);
-                                    GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, GlobalClass.soundId);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, GlobalClass.keyColorPosition);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.FONT_POSITION, GlobalClass.fontPosition);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR_POSITION, GlobalClass.fontColorPosition);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, GlobalClass.vibrationValue);
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, GlobalClass.backgroundPosition);
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, GlobalClass.colorPosition);
-                                    GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, GlobalClass.drawableOrColor);
+                                    GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_POSITION, GlobalClass.soundPosition);
+                                    GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_ON, GlobalClass.soundOn);
                                 } else {
                                     if (keyboardDataArrayList.size() != 0) {
                                         keyboardDataArrayList.remove(viewPager.getCurrentItem());
@@ -531,36 +522,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         keyboardDataLayout.setVisibility(View.GONE);
                                         addKeyboardImageView.setVisibility(View.GONE);
 
+                                        GlobalClass.backgroundIsDrawable = true;
                                         GlobalClass.backgroundPosition = 0;
-                                        GlobalClass.keyboardBackground = R.drawable.background_01;
-                                        GlobalClass.colorPosition = 0;
-                                        GlobalClass.drawableOrColor = 0;
-                                        GlobalClass.fontColor = getResources().getColor(R.color.color_02);
-                                        GlobalClass.keyColor = getResources().getColor(R.color.color_08);
-                                        GlobalClass.keyRadius = 18;
-                                        GlobalClass.keyStroke = 2;
-                                        GlobalClass.keyOpacity = 255;
-                                        GlobalClass.fontId = R.font.abel_regular;
-                                        GlobalClass.soundStatus = false;
-                                        GlobalClass.soundId = 0;
-                                        GlobalClass.keyColorPosition = 1;
-                                        GlobalClass.fontColorPosition = 1;
-                                        GlobalClass.soundPosition = 0;
+                                        GlobalClass.backgroundColorPosition = 0;
+                                        GlobalClass.keyRadius = 34;
+                                        GlobalClass.keyStroke = 1;
+                                        GlobalClass.keyOpacity = 64;
+                                        GlobalClass.keyColorPosition = 0;
                                         GlobalClass.fontPosition = 0;
+                                        GlobalClass.fontColorPosition = 0;
+                                        GlobalClass.vibrationValue = 0;
+                                        GlobalClass.soundPosition = 0;
+                                        GlobalClass.soundOn = false;
 
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, GlobalClass.keyboardBackground);
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR, GlobalClass.keyColor);
+                                        GlobalClass.setPreferencesBool(context, GlobalClass.BACKGROUND_IS_DRAWABLE, GlobalClass.backgroundIsDrawable);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, GlobalClass.backgroundPosition);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_COLOR_POSITION, GlobalClass.backgroundColorPosition);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, GlobalClass.keyRadius);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.keyStroke);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, GlobalClass.keyOpacity);
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, GlobalClass.fontColor);
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, GlobalClass.fontId);
-                                        GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, GlobalClass.soundId);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, GlobalClass.keyColorPosition);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_POSITION, GlobalClass.fontPosition);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR_POSITION, GlobalClass.fontColorPosition);
                                         GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, GlobalClass.vibrationValue);
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, GlobalClass.backgroundPosition);
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, GlobalClass.colorPosition);
-                                        GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, GlobalClass.drawableOrColor);
+                                        GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_POSITION, GlobalClass.soundPosition);
+                                        GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_ON, GlobalClass.soundOn);
                                     }
                                 }
                                 circleIndicator.setViewPager(viewPager);
@@ -574,33 +560,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void setDefaultValue() {
-        GlobalClass.keyboardBackground = GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, R.drawable.background_01);
-        GlobalClass.keyColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, getResources().getColor(R.color.color_08));
-        GlobalClass.keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
-        GlobalClass.keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
-        GlobalClass.keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
-        GlobalClass.fontColor = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.color_02);
-        GlobalClass.fontId = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_NAME, R.font.abel_regular);
-        GlobalClass.soundStatus = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_STATUS, false);
-        GlobalClass.soundId = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_ID, R.raw.balloon_snap);
-        GlobalClass.vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.VIBRATION_VALUE, 0);
+        GlobalClass.backgroundIsDrawable = GlobalClass.getPreferencesBool(context, GlobalClass.BACKGROUND_IS_DRAWABLE, true);
         GlobalClass.backgroundPosition = GlobalClass.getPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, 0);
-        GlobalClass.colorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.COLOR_POSITION, 0);
-        GlobalClass.drawableOrColor = GlobalClass.getPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, 0);
+        GlobalClass.backgroundColorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.BACKGROUND_COLOR_POSITION, 0);
+        GlobalClass.keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 34);
+        GlobalClass.keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 1);
+        GlobalClass.keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 64);
+        GlobalClass.keyColorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, 1);
+        GlobalClass.fontPosition = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_POSITION, 0);
+        GlobalClass.fontColorPosition = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR_POSITION, 1);
+        GlobalClass.vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.VIBRATION_VALUE, 0);
+        GlobalClass.soundPosition = GlobalClass.getPreferencesInt(context, GlobalClass.SOUND_POSITION, 0);
+        GlobalClass.soundOn = GlobalClass.getPreferencesBool(context, GlobalClass.SOUND_ON, false);
 
-        GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, GlobalClass.keyboardBackground);
-        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR, GlobalClass.keyColor);
+        GlobalClass.setPreferencesBool(context, GlobalClass.BACKGROUND_IS_DRAWABLE, GlobalClass.backgroundIsDrawable);
+        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, GlobalClass.backgroundPosition);
+        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_COLOR_POSITION, GlobalClass.backgroundColorPosition);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, GlobalClass.keyRadius);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, GlobalClass.keyStroke);
         GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, GlobalClass.keyOpacity);
-        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, GlobalClass.fontColor);
-        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, GlobalClass.fontId);
-        GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, GlobalClass.soundStatus);
-        GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, GlobalClass.soundId);
+        GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, GlobalClass.keyColorPosition);
+        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_POSITION, GlobalClass.fontPosition);
+        GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR_POSITION, GlobalClass.fontColorPosition);
         GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, GlobalClass.vibrationValue);
-        GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, GlobalClass.backgroundPosition);
-        GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, GlobalClass.colorPosition);
-        GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, GlobalClass.drawableOrColor);
+        GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_POSITION, GlobalClass.soundPosition);
+        GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_ON, GlobalClass.soundOn);
     }
 
     @Override

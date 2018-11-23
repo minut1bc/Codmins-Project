@@ -8,7 +8,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,16 +67,21 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
         if (BuildConfig.VERSION_CODE >= 21)
             view.setClipToOutline(true);
 
-        backgroundImageView.setImageResource(keyboardArrayList.get(position).getKeyboardBackground());
+        if (keyboardArrayList.get(position).getBackgroundIsDrawable()) {
+            backgroundImageView.setImageResource(GlobalClass.backgroundArray[keyboardArrayList.get(position).getBackgroundPosition()]);
+        } else {
+            backgroundImageView.setImageResource(GlobalClass.colorsArray[keyboardArrayList.get(position).getBackgroundColorPosition()]);
+        }
 
-        int fontColor = keyboardArrayList.get(position).getFontColor();
+        int fontColor = context.getResources().getColor(GlobalClass.colorsArray[keyboardArrayList.get(position).getFontColorPosition()]);
+        int keyColor = context.getResources().getColor(GlobalClass.colorsArray[keyboardArrayList.get(position).getKeyColorPosition()]);
+
         shiftImageView.setColorFilter(fontColor);
         enterImageView.setColorFilter(fontColor);
         backspaceImageView.setColorFilter(fontColor);
         emojiImageView.setColorFilter(fontColor);
         spaceImageView.setColorFilter(fontColor);
 
-        int keyColor = keyboardArrayList.get(position).getKeyColor();
 
         GradientDrawable keyBackground;
         for (int i = 0; i < keysLayout.getChildCount(); i++) {
@@ -85,9 +89,10 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
 
             GlobalClass.printLog("call the setRadius", "----if---------" + i);
             if (child instanceof ImageView || child instanceof TextView) {
-                keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyColor, keyColor});
-                keyBackground.setBounds(child.getLeft() + 5, child.getTop() + 5, child.getRight() - 5, child.getBottom() - 5);
-
+                keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
+                        new int[]{keyColor, keyColor});
+                keyBackground.setBounds(child.getLeft() + 5, child.getTop() + 5,
+                        child.getRight() - 5, child.getBottom() - 5);
                 keyBackground.setCornerRadius(keyboardArrayList.get(position).getKeyRadius());
                 keyBackground.setAlpha(keyboardArrayList.get(position).getKeyOpacity());
 
@@ -114,7 +119,7 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
                 if (child instanceof TextView) {
                     ((TextView) child).setTextColor(fontColor);
                     ((TextView) child).setTextSize(10);
-                    ((TextView) child).setTypeface(ResourcesCompat.getFont(context, keyboardArrayList.get(position).getFontId()));
+                    ((TextView) child).setTypeface(GlobalClass.fontsArray[keyboardArrayList.get(position).getFontPosition()]);
                 }
             }
         }
@@ -124,33 +129,31 @@ public class KeyboardViewPagerAdapter extends PagerAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GlobalClass.keyboardBackground = keyboardArrayList.get(position).getKeyboardBackground();
-                GlobalClass.keyColor = keyboardArrayList.get(position).getKeyColor();
+                GlobalClass.backgroundIsDrawable = keyboardArrayList.get(position).getBackgroundIsDrawable();
+                GlobalClass.backgroundPosition = keyboardArrayList.get(position).getBackgroundPosition();
+                GlobalClass.backgroundColorPosition = keyboardArrayList.get(position).getBackgroundColorPosition();
                 GlobalClass.keyRadius = keyboardArrayList.get(position).getKeyRadius();
                 GlobalClass.keyStroke = keyboardArrayList.get(position).getKeyStroke();
                 GlobalClass.keyOpacity = keyboardArrayList.get(position).getKeyOpacity();
-                GlobalClass.fontColor = keyboardArrayList.get(position).getFontColor();
-                GlobalClass.fontId = keyboardArrayList.get(position).getFontId();
-                GlobalClass.soundStatus = keyboardArrayList.get(position).getSoundStatus();
-                GlobalClass.soundId = keyboardArrayList.get(position).getSoundId();
+                GlobalClass.keyColorPosition = keyboardArrayList.get(position).getKeyColorPosition();
+                GlobalClass.fontPosition = keyboardArrayList.get(position).getFontPosition();
+                GlobalClass.fontColorPosition = keyboardArrayList.get(position).getFontColorPosition();
                 GlobalClass.vibrationValue = keyboardArrayList.get(position).getVibrationValue();
-                GlobalClass.backgroundPosition = keyboardArrayList.get(position).getBackgroundPosition();
-                GlobalClass.colorPosition = keyboardArrayList.get(position).getColorPosition();
-                GlobalClass.drawableOrColor = keyboardArrayList.get(position).getDrawableOrColor();
+                GlobalClass.soundPosition = keyboardArrayList.get(position).getSoundPosition();
+                GlobalClass.soundOn = keyboardArrayList.get(position).getSoundOn();
 
-                GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_BACKGROUND, keyboardArrayList.get(position).getKeyboardBackground());
-                GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR, keyboardArrayList.get(position).getKeyColor());
+                GlobalClass.setPreferencesBool(context, GlobalClass.BACKGROUND_IS_DRAWABLE, keyboardArrayList.get(position).getBackgroundIsDrawable());
+                GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, keyboardArrayList.get(position).getBackgroundPosition());
+                GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_COLOR_POSITION, keyboardArrayList.get(position).getBackgroundColorPosition());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_RADIUS, keyboardArrayList.get(position).getKeyRadius());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_STROKE, keyboardArrayList.get(position).getKeyStroke());
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEY_OPACITY, keyboardArrayList.get(position).getKeyOpacity());
-                GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR, keyboardArrayList.get(position).getFontColor());
-                GlobalClass.setPreferencesInt(context, GlobalClass.FONT_NAME, keyboardArrayList.get(position).getFontId());
-                GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_STATUS, keyboardArrayList.get(position).getSoundStatus());
-                GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_ID, keyboardArrayList.get(position).getSoundId());
+                GlobalClass.setPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, keyboardArrayList.get(position).getKeyColorPosition());
+                GlobalClass.setPreferencesInt(context, GlobalClass.FONT_POSITION, keyboardArrayList.get(position).getFontPosition());
+                GlobalClass.setPreferencesInt(context, GlobalClass.FONT_COLOR_POSITION, keyboardArrayList.get(position).getFontColorPosition());
                 GlobalClass.setPreferencesInt(context, GlobalClass.VIBRATION_VALUE, keyboardArrayList.get(position).getVibrationValue());
-                GlobalClass.setPreferencesInt(context, GlobalClass.BACKGROUND_POSITION, keyboardArrayList.get(position).getBackgroundPosition());
-                GlobalClass.setPreferencesInt(context, GlobalClass.COLOR_POSITION, keyboardArrayList.get(position).getColorPosition());
-                GlobalClass.setPreferencesInt(context, GlobalClass.DRAWABLE_OR_COLOR, keyboardArrayList.get(position).getDrawableOrColor());
+                GlobalClass.setPreferencesInt(context, GlobalClass.SOUND_POSITION, keyboardArrayList.get(position).getSoundPosition());
+                GlobalClass.setPreferencesBool(context, GlobalClass.SOUND_ON, keyboardArrayList.get(position).getSoundOn());
 
                 Intent intent = new Intent(context, CreateKeyboardActivity.class);
                 intent.putExtra("isEdit", true);

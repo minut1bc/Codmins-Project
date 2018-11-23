@@ -350,7 +350,6 @@ public class KeyDesignFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 GlobalClass.keyColorPosition = position;
-                GlobalClass.keyColor = context.getResources().getColor(GlobalClass.colorsArray[position]);
                 if (createKeyboardActivity != null)
                     createKeyboardActivity.redrawKeyboard();
 

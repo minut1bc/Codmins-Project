@@ -11,7 +11,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.inputmethodservice.KeyboardView;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -44,7 +43,8 @@ public class LatinKeyboardView extends KeyboardView {
     public LatinKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-        int keyColor = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR, getResources().getColor(R.color.color_08));
+
+        int keyColor = getResources().getColor(GlobalClass.colorsArray[GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, 1)]);
 
         keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyColor, keyColor});
         keyPressedBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyColor, keyColor});
@@ -70,11 +70,11 @@ public class LatinKeyboardView extends KeyboardView {
         List<Key> keys;
         keys = getKeyboard().getKeys();
 
-        int fontColor = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR, R.color.color_02);
+        int fontColor = getResources().getColor(GlobalClass.colorsArray[GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR_POSITION, 1)]);
         int keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
         int keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
         int keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
-        int fontId = GlobalClass.getPreferencesInt(context, GlobalClass.FONT_NAME, R.font.abel_regular);
+        Typeface font = GlobalClass.fontsArray[GlobalClass.getPreferencesInt(context, GlobalClass.FONT_POSITION, 0)];
         int tint = 0x77000000;
 
         for (Key key : keys) {
@@ -162,10 +162,7 @@ public class LatinKeyboardView extends KeyboardView {
                         paint.setTypeface(Typeface.DEFAULT);
                         paint.setTextAlign(Paint.Align.CENTER);
                         paint.setColor(fontColor);
-                        Typeface font = Typeface.DEFAULT;
 
-                        if (fontId != 0)
-                            font = ResourcesCompat.getFont(context, fontId);
                         paint.setTypeface(font);
 
                         canvas.drawText(keyLabel, key.x + (key.width / 2), (float) (key.y + (key.height / 1.8) + getResources().getDimension(R.dimen.text_top_margin)), paint);

@@ -2,8 +2,8 @@ package com.codminskeyboards.universekeyboard.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +17,9 @@ import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
 public class FontAdapter extends RecyclerView.Adapter<FontAdapter.FontViewHolder> {
     private Context context;
-    private int[] fontsArray;
+    private Typeface[] fontsArray;
 
-    public FontAdapter(Context context, int[] fontsArray) {
+    public FontAdapter(Context context, Typeface[] fontsArray) {
         super();
         this.context = context;
         this.fontsArray = fontsArray;
@@ -61,7 +61,7 @@ public class FontAdapter extends RecyclerView.Adapter<FontAdapter.FontViewHolder
         else
             holder.outlineImageView.setVisibility(View.GONE);
 
-        holder.fontTextView.setTypeface(ResourcesCompat.getFont(context, fontsArray[position]));
+        holder.fontTextView.setTypeface(fontsArray[position]);
     }
 
     class FontViewHolder extends RecyclerView.ViewHolder {

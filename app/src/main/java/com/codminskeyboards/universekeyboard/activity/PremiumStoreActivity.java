@@ -104,7 +104,7 @@ public class PremiumStoreActivity extends AppCompatActivity implements View.OnCl
 //            GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isAdLock, false);
 //            break;
 //        case "universekeyboard.inapp.texualcolorbg":
-//            GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isWallPaperLock, false);
+//            GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isBackgroundLock, false);
 //            break;
 //        case "universekeyboard.inapp.theamslotes":
 //            GlobalClass.setPreferencesBool(getApplicationContext(), GlobalClass.key_isThemeLock, false);

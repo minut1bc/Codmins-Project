@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,8 +71,9 @@ public class SoundFragment extends Fragment {
 
     private void getSoundFromDatabase() {
         soundAdapter = new SoundAdapter(context /*, newSoundDataArrayList*/);
-        for (int aFreeSoundArray : GlobalClass.soundsArray)
+        for (int aFreeSoundArray : GlobalClass.soundsArray) {
 //            newSoundDataArrayList.add(new NewSoundData(aFreeSoundArray, false));
+        }
 
         soundRecyclerView.setHasFixedSize(true);
         soundRecyclerView.setLayoutManager(new GridLayoutManager(context, GlobalClass.calculateNoOfColumns(context)));
@@ -81,12 +83,11 @@ public class SoundFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 GlobalClass.soundPosition = position;
-                GlobalClass.soundId = GlobalClass.soundsArray[position];
                 if (position != 0) {
                     performKeySound();
-                    GlobalClass.soundStatus = true;
+                    GlobalClass.soundOn = true;
                 } else
-                    GlobalClass.soundStatus = false;
+                    GlobalClass.soundOn = false;
                 soundAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
             }
@@ -122,13 +123,16 @@ public class SoundFragment extends Fragment {
     private void performKeySound() {
         int ringerMode = audioManager.getRingerMode();
 
+        Log.e("soundStatus", GlobalClass.soundOn + "");
+        Log.e("soundIndex", GlobalClass.soundPosition + "");
+
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
             try {
                 if (soundPool == null)
                     soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 
                 // audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
-                final int soundId = soundPool.load(context, GlobalClass.soundId, 1);
+                final int soundId = soundPool.load(context, GlobalClass.soundsArray[GlobalClass.soundPosition], 1);
                 soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                     @Override
                     public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {

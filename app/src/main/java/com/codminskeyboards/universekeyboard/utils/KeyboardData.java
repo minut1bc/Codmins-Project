@@ -2,35 +2,52 @@ package com.codminskeyboards.universekeyboard.utils;
 
 public class KeyboardData {
 
-    private int keyboardBackground;
+    private boolean isSelected;
+
+    private boolean backgroundIsDrawable;
+    private int backgroundPosition;
+    private int backgroundColorPosition;
     private int keyRadius;
     private int keyStroke;
     private int keyOpacity;
-    private int keyColor;
-    private int fontColor;
-    private int fontId;
-    private boolean isSelected;
-    private boolean soundStatus;
-    private int soundId;
+    private int keyColorPosition;
+    private int fontPosition;
+    private int fontColorPosition;
     private int vibrationValue;
-    private int colorPosition;
-    private int backgroundPosition;
-    private int drawableOrColor;
+    private int soundPosition;
+    private boolean soundOn;
 
     public boolean isSelected() {
         return isSelected;
     }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
+    public void setSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 
-    public int getKeyboardBackground() {
-        return keyboardBackground;
+
+    public boolean getBackgroundIsDrawable() {
+        return backgroundIsDrawable;
     }
 
-    public void setKeyboardBackground(int keyboardBackground) {
-        this.keyboardBackground = keyboardBackground;
+    public void setBackgroundIsDrawable(boolean backgroundIsDrawable) {
+        this.backgroundIsDrawable = backgroundIsDrawable;
+    }
+
+    public int getBackgroundPosition() {
+        return backgroundPosition;
+    }
+
+    public void setBackgroundPosition(int backgroundPosition) {
+        this.backgroundPosition = backgroundPosition;
+    }
+
+    public int getBackgroundColorPosition() {
+        return backgroundColorPosition;
+    }
+
+    public void setBackgroundColorPosition(int backgroundColorPosition) {
+        this.backgroundColorPosition = backgroundColorPosition;
     }
 
     public int getKeyRadius() {
@@ -57,44 +74,28 @@ public class KeyboardData {
         this.keyOpacity = keyOpacity;
     }
 
-    public int getKeyColor() {
-        return keyColor;
+    public int getKeyColorPosition() {
+        return keyColorPosition;
     }
 
-    public void setKeyColor(int keyColor) {
-        this.keyColor = keyColor;
+    public void setKeyColorPosition(int keyColorPosition) {
+        this.keyColorPosition = keyColorPosition;
     }
 
-    public int getFontColor() {
-        return fontColor;
+    public int getFontPosition() {
+        return fontPosition;
     }
 
-    public void setFontColor(int fontColor) {
-        this.fontColor = fontColor;
+    public void setFontPosition(int fontPosition) {
+        this.fontPosition = fontPosition;
     }
 
-    public int getFontId() {
-        return fontId;
+    public int getFontColorPosition() {
+        return fontColorPosition;
     }
 
-    public void setFontId(int fontId) {
-        this.fontId = fontId;
-    }
-
-    public boolean getSoundStatus() {
-        return soundStatus;
-    }
-
-    public void setSoundStatus(boolean soundStatus) {
-        this.soundStatus = soundStatus;
-    }
-
-    public int getSoundId() {
-        return soundId;
-    }
-
-    public void setSoundId(int soundId) {
-        this.soundId = soundId;
+    public void setFontColorPosition(int fontColorPosition) {
+        this.fontColorPosition = fontColorPosition;
     }
 
     public int getVibrationValue() {
@@ -105,27 +106,19 @@ public class KeyboardData {
         this.vibrationValue = vibrationValue;
     }
 
-    public int getColorPosition() {
-        return colorPosition;
+    public int getSoundPosition() {
+        return soundPosition;
     }
 
-    public void setColorPosition(int colorPosition) {
-        this.colorPosition = colorPosition;
+    public void setSoundPosition(int soundPosition) {
+        this.soundPosition = soundPosition;
     }
 
-    public int getBackgroundPosition() {
-        return backgroundPosition;
+    public boolean getSoundOn() {
+        return soundOn;
     }
 
-    public void setBackgroundPosition(int backgroundPosition) {
-        this.backgroundPosition = backgroundPosition;
-    }
-
-    public int getDrawableOrColor() {
-        return drawableOrColor;
-    }
-
-    public void setDrawableOrColor(int drawableOrColor) {
-        this.drawableOrColor = drawableOrColor;
+    public void setSoundOn(boolean soundOn) {
+        this.soundOn = soundOn;
     }
 }

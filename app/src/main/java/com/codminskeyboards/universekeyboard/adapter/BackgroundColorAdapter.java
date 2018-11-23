@@ -36,7 +36,7 @@ public class BackgroundColorAdapter extends RecyclerView.Adapter<BackgroundColor
     public void onBindViewHolder(@NonNull final ColorViewHolder holder, final int position) {
         holder.colorImageView.setImageResource(colorArray[position]);
 
-        if (position == GlobalClass.colorPosition && GlobalClass.drawableOrColor == 1)
+        if (position == GlobalClass.backgroundColorPosition && !GlobalClass.backgroundIsDrawable)
             holder.outlineImageView.setVisibility(View.VISIBLE);
         else
             holder.outlineImageView.setVisibility(View.GONE);
