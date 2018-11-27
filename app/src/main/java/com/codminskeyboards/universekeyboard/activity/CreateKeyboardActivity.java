@@ -66,7 +66,7 @@ public class CreateKeyboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(context, MainActivity.class));
-                startAds();
+                //startAds();
             }
         });
 
@@ -99,7 +99,7 @@ public class CreateKeyboardActivity extends AppCompatActivity {
                 GlobalClass.setPreferencesArrayList(context, keyboardDataArrayList);
                 finish();
                 startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                startAds();
+                //startAds();
             }
         });
 
@@ -244,10 +244,10 @@ public class CreateKeyboardActivity extends AppCompatActivity {
         }
     }
 
-    public void startAds() {
-        if (interstitialAd.isLoaded())
-            interstitialAd.show();
-    }
+   // public void startAds() {
+    //    if (interstitialAd.isLoaded())
+    //        interstitialAd.show();
+   // }
 
     @Override
     public void onBackPressed() {

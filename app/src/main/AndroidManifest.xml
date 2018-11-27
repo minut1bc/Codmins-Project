@@ -58,7 +58,7 @@
         <activity android:name=".customkeyboard.ImePreferences" />
 
         <meta-data
-            android:name="com.google.android.gms.ads.ca-app-pub-2002759323605741~1307687673"
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-2002759323605741~1307687673" />
 
         <meta-data

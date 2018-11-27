@@ -25,6 +25,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.kila.apprater_dialog.lars.AppRater;
 
 import java.util.ArrayList;
@@ -189,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContent();
 
         GlobalClass.setResourcesArrays(context);
-
+        //MobileAds.initialize(this, "ca-app-pub-2002759323605741~1307687673" );
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isAdLock, true))
             setAdMob();
     }
