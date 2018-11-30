@@ -75,7 +75,7 @@ public class CreateKeyboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(context, MainActivity.class));
-                startAds();
+                //startAds();
             }
         });
 
@@ -88,7 +88,7 @@ public class CreateKeyboardActivity extends AppCompatActivity {
                 intent.putExtra("isEdit", isEdit);
                 intent.putExtra("keyboardData", KeyboardData.serialize(keyboardData));
                 setResult(RESULT_OK, intent);
-                startAds();
+                // startAds();
                 finish();
             }
         });
@@ -190,15 +190,14 @@ public class CreateKeyboardActivity extends AppCompatActivity {
         }
     }
 
-    public void startAds() {
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        }
-    }
+   // public void startAds() {
+    //    if (interstitialAd.isLoaded())
+    //        interstitialAd.show();
+   // }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startAds();
+        // startAds();
     }
 }

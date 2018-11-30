@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (GlobalClass.colorsArray == null)
             GlobalClass.setResourcesArrays(context);
-
+        //MobileAds.initialize(this, "ca-app-pub-2002759323605741~1307687673" );
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isAdLock, true))
             setAdMob();
     }

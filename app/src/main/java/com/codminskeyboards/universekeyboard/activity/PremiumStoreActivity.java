@@ -270,7 +270,7 @@ public class PremiumStoreActivity extends AppCompatActivity implements View.OnCl
 //                }
 //            }
 //        });
-//
+
 //        backgrounds.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
