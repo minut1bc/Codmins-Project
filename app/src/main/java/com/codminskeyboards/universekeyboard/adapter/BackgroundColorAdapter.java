@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.codminskeyboards.universekeyboard.R;
+import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
 import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
@@ -36,7 +37,7 @@ public class BackgroundColorAdapter extends RecyclerView.Adapter<BackgroundColor
     public void onBindViewHolder(@NonNull final ColorViewHolder holder, final int position) {
         holder.colorImageView.setImageResource(colorArray[position]);
 
-        if (position == GlobalClass.backgroundColorPosition && !GlobalClass.backgroundIsDrawable)
+        if (position == CreateKeyboardActivity.keyboardData.getBackgroundColorPosition() && !CreateKeyboardActivity.keyboardData.getBackgroundIsDrawable())
             holder.outlineImageView.setVisibility(View.VISIBLE);
         else
             holder.outlineImageView.setVisibility(View.GONE);

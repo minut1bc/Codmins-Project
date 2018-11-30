@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
+import com.codminskeyboards.universekeyboard.utils.KeyboardData;
 
 import java.util.List;
 
@@ -38,13 +39,21 @@ public class LatinKeyboardView extends KeyboardView {
     Drawable spaceDrawable = getResources().getDrawable(R.drawable.ic_space);
     Drawable emojiDrawable = getResources().getDrawable(R.drawable.ic_smile);
 
+    KeyboardData keyboardData;
+
     Paint paint = new Paint();
 
     public LatinKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
 
-        int keyColor = getResources().getColor(GlobalClass.colorsArray[GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, 1)]);
+        if (GlobalClass.getPreferencesArrayList(context).size() > 0) {
+            keyboardData = GlobalClass.getPreferencesArrayList(context).get(GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_POSITION, 0));
+        } else {
+            keyboardData = KeyboardData.defaultKeyboard();
+        }
+
+        int keyColor = getResources().getColor(GlobalClass.colorsArray[keyboardData.getKeyColorPosition()]);
 
         keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyColor, keyColor});
         keyPressedBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{keyColor, keyColor});
@@ -70,11 +79,11 @@ public class LatinKeyboardView extends KeyboardView {
         List<Key> keys;
         keys = getKeyboard().getKeys();
 
-        int fontColor = getResources().getColor(GlobalClass.colorsArray[GlobalClass.getPreferencesInt(context, GlobalClass.FONT_COLOR_POSITION, 1)]);
-        int keyOpacity = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_OPACITY, 255);
-        int keyRadius = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_RADIUS, 18);
-        int keyStroke = GlobalClass.getPreferencesInt(context, GlobalClass.KEY_STROKE, 2);
-        Typeface font = GlobalClass.fontsArray[GlobalClass.getPreferencesInt(context, GlobalClass.FONT_POSITION, 0)];
+        int fontColor = getResources().getColor(GlobalClass.colorsArray[keyboardData.getFontColorPosition()]);
+        int keyOpacity = keyboardData.getKeyOpacity();
+        int keyRadius = keyboardData.getKeyRadius();
+        int keyStroke = keyboardData.getKeyStroke();
+        Typeface font = GlobalClass.fontsArray[keyboardData.getFontPosition()];
         int tint = 0x77000000;
 
         for (Key key : keys) {

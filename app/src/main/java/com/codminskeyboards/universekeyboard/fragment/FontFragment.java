@@ -31,8 +31,6 @@ public class FontFragment extends Fragment {
 
     CreateKeyboardActivity createKeyboardActivity;
 
-    // String[] fontArray = new String[0];
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -107,7 +105,7 @@ public class FontFragment extends Fragment {
         fontRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                GlobalClass.fontPosition = position;
+                CreateKeyboardActivity.keyboardData.setFontPosition(position);
 
                 createKeyboardActivity.redrawKeyboard();
 
@@ -130,7 +128,7 @@ public class FontFragment extends Fragment {
         fontColorRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                GlobalClass.fontColorPosition = position;
+                CreateKeyboardActivity.keyboardData.setFontColorPosition(position);
                 createKeyboardActivity.redrawKeyboard();
                 fontColorAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();

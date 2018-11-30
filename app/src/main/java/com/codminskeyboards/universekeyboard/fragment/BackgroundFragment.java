@@ -29,13 +29,14 @@ public class BackgroundFragment extends Fragment {
     ImageView backgroundImageView;
     RecyclerView backgroundRecyclerView;
     Context context;
+    CreateKeyboardActivity createKeyboardActivity;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View backgroundFragmentView = inflater.inflate(R.layout.background_fragment, container, false);
 
-        backgroundImageView = ((CreateKeyboardActivity) context).findViewById(R.id.backgroundImageView);
+        backgroundImageView = createKeyboardActivity.findViewById(R.id.backgroundImageView);
 
         backgroundRecyclerView = backgroundFragmentView.findViewById(R.id.backgroundRecyclerView);
         backgroundColorRecyclerView = backgroundFragmentView.findViewById(R.id.backgroundColorRecyclerView);
@@ -51,8 +52,8 @@ public class BackgroundFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         backgroundImageView.setImageResource(GlobalClass.colorsArray[position]);
-                        GlobalClass.backgroundColorPosition = position;
-                        GlobalClass.backgroundIsDrawable = false;
+                        CreateKeyboardActivity.keyboardData.setBackgroundColorPosition(position);
+                        CreateKeyboardActivity.keyboardData.setBackgroundIsDrawable(false);
                         backgroundColorAdapter.notifyDataSetChanged();
                         backgroundAdapter.notifyDataSetChanged();
                         GlobalClass.checkStartAd();
@@ -68,8 +69,8 @@ public class BackgroundFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 backgroundImageView.setImageResource(GlobalClass.backgroundArray[position]);
-                GlobalClass.backgroundPosition = position;
-                GlobalClass.backgroundIsDrawable = true;
+                CreateKeyboardActivity.keyboardData.setBackgroundPosition(position);
+                CreateKeyboardActivity.keyboardData.setBackgroundIsDrawable(true);
                 backgroundAdapter.notifyDataSetChanged();
                 backgroundColorAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
@@ -82,12 +83,14 @@ public class BackgroundFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        createKeyboardActivity = (CreateKeyboardActivity) context;
         this.context = context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        createKeyboardActivity = null;
         context = null;
     }
 }

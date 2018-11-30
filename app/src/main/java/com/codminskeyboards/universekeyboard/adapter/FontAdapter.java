@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codminskeyboards.universekeyboard.R;
+import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
 import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
@@ -56,7 +57,7 @@ public class FontAdapter extends RecyclerView.Adapter<FontAdapter.FontViewHolder
         } else
             holder.lockImageView.setVisibility(View.GONE);
 
-        if (position == GlobalClass.fontPosition)
+        if (position == CreateKeyboardActivity.keyboardData.getFontPosition())
             holder.outlineImageView.setVisibility(View.VISIBLE);
         else
             holder.outlineImageView.setVisibility(View.GONE);

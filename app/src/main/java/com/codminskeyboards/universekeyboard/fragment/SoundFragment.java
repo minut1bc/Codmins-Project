@@ -18,6 +18,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.codminskeyboards.universekeyboard.R;
+import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
 import com.codminskeyboards.universekeyboard.adapter.SoundAdapter;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 import com.codminskeyboards.universekeyboard.utils.RecyclerItemClickListener;
@@ -35,13 +36,12 @@ public class SoundFragment extends Fragment {
     SoundPool soundPool;
     private Vibrator vibrator;
     private AudioManager audioManager;
+    CreateKeyboardActivity createKeyboardActivity;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View soundFragmentView = inflater.inflate(R.layout.sound_fragment, container, false);
-
-        GlobalClass globalClass = new GlobalClass(context);
 
         soundRecyclerView = soundFragmentView.findViewById(R.id.soundRecyclerView);
         seekBarVibration = soundFragmentView.findViewById(R.id.seekBarVibration);
@@ -60,20 +60,22 @@ public class SoundFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        createKeyboardActivity = (CreateKeyboardActivity) context;
         this.context = context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        createKeyboardActivity = null;
         context = null;
     }
 
     private void getSoundFromDatabase() {
         soundAdapter = new SoundAdapter(context /*, newSoundDataArrayList*/);
-        for (int aFreeSoundArray : GlobalClass.soundsArray) {
+//        for (int aFreeSoundArray : GlobalClass.soundsArray) {
 //            newSoundDataArrayList.add(new NewSoundData(aFreeSoundArray, false));
-        }
+//        }
 
         soundRecyclerView.setHasFixedSize(true);
         soundRecyclerView.setLayoutManager(new GridLayoutManager(context, GlobalClass.calculateNoOfColumns(context)));
@@ -82,12 +84,12 @@ public class SoundFragment extends Fragment {
         soundRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                GlobalClass.soundPosition = position;
+                CreateKeyboardActivity.keyboardData.setSoundPosition(position);
                 if (position != 0) {
                     performKeySound();
-                    GlobalClass.soundOn = true;
+                    CreateKeyboardActivity.keyboardData.setSoundOn(true);
                 } else
-                    GlobalClass.soundOn = false;
+                    CreateKeyboardActivity.keyboardData.setSoundOn(false);
                 soundAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
             }
@@ -95,8 +97,8 @@ public class SoundFragment extends Fragment {
     }
 
     void setSeekBarVibration() {
-        seekBarVibration.setProgress(GlobalClass.vibrationValue);
-        vibrationStrengthText = String.valueOf(GlobalClass.vibrationValue) + " ms";
+        seekBarVibration.setProgress(CreateKeyboardActivity.keyboardData.getVibrationValue());
+        vibrationStrengthText = String.valueOf(seekBarVibration.getProgress()) + " ms";
         vibrationTextView.setText(vibrationStrengthText);
 
         seekBarVibration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -115,7 +117,7 @@ public class SoundFragment extends Fragment {
                 int progress = seekBar.getProgress();
                 if (progress > 0)
                     vibrator.vibrate(progress);
-                GlobalClass.vibrationValue = progress;
+                CreateKeyboardActivity.keyboardData.setVibrationValue(progress);
             }
         });
     }
@@ -123,24 +125,20 @@ public class SoundFragment extends Fragment {
     private void performKeySound() {
         int ringerMode = audioManager.getRingerMode();
 
-        Log.e("soundStatus", GlobalClass.soundOn + "");
-        Log.e("soundIndex", GlobalClass.soundPosition + "");
+        Log.e("soundStatus", CreateKeyboardActivity.keyboardData.getSoundOn() + "");
+        Log.e("soundIndex", CreateKeyboardActivity.keyboardData.getSoundPosition() + "");
 
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
-            try {
-                if (soundPool == null)
-                    soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+            if (soundPool == null)
+                soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 
-                // audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
-                final int soundId = soundPool.load(context, GlobalClass.soundsArray[GlobalClass.soundPosition], 1);
-                soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-                    @Override
-                    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                        soundPool.play(soundId, 1, 1, 0, 0, 1);
-                    }
-                });
-            } catch (Exception ignored) {
-            }
+            final int soundId = soundPool.load(context, GlobalClass.soundsArray[CreateKeyboardActivity.keyboardData.getSoundPosition()], 1);
+            soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    soundPool.play(soundId, 1, 1, 0, 0, 1);
+                }
+            });
         }
     }
 }

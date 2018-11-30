@@ -37,6 +37,7 @@ import android.widget.LinearLayout;
 import com.codminskeyboards.universekeyboard.R;
 import com.codminskeyboards.universekeyboard.adapter.FillEmojiAdapter;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
+import com.codminskeyboards.universekeyboard.utils.KeyboardData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,6 +104,8 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
     int ringerMode;
 
+    KeyboardData keyboardData;
+
     /**
      * Main initialization of the input method component.  Be sure to call
      * to super class.
@@ -161,6 +164,16 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
     public View onCreateInputView() {
         GlobalClass globalClass = new GlobalClass(context);
 
+        if (GlobalClass.colorsArray == null) {
+            GlobalClass.setResourcesArrays(context);
+        }
+
+        if (GlobalClass.getPreferencesArrayList(context).size() > 0) {
+            keyboardData = GlobalClass.getPreferencesArrayList(context).get(GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_POSITION, 0));
+        } else {
+            keyboardData = KeyboardData.defaultKeyboard();
+        }
+
         final View view = getLayoutInflater().inflate(R.layout.input, null);
 
         inputView = view.findViewById(R.id.keyboard);
@@ -175,13 +188,13 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         foodImageView = view.findViewById(R.id.foodImageView);
         socialImageView = view.findViewById(R.id.socialImageView);
 
-        vibrationValue = GlobalClass.getPreferencesInt(context, GlobalClass.VIBRATION_VALUE, 0);
+        vibrationValue = keyboardData.getVibrationValue();
 
         emojiArrayList = getResources().getStringArray(R.array.smile);
         fillEmojiAdapter = new FillEmojiAdapter(context, emojiArrayList);
         emojiGridView.setAdapter(fillEmojiAdapter);
 
-        int fontColor = getResources().getColor(GlobalClass.colorsArray[GlobalClass.fontColorPosition]);
+        int fontColor = getResources().getColor(GlobalClass.colorsArray[keyboardData.getFontColorPosition()]);
 
         smileImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
         animalImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
@@ -190,17 +203,17 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
         socialImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
         emojiBackspaceImageView.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
 
-        int keyColor = getResources().getColor(GlobalClass.colorsArray[GlobalClass.getPreferencesInt(context, GlobalClass.KEY_COLOR_POSITION, 1)]);
+        int keyColor = getResources().getColor(GlobalClass.colorsArray[keyboardData.getKeyColorPosition()]);
         for (int i = 0; i < emojiConstraintLayout.getChildCount(); i++) {
             final View child = emojiConstraintLayout.getChildAt(i);
             if (child instanceof ImageView) {
                 GradientDrawable keyBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
                         new int[]{keyColor, keyColor});
                 keyBackground.setBounds(child.getLeft() + 5, child.getTop() + 5, child.getRight() - 5, child.getBottom() - 5);
-                keyBackground.setCornerRadius(GlobalClass.keyRadius);
-                keyBackground.setAlpha(GlobalClass.keyOpacity);
+                keyBackground.setCornerRadius(keyboardData.getKeyRadius());
+                keyBackground.setAlpha(keyboardData.getKeyOpacity());
 
-                switch (GlobalClass.keyStroke) {
+                switch (keyboardData.getKeyStroke()) {
                     case 1:
                         keyBackground.setStroke(0, getResources().getColor(R.color.colorPrimary));
                         break;
@@ -360,12 +373,10 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
             }
         });
 
-        boolean backgroundIsDrawable = GlobalClass.getPreferencesBool(getApplicationContext(), GlobalClass.BACKGROUND_IS_DRAWABLE, true);
-
-        if (backgroundIsDrawable) {
-            linKeyboard.setBackgroundResource((GlobalClass.backgroundArray[GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.BACKGROUND_POSITION, 0)]));
+        if (keyboardData.getBackgroundIsDrawable()) {
+            linKeyboard.setBackgroundResource((GlobalClass.backgroundArray[keyboardData.getBackgroundPosition()]));
         } else {
-            linKeyboard.setBackgroundResource((GlobalClass.colorsArray[GlobalClass.getPreferencesInt(getApplicationContext(), GlobalClass.BACKGROUND_COLOR_POSITION, 0)]));
+            linKeyboard.setBackgroundResource((GlobalClass.colorsArray[keyboardData.getBackgroundColorPosition()]));
         }
 
         for (Keyboard.Key k : qwertyKeyboard.getKeys()) {
@@ -1023,11 +1034,11 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
     public void onPress(int primaryCode) {
 
-        GlobalClass.printLog("SoftKeyboard", "---------------onPress---------------" + String.valueOf(GlobalClass.getPreferencesBool(getApplicationContext(), GlobalClass.SOUND_ON, false)));
+        GlobalClass.printLog("SoftKeyboard", "---------------onPress---------------" + String.valueOf(keyboardData.getSoundOn()));
 
-        Log.e("KEYBOARD", "hello" + String.valueOf(GlobalClass.getPreferencesBool(getApplicationContext(), GlobalClass.SOUND_ON, false)));
+        Log.e("KEYBOARD", "hello" + String.valueOf(keyboardData.getSoundOn()));
 
-        if (GlobalClass.getPreferencesBool(getApplicationContext(), GlobalClass.SOUND_ON, false))
+        if (keyboardData.getSoundOn())
             performKeySound();
 
         if (vibrationValue != 0)
@@ -1098,7 +1109,7 @@ public class SoftKeyboard extends InputMethodService implements KeyboardView.OnK
 
         if (ringerMode == AudioManager.RINGER_MODE_NORMAL) {
 
-            final int soundID = soundPool.load(context, GlobalClass.soundsArray[GlobalClass.soundPosition], 1);
+            final int soundID = soundPool.load(context, GlobalClass.soundsArray[keyboardData.getSoundPosition()], 1);
             soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
                 public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {

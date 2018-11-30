@@ -54,7 +54,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeThree.setBorderWidth(0);
                     ivStrokeFour.setBorderWidth(0);
                     ivStrokeFive.setBorderWidth(0);
-                    GlobalClass.keyStroke = 1;
+                    CreateKeyboardActivity.keyboardData.setKeyStroke(1);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -64,7 +64,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeThree.setBorderWidth(0);
                     ivStrokeFive.setBorderWidth(0);
                     ivStrokeFour.setBorderWidth(0);
-                    GlobalClass.keyStroke = 2;
+                    CreateKeyboardActivity.keyboardData.setKeyStroke(2);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -74,7 +74,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeThree.setBorderWidth(5);
                     ivStrokeFour.setBorderWidth(0);
                     ivStrokeFive.setBorderWidth(0);
-                    GlobalClass.keyStroke = 3;
+                    CreateKeyboardActivity.keyboardData.setKeyStroke(3);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -84,7 +84,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeThree.setBorderWidth(0);
                     ivStrokeFour.setBorderWidth(5);
                     ivStrokeFive.setBorderWidth(0);
-                    GlobalClass.keyStroke = 4;
+                    CreateKeyboardActivity.keyboardData.setKeyStroke(4);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -94,7 +94,7 @@ public class KeyDesignFragment extends Fragment {
                     ivStrokeThree.setBorderWidth(0);
                     ivStrokeFour.setBorderWidth(0);
                     ivStrokeFive.setBorderWidth(5);
-                    GlobalClass.keyStroke = 5;
+                    CreateKeyboardActivity.keyboardData.setKeyStroke(5);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -104,7 +104,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityFifty.setBorderWidth(0);
                     ivOpacityTwentyFive.setBorderWidth(0);
                     ivOpacityZero.setBorderWidth(0);
-                    GlobalClass.keyOpacity = 255;
+                    CreateKeyboardActivity.keyboardData.setKeyOpacity(255);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -114,7 +114,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityFifty.setBorderWidth(0);
                     ivOpacityTwentyFive.setBorderWidth(0);
                     ivOpacityZero.setBorderWidth(0);
-                    GlobalClass.keyOpacity = 192;
+                    CreateKeyboardActivity.keyboardData.setKeyOpacity(192);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -124,7 +124,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityFifty.setBorderWidth(5);
                     ivOpacityTwentyFive.setBorderWidth(0);
                     ivOpacityZero.setBorderWidth(0);
-                    GlobalClass.keyOpacity = 128;
+                    CreateKeyboardActivity.keyboardData.setKeyOpacity(128);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -134,7 +134,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityFifty.setBorderWidth(0);
                     ivOpacityTwentyFive.setBorderWidth(5);
                     ivOpacityZero.setBorderWidth(0);
-                    GlobalClass.keyOpacity = 64;
+                    CreateKeyboardActivity.keyboardData.setKeyOpacity(64);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -144,7 +144,7 @@ public class KeyDesignFragment extends Fragment {
                     ivOpacityFifty.setBorderWidth(0);
                     ivOpacityTwentyFive.setBorderWidth(0);
                     ivOpacityZero.setBorderWidth(5);
-                    GlobalClass.keyOpacity = 0;
+                    CreateKeyboardActivity.keyboardData.setKeyOpacity(0);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -154,7 +154,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusThree.setBorderWidth(0);
                     radiusFour.setBorderWidth(0);
                     radiusFive.setBorderWidth(0);
-                    GlobalClass.keyRadius = 0;
+                    CreateKeyboardActivity.keyboardData.setKeyRadius(0);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -164,7 +164,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusThree.setBorderWidth(0);
                     radiusFour.setBorderWidth(0);
                     radiusFive.setBorderWidth(0);
-                    GlobalClass.keyRadius = 9;
+                    CreateKeyboardActivity.keyboardData.setKeyRadius(9);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -174,7 +174,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusThree.setBorderWidth(5);
                     radiusFour.setBorderWidth(0);
                     radiusFive.setBorderWidth(0);
-                    GlobalClass.keyRadius = 18;
+                    CreateKeyboardActivity.keyboardData.setKeyRadius(18);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -184,7 +184,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusThree.setBorderWidth(0);
                     radiusFour.setBorderWidth(5);
                     radiusFive.setBorderWidth(0);
-                    GlobalClass.keyRadius = 25;
+                    CreateKeyboardActivity.keyboardData.setKeyRadius(25);
                     createKeyboardActivity.redrawKeyboard();
                     break;
 
@@ -194,7 +194,7 @@ public class KeyDesignFragment extends Fragment {
                     radiusThree.setBorderWidth(0);
                     radiusFour.setBorderWidth(0);
                     radiusFive.setBorderWidth(5);
-                    GlobalClass.keyRadius = 34;
+                    CreateKeyboardActivity.keyboardData.setKeyRadius(34);
                     createKeyboardActivity.redrawKeyboard();
                     break;
             }
@@ -286,7 +286,7 @@ public class KeyDesignFragment extends Fragment {
     }
 
     public void setRadius() {
-        switch (GlobalClass.keyRadius) {
+        switch (CreateKeyboardActivity.keyboardData.getKeyRadius()) {
             case 0:
                 radiusOne.setBorderWidth(5);
                 break;
@@ -304,7 +304,7 @@ public class KeyDesignFragment extends Fragment {
                 break;
         }
 
-        switch (GlobalClass.keyStroke) {
+        switch (CreateKeyboardActivity.keyboardData.getKeyStroke()) {
             case 1:
                 ivStrokeOne.setBorderWidth(5);
                 break;
@@ -322,7 +322,7 @@ public class KeyDesignFragment extends Fragment {
                 break;
         }
 
-        switch (GlobalClass.keyOpacity) {
+        switch (CreateKeyboardActivity.keyboardData.getKeyOpacity()) {
             case 255:
                 ivOpacityHundred.setBorderWidth(5);
                 break;
@@ -349,10 +349,8 @@ public class KeyDesignFragment extends Fragment {
         keyColorRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                GlobalClass.keyColorPosition = position;
-                if (createKeyboardActivity != null)
-                    createKeyboardActivity.redrawKeyboard();
-
+                CreateKeyboardActivity.keyboardData.setKeyColorPosition(position);
+                createKeyboardActivity.redrawKeyboard();
                 keyColorAdapter.notifyDataSetChanged();
                 GlobalClass.checkStartAd();
             }

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.codminskeyboards.universekeyboard.R;
+import com.codminskeyboards.universekeyboard.activity.CreateKeyboardActivity;
 import com.codminskeyboards.universekeyboard.activity.PremiumStoreActivity;
 import com.codminskeyboards.universekeyboard.utils.GlobalClass;
 
@@ -50,7 +51,7 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
         if (position == 0)
             holder.muteImageView.setVisibility(View.VISIBLE);
 
-        if (position == GlobalClass.soundPosition)
+        if (position == CreateKeyboardActivity.keyboardData.getSoundPosition())
             holder.outlineImageView.setVisibility(View.VISIBLE);
         else
             holder.outlineImageView.setVisibility(View.GONE);
