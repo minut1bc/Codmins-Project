@@ -2,6 +2,7 @@ package com.codminskeyboards.universekeyboard.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,6 +37,8 @@ public class FontColorAdapter extends RecyclerView.Adapter<FontColorAdapter.Colo
     @Override
     public void onBindViewHolder(@NonNull final ColorViewHolder holder, int position) {
         holder.colorImageView.setImageResource(colorFreeArray[position]);
+
+        holder.outlineImageView.setColorFilter(context.getResources().getColor(R.color.dark_red), PorterDuff.Mode.SRC_ATOP);
 
         if (position == CreateKeyboardActivity.keyboardData.getFontColorPosition())
             holder.outlineImageView.setVisibility(View.VISIBLE);

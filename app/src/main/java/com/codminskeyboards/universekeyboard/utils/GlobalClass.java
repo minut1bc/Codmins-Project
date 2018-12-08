@@ -15,6 +15,7 @@ import com.google.android.gms.ads.InterstitialAd;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class GlobalClass {
 
@@ -67,8 +68,10 @@ public class GlobalClass {
         preferences = context.getSharedPreferences(context.getPackageName(), 0);
         editor = preferences.edit();
 
-        if (getPreferencesArrayList(context) != null)
+        if (getPreferencesArrayList(context) != null) {
             keyboardDataArray = getPreferencesArrayList(context);
+        }
+
         keyboardPosition = getPreferencesInt(context, KEYBOARD_POSITION, 0);
     }
 
@@ -132,14 +135,16 @@ public class GlobalClass {
 
     public static boolean isKeyboardEnabled(Context context) {
         InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (inputMethodManager != null)
+        if (inputMethodManager != null) {
             return inputMethodManager.getEnabledInputMethodList().toString().contains(context.getPackageName());
+        }
         return false;
     }
 
     public static boolean isKeyboardSet(Context context) {
         return new ComponentName(context, SoftKeyboard.class)
-                .equals(ComponentName.unflattenFromString(Settings.Secure.getString(context.getContentResolver(), "default_input_method")));
+                .equals(ComponentName.unflattenFromString(Settings.Secure
+                        .getString(context.getContentResolver(), "default_input_method")));
     }
 
     public static void printLog(String tag, String strMessage) {
@@ -156,10 +161,15 @@ public class GlobalClass {
         Field[] fields = R.drawable.class.getFields();
         backgroundArray = new int[fields.length];
         backgroundPreviewArray = new int[fields.length];
+
+        Pattern backgroundReg = Pattern.compile("background_[0-9]([0-9])?");
+        Pattern prevReg = Pattern.compile("background_preview_[0-9]([0-9])?");
+        Pattern colorReg = Pattern.compile("color_[0-9][0-9]?");
+
         int j = 0;
         int k = 0;
         for (Field field : fields) {
-            if (field.getName().matches("background_[0-9]([0-9])?")) {
+            if (backgroundReg.matcher(field.getName()).matches()) {
                 try {
                     backgroundArray[j] = field.getInt(field);
                     j++;
@@ -168,7 +178,7 @@ public class GlobalClass {
                 }
             }
 
-            if (field.getName().matches("background_preview_[0-9]([0-9])?")) {
+            if (prevReg.matcher(field.getName()).matches()) {
                 try {
                     backgroundPreviewArray[k] = field.getInt(field);
                     k++;
@@ -190,7 +200,7 @@ public class GlobalClass {
         fields = R.color.class.getFields();
         colorsArray = new int[fields.length];
         for (Field field : fields) {
-            if (field.getName().matches("color_[0-9][0-9]?"))
+            if (colorReg.matcher(field.getName()).matches())
                 try {
                     colorsArray[j] = field.getInt(field);
                     j++;

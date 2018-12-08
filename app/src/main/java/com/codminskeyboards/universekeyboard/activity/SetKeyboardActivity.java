@@ -41,10 +41,11 @@ public class SetKeyboardActivity extends AppCompatActivity implements View.OnCli
 
         enableKeyboardButton.setEnabled(!isKeyboardEnabled);
 
-        if (isKeyboardEnabled)
+        if (isKeyboardEnabled) {
             switchKeyboardButton.setEnabled(false);
-        else
+        } else {
             switchKeyboardButton.setEnabled(isKeyboardSet);
+        }
 
         enableKeyboardButton.setOnClickListener(this);
         switchKeyboardButton.setOnClickListener(this);

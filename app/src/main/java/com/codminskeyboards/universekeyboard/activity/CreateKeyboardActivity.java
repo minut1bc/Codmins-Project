@@ -59,11 +59,11 @@ public class CreateKeyboardActivity extends AppCompatActivity {
         keysLayout = findViewById(R.id.keysLayout);
         ImageView backgroundImageView = findViewById(R.id.backgroundImageView);
 
-        isEdit = getIntent().getBooleanExtra("isEdit", false);
-
-        keyboardData = KeyboardData.deserialize(getIntent().getStringExtra("keyboardData"));
-
         editPosition = getIntent().getIntExtra("position", 0);
+
+        isEdit = editPosition != -1;
+
+        keyboardData = editPosition != -1 ? GlobalClass.keyboardDataArray.get(editPosition) : KeyboardData.defaultKeyboard();
 
         if (keyboardData.getBackgroundIsDrawable()) {
             backgroundImageView.setImageResource(GlobalClass.backgroundArray[keyboardData.getBackgroundPosition()]);
@@ -82,7 +82,7 @@ public class CreateKeyboardActivity extends AppCompatActivity {
         applyTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GlobalClass.keyboardPosition = editPosition;
+                GlobalClass.keyboardPosition = editPosition != -1 ? editPosition : 0;
 
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra("isEdit", isEdit);
@@ -190,10 +190,10 @@ public class CreateKeyboardActivity extends AppCompatActivity {
         }
     }
 
-   // public void startAds() {
+    // public void startAds() {
     //    if (interstitialAd.isLoaded())
     //        interstitialAd.show();
-   // }
+    // }
 
     @Override
     public void onBackPressed() {

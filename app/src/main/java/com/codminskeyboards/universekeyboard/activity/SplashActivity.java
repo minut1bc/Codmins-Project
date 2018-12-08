@@ -16,27 +16,10 @@ public class SplashActivity extends AppCompatActivity {
 
         GlobalClass globalClass = new GlobalClass(SplashActivity.this);
 
-        Thread splashThread = new Thread() {
-            public void run() {
-                synchronized (this) {
-                    try {
-                        wait(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    if (GlobalClass.isKeyboardEnabled(SplashActivity.this) && GlobalClass.isKeyboardSet(SplashActivity.this)) {
-                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                        finish();
-                    } else {
-                        startActivity(new Intent(SplashActivity.this, SetKeyboardActivity.class));
-                        finish();
-                    }
-                }
-            }
-        };
-        splashThread.start();
+        if (GlobalClass.isKeyboardEnabled(SplashActivity.this) && GlobalClass.isKeyboardSet(SplashActivity.this)) {
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        } else {
+            startActivity(new Intent(SplashActivity.this, SetKeyboardActivity.class));
+        }
     }
 }
-
-

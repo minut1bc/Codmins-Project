@@ -47,8 +47,8 @@ public class LatinKeyboardView extends KeyboardView {
         super(context, attrs);
         this.context = context;
 
-        if (GlobalClass.getPreferencesArrayList(context).size() > 0) {
-            keyboardData = GlobalClass.getPreferencesArrayList(context).get(GlobalClass.getPreferencesInt(context, GlobalClass.KEYBOARD_POSITION, 0));
+        if (GlobalClass.keyboardDataArray.size() > 0) {
+            keyboardData = GlobalClass.keyboardDataArray.get(GlobalClass.keyboardPosition);
         } else {
             keyboardData = KeyboardData.defaultKeyboard();
         }

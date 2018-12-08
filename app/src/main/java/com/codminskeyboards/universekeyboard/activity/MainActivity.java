@@ -30,7 +30,7 @@ import com.kila.apprater_dialog.lars.AppRater;
 
 import me.relex.circleindicator.CircleIndicator;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
 //    IabHelper iabHelper;
 //    boolean isThemeSlotPurchased = false;
@@ -178,6 +178,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_main);
 
+        if (GlobalClass.colorsArray == null) {
+            GlobalClass.setResourcesArrays(context);
+        }
+
         new AppRater.DefaultBuilder(context, getPackageName())
                 .showDefault()
                 .daysToWait(0)
@@ -187,8 +191,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContent();
 
-        if (GlobalClass.colorsArray == null)
-            GlobalClass.setResourcesArrays(context);
         //MobileAds.initialize(this, "ca-app-pub-2002759323605741~1307687673" );
         if (GlobalClass.getPreferencesBool(context, GlobalClass.key_isAdLock, true))
             setAdMob();
@@ -262,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            }
 //        });
 
-        keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(context, GlobalClass.keyboardDataArray);
+        keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(keyboardViewPagerAdapter);
         viewPager.setCurrentItem(GlobalClass.keyboardPosition);
         circleIndicator.setViewPager(viewPager);
@@ -277,19 +279,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             addKeyboardImageView.setVisibility(View.VISIBLE);
         }
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
-
-        {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
             }
 
             @Override
             public void onPageSelected(int i) {
-                if (viewPager.getCurrentItem() == GlobalClass.keyboardPosition)
+                if (viewPager.getCurrentItem() == GlobalClass.keyboardPosition) {
                     applyImageView.setImageDrawable(getResources().getDrawable(R.drawable.btn_apply));
-                else
+                } else {
                     applyImageView.setImageDrawable(getResources().getDrawable(R.drawable.btn_disable));
+                }
             }
 
             @Override
@@ -297,18 +298,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        premiumTextView.setOnClickListener(new View.OnClickListener()
-
-        {
+        premiumTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(context, PremiumStoreActivity.class));
             }
         });
 
-        moreTextView.setOnClickListener(new View.OnClickListener()
-
-        {
+        moreTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Uri uri = Uri.parse("https://play.google.com/store/apps/developer?id=Codmins+Keyboards");
@@ -316,72 +313,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        applyImageView.setOnClickListener(this);
-
-        deleteImageView.setOnClickListener(this);
-
-        createKeyboardImageView.setOnClickListener(new View.OnClickListener()
-
-        {
+        applyImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addKeyboardImageView.performClick();
-            }
-        });
-
-        addKeyboardImageView.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, CreateKeyboardActivity.class);
-                intent.putExtra("isEdit", false);
-                intent.putExtra("keyboardData", KeyboardData.serialize(KeyboardData.defaultKeyboard()));
-                startActivityForResult(intent, 1);
-            }
-        });
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                if (data != null) {
-                    if (data.getBooleanExtra("isEdit", false)) {
-                        GlobalClass.keyboardDataArray.set(GlobalClass.keyboardPosition, KeyboardData.deserialize(data.getStringExtra("keyboardData")));
-                    } else {
-                        GlobalClass.keyboardDataArray.add(GlobalClass.keyboardPosition, KeyboardData.deserialize(data.getStringExtra("keyboardData")));
-                    }
-
-                    keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(context, GlobalClass.keyboardDataArray);
-                    viewPager.setAdapter(keyboardViewPagerAdapter);
-                    viewPager.setCurrentItem(GlobalClass.keyboardPosition);
-                    circleIndicator.setViewPager(viewPager);
-                    keyboardViewPagerAdapter.notifyDataSetChanged();
-
-                    GlobalClass.setPreferencesArrayList(context, GlobalClass.keyboardDataArray);
-                    GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_POSITION, GlobalClass.keyboardPosition);
-
-                    if (GlobalClass.keyboardDataArray.size() == 0) {
-                        createKeyboardImageView.setVisibility(View.VISIBLE);
-                        keyboardDataLayout.setVisibility(View.GONE);
-                        addKeyboardImageView.setVisibility(View.GONE);
-                    } else {
-                        createKeyboardImageView.setVisibility(View.GONE);
-                        keyboardDataLayout.setVisibility(View.VISIBLE);
-                        addKeyboardImageView.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
-    public void onClick(final View v) {
-        switch (v.getId()) {
-            case R.id.applyImageView:
                 if (GlobalClass.isKeyboardEnabled(context) && GlobalClass.isKeyboardSet(context)) {
                     if (viewPager.getCurrentItem() == GlobalClass.keyboardPosition) {
                         applyImageView.setImageDrawable(getResources().getDrawable(R.drawable.btn_disable));
@@ -395,9 +329,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 GlobalClass.setPreferencesArrayList(context, GlobalClass.keyboardDataArray);
                 GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_POSITION, GlobalClass.keyboardPosition);
-                break;
+            }
+        });
 
-            case R.id.deleteImageView:
+        deleteImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setMessage("Do you want to delete your custom keyboard ?")
                         .setCancelable(true)
@@ -422,7 +359,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     GlobalClass.keyboardDataArray.remove(viewPager.getCurrentItem());
                                     GlobalClass.setPreferencesArrayList(context, GlobalClass.keyboardDataArray);
                                     GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_POSITION, GlobalClass.keyboardPosition);
-                                    keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(context, GlobalClass.keyboardDataArray);
+                                    keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(getSupportFragmentManager());
                                     viewPager.setAdapter(keyboardViewPagerAdapter);
                                     circleIndicator.setViewPager(viewPager);
                                     keyboardViewPagerAdapter.notifyDataSetChanged();
@@ -442,7 +379,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         });
                 AlertDialog alert = builder.create();
                 alert.show();
-                break;
+            }
+        });
+
+        createKeyboardImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addKeyboardImageView.performClick();
+            }
+        });
+
+        addKeyboardImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CreateKeyboardActivity.class);
+                intent.putExtra("position", -1);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    if (data.getBooleanExtra("isEdit", false)) {
+                        GlobalClass.keyboardDataArray.set(GlobalClass.keyboardPosition, KeyboardData.deserialize(data.getStringExtra("keyboardData")));
+                    } else {
+                        GlobalClass.keyboardDataArray.add(GlobalClass.keyboardPosition, KeyboardData.deserialize(data.getStringExtra("keyboardData")));
+                    }
+
+                    keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(getSupportFragmentManager());
+                    viewPager.setAdapter(keyboardViewPagerAdapter);
+                    viewPager.setCurrentItem(GlobalClass.keyboardPosition);
+                    circleIndicator.setViewPager(viewPager);
+                    keyboardViewPagerAdapter.notifyDataSetChanged();
+
+                    GlobalClass.setPreferencesArrayList(context, GlobalClass.keyboardDataArray);
+                    GlobalClass.setPreferencesInt(context, GlobalClass.KEYBOARD_POSITION, GlobalClass.keyboardPosition);
+
+                    if (GlobalClass.keyboardDataArray.size() == 0) {
+                        createKeyboardImageView.setVisibility(View.VISIBLE);
+                        keyboardDataLayout.setVisibility(View.GONE);
+                        addKeyboardImageView.setVisibility(View.GONE);
+                    } else {
+                        createKeyboardImageView.setVisibility(View.GONE);
+                        keyboardDataLayout.setVisibility(View.VISIBLE);
+                        addKeyboardImageView.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
         }
     }
 
