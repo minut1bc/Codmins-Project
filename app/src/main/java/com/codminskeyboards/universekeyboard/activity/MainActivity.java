@@ -406,10 +406,11 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
+                    KeyboardData keyboardData = KeyboardData.deserialize(data.getStringExtra("keyboardData"));
                     if (data.getBooleanExtra("isEdit", false)) {
-                        GlobalClass.keyboardDataArray.set(GlobalClass.keyboardPosition, KeyboardData.deserialize(data.getStringExtra("keyboardData")));
+                        GlobalClass.keyboardDataArray.set(GlobalClass.keyboardPosition, keyboardData);
                     } else {
-                        GlobalClass.keyboardDataArray.add(GlobalClass.keyboardPosition, KeyboardData.deserialize(data.getStringExtra("keyboardData")));
+                        GlobalClass.keyboardDataArray.add(GlobalClass.keyboardPosition, keyboardData);
                     }
 
                     keyboardViewPagerAdapter = new KeyboardViewPagerAdapter(getSupportFragmentManager());

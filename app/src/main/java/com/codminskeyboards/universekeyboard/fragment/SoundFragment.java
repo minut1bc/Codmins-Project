@@ -41,7 +41,7 @@ public class SoundFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View soundFragmentView = inflater.inflate(R.layout.sound_fragment, container, false);
+        View soundFragmentView = inflater.inflate(R.layout.fragment_sound, container, false);
 
         soundRecyclerView = soundFragmentView.findViewById(R.id.soundRecyclerView);
         seekBarVibration = soundFragmentView.findViewById(R.id.seekBarVibration);

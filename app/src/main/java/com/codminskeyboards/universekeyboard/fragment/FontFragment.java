@@ -34,7 +34,7 @@ public class FontFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fontFragmentView = inflater.inflate(R.layout.font_fragment, container, false);
+        View fontFragmentView = inflater.inflate(R.layout.fragment_font, container, false);
 
         fontRecyclerView = fontFragmentView.findViewById(R.id.fontRecyclerView);
         fontRecyclerView.setHasFixedSize(true);

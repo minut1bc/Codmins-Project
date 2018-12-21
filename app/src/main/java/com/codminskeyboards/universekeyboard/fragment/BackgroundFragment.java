@@ -34,7 +34,7 @@ public class BackgroundFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View backgroundFragmentView = inflater.inflate(R.layout.background_fragment, container, false);
+        View backgroundFragmentView = inflater.inflate(R.layout.fragment_background, container, false);
 
         backgroundImageView = createKeyboardActivity.findViewById(R.id.backgroundImageView);
 

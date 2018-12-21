@@ -67,7 +67,7 @@
 
     <include
         android:id="@+id/previewKeyboardLayout"
-        layout="@layout/layout_keyboard"
+        layout="@layout/fragment_keyboard"
         android:layout_width="0dp"
         android:layout_height="196dp"
         app:layout_constraintBottom_toBottomOf="parent"

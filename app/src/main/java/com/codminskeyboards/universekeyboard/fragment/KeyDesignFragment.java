@@ -204,7 +204,7 @@ public class KeyDesignFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View keyDesignView = inflater.inflate(R.layout.key_design_fragment, container, false);
+        View keyDesignView = inflater.inflate(R.layout.fragment_key_design, container, false);
 
         keyColorRecyclerView = keyDesignView.findViewById(R.id.keyColorRecyclerView);
         keyColorRecyclerView.setHasFixedSize(true);

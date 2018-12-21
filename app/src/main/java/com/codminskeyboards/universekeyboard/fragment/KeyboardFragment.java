@@ -24,7 +24,7 @@ public class KeyboardFragment extends Fragment {
 
     int position;
 
-    public static KeyboardFragment init(int position) {
+    public static KeyboardFragment newInstance(int position) {
         KeyboardFragment f = new KeyboardFragment();
         f.position = position;
         return f;
@@ -33,7 +33,7 @@ public class KeyboardFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View keyboardFragmentView = inflater.inflate(R.layout.layout_keyboard, container, false);
+        View keyboardFragmentView = inflater.inflate(R.layout.fragment_keyboard, container, false);
 
         ImageView backgroundImageView = keyboardFragmentView.findViewById(R.id.backgroundImageView);
         ConstraintLayout keysLayout = keyboardFragmentView.findViewById(R.id.keysLayout);
